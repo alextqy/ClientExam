@@ -48,6 +48,10 @@ from random import sample, choice
 # from fastapi import Cookie
 # from starlette.requests import Request
 
+from PySide6.QtCore import Qt, QObject, Signal, QThread, QSize, QPropertyAnimation, QPoint, QSequentialAnimationGroup, QParallelAnimationGroup, QRunnable, QThreadPool, QTimer, QByteArray, Slot, QUrl
+from PySide6.QtGui import QColor, QIcon, QCursor, QPalette, QBrush, QPixmap, QPainter, QDesktopServices
+from PySide6.QtWidgets import *
+
 
 class BaseService():
 
