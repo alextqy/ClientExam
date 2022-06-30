@@ -1,0 +1,13 @@
+desktop.ini
+/.vs
+/.vscode
+/config.json
+/__pycache__
+
+Controller/__pycache__
+Public/__pycache__
+Resource/__pycache__
+StyleSheet/__pycache__
+Template/__pycache__
+Tempo/__pycache__
+View/__pycache__
