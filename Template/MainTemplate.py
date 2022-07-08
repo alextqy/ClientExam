@@ -26,13 +26,13 @@ class MainView(BaseTemplate, QMainWindow):
         self.CenterLayout.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)  # 居中
         self.CenterLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
-        self.ShowLoginButton()
+        self.LoginButtonView()
 
         self.CenterWidget.setLayout(self.CenterLayout)
         self.setCentralWidget(self.CenterWidget)  # 添加中央控件
 
-    # 展示登录按钮
-    def ShowLoginButton(self):
+    # 登录按钮
+    def LoginButtonView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(15)  # 设置行间距
         ButtonWidth: int = 300
@@ -44,7 +44,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.ExamineeLoginButton.adjustSize()  # 按内容自适应宽度
         self.ExamineeLoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.ExamineeLoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.ExamineeLoginButton.clicked.connect(lambda: self.ShowExamineeLoginButton())  # 连接槽函数
+        self.ExamineeLoginButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
         # self.ExamineeLoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.ExamineeLoginButton)  # 加入到布局
 
@@ -68,8 +68,8 @@ class MainView(BaseTemplate, QMainWindow):
         # self.ManagerLoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.ManagerLoginButton)  # 加入到布局
 
-    # 显示考生单独登录界面按钮
-    def ShowExamineeLoginButton(self):
+    # 考生单独登录界面按钮
+    def ExamineeLoginButtonView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(15)  # 设置行间距
         ButtonWidth: int = 300
@@ -81,7 +81,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.ExamButton.adjustSize()  # 按内容自适应宽度
         self.ExamButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.ExamButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.ExamButton.clicked.connect(lambda: self.ShowExamLoginButton())  # 连接槽函数
+        self.ExamButton.clicked.connect(lambda: self.ExamLoginButtonView())  # 连接槽函数
         # self.ExamButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.ExamButton)  # 加入到布局
 
@@ -91,7 +91,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.PracticeButton.adjustSize()  # 按内容自适应宽度
         self.PracticeButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.PracticeButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        # self.PracticeButton.clicked.connect(lambda: self.ShowExamineeLoginButton())  # 连接槽函数
+        self.PracticeButton.clicked.connect(lambda: self.PracticeLoginView())  # 连接槽函数
         # self.PracticeButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.PracticeButton)  # 加入到布局
 
@@ -102,12 +102,14 @@ class MainView(BaseTemplate, QMainWindow):
         self.BackButton.adjustSize()  # 按内容自适应宽度
         self.BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.BackButton.clicked.connect(lambda: self.ShowLoginButton())  # 连接槽函数
+        self.BackButton.clicked.connect(lambda: self.LoginButtonView())  # 连接槽函数
         # self.BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.BackButton)
 
+    # 考试 =====================================================================================================================================================================
+
     # 考试登录界面
-    def ShowExamLoginButton(self):
+    def ExamLoginButtonView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(15)  # 设置行间距
         ButtonWidth: int = 300
@@ -119,7 +121,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.LoginStudentIDButton.adjustSize()  # 按内容自适应宽度
         self.LoginStudentIDButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.LoginStudentIDButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.LoginStudentIDButton.clicked.connect(lambda: self.ShowLoginStudentID())  # 连接槽函数
+        self.LoginStudentIDButton.clicked.connect(lambda: self.LoginStudentIDView())  # 连接槽函数
         # self.LoginStudentIDButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.LoginStudentIDButton)  # 加入到布局
 
@@ -129,7 +131,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.LoginWithAdmissionButton.adjustSize()  # 按内容自适应宽度
         self.LoginWithAdmissionButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.LoginWithAdmissionButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.LoginWithAdmissionButton.clicked.connect(lambda: self.ShowLoginWithAdmission())  # 连接槽函数
+        self.LoginWithAdmissionButton.clicked.connect(lambda: self.LoginWithAdmissionView())  # 连接槽函数
         # self.LoginWithAdmissionButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.LoginWithAdmissionButton)  # 加入到布局
 
@@ -140,12 +142,12 @@ class MainView(BaseTemplate, QMainWindow):
         self.BackButton.adjustSize()  # 按内容自适应宽度
         self.BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.BackButton.clicked.connect(lambda: self.ShowExamineeLoginButton())  # 连接槽函数
+        self.BackButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
         # self.BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.BackButton)
 
     # 学生证号登录界面
-    def ShowLoginStudentID(self):
+    def LoginStudentIDView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(10)  # 设置行间距
         ButtonWidth: int = 300
@@ -166,7 +168,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.LoginButton.adjustSize()  # 按内容自适应宽度
         self.LoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.LoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.LoginButton.clicked.connect(lambda: self.ShowExamInfoList())  # 连接槽函数
+        self.LoginButton.clicked.connect(lambda: self.ExamInfoListView())  # 连接槽函数
         # self.LoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.LoginButton)  # 加入到布局
 
@@ -177,12 +179,12 @@ class MainView(BaseTemplate, QMainWindow):
         self.BackButton.adjustSize()  # 按内容自适应宽度
         self.BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.BackButton.clicked.connect(lambda: self.ShowExamLoginButton())  # 连接槽函数
+        self.BackButton.clicked.connect(lambda: self.ExamLoginButtonView())  # 连接槽函数
         # self.BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.BackButton)
 
     # 准考证号登录界面
-    def ShowLoginWithAdmission(self):
+    def LoginWithAdmissionView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(10)  # 设置行间距
         ButtonWidth: int = 300
@@ -214,12 +216,12 @@ class MainView(BaseTemplate, QMainWindow):
         self.BackButton.adjustSize()  # 按内容自适应宽度
         self.BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.BackButton.clicked.connect(lambda: self.ShowExamLoginButton())  # 连接槽函数
+        self.BackButton.clicked.connect(lambda: self.ExamLoginButtonView())  # 连接槽函数
         # self.BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.BackButton)
 
     # 报名列表
-    def ShowExamInfoList(self):
+    def ExamInfoListView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(15)  # 设置行间距
         ButtonWidth: int = 300
@@ -249,7 +251,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.StartButton.adjustSize()  # 按内容自适应宽度
         self.StartButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.StartButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.StartButton.clicked.connect(lambda: self.ShowExamInfoList())  # 连接槽函数
+        # self.StartButton.clicked.connect(lambda: self.())  # 连接槽函数
         # self.StartButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.StartButton)  # 加入到布局
 
@@ -260,6 +262,47 @@ class MainView(BaseTemplate, QMainWindow):
         self.BackButton.adjustSize()  # 按内容自适应宽度
         self.BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        self.BackButton.clicked.connect(lambda: self.ShowLoginStudentID())  # 连接槽函数
+        self.BackButton.clicked.connect(lambda: self.LoginStudentIDView())  # 连接槽函数
         # self.BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.BackButton)
+
+    # 刷题 =====================================================================================================================================================================
+
+    # 刷题登陆
+    def PracticeLoginView(self):
+        self.ClearLayout(self.CenterLayout)
+        self.CenterLayout.setSpacing(10)  # 设置行间距
+        ButtonWidth: int = 300
+        ButtonHeight: int = 35
+
+        self.AccountInput = QLineEdit()  # 账号输入
+        self.AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
+        # self.AccountInput.setEnabled(False)  # 不允许编辑
+        self.AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
+        self.AccountInput.setPlaceholderText(self.Lang.StudentIDNumber)  # 设置空内容提示
+        self.AccountInput.setStyleSheet(self.MainViewStyleSheet.InputBox())  # 设置样式
+        self.AccountInput.setToolTip(self.Lang.StudentIDNumber)  # 设置鼠标提示
+        self.CenterLayout.addWidget(self.AccountInput)
+
+        # 登录按钮
+        self.LoginButton = QPushButton(self.Lang.Start)
+        self.LoginButton.setAutoFillBackground(True)  # 允许修改背景颜色
+        self.LoginButton.adjustSize()  # 按内容自适应宽度
+        self.LoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.LoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        # self.LoginButton.clicked.connect(lambda: self.())  # 连接槽函数
+        # self.LoginButton.setIcon(QIcon(UPLOAD))
+        self.CenterLayout.addWidget(self.LoginButton)  # 加入到布局
+
+        # 返回按钮
+        # self.CenterLayout.addStretch()  # 占位
+        self.BackButton = QPushButton(self.Lang.Back)
+        self.BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
+        self.BackButton.adjustSize()  # 按内容自适应宽度
+        self.BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        self.BackButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
+        # self.BackButton.setIcon(QIcon(UPLOAD))
+        self.CenterLayout.addWidget(self.BackButton)
+
+    # =====================================================================================================================================================================
