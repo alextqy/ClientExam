@@ -6,7 +6,7 @@ from Public.Lang import *
 from Public.UDPTool import *
 
 
-class BaseController():
+class BaseStyleSheet():
 
     def __init__(self):
         super().__init__()
@@ -16,3 +16,7 @@ class BaseController():
         self.FileHelper = FileHelper()
         self.Lang = Lang()
         self.UDPTool = UDPTool()
+
+        self.CommonColor = '#d9d9d9'
+        self.BackgroundColor = '#272822'
+        self.FontFamily = 'Microsoft Yahei'

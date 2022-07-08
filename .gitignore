@@ -1,6 +1,7 @@
 desktop.ini
 /.vs
 /.vscode
+/.cache.json
 /config.json
 /__pycache__
 
@@ -9,5 +10,8 @@ Public/__pycache__
 Resource/__pycache__
 StyleSheet/__pycache__
 Template/__pycache__
+Template/Examinee/__pycache__
+Template/Manager/__pycache__
+Template/Teacher/__pycache__
 Tempo/__pycache__
 View/__pycache__
