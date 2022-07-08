@@ -285,14 +285,14 @@ class MainView(BaseTemplate, QMainWindow):
         self.CenterLayout.addWidget(self.AccountInput)
 
         # 登录按钮
-        self.LoginButton = QPushButton(self.Lang.Start)
-        self.LoginButton.setAutoFillBackground(True)  # 允许修改背景颜色
-        self.LoginButton.adjustSize()  # 按内容自适应宽度
-        self.LoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        self.LoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
-        # self.LoginButton.clicked.connect(lambda: self.())  # 连接槽函数
-        # self.LoginButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(self.LoginButton)  # 加入到布局
+        self.StartButton = QPushButton(self.Lang.Start)
+        self.StartButton.setAutoFillBackground(True)  # 允许修改背景颜色
+        self.StartButton.adjustSize()  # 按内容自适应宽度
+        self.StartButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.StartButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        self.StartButton.clicked.connect(lambda: self.CheckQuestionTypeView())  # 连接槽函数
+        # self.StartButton.setIcon(QIcon(UPLOAD))
+        self.CenterLayout.addWidget(self.StartButton)  # 加入到布局
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -302,6 +302,53 @@ class MainView(BaseTemplate, QMainWindow):
         self.BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
         self.BackButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
+        # self.BackButton.setIcon(QIcon(UPLOAD))
+        self.CenterLayout.addWidget(self.BackButton)
+
+    # 刷题选择题型
+    # '试题类型 1单选 2判断 3多选 4填空 5问答 6代码实训 7拖拽 8连线'
+    def CheckQuestionTypeView(self):
+        self.ClearLayout(self.CenterLayout)
+        self.CenterLayout.setSpacing(10)  # 设置行间距
+        ButtonWidth: int = 300
+        ButtonHeight: int = 35
+
+        self.ExamInfoSelect = QComboBox()  # 设置下拉框
+        self.ExamInfoSelect.adjustSize()  # 按内容自适应宽度
+        self.ExamInfoSelect.setView(QListView())  # 设置内容控件
+        self.ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)
+        self.ExamInfoSelect.setStyleSheet(self.MainViewStyleSheet.SelectBox())
+
+        self.ExamInfoSelect.insertItem(0, '选择题型')
+        self.ExamInfoSelect.setItemData(0, '选择题型', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(1, '单选')
+        self.ExamInfoSelect.setItemData(1, '单选', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(2, '判断')
+        self.ExamInfoSelect.setItemData(2, '判断', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(3, '多选')
+        self.ExamInfoSelect.setItemData(3, '多选', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(4, '填空')
+        self.ExamInfoSelect.setItemData(4, '填空', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(5, '问答')
+        self.ExamInfoSelect.setItemData(5, '问答', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(6, '代码实训')
+        self.ExamInfoSelect.setItemData(6, '代码实训', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(7, '拖拽')
+        self.ExamInfoSelect.setItemData(7, '拖拽', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(8, '连线')
+        self.ExamInfoSelect.setItemData(8, '连线', Qt.ToolTipRole)
+
+        self.ExamInfoSelect.setCurrentIndex(0)
+        self.CenterLayout.addWidget(self.ExamInfoSelect)
+
+        # 返回按钮
+        # self.CenterLayout.addStretch()  # 占位
+        self.BackButton = QPushButton(self.Lang.Back)
+        self.BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
+        self.BackButton.adjustSize()  # 按内容自适应宽度
+        self.BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        self.BackButton.clicked.connect(lambda: self.PracticeLoginView())  # 连接槽函数
         # self.BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(self.BackButton)
 
