@@ -1,15 +1,15 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
+from Template.Manager.ManagerMainTemplate import *
 from StyleSheet.MainStyleSheet import *
 
 
-class MainView(BaseTemplate, QMainWindow):
+class MainTemplate(BaseTemplate, QMainWindow):
 
     def __init__(self, Title=TITLE):
         super().__init__()
         self.MainStyleSheet = MainStyleSheet()
         self.setStyleSheet(self.MainStyleSheet.BaseStyleSheet())
-
         self.setWindowTitle(Title)  # 窗口标题
         self.setWindowIcon(QIcon(ICON))  # 设置ICON
         # self.setWindowFlags(Qt.FramelessWindowHint)  # 隐藏窗口标题栏
@@ -64,7 +64,7 @@ class MainView(BaseTemplate, QMainWindow):
         ManagerLoginButton.adjustSize()  # 按内容自适应宽度
         ManagerLoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         ManagerLoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
-        # ManagerLoginButton.clicked.connect(lambda: self.UploadListWindowObject.show())  # 连接槽函数
+        ManagerLoginButton.clicked.connect(lambda: self.ManagerLoginView())  # 连接槽函数
         # ManagerLoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(ManagerLoginButton)  # 加入到布局
 
@@ -364,4 +364,50 @@ class MainView(BaseTemplate, QMainWindow):
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)
 
-    # =====================================================================================================================================================================
+    # 管理员 =====================================================================================================================================================================
+
+    # 管理员首页
+    def ManagerLoginView(self):
+        self.ClearLayout(self.CenterLayout)
+        self.CenterLayout.setSpacing(10)  # 设置行间距
+        ButtonWidth: int = 300
+        ButtonHeight: int = 35
+
+        AccountInput = QLineEdit()  # 账号输入
+        AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
+        # AccountInput.setEnabled(False)  # 不允许编辑
+        AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
+        AccountInput.setPlaceholderText(self.Lang.AdministratorAccount)  # 设置空内容提示
+        AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
+        AccountInput.setToolTip(self.Lang.AdministratorAccount)  # 设置鼠标提示
+        self.CenterLayout.addWidget(AccountInput)
+
+        PasswordInput = QLineEdit()  # 密码输入
+        PasswordInput.setFixedSize(ButtonWidth, 50)  # 尺寸
+        # PasswordInput.setEnabled(False)  # 不允许编辑
+        PasswordInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
+        PasswordInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
+        PasswordInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
+        PasswordInput.setToolTip(self.Lang.Password)  # 设置鼠标提示
+        self.CenterLayout.addWidget(PasswordInput)
+
+        # 登录按钮
+        LoginButton = QPushButton(self.Lang.Login)
+        LoginButton.setAutoFillBackground(True)  # 允许修改背景颜色
+        LoginButton.adjustSize()  # 按内容自适应宽度
+        LoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        LoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
+        # LoginButton.clicked.connect(lambda: self.())  # 连接槽函数
+        # LoginButton.setIcon(QIcon(UPLOAD))
+        self.CenterLayout.addWidget(LoginButton)  # 加入到布局
+
+        # 返回按钮
+        # self.CenterLayout.addStretch()  # 占位
+        BackButton = QPushButton(self.Lang.Back)
+        BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
+        BackButton.adjustSize()  # 按内容自适应宽度
+        BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
+        BackButton.clicked.connect(lambda: self.LoginButtonView())  # 连接槽函数
+        # BackButton.setIcon(QIcon(UPLOAD))
+        self.CenterLayout.addWidget(BackButton)

@@ -36,6 +36,9 @@ class Lang(BaseService):
             self.DragAndDrop = 'Drag and drop'
             self.ConnectingQuestion = 'Connecting question'
 
+            self.AdministratorAccount = 'Administrator account'
+            self.Password = 'Password'
+
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
             self.TeacherLogin = '教师登录'
@@ -60,6 +63,9 @@ class Lang(BaseService):
             self.DragAndDrop = '拖拽题'
             self.ConnectingQuestion = '连线题'
 
+            self.AdministratorAccount = '管理员账号'
+            self.Password = '密码'
+
         else:
             self.ManagerLogin = ''
             self.TeacherLogin = ''
@@ -83,3 +89,6 @@ class Lang(BaseService):
             self.ProgrammingQuestions = ''
             self.DragAndDrop = ''
             self.ConnectingQuestion = ''
+
+            self.AdministratorAccount = ''
+            self.Password = ''

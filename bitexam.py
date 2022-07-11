@@ -4,6 +4,6 @@ from Template.MainTemplate import *
 
 if __name__ == '__main__':
     App = QApplication(argv)
-    MainObject = MainView()
+    MainObject = MainTemplate()
     MainObject.show()
     exit(App.exec())
