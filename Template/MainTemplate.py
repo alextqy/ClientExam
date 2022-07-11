@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
-from StyleSheet.MainViewStyleSheet import *
+from StyleSheet.MainStyleSheet import *
 
 
 class MainView(BaseTemplate, QMainWindow):
 
     def __init__(self, Title=TITLE):
         super().__init__()
-        self.MainViewStyleSheet = MainViewStyleSheet()
-        self.setStyleSheet(self.MainViewStyleSheet.BaseStyleSheet())
+        self.MainStyleSheet = MainStyleSheet()
+        self.setStyleSheet(self.MainStyleSheet.BaseStyleSheet())
 
         self.setWindowTitle(Title)  # 窗口标题
         self.setWindowIcon(QIcon(ICON))  # 设置ICON
@@ -43,7 +43,7 @@ class MainView(BaseTemplate, QMainWindow):
         ExamineeLoginButton.setAutoFillBackground(True)  # 允许修改背景颜色
         ExamineeLoginButton.adjustSize()  # 按内容自适应宽度
         ExamineeLoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        ExamineeLoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        ExamineeLoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         ExamineeLoginButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
         # ExamineeLoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(ExamineeLoginButton)  # 加入到布局
@@ -53,7 +53,7 @@ class MainView(BaseTemplate, QMainWindow):
         TeacherLoginButton.setAutoFillBackground(True)  # 允许修改背景颜色
         TeacherLoginButton.adjustSize()  # 按内容自适应宽度
         TeacherLoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        TeacherLoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        TeacherLoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # TeacherLoginButton.clicked.connect(lambda: self.UploadListWindowObject.show())  # 连接槽函数
         # TeacherLoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(TeacherLoginButton)  # 加入到布局
@@ -63,7 +63,7 @@ class MainView(BaseTemplate, QMainWindow):
         ManagerLoginButton.setAutoFillBackground(True)  # 允许修改背景颜色
         ManagerLoginButton.adjustSize()  # 按内容自适应宽度
         ManagerLoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        ManagerLoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        ManagerLoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # ManagerLoginButton.clicked.connect(lambda: self.UploadListWindowObject.show())  # 连接槽函数
         # ManagerLoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(ManagerLoginButton)  # 加入到布局
@@ -80,7 +80,7 @@ class MainView(BaseTemplate, QMainWindow):
         ExamButton.setAutoFillBackground(True)  # 允许修改背景颜色
         ExamButton.adjustSize()  # 按内容自适应宽度
         ExamButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        ExamButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        ExamButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         ExamButton.clicked.connect(lambda: self.ExamLoginButtonView())  # 连接槽函数
         # ExamButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(ExamButton)  # 加入到布局
@@ -90,7 +90,7 @@ class MainView(BaseTemplate, QMainWindow):
         PracticeButton.setAutoFillBackground(True)  # 允许修改背景颜色
         PracticeButton.adjustSize()  # 按内容自适应宽度
         PracticeButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        PracticeButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        PracticeButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         PracticeButton.clicked.connect(lambda: self.PracticeLoginView())  # 连接槽函数
         # PracticeButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(PracticeButton)  # 加入到布局
@@ -101,7 +101,7 @@ class MainView(BaseTemplate, QMainWindow):
         BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
         BackButton.adjustSize()  # 按内容自适应宽度
         BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.LoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)
@@ -120,7 +120,7 @@ class MainView(BaseTemplate, QMainWindow):
         LoginStudentIDButton.setAutoFillBackground(True)  # 允许修改背景颜色
         LoginStudentIDButton.adjustSize()  # 按内容自适应宽度
         LoginStudentIDButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        LoginStudentIDButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        LoginStudentIDButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         LoginStudentIDButton.clicked.connect(lambda: self.LoginStudentIDView())  # 连接槽函数
         # LoginStudentIDButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(LoginStudentIDButton)  # 加入到布局
@@ -130,7 +130,7 @@ class MainView(BaseTemplate, QMainWindow):
         LoginWithAdmissionButton.setAutoFillBackground(True)  # 允许修改背景颜色
         LoginWithAdmissionButton.adjustSize()  # 按内容自适应宽度
         LoginWithAdmissionButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        LoginWithAdmissionButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        LoginWithAdmissionButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         LoginWithAdmissionButton.clicked.connect(lambda: self.LoginWithAdmissionView())  # 连接槽函数
         # LoginWithAdmissionButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(LoginWithAdmissionButton)  # 加入到布局
@@ -141,7 +141,7 @@ class MainView(BaseTemplate, QMainWindow):
         BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
         BackButton.adjustSize()  # 按内容自适应宽度
         BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)
@@ -158,7 +158,7 @@ class MainView(BaseTemplate, QMainWindow):
         # AccountInput.setEnabled(False)  # 不允许编辑
         AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.StudentIDNumber)  # 设置空内容提示
-        AccountInput.setStyleSheet(self.MainViewStyleSheet.InputBox())  # 设置样式
+        AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.StudentIDNumber)  # 设置鼠标提示
         self.CenterLayout.addWidget(AccountInput)
 
@@ -167,7 +167,7 @@ class MainView(BaseTemplate, QMainWindow):
         LoginButton.setAutoFillBackground(True)  # 允许修改背景颜色
         LoginButton.adjustSize()  # 按内容自适应宽度
         LoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        LoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        LoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         LoginButton.clicked.connect(lambda: self.ExamInfoListView())  # 连接槽函数
         # LoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(LoginButton)  # 加入到布局
@@ -178,7 +178,7 @@ class MainView(BaseTemplate, QMainWindow):
         BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
         BackButton.adjustSize()  # 按内容自适应宽度
         BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.ExamLoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)
@@ -195,7 +195,7 @@ class MainView(BaseTemplate, QMainWindow):
         # AccountInput.setEnabled(False)  # 不允许编辑
         AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.AdmissionTicketNumber)  # 设置空内容提示
-        AccountInput.setStyleSheet(self.MainViewStyleSheet.InputBox())  # 设置样式
+        AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.AdmissionTicketNumber)  # 设置鼠标提示
         self.CenterLayout.addWidget(AccountInput)
 
@@ -204,7 +204,7 @@ class MainView(BaseTemplate, QMainWindow):
         LoginButton.setAutoFillBackground(True)  # 允许修改背景颜色
         LoginButton.adjustSize()  # 按内容自适应宽度
         LoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        LoginButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        LoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # LoginButton.clicked.connect(lambda: self.())  # 连接槽函数
         # LoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(LoginButton)  # 加入到布局
@@ -215,7 +215,7 @@ class MainView(BaseTemplate, QMainWindow):
         BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
         BackButton.adjustSize()  # 按内容自适应宽度
         BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.ExamLoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)
@@ -231,7 +231,7 @@ class MainView(BaseTemplate, QMainWindow):
         ExamInfoSelect.adjustSize()  # 按内容自适应宽度
         ExamInfoSelect.setView(QListView())  # 设置内容控件
         ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)
-        ExamInfoSelect.setStyleSheet(self.MainViewStyleSheet.SelectBox())
+        ExamInfoSelect.setStyleSheet(self.MainStyleSheet.SelectBox())
 
         ExamInfoSelect.insertItem(0, self.Lang.ChooseExamSubjects)
         ExamInfoSelect.setItemData(0, self.Lang.ChooseExamSubjects, Qt.ToolTipRole)
@@ -252,7 +252,7 @@ class MainView(BaseTemplate, QMainWindow):
         StartButton.setAutoFillBackground(True)  # 允许修改背景颜色
         StartButton.adjustSize()  # 按内容自适应宽度
         StartButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        StartButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        StartButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # StartButton.clicked.connect(lambda: self.())  # 连接槽函数
         # StartButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(StartButton)  # 加入到布局
@@ -263,7 +263,7 @@ class MainView(BaseTemplate, QMainWindow):
         BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
         BackButton.adjustSize()  # 按内容自适应宽度
         BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.LoginStudentIDView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)
@@ -282,7 +282,7 @@ class MainView(BaseTemplate, QMainWindow):
         # AccountInput.setEnabled(False)  # 不允许编辑
         AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.StudentIDNumber)  # 设置空内容提示
-        AccountInput.setStyleSheet(self.MainViewStyleSheet.InputBox())  # 设置样式
+        AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.StudentIDNumber)  # 设置鼠标提示
         self.CenterLayout.addWidget(AccountInput)
 
@@ -291,7 +291,7 @@ class MainView(BaseTemplate, QMainWindow):
         StartButton.setAutoFillBackground(True)  # 允许修改背景颜色
         StartButton.adjustSize()  # 按内容自适应宽度
         StartButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        StartButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        StartButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         StartButton.clicked.connect(lambda: self.CheckQuestionTypeView())  # 连接槽函数
         # StartButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(StartButton)  # 加入到布局
@@ -302,7 +302,7 @@ class MainView(BaseTemplate, QMainWindow):
         BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
         BackButton.adjustSize()  # 按内容自适应宽度
         BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)
@@ -319,7 +319,7 @@ class MainView(BaseTemplate, QMainWindow):
         ExamInfoSelect.adjustSize()  # 按内容自适应宽度
         ExamInfoSelect.setView(QListView())  # 设置内容控件
         ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)
-        ExamInfoSelect.setStyleSheet(self.MainViewStyleSheet.SelectBox())
+        ExamInfoSelect.setStyleSheet(self.MainStyleSheet.SelectBox())
 
         ExamInfoSelect.insertItem(0, self.Lang.SelectTestQuestionType)
         ExamInfoSelect.setItemData(0, self.Lang.SelectTestQuestionType, Qt.ToolTipRole)
@@ -348,7 +348,7 @@ class MainView(BaseTemplate, QMainWindow):
         StartButton.setAutoFillBackground(True)  # 允许修改背景颜色
         StartButton.adjustSize()  # 按内容自适应宽度
         StartButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        StartButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        StartButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # StartButton.clicked.connect(lambda: self.())  # 连接槽函数
         # StartButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(StartButton)  # 加入到布局
@@ -359,7 +359,7 @@ class MainView(BaseTemplate, QMainWindow):
         BackButton.setAutoFillBackground(True)  # 允许修改背景颜色
         BackButton.adjustSize()  # 按内容自适应宽度
         BackButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        BackButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.PracticeLoginView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)

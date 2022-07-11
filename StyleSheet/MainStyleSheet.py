@@ -1,7 +1,7 @@
 from StyleSheet.BaseStyleSheet import *
 
 
-class MainViewStyleSheet(BaseStyleSheet):
+class MainStyleSheet(BaseStyleSheet):
 
     def __init__(self):
         super().__init__()
