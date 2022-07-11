@@ -233,16 +233,18 @@ class MainView(BaseTemplate, QMainWindow):
         self.ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)
         self.ExamInfoSelect.setStyleSheet(self.MainViewStyleSheet.SelectBox())
 
-        self.ExamInfoSelect.insertItem(0, '毛主席理论')
-        self.ExamInfoSelect.setItemData(0, '毛主席理论', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(0, self.Lang.ChooseExamSubjects)
+        self.ExamInfoSelect.setItemData(0, self.Lang.ChooseExamSubjects, Qt.ToolTipRole)
         self.ExamInfoSelect.insertItem(1, '邓小平理论')
         self.ExamInfoSelect.setItemData(1, '邓小平理论', Qt.ToolTipRole)
         self.ExamInfoSelect.insertItem(2, '马克思主义基本原理')
         self.ExamInfoSelect.setItemData(2, '马克思主义基本原理', Qt.ToolTipRole)
         self.ExamInfoSelect.insertItem(3, '恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学')
         self.ExamInfoSelect.setItemData(3, '恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(4, '毛主席理论')
+        self.ExamInfoSelect.setItemData(4, '毛主席理论', Qt.ToolTipRole)
 
-        self.ExamInfoSelect.setCurrentIndex(3)
+        self.ExamInfoSelect.setCurrentIndex(0)  # 设置默认选项
         self.CenterLayout.addWidget(self.ExamInfoSelect)
 
         # 登录按钮
@@ -306,7 +308,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.CenterLayout.addWidget(self.BackButton)
 
     # 刷题选择题型
-    # '试题类型 1单选 2判断 3多选 4填空 5问答 6代码实训 7拖拽 8连线'
+    # 试题类型 1单选 2判断 3多选 4填空 5问答 6代码实训 7拖拽 8连线
     def CheckQuestionTypeView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(10)  # 设置行间距
@@ -319,26 +321,26 @@ class MainView(BaseTemplate, QMainWindow):
         self.ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)
         self.ExamInfoSelect.setStyleSheet(self.MainViewStyleSheet.SelectBox())
 
-        self.ExamInfoSelect.insertItem(0, '选择题型')
-        self.ExamInfoSelect.setItemData(0, '选择题型', Qt.ToolTipRole)
-        self.ExamInfoSelect.insertItem(1, '单选')
-        self.ExamInfoSelect.setItemData(1, '单选', Qt.ToolTipRole)
-        self.ExamInfoSelect.insertItem(2, '判断')
-        self.ExamInfoSelect.setItemData(2, '判断', Qt.ToolTipRole)
-        self.ExamInfoSelect.insertItem(3, '多选')
-        self.ExamInfoSelect.setItemData(3, '多选', Qt.ToolTipRole)
-        self.ExamInfoSelect.insertItem(4, '填空')
-        self.ExamInfoSelect.setItemData(4, '填空', Qt.ToolTipRole)
-        self.ExamInfoSelect.insertItem(5, '问答')
-        self.ExamInfoSelect.setItemData(5, '问答', Qt.ToolTipRole)
-        self.ExamInfoSelect.insertItem(6, '代码实训')
-        self.ExamInfoSelect.setItemData(6, '代码实训', Qt.ToolTipRole)
-        self.ExamInfoSelect.insertItem(7, '拖拽')
-        self.ExamInfoSelect.setItemData(7, '拖拽', Qt.ToolTipRole)
-        self.ExamInfoSelect.insertItem(8, '连线')
-        self.ExamInfoSelect.setItemData(8, '连线', Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(0, self.Lang.SelectTestQuestionType)
+        self.ExamInfoSelect.setItemData(0, self.Lang.SelectTestQuestionType, Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(1, self.Lang.MultipleChoiceQuestions)
+        self.ExamInfoSelect.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(2, self.Lang.TrueOrFalse)
+        self.ExamInfoSelect.setItemData(2, self.Lang.TrueOrFalse, Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(3, self.Lang.MultipleChoices)
+        self.ExamInfoSelect.setItemData(3, self.Lang.MultipleChoices, Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(4, self.Lang.FillInTheBlank)
+        self.ExamInfoSelect.setItemData(4, self.Lang.FillInTheBlank, Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(5, self.Lang.QuestionsAndAnswers)
+        self.ExamInfoSelect.setItemData(5, self.Lang.QuestionsAndAnswers, Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(6, self.Lang.ProgrammingQuestions)
+        self.ExamInfoSelect.setItemData(6, self.Lang.ProgrammingQuestions, Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(7, self.Lang.DragAndDrop)
+        self.ExamInfoSelect.setItemData(7, self.Lang.DragAndDrop, Qt.ToolTipRole)
+        self.ExamInfoSelect.insertItem(8, self.Lang.ConnectingQuestion)
+        self.ExamInfoSelect.setItemData(8, self.Lang.ConnectingQuestion, Qt.ToolTipRole)
 
-        self.ExamInfoSelect.setCurrentIndex(0)
+        self.ExamInfoSelect.setCurrentIndex(0)  # 设置默认选项
         self.CenterLayout.addWidget(self.ExamInfoSelect)
 
         # 返回按钮
