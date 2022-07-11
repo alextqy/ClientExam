@@ -308,7 +308,7 @@ class MainView(BaseTemplate, QMainWindow):
         self.CenterLayout.addWidget(BackButton)
 
     # 刷题选择题型
-    # 试题类型 1单选 2判断 3多选 4填空 5问答 6代码实训 7拖拽 8连线
+    # 试题类型 1单选 2判断 3多选 4填空 5问答 6编程 7拖拽 8连线
     def CheckQuestionTypeView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(10)  # 设置行间距
@@ -342,6 +342,16 @@ class MainView(BaseTemplate, QMainWindow):
 
         ExamInfoSelect.setCurrentIndex(0)  # 设置默认选项
         self.CenterLayout.addWidget(ExamInfoSelect)
+
+        # 登录按钮
+        StartButton = QPushButton(self.Lang.Start)
+        StartButton.setAutoFillBackground(True)  # 允许修改背景颜色
+        StartButton.adjustSize()  # 按内容自适应宽度
+        StartButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        StartButton.setStyleSheet(self.MainViewStyleSheet.Button())  # 设置样式
+        # StartButton.clicked.connect(lambda: self.())  # 连接槽函数
+        # StartButton.setIcon(QIcon(UPLOAD))
+        self.CenterLayout.addWidget(StartButton)  # 加入到布局
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
