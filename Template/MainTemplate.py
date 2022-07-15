@@ -13,12 +13,11 @@ class MainTemplate(BaseTemplate, QMainWindow):
         self.setWindowTitle(Title)  # 窗口标题
         self.setWindowIcon(QIcon(ICON))  # 设置ICON
         # self.setWindowFlags(Qt.FramelessWindowHint)  # 隐藏窗口标题栏
-        # self.setWindowFlags(Qt.WindowMinMaxButtonsHint)  # 仅显示最小化和最大化按钮
-        # self.setWindowFlags(Qt.WindowCloseButtonHint)  # 仅显示关闭按钮
+        # self.setWindowFlags(Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)  # 显示 最小化 最大化 关闭 按钮
         self.setWindowFlags(Qt.WindowStaysOnTopHint)  # 窗口置顶
         self.setFixedSize(500, 300)  # 设置窗口最最小值
-        SelfSize = self.geometry()  # 获取本窗口大小
-        self.move(int((self.SW - SelfSize.width()) / 2), int((self.SH - SelfSize.height()) / 2))  # 居中显示
+        # SelfSize = self.geometry()  # 获取本窗口大小
+        # self.move(int((self.SW - SelfSize.width()) / 2), int((self.SH - SelfSize.height()) / 2))  # 居中显示
 
         self.CenterWidget = QWidget()  # 设置窗口的中央部件
         self.CenterWidget.setContentsMargins(0, 0, 0, 0)  # 设置边距
@@ -397,7 +396,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         LoginButton.adjustSize()  # 按内容自适应宽度
         LoginButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         LoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
-        # LoginButton.clicked.connect(lambda: self.())  # 连接槽函数
+        LoginButton.clicked.connect(lambda: self.ManagerMainView())  # 连接槽函数
         # LoginButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(LoginButton)  # 加入到布局
 
@@ -411,3 +410,12 @@ class MainTemplate(BaseTemplate, QMainWindow):
         BackButton.clicked.connect(lambda: self.LoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
         self.CenterLayout.addWidget(BackButton)
+
+    def ShowMain(self):
+        self.show()
+
+    # 管理员主界面
+    def ManagerMainView(self):
+        self.hide()
+        self.managerMainTemplate = ManagerMainTemplate()
+        self.managerMainTemplate.show()

@@ -8,8 +8,91 @@ class ManagerMainStyleSheet(BaseStyleSheet):
 
     def BaseStyleSheet(self) -> str:
         return '''
-        QMainWindow{
+        QDialog{
             font-family: ''' + self.FontFamily + ''';
-            background-color: ''' + self.BackgroundColor + ''';
+            background-color: ''' + self.CommonColor + ''';
+        }
+        '''
+
+    def Frame(self) -> str:
+        return '''
+        QFrame{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            border: 2px solid white;
+            padding-top: 10px;
+        }
+        '''
+
+    def Label(self) -> str:
+        return '''
+        QLabel{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            border: 2px solid white;
+            font-size: 16px;
+        }
+        '''
+
+    def MenuButton1(self) -> str:
+        return '''
+        QPushButton{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: #339933;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+        }
+        QPushButton:hover {
+            color: white;
+            background-color: #99CC00;
+        }
+        QPushButton:pressed {
+            color: black;
+            background-color: #99CC00;
+            padding-left: 3px;
+            padding-top: 3px;
+        }
+        '''
+
+    def MenuButton2(self) -> str:
+        return '''
+        QPushButton{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: #9933CC;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+        }
+        QPushButton:hover {
+            color: white;
+            background-color: #CC3399;
+        }
+        QPushButton:pressed {
+            color: black;
+            background-color: #CC3399;
+            padding-left: 3px;
+            padding-top: 3px;
+        }
+        '''
+
+    def MenuButton3(self) -> str:
+        return '''
+        QPushButton{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: #666666;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+        }
+        QPushButton:hover {
+            color: white;
+            background-color: #3399CC;
+        }
+        QPushButton:pressed {
+            color: black;
+            background-color: #3399CC;
+            padding-left: 3px;
+            padding-top: 3px;
         }
         '''
