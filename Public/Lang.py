@@ -94,7 +94,7 @@ class Lang(BaseService):
             self.AnswerSheet = '答题卡'
             self.SystemLog = '系统日志'
             self.ExamLog = '考试日志'
-            self.Exit = 'Exit'
+            self.Exit = '退出'
 
         else:
             self.ManagerLogin = ''

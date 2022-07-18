@@ -189,6 +189,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.ExitButton = QPushButton(self.Lang.Exit)
         self.ExitButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton3())  # 设置样式
         self.ExitButton.setFixedSize(ButtonWidth, ButtonHeight)  # 设置固定大小
+        self.ExitButton.clicked.connect(lambda: os._exit(0))  # 连接槽函数
         self.MenuLayout.addWidget(self.ExitButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         self.MenuLayout.addStretch()  # 占位
