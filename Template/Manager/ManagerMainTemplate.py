@@ -127,6 +127,8 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.RegistrationDataButton.setFixedSize(ButtonWidth, ButtonHeight)  # 设置固定大小
         self.MenuLayout.addWidget(self.RegistrationDataButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
+        # =====================================================================================================================================================================
+
         # 科目
         self.SubjectButton = QPushButton(self.Lang.Subject)
         self.SubjectButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton2())  # 设置样式
@@ -169,9 +171,11 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.AnswerSheetButton.setFixedSize(ButtonWidth, ButtonHeight)  # 设置固定大小
         self.MenuLayout.addWidget(self.AnswerSheetButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
+        # =====================================================================================================================================================================
+
         # 系统日志
         self.SystemLogButton = QPushButton(self.Lang.SystemLog)
-        self.SystemLogButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton2())  # 设置样式
+        self.SystemLogButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton3())  # 设置样式
         self.SystemLogButton.setFixedSize(ButtonWidth, ButtonHeight)  # 设置固定大小
         self.MenuLayout.addWidget(self.SystemLogButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
