@@ -14,13 +14,22 @@ class ManagerMainStyleSheet(BaseStyleSheet):
         }
         '''
 
-    def Frame(self) -> str:
+    def MenuFrame(self) -> str:
         return '''
         QFrame{
             font-family: ''' + self.FontFamily + ''';
             background-color: ''' + self.CommonColor + ''';
             border: 2px solid white;
             padding-top: 10px;
+        }
+        '''
+
+    def Frame(self) -> str:
+        return '''
+        QFrame{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            border: 2px solid white;
         }
         '''
 
@@ -31,6 +40,15 @@ class ManagerMainStyleSheet(BaseStyleSheet):
             background-color: ''' + self.CommonColor + ''';
             border: 2px solid white;
             font-size: 16px;
+        }
+        '''
+
+    def InitLabel(self) -> str:
+        return '''
+        QLabel{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.BackgroundColor + ''';
+            border: 0px;
         }
         '''
 

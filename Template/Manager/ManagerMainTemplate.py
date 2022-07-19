@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
 from StyleSheet.ManagerMainStyleSheet import *
+from Template.Manager.ManagerFrameTemplate import *
 
 
 class ManagerMainTemplate(BaseTemplate, QDialog):
@@ -63,7 +64,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.MenuFrame.adjustSize()  # 根据内容自适应宽度
         self.MenuFrame.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.MenuFrame.setFixedWidth(200)  # 设置固定大小
-        self.MenuFrame.setStyleSheet(self.ManagerMainStyleSheet.Frame())  # 设置样式
+        self.MenuFrame.setStyleSheet(self.ManagerMainStyleSheet.MenuFrame())  # 设置样式
         self.BodyLeftLayout.addWidget(self.MenuFrame)  # 添加控件
 
         self.MenuLayout = QVBoxLayout()  # 菜单按钮布局
@@ -71,6 +72,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.MenuFrame.setLayout(self.MenuLayout)  # 添加布局
 
         self.InitMenu()
+        self.InitFrame()
 
         self.DataFrame = QFrame()  # 主体框架
         self.DataFrame.adjustSize()  # 根据内容自适应宽度
@@ -81,10 +83,14 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
 
         self.DataLayout = QVBoxLayout()  # 主体数据布局
         self.DataLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
+        self.InitLabel = QLabel()  # 开始界面
+        self.InitLabel.setContentsMargins(0, 0, 0, 0)  # 设置边距
+        self.InitLabel.setStyleSheet(self.ManagerMainStyleSheet.InitLabel())  # 设置样式
+        self.DataLayout.addWidget(self.InitLabel)  # 添加控件
         self.DataFrame.setLayout(self.DataLayout)  # 添加布局
 
         self.BottomLabel = QLabel(TITLE)  # 底部框架
-        self.BottomLabel.setAlignment(Qt.AlignCenter)
+        self.BottomLabel.setAlignment(Qt.AlignCenter)  # 字体居中
         self.BottomLabel.adjustSize()  # 根据内容自适应宽度
         self.BottomLabel.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.BottomLabel.setFixedHeight(30)  # 设置固定大小
@@ -97,10 +103,13 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         ButtonWidth: int = 180
         ButtonHeight: int = 35
 
+        # =====================================================================================================================================================================
+
         # 管理员
         self.ManagerButton = QPushButton(self.Lang.Manager)
         self.ManagerButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton1())  # 设置样式
         self.ManagerButton.setFixedSize(ButtonWidth, ButtonHeight)  # 设置固定大小
+        self.ManagerButton.clicked.connect(lambda: self.TemplateView('ManagerFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.ManagerButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # 教师
@@ -193,3 +202,17 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.MenuLayout.addWidget(self.ExitButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         self.MenuLayout.addStretch()  # 占位
+
+    # =====================================================================================================================================================================
+
+    # 实例化所有框架
+    def InitFrame(self):
+        self.ManagerFrameTemplate = ManagerFrameTemplate()
+
+    # 框架路由
+    def TemplateView(self, TemplateName: str):
+        self.ClearLayout(self.DataLayout)
+        if TemplateName == 'ManagerFrameTemplate':
+            self.DataLayout.addWidget(self.ManagerFrameTemplate)
+        else:
+            self.ClearLayout(self.DataLayout)
