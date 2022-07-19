@@ -15,8 +15,10 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.setWindowIcon(QIcon(Icon))  # 设置ICON
         self.setMinimumSize(1200, 800)  # 设置最小尺寸
 
-        self.CenterLayout = QVBoxLayout()  # 设置主佈局
+        self.CenterLayout = QVBoxLayout()  # 设置主布局
         self.CenterLayout.setContentsMargins(5, 5, 5, 5)  # 设置边距
+
+        self.CurrentTemplate = ''
 
         # 顶部 =====================================================================================================================================================================
         # self.TopLayout = QHBoxLayout()
@@ -53,7 +55,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
     # 主页
     def MainView(self):
         # self.TopLabel = QLabel(TITLE)  # 顶部框架
-        # self.TopLabel.setAlignment(Qt.AlignCenter)
+        # self.TopLabel.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
         # self.TopLabel.adjustSize()  # 根据内容自适应宽度
         # self.TopLabel.setContentsMargins(0, 0, 0, 0)  # 设置边距
         # self.TopLabel.setFixedHeight(30)  # 设置固定大小
@@ -72,13 +74,12 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.MenuFrame.setLayout(self.MenuLayout)  # 添加布局
 
         self.InitMenu()
-        self.InitFrame()
 
         self.DataFrame = QFrame()  # 主体框架
         self.DataFrame.adjustSize()  # 根据内容自适应宽度
         self.DataFrame.setContentsMargins(0, 0, 0, 0)  # 设置边距
         # self.DataFrame.setFixedHeight(30)  # 设置固定大小
-        self.DataFrame.setStyleSheet(self.ManagerMainStyleSheet.Frame())  # 设置样式
+        self.DataFrame.setStyleSheet(self.ManagerMainStyleSheet.DataFrame())  # 设置样式
         self.BodyRightLayout.addWidget(self.DataFrame)  # 添加控件
 
         self.DataLayout = QVBoxLayout()  # 主体数据布局
@@ -90,7 +91,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.DataFrame.setLayout(self.DataLayout)  # 添加布局
 
         self.BottomLabel = QLabel(TITLE)  # 底部框架
-        self.BottomLabel.setAlignment(Qt.AlignCenter)  # 字体居中
+        self.BottomLabel.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.BottomLabel.adjustSize()  # 根据内容自适应宽度
         self.BottomLabel.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.BottomLabel.setFixedHeight(30)  # 设置固定大小
@@ -205,14 +206,11 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
 
     # =====================================================================================================================================================================
 
-    # 实例化所有框架
-    def InitFrame(self):
-        self.ManagerFrameTemplate = ManagerFrameTemplate()
-
     # 框架路由
     def TemplateView(self, TemplateName: str):
         self.ClearLayout(self.DataLayout)
         if TemplateName == 'ManagerFrameTemplate':
+            self.ManagerFrameTemplate = ManagerFrameTemplate()
             self.DataLayout.addWidget(self.ManagerFrameTemplate)
         else:
             self.ClearLayout(self.DataLayout)

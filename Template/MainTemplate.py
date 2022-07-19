@@ -21,8 +21,8 @@ class MainTemplate(BaseTemplate, QMainWindow):
 
         self.CenterWidget = QWidget()  # 设置窗口的中央部件
         self.CenterWidget.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.CenterLayout = QVBoxLayout()  # 设置主佈局
-        self.CenterLayout.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)  # 居中
+        self.CenterLayout = QVBoxLayout()  # 设置主布局
+        self.CenterLayout.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 居中
         self.CenterLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         self.LoginButtonView()
@@ -155,7 +155,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         AccountInput = QLineEdit()  # 账号输入
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
-        AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
+        AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.StudentIDNumber)  # 设置空内容提示
         AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.StudentIDNumber)  # 设置鼠标提示
@@ -192,7 +192,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         AccountInput = QLineEdit()  # 账号输入
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
-        AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
+        AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.AdmissionTicketNumber)  # 设置空内容提示
         AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.AdmissionTicketNumber)  # 设置鼠标提示
@@ -279,7 +279,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         AccountInput = QLineEdit()  # 账号输入
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
-        AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
+        AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.StudentIDNumber)  # 设置空内容提示
         AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.StudentIDNumber)  # 设置鼠标提示
@@ -375,7 +375,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         AccountInput = QLineEdit()  # 账号输入
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
-        AccountInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
+        AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.AdministratorAccount)  # 设置空内容提示
         AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.AdministratorAccount)  # 设置鼠标提示
@@ -384,7 +384,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         PasswordInput = QLineEdit()  # 密码输入
         PasswordInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # PasswordInput.setEnabled(False)  # 不允许编辑
-        PasswordInput.setAlignment(Qt.AlignCenter | Qt.AlignBottom | Qt.AlignHCenter)  # 内容居中
+        PasswordInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         PasswordInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
         PasswordInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         PasswordInput.setToolTip(self.Lang.Password)  # 设置鼠标提示

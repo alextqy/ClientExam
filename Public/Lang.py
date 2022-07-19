@@ -54,6 +54,8 @@ class Lang(BaseService):
             self.ExamLog = 'Exam log'
             self.Exit = 'Exit'
 
+            self.Name = 'Name'
+
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
             self.TeacherLogin = '教师登录'
@@ -96,6 +98,8 @@ class Lang(BaseService):
             self.ExamLog = '考试日志'
             self.Exit = '退出'
 
+            self.Name = '姓名'
+
         else:
             self.ManagerLogin = ''
             self.TeacherLogin = ''
@@ -137,3 +141,5 @@ class Lang(BaseService):
             self.SystemLog = ''
             self.ExamLog = ''
             self.Exit = ''
+
+            self.Name = ''

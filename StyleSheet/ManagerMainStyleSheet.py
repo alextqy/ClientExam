@@ -24,6 +24,15 @@ class ManagerMainStyleSheet(BaseStyleSheet):
         }
         '''
 
+    def DataFrame(self) -> str:
+        return '''
+        QFrame{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            border: 0px;
+        }
+        '''
+
     def Frame(self) -> str:
         return '''
         QFrame{
@@ -40,6 +49,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
             background-color: ''' + self.CommonColor + ''';
             border: 2px solid white;
             font-size: 16px;
+            color: white;
         }
         '''
 

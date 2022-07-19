@@ -36,6 +36,6 @@ Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN�
 #### 环境
 1.  pip install --upgrade pip
 2.  pip install requests
-3.  pip install PySide6
+3.  pip install PySide6==6.2.4
 4.  pip install cx_Freeze
 6.  更新 pip install --upgrade ***
