@@ -53,8 +53,14 @@ class Lang(BaseService):
             self.SystemLog = 'System log'
             self.ExamLog = 'Exam log'
             self.Exit = 'Exit'
+            self.CurrentPage = 'Current page'
+            self.PreviousPage = 'Previous page'
+            self.NextPage = 'Next page'
+            self.EnterPageNumber = 'Enter page number'
+            self.Confirm = 'Confirm'
 
             self.Name = 'Name'
+            self.NewAdministrator = 'New administrator'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -97,8 +103,14 @@ class Lang(BaseService):
             self.SystemLog = '系统日志'
             self.ExamLog = '考试日志'
             self.Exit = '退出'
+            self.CurrentPage = '当前页码'
+            self.PreviousPage = '上一页'
+            self.NextPage = '下一页'
+            self.EnterPageNumber = '输入页码'
+            self.Confirm = '确认'
 
             self.Name = '姓名'
+            self.NewAdministrator = '新建管理员'
 
         else:
             self.ManagerLogin = ''
@@ -141,5 +153,11 @@ class Lang(BaseService):
             self.SystemLog = ''
             self.ExamLog = ''
             self.Exit = ''
+            self.CurrentPage = ''
+            self.PreviousPage = ''
+            self.NextPage = ''
+            self.EnterPageNumber = ''
+            self.Confirm = ''
 
             self.Name = ''
+            self.NewAdministrator = ''

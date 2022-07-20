@@ -48,7 +48,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
             font-family: ''' + self.FontFamily + ''';
             background-color: ''' + self.CommonColor + ''';
             border: 2px solid white;
-            font-size: 16px;
+            font-size: 15px;
             color: white;
         }
         '''
@@ -67,6 +67,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
         QPushButton{
             font-family: ''' + self.FontFamily + ''';
             background-color: #339933;
+            font-size: 15px;
             color: white;
             border: 2px solid white;
             border-radius: 5px;
@@ -88,6 +89,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
         QPushButton{
             font-family: ''' + self.FontFamily + ''';
             background-color: #9933CC;
+            font-size: 15px;
             color: white;
             border: 2px solid white;
             border-radius: 5px;
@@ -109,6 +111,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
         QPushButton{
             font-family: ''' + self.FontFamily + ''';
             background-color: #666666;
+            font-size: 15px;
             color: white;
             border: 2px solid white;
             border-radius: 5px;

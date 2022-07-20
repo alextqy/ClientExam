@@ -22,7 +22,7 @@ class MainStyleSheet(BaseStyleSheet):
             border-radius: 5px;
             background-color: #56d365;
             border-width: 0px;
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             border: 2px solid white;
         }
@@ -45,7 +45,7 @@ class MainStyleSheet(BaseStyleSheet):
             color: black;
             border-radius: 5px;
             background-color: ''' + self.CommonColor + ''';
-            font-size: 16px;
+            font-size: 15px;
             border: 2px solid white;
         }
         '''
@@ -57,7 +57,7 @@ class MainStyleSheet(BaseStyleSheet):
             color: black;
             border-radius: 5px;
             background-color: ''' + self.CommonColor + ''';
-            font-size: 16px;
+            font-size: 15px;
             border: 2px solid white;
         }
         /* 去掉下拉右侧的箭头 */
@@ -67,14 +67,14 @@ class MainStyleSheet(BaseStyleSheet):
         QListView::item:selected{
             color: white;
             background: ''' + self.BackgroundColor + ''';
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             border: 1px solid white;
         }
         QComboBox QAbstractItemView {
             color: black;
             background: ''' + self.CommonColor + ''';
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             border: 1px solid white;
         }

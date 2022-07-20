@@ -74,9 +74,6 @@ class BaseTreeWidget(QTreeWidget):
         # 标题栏宽度均分
         # self.header().setSectionResizeMode(QHeaderView.Stretch)
 
-        # 列宽自适应数据长度
-        # self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-
         # 开启槽函数
         # 必须将ContextMenuPolicy设置为Qt.CustomContextMenu
         # 否则无法使用customContextMenuRequested信号
