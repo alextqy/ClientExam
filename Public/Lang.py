@@ -36,7 +36,7 @@ class Lang(BaseService):
             self.DragAndDrop = 'Drag and drop'
             self.ConnectingQuestion = 'Connecting question'
 
-            self.AdministratorAccount = 'Administrator account'
+            self.ManageristratorAccount = 'Manageristrator account'
             self.Password = 'Password'
             self.Manager = 'Manager'
             self.Teacher = 'Teacher'
@@ -60,10 +60,13 @@ class Lang(BaseService):
             self.Confirm = 'Confirm'
             self.Delete = 'Delete'
             self.Refresh = 'Refresh'
+            self.Normal = 'Normal'
+            self.Disable = 'Disable'
 
             self.Name = 'Name'
-            self.NewAdministrator = 'New manager'
+            self.NewManageristrator = 'New manager'
             self.ManagerDetails = 'Manager details'
+            self.ManagerStatus = 'Manager status'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -89,7 +92,7 @@ class Lang(BaseService):
             self.DragAndDrop = '拖拽题'
             self.ConnectingQuestion = '连线题'
 
-            self.AdministratorAccount = '管理员账号'
+            self.ManageristratorAccount = '管理员账号'
             self.Password = '密码'
             self.Manager = '管理员'
             self.Teacher = '教师'
@@ -113,10 +116,13 @@ class Lang(BaseService):
             self.Confirm = '确认'
             self.Delete = '删除'
             self.Refresh = '刷新'
+            self.Normal = '正常'
+            self.Disable = '禁用'
 
             self.Name = '姓名'
-            self.NewAdministrator = '新建管理员'
+            self.NewManageristrator = '新建管理员'
             self.ManagerDetails = '管理员详情'
+            self.ManagerStatus = '禁用管理员'
 
         else:
             self.ManagerLogin = ''
@@ -142,7 +148,7 @@ class Lang(BaseService):
             self.DragAndDrop = ''
             self.ConnectingQuestion = ''
 
-            self.AdministratorAccount = ''
+            self.ManageristratorAccount = ''
             self.Password = ''
             self.Manager = ''
             self.Teacher = ''
@@ -166,7 +172,10 @@ class Lang(BaseService):
             self.Confirm = ''
             self.Delete = ''
             self.Refresh = ''
+            self.Normal = ''
+            self.Disable = ''
 
             self.Name = ''
-            self.NewAdministrator = ''
+            self.NewManageristrator = ''
             self.ManagerDetails = ''
+            self.ManagerStatus = ''

@@ -61,11 +61,12 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
         return '''
         QPushButton{
             font-family: ''' + self.FontFamily + ''';
-            background-color: #666666;
+            background-color: ''' + self.CommonColor + ''';
             font-size: 15px;
-            color: white;
+            color: black;
             border: 2px solid white;
             border-radius: 5px;
+            outline: none;
         }
         QPushButton:hover {
             color: white;
@@ -112,8 +113,8 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
         }
 
         QMenu::item {
-            color: white;
-            background-color: #666666;
+            color: black;
+            background-color: ''' + self.CommonColor + ''';
             /*设置菜单项文字上下和左右的内边距，效果就是菜单中的条目左右上下有了间隔*/
             padding: 5px 15px;
             /*设置菜单项的外边距*/
@@ -140,5 +141,36 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
         QDialog{
             font-family: ''' + self.FontFamily + ''';
             background-color: ''' + self.CommonColor + ''';
+        }
+        '''
+
+    def SelectBox(self) -> str:
+        return '''
+        QComboBox{
+            font-family: ''' + self.FontFamily + ''';
+            color: black;
+            border-radius: 5px;
+            background-color: ''' + self.CommonColor + ''';
+            font-size: 15px;
+            border: 2px solid white;
+            outline: none;
+        }
+        /* 去掉下拉右侧的箭头 */
+        QComboBox::drop-down {
+            border: 0px;
+        }
+        QListView::item:selected{
+            color: white;
+            background: ''' + self.BackgroundColor + ''';
+            font-size: 15px;
+            outline: none;
+            border: 2px solid white;
+        }
+        QComboBox QAbstractItemView {
+            color: black;
+            background: ''' + self.CommonColor + ''';
+            font-size: 15px;
+            outline: none;
+            border: 2px solid white;
         }
         '''

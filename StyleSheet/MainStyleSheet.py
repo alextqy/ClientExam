@@ -59,6 +59,7 @@ class MainStyleSheet(BaseStyleSheet):
             background-color: ''' + self.CommonColor + ''';
             font-size: 15px;
             border: 2px solid white;
+            outline: none;
         }
         /* 去掉下拉右侧的箭头 */
         QComboBox::drop-down {

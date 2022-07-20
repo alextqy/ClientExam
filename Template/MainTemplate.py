@@ -27,7 +27,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
 
         self.LoginButtonView()
 
-        self.CenterWidget.setLayout(self.CenterLayout)
+        self.CenterWidget.setLayout(self.CenterLayout)  # 添加布局
         self.setCentralWidget(self.CenterWidget)  # 添加中央控件
 
     # 登录按钮
@@ -45,7 +45,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ExamineeLoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         ExamineeLoginButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
         # ExamineeLoginButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(ExamineeLoginButton)  # 加入到布局
+        self.CenterLayout.addWidget(ExamineeLoginButton)  # 添加控件
 
         # 教师登录按钮
         TeacherLoginButton = QPushButton(self.Lang.TeacherLogin)  # 教师登录
@@ -55,7 +55,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         TeacherLoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # TeacherLoginButton.clicked.connect(lambda: self.UploadListWindowObject.show())  # 连接槽函数
         # TeacherLoginButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(TeacherLoginButton)  # 加入到布局
+        self.CenterLayout.addWidget(TeacherLoginButton)  # 添加控件
 
         # 管理员登录按钮
         ManagerLoginButton = QPushButton(self.Lang.ManagerLogin)  # 管理员登录
@@ -65,7 +65,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ManagerLoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         ManagerLoginButton.clicked.connect(lambda: self.ManagerLoginView())  # 连接槽函数
         # ManagerLoginButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(ManagerLoginButton)  # 加入到布局
+        self.CenterLayout.addWidget(ManagerLoginButton)  # 添加控件
 
     # 考生单独登录界面按钮
     def ExamineeLoginButtonView(self):
@@ -82,7 +82,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ExamButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         ExamButton.clicked.connect(lambda: self.ExamLoginButtonView())  # 连接槽函数
         # ExamButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(ExamButton)  # 加入到布局
+        self.CenterLayout.addWidget(ExamButton)  # 添加控件
 
         # 刷题按钮
         PracticeButton = QPushButton(self.Lang.PracticeQuestions)
@@ -92,7 +92,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         PracticeButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         PracticeButton.clicked.connect(lambda: self.PracticeLoginView())  # 连接槽函数
         # PracticeButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(PracticeButton)  # 加入到布局
+        self.CenterLayout.addWidget(PracticeButton)  # 添加控件
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -103,7 +103,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.LoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(BackButton)
+        self.CenterLayout.addWidget(BackButton)  # 添加控件
 
     # 考试 =====================================================================================================================================================================
 
@@ -122,7 +122,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         LoginStudentIDButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         LoginStudentIDButton.clicked.connect(lambda: self.LoginStudentIDView())  # 连接槽函数
         # LoginStudentIDButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(LoginStudentIDButton)  # 加入到布局
+        self.CenterLayout.addWidget(LoginStudentIDButton)  # 添加控件
 
         # 准考证号登录按钮
         LoginWithAdmissionButton = QPushButton(self.Lang.LoginWithAdmission)
@@ -132,7 +132,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         LoginWithAdmissionButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         LoginWithAdmissionButton.clicked.connect(lambda: self.LoginWithAdmissionView())  # 连接槽函数
         # LoginWithAdmissionButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(LoginWithAdmissionButton)  # 加入到布局
+        self.CenterLayout.addWidget(LoginWithAdmissionButton)  # 添加控件
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -143,7 +143,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(BackButton)
+        self.CenterLayout.addWidget(BackButton)  # 添加控件
 
     # 学生证号登录界面
     def LoginStudentIDView(self):
@@ -159,7 +159,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         AccountInput.setPlaceholderText(self.Lang.StudentIDNumber)  # 设置空内容提示
         AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.StudentIDNumber)  # 设置鼠标提示
-        self.CenterLayout.addWidget(AccountInput)
+        self.CenterLayout.addWidget(AccountInput)  # 添加控件
 
         # 登录按钮
         LoginButton = QPushButton(self.Lang.Login)
@@ -169,7 +169,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         LoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         LoginButton.clicked.connect(lambda: self.ExamInfoListView())  # 连接槽函数
         # LoginButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(LoginButton)  # 加入到布局
+        self.CenterLayout.addWidget(LoginButton)  # 添加控件
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -180,7 +180,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.ExamLoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(BackButton)
+        self.CenterLayout.addWidget(BackButton)  # 添加控件
 
     # 准考证号登录界面
     def LoginWithAdmissionView(self):
@@ -206,7 +206,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         LoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # LoginButton.clicked.connect(lambda: self.())  # 连接槽函数
         # LoginButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(LoginButton)  # 加入到布局
+        self.CenterLayout.addWidget(LoginButton)  # 添加控件
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -229,22 +229,22 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ExamInfoSelect = QComboBox()  # 设置下拉框
         ExamInfoSelect.adjustSize()  # 按内容自适应宽度
         ExamInfoSelect.setView(QListView())  # 设置内容控件
-        ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)
-        ExamInfoSelect.setStyleSheet(self.MainStyleSheet.SelectBox())
+        ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        ExamInfoSelect.setStyleSheet(self.MainStyleSheet.SelectBox())  # 设置样式
 
-        ExamInfoSelect.insertItem(0, self.Lang.ChooseExamSubjects)
-        ExamInfoSelect.setItemData(0, self.Lang.ChooseExamSubjects, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(1, '邓小平理论')
-        ExamInfoSelect.setItemData(1, '邓小平理论', Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(2, '马克思主义基本原理')
-        ExamInfoSelect.setItemData(2, '马克思主义基本原理', Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(3, '恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学')
-        ExamInfoSelect.setItemData(3, '恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学', Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(4, '毛主席理论')
-        ExamInfoSelect.setItemData(4, '毛主席理论', Qt.ToolTipRole)
+        ExamInfoSelect.insertItem(0, self.Lang.ChooseExamSubjects)  # 设置下拉内容
+        ExamInfoSelect.setItemData(0, self.Lang.ChooseExamSubjects, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(1, '邓小平理论')  # 设置下拉内容
+        ExamInfoSelect.setItemData(1, '邓小平理论', Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(2, '马克思主义基本原理')  # 设置下拉内容
+        ExamInfoSelect.setItemData(2, '马克思主义基本原理', Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(3, '恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学')  # 设置下拉内容
+        ExamInfoSelect.setItemData(3, '恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学恩格斯经济学', Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(4, '毛主席理论')  # 设置下拉内容
+        ExamInfoSelect.setItemData(4, '毛主席理论', Qt.ToolTipRole)  # 设置下拉内容提示
 
         ExamInfoSelect.setCurrentIndex(0)  # 设置默认选项
-        self.CenterLayout.addWidget(ExamInfoSelect)
+        self.CenterLayout.addWidget(ExamInfoSelect)  # 添加控件
 
         # 登录按钮
         StartButton = QPushButton(self.Lang.Start)
@@ -254,7 +254,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         StartButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # StartButton.clicked.connect(lambda: self.())  # 连接槽函数
         # StartButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(StartButton)  # 加入到布局
+        self.CenterLayout.addWidget(StartButton)  # 添加控件
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -265,7 +265,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.LoginStudentIDView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(BackButton)
+        self.CenterLayout.addWidget(BackButton)  # 添加控件
 
     # 刷题 =====================================================================================================================================================================
 
@@ -283,7 +283,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         AccountInput.setPlaceholderText(self.Lang.StudentIDNumber)  # 设置空内容提示
         AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.StudentIDNumber)  # 设置鼠标提示
-        self.CenterLayout.addWidget(AccountInput)
+        self.CenterLayout.addWidget(AccountInput)  # 添加控件
 
         # 登录按钮
         StartButton = QPushButton(self.Lang.Start)
@@ -293,7 +293,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         StartButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         StartButton.clicked.connect(lambda: self.CheckQuestionTypeView())  # 连接槽函数
         # StartButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(StartButton)  # 加入到布局
+        self.CenterLayout.addWidget(StartButton)  # 添加控件
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -304,7 +304,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.ExamineeLoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(BackButton)
+        self.CenterLayout.addWidget(BackButton)  # 添加控件
 
     # 刷题选择题型
     # 试题类型 1单选 2判断 3多选 4填空 5问答 6编程 7拖拽 8连线
@@ -317,30 +317,30 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ExamInfoSelect = QComboBox()  # 设置下拉框
         ExamInfoSelect.adjustSize()  # 按内容自适应宽度
         ExamInfoSelect.setView(QListView())  # 设置内容控件
-        ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)
-        ExamInfoSelect.setStyleSheet(self.MainStyleSheet.SelectBox())
+        ExamInfoSelect.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        ExamInfoSelect.setStyleSheet(self.MainStyleSheet.SelectBox())  # 设置样式
 
-        ExamInfoSelect.insertItem(0, self.Lang.SelectTestQuestionType)
-        ExamInfoSelect.setItemData(0, self.Lang.SelectTestQuestionType, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(1, self.Lang.MultipleChoiceQuestions)
-        ExamInfoSelect.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(2, self.Lang.TrueOrFalse)
-        ExamInfoSelect.setItemData(2, self.Lang.TrueOrFalse, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(3, self.Lang.MultipleChoices)
-        ExamInfoSelect.setItemData(3, self.Lang.MultipleChoices, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(4, self.Lang.FillInTheBlank)
-        ExamInfoSelect.setItemData(4, self.Lang.FillInTheBlank, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(5, self.Lang.QuestionsAndAnswers)
-        ExamInfoSelect.setItemData(5, self.Lang.QuestionsAndAnswers, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(6, self.Lang.ProgrammingQuestions)
-        ExamInfoSelect.setItemData(6, self.Lang.ProgrammingQuestions, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(7, self.Lang.DragAndDrop)
-        ExamInfoSelect.setItemData(7, self.Lang.DragAndDrop, Qt.ToolTipRole)
-        ExamInfoSelect.insertItem(8, self.Lang.ConnectingQuestion)
-        ExamInfoSelect.setItemData(8, self.Lang.ConnectingQuestion, Qt.ToolTipRole)
+        ExamInfoSelect.insertItem(0, self.Lang.SelectTestQuestionType)  # 设置下拉内容
+        ExamInfoSelect.setItemData(0, self.Lang.SelectTestQuestionType, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(1, self.Lang.MultipleChoiceQuestions)  # 设置下拉内容
+        ExamInfoSelect.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(2, self.Lang.TrueOrFalse)  # 设置下拉内容
+        ExamInfoSelect.setItemData(2, self.Lang.TrueOrFalse, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(3, self.Lang.MultipleChoices)  # 设置下拉内容
+        ExamInfoSelect.setItemData(3, self.Lang.MultipleChoices, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(4, self.Lang.FillInTheBlank)  # 设置下拉内容
+        ExamInfoSelect.setItemData(4, self.Lang.FillInTheBlank, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(5, self.Lang.QuestionsAndAnswers)  # 设置下拉内容
+        ExamInfoSelect.setItemData(5, self.Lang.QuestionsAndAnswers, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(6, self.Lang.ProgrammingQuestions)  # 设置下拉内容
+        ExamInfoSelect.setItemData(6, self.Lang.ProgrammingQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(7, self.Lang.DragAndDrop)  # 设置下拉内容
+        ExamInfoSelect.setItemData(7, self.Lang.DragAndDrop, Qt.ToolTipRole)  # 设置下拉内容提示
+        ExamInfoSelect.insertItem(8, self.Lang.ConnectingQuestion)  # 设置下拉内容
+        ExamInfoSelect.setItemData(8, self.Lang.ConnectingQuestion, Qt.ToolTipRole)  # 设置下拉内容提示
 
         ExamInfoSelect.setCurrentIndex(0)  # 设置默认选项
-        self.CenterLayout.addWidget(ExamInfoSelect)
+        self.CenterLayout.addWidget(ExamInfoSelect)  # 设置样式
 
         # 登录按钮
         StartButton = QPushButton(self.Lang.Start)
@@ -349,8 +349,8 @@ class MainTemplate(BaseTemplate, QMainWindow):
         StartButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         StartButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         # StartButton.clicked.connect(lambda: self.())  # 连接槽函数
-        # StartButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(StartButton)  # 加入到布局
+        # StartButton.setIcon(QIcon(UPLOAD))  # 设置icon
+        self.CenterLayout.addWidget(StartButton)  # 添加控件
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -361,11 +361,11 @@ class MainTemplate(BaseTemplate, QMainWindow):
         BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.PracticeLoginView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(BackButton)
+        self.CenterLayout.addWidget(BackButton)  # 添加控件
 
     # 管理员 =====================================================================================================================================================================
 
-    # 管理员首页
+    # 管理员登录
     def ManagerLoginView(self):
         self.ClearLayout(self.CenterLayout)
         self.CenterLayout.setSpacing(10)  # 设置行间距
@@ -376,10 +376,10 @@ class MainTemplate(BaseTemplate, QMainWindow):
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
         AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        AccountInput.setPlaceholderText(self.Lang.AdministratorAccount)  # 设置空内容提示
+        AccountInput.setPlaceholderText(self.Lang.ManageristratorAccount)  # 设置空内容提示
         AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
-        AccountInput.setToolTip(self.Lang.AdministratorAccount)  # 设置鼠标提示
-        self.CenterLayout.addWidget(AccountInput)
+        AccountInput.setToolTip(self.Lang.ManageristratorAccount)  # 设置鼠标提示
+        self.CenterLayout.addWidget(AccountInput)  # 添加控件
 
         PasswordInput = QLineEdit()  # 密码输入
         PasswordInput.setFixedSize(ButtonWidth, 50)  # 尺寸
@@ -388,7 +388,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         PasswordInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
         PasswordInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         PasswordInput.setToolTip(self.Lang.Password)  # 设置鼠标提示
-        self.CenterLayout.addWidget(PasswordInput)
+        self.CenterLayout.addWidget(PasswordInput)  # 添加控件
 
         # 登录按钮
         LoginButton = QPushButton(self.Lang.Login)
@@ -398,7 +398,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         LoginButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         LoginButton.clicked.connect(lambda: self.ManagerMainView())  # 连接槽函数
         # LoginButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(LoginButton)  # 加入到布局
+        self.CenterLayout.addWidget(LoginButton)  # 添加控件
 
         # 返回按钮
         # self.CenterLayout.addStretch()  # 占位
@@ -409,7 +409,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         BackButton.setStyleSheet(self.MainStyleSheet.Button())  # 设置样式
         BackButton.clicked.connect(lambda: self.LoginButtonView())  # 连接槽函数
         # BackButton.setIcon(QIcon(UPLOAD))
-        self.CenterLayout.addWidget(BackButton)
+        self.CenterLayout.addWidget(BackButton)  # 添加控件
 
     def ShowMain(self):
         self.show()

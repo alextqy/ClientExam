@@ -71,6 +71,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
             color: white;
             border: 2px solid white;
             border-radius: 5px;
+            outline: none;
         }
         QPushButton:hover {
             color: white;
@@ -93,6 +94,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
             color: white;
             border: 2px solid white;
             border-radius: 5px;
+            outline: none;
         }
         QPushButton:hover {
             color: white;
@@ -115,6 +117,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
             color: white;
             border: 2px solid white;
             border-radius: 5px;
+            outline: none;
         }
         QPushButton:hover {
             color: white;

@@ -28,17 +28,17 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ButtonLayout = QHBoxLayout()  # 设置按钮布局
         self.ButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
-        self.NewManagerButton = QPushButton(self.Lang.NewAdministrator)  # 新建管理员按钮
+        self.NewManagerButton = QPushButton(self.Lang.NewManageristrator)  # 新建管理员按钮
         self.NewManagerButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         self.NewManagerButton.setFixedHeight(30)  # 尺寸
         # self.NewManagerButton.clicked.connect(lambda: ())  # 连接槽函数
-        self.ButtonLayout.addWidget(self.NewManagerButton)  # 添加控件 向上居中对齐
+        self.ButtonLayout.addWidget(self.NewManagerButton)  # 添加控件
 
         self.RefreshButton = QPushButton(self.Lang.Refresh)  # 刷新按钮
         self.RefreshButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         self.RefreshButton.setFixedHeight(30)  # 尺寸
         self.RefreshButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
-        self.ButtonLayout.addWidget(self.RefreshButton)  # 添加控件 向上居中对齐
+        self.ButtonLayout.addWidget(self.RefreshButton)  # 添加控件
 
         self.CenterLayout.addLayout(self.ButtonLayout)  # 添加布局
         self.TreeDataInit()  # 主控件写入数据
@@ -53,7 +53,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ManagerTree.SetSelectionMode(2)  # 设置选择模式
         self.ManagerTree.setStyleSheet(self.ManagerFrameStyleSheet.TreeWidget())  # 设置样式
         self.ManagerTree.setColumnCount(3)  # 设置列数
-        self.ManagerTree.setHeaderLabels(["ID", self.Lang.AdministratorAccount, self.Lang.Name])  # 设置标题栏
+        self.ManagerTree.setHeaderLabels(["ID", self.Lang.ManageristratorAccount, self.Lang.Name])  # 设置标题栏
         # self.ManagerTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
         self.ManagerTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.ManagerTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
@@ -107,7 +107,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.PageInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.PageInput.setPlaceholderText(self.Lang.EnterPageNumber)  # 设置空内容提示
         self.PageInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
-        self.PageInput.setToolTip(self.Lang.AdministratorAccount)  # 设置鼠标提示
+        self.PageInput.setToolTip(self.Lang.ManageristratorAccount)  # 设置鼠标提示
         self.PageButtonLayout.addWidget(self.PageInput)  # 添加控件
 
         # 确认按钮
@@ -136,10 +136,41 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
     # 节点数据详情
     def InfoWindow(self, Item: QTreeWidgetItem):
-        self.ManagerDetailsVIew = QDialog()
-        self.ManagerDetailsVIew.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
-        self.ManagerDetailsVIew.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
-        self.ManagerDetailsVIew.show()
+        self.ManagerDetailsView = QDialog()
+        self.ManagerDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.ManagerDetailsView.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
+        self.ManagerDetailsView.setFixedSize(222, 124)  # 尺寸
+
+        VLayout = QVBoxLayout()
+
+        NameInput = QLineEdit()  # 管理员账号输入
+        NameInput.setFixedSize(200, 30)  # 尺寸
+        NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        NameInput.setPlaceholderText(self.Lang.EnterPageNumber)  # 设置空内容提示
+        NameInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
+        NameInput.setToolTip(self.Lang.ManageristratorAccount)  # 设置鼠标提示
+        VLayout.addWidget(NameInput)  # 添加控件
+
+        StateSelect = QComboBox()  # 设置下拉框
+        StateSelect.adjustSize()  # 按内容自适应宽度
+        StateSelect.setView(QListView())  # 设置内容控件
+        StateSelect.setFixedSize(200, 30)  # 尺寸
+        StateSelect.setStyleSheet(self.ManagerFrameStyleSheet.SelectBox())  # 设置样式
+        StateSelect.insertItem(0, self.Lang.ManagerStatus)  # 设置下拉内容
+        StateSelect.insertItem(1, self.Lang.Normal)  # 设置下拉内容
+        StateSelect.insertItem(2, self.Lang.Disable)  # 设置下拉内容
+        StateSelect.setCurrentIndex(0)  # 设置默认选项
+        VLayout.addWidget(StateSelect)
+
+        UpdateButton = QPushButton(self.Lang.NewManageristrator)  # 修改管理员按钮
+        UpdateButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
+        UpdateButton.setFixedHeight(30)  # 尺寸
+        # UpdateButton.clicked.connect(lambda: ())  # 连接槽函数
+        self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
+        VLayout.addWidget(UpdateButton)
+
+        self.ManagerDetailsView.setLayout(VLayout)  # 添加布局
+        self.ManagerDetailsView.show()
 
     # 删除节点数据
     def RemoveAction(self, Item: QTreeWidgetItem):
