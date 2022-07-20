@@ -62,6 +62,8 @@ class Lang(BaseService):
             self.Refresh = 'Refresh'
             self.Normal = 'Normal'
             self.Disable = 'Disable'
+            self.CreationTime = 'Creation time'
+            self.ChangePassword = 'Change Password'
 
             self.Name = 'Name'
             self.NewManageristrator = 'New manager'
@@ -118,11 +120,13 @@ class Lang(BaseService):
             self.Refresh = '刷新'
             self.Normal = '正常'
             self.Disable = '禁用'
+            self.CreationTime = '创建时间'
+            self.ChangePassword = '修改密码'
 
             self.Name = '姓名'
             self.NewManageristrator = '新建管理员'
             self.ManagerDetails = '管理员详情'
-            self.ManagerStatus = '禁用管理员'
+            self.ManagerStatus = '管理员状态'
 
         else:
             self.ManagerLogin = ''
@@ -174,6 +178,8 @@ class Lang(BaseService):
             self.Refresh = ''
             self.Normal = ''
             self.Disable = ''
+            self.CreationTime = ''
+            self.ChangePassword = ''
 
             self.Name = ''
             self.NewManageristrator = ''
