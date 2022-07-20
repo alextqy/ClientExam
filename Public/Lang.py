@@ -59,6 +59,7 @@ class Lang(BaseService):
             self.EnterPageNumber = 'Enter page number'
             self.Confirm = 'Confirm'
             self.Delete = 'Delete'
+            self.Refresh = 'Refresh'
 
             self.Name = 'Name'
             self.NewAdministrator = 'New manager'
@@ -111,6 +112,7 @@ class Lang(BaseService):
             self.EnterPageNumber = '输入页码'
             self.Confirm = '确认'
             self.Delete = '删除'
+            self.Refresh = '刷新'
 
             self.Name = '姓名'
             self.NewAdministrator = '新建管理员'
@@ -163,6 +165,7 @@ class Lang(BaseService):
             self.EnterPageNumber = ''
             self.Confirm = ''
             self.Delete = ''
+            self.Refresh = ''
 
             self.Name = ''
             self.NewAdministrator = ''

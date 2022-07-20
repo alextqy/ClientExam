@@ -134,3 +134,11 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
             border-width: 0px;
         }
         '''
+
+    def Dialog(self) -> str:
+        return '''
+        QDialog{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+        }
+        '''

@@ -32,12 +32,16 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.NewManagerButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         self.NewManagerButton.setFixedHeight(30)  # 尺寸
         # self.NewManagerButton.clicked.connect(lambda: ())  # 连接槽函数
-
         self.ButtonLayout.addWidget(self.NewManagerButton)  # 添加控件 向上居中对齐
+
+        self.RefreshButton = QPushButton(self.Lang.Refresh)  # 刷新按钮
+        self.RefreshButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
+        self.RefreshButton.setFixedHeight(30)  # 尺寸
+        self.RefreshButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
+        self.ButtonLayout.addWidget(self.RefreshButton)  # 添加控件 向上居中对齐
+
         self.CenterLayout.addLayout(self.ButtonLayout)  # 添加布局
-
         self.TreeDataInit()  # 主控件写入数据
-
         self.setLayout(self.CenterLayout)  # 添加布局
 
     # 管理员列表
@@ -70,6 +74,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
             TreeItems.append(item)  # 添加到item list
         self.ManagerTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
+        # 设置按钮布局
         self.PageButtonLayout = QHBoxLayout()
         self.TreeLayout.addLayout(self.PageButtonLayout)
 
@@ -131,7 +136,10 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
     # 节点数据详情
     def InfoWindow(self, Item: QTreeWidgetItem):
-        pass
+        self.ManagerDetailsVIew = QDialog()
+        self.ManagerDetailsVIew.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.ManagerDetailsVIew.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
+        self.ManagerDetailsVIew.show()
 
     # 删除节点数据
     def RemoveAction(self, Item: QTreeWidgetItem):
