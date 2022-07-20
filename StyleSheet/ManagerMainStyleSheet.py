@@ -57,7 +57,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
         return '''
         QLabel{
             font-family: ''' + self.FontFamily + ''';
-            background-color: ''' + self.BackgroundColor + ''';
+            background-color: ''' + self.CommonColor + ''';
             border: 0px;
         }
         '''
