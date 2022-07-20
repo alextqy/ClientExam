@@ -69,13 +69,13 @@ class MainStyleSheet(BaseStyleSheet):
             background: ''' + self.BackgroundColor + ''';
             font-size: 15px;
             outline: none;
-            border: 1px solid white;
+            border: 2px solid white;
         }
         QComboBox QAbstractItemView {
             color: black;
             background: ''' + self.CommonColor + ''';
             font-size: 15px;
             outline: none;
-            border: 1px solid white;
+            border: 2px solid white;
         }
         '''

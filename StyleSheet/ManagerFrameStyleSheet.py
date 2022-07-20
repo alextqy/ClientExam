@@ -101,3 +101,36 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
             border: 2px solid white;
         }
         '''
+
+    def TreeMenu(self) -> str:
+        return '''
+        QMenu {
+            font-family: ''' + self.FontFamily + ''';
+            background-color: #e2e4db;
+            padding: 0px;
+            border: 2px solid white;
+        }
+
+        QMenu::item {
+            color: white;
+            background-color: #666666;
+            /*设置菜单项文字上下和左右的内边距，效果就是菜单中的条目左右上下有了间隔*/
+            padding: 5px 15px;
+            /*设置菜单项的外边距*/
+            /* margin: 1px 0px; */
+            /* width: 100px; */
+            border-width: 0px;
+        }
+
+        QMenu::item:selected {
+            background-color: #3399CC;
+            color: white;
+            border-width: 0px;
+        }
+
+        QMenu::item:pressed {
+            background-color: #3399CC;
+            color: black;
+            border-width: 0px;
+        }
+        '''

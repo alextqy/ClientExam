@@ -52,6 +52,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ManagerTree.setHeaderLabels(["ID", self.Lang.AdministratorAccount, self.Lang.Name])  # 设置标题栏
         # self.ManagerTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
         self.ManagerTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
+        self.ManagerTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
         self.TreeLayout.addWidget(self.ManagerTree)  # 添加控件
 
         TreeItems = []
@@ -67,11 +68,12 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
             item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
             item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
             TreeItems.append(item)  # 添加到item list
-        self.ManagerTree.insertTopLevelItems(0, TreeItems)  # 添加到用户列表
+        self.ManagerTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
         self.PageButtonLayout = QHBoxLayout()
         self.TreeLayout.addLayout(self.PageButtonLayout)
 
+        # 当前页码
         self.CurrentPage = QLabel(self.Lang.CurrentPage + " 1")
         self.CurrentPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.CurrentPage.adjustSize()  # 根据内容自适应宽度
@@ -109,3 +111,28 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ConfirmButton.setFixedSize(120, 30)  # 尺寸
         # self.ConfirmButton.clicked.connect(lambda: ())  # 连接槽函数
         self.PageButtonLayout.addWidget(self.ConfirmButton)  # 添加控件
+
+    # 列表节点右键菜单
+    def RightContextMenuExec(self, pos):
+        self.TreeMenu = BaseMenu()
+        self.TreeMenu.setStyleSheet(self.ManagerFrameStyleSheet.TreeMenu())  # 设置样式
+        Item = self.ManagerTree.currentItem()  # 获取被点击行控件
+        ItemAt = self.ManagerTree.itemAt(pos)  # 获取点击焦点
+
+        # 展示判断
+        if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
+            self.TreeMenu.AddAction(self.Lang.ManagerDetails, lambda: self.InfoWindow(Item))
+            self.TreeMenu.AddAction(self.Lang.Delete, lambda: self.RemoveAction(Item))
+        else:  # 焦点外
+            return
+
+        self.TreeMenu.move(QCursor().pos())  # 移动到焦点
+        self.TreeMenu.show()  # 展示
+
+    # 节点数据详情
+    def InfoWindow(self, Item: QTreeWidgetItem):
+        pass
+
+    # 删除节点数据
+    def RemoveAction(self, Item: QTreeWidgetItem):
+        pass

@@ -123,3 +123,13 @@ class BaseTreeWidget(QTreeWidget):
 
     def HideVScroll(self):  # 隐藏纵向滚动条
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+
+# 基础菜单控件
+class BaseMenu(QMenu):
+
+    def __init__(self):
+        super().__init__()
+
+    def AddAction(self, Title: str, Func: any):
+        self.addAction(Title).triggered.connect(Func)

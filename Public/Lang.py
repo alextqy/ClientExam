@@ -58,9 +58,11 @@ class Lang(BaseService):
             self.NextPage = 'Next page'
             self.EnterPageNumber = 'Enter page number'
             self.Confirm = 'Confirm'
+            self.Delete = 'Delete'
 
             self.Name = 'Name'
-            self.NewAdministrator = 'New administrator'
+            self.NewAdministrator = 'New manager'
+            self.ManagerDetails = 'Manager details'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -108,9 +110,11 @@ class Lang(BaseService):
             self.NextPage = '下一页'
             self.EnterPageNumber = '输入页码'
             self.Confirm = '确认'
+            self.Delete = '删除'
 
             self.Name = '姓名'
             self.NewAdministrator = '新建管理员'
+            self.ManagerDetails = '管理员详情'
 
         else:
             self.ManagerLogin = ''
@@ -158,6 +162,8 @@ class Lang(BaseService):
             self.NextPage = ''
             self.EnterPageNumber = ''
             self.Confirm = ''
+            self.Delete = ''
 
             self.Name = ''
             self.NewAdministrator = ''
+            self.ManagerDetails = ''
