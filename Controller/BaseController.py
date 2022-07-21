@@ -28,23 +28,23 @@ class BaseController():
         7 Headers     浏览器header信息
     '''
 
-    def Post(self, Param={}, Func="", URL="", Token="", TokenType="", Files=None, Headers=None):
-        if Func == "":
+    def Post(self, Param={}, Func='', URL='', Token='', TokenType='', Files=None, Headers=None):
+        if Func == '':
             return False
-        if self.Cache.Get("URL") != "":
-            URL = self.Cache.Get("URL")
-        Token = self.Cache.Get("Token")
-        TokenType = self.Cache.Get("TokenType")
+        if self.Cache.Get('URL') != '':
+            URL = self.Cache.Get('URL')
+        Token = self.Cache.Get('Token')
+        TokenType = self.Cache.Get('TokenType')
         BaseData = {
-            "Token": Token,
-            "TokenType": TokenType,
+            'Token': Token,
+            'TokenType': TokenType,
         }
         PostData = {**BaseData, **Param}  # 数据合并
         try:
             JsonResult = post(URL + Func, PostData, files=Files, headers=Headers, verify=self.SwitchHttps)  # 返回json数据
             return loads(JsonResult.text)
         except OSError as e:
-            return {"State": False, "Memo": "error"}
+            return {'State': False, 'Memo': 'error'}
 
-    def Get(self, URL="", **args):
+    def Get(self, URL='', **args):
         return get(URL, **args)

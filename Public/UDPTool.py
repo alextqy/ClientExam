@@ -5,7 +5,7 @@ from Public.Common import *
 
 class UDPTool(BaseService):
 
-    def __init__(self, PORT=5002, BUFSIZE=64, SendInfoStr='bitbox', TimeoutSet=15):
+    def __init__(self, PORT=5002, BUFSIZE=64, SendInfoStr='BIT EXAM', TimeoutSet=15):
         super().__init__()
         HOST = '192.168.' + \
             str(Common().Explode('.', Common().LocalIP())[2]) + '.255'

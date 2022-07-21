@@ -53,7 +53,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ManagerTree.SetSelectionMode(2)  # 设置选择模式
         self.ManagerTree.setStyleSheet(self.ManagerFrameStyleSheet.TreeWidget())  # 设置样式
         self.ManagerTree.setColumnCount(4)  # 设置列数
-        self.ManagerTree.setHeaderLabels(["ID", self.Lang.ManageristratorAccount, self.Lang.Name, self.Lang.ManagerStatus, self.Lang.CreationTime])  # 设置标题栏
+        self.ManagerTree.setHeaderLabels(['ID', self.Lang.ManageristratorAccount, self.Lang.Name, self.Lang.ManagerStatus, self.Lang.CreationTime])  # 设置标题栏
         # self.ManagerTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
         self.ManagerTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.ManagerTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
@@ -64,7 +64,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         for i in range(3):
             j += 1
             item = QTreeWidgetItem()  # 设置item控件
-            # item.setIcon(0, QtGui.QIcon(os.getcwd() + "/avatar.png"))
+            # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
             item.setText(0, str(j))  # 设置内容
             item.setText(1, 'root')  # 设置内容
             item.setText(2, '超级管理员')  # 设置内容
@@ -82,7 +82,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.TreeLayout.addLayout(self.PageButtonLayout)
 
         # 当前页码
-        self.CurrentPage = QLabel(self.Lang.CurrentPage + " 1")
+        self.CurrentPage = QLabel(self.Lang.CurrentPage + ' 1')
         self.CurrentPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.CurrentPage.adjustSize()  # 根据内容自适应宽度
         self.CurrentPage.setFixedSize(200, 30)  # 尺寸
