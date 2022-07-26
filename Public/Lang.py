@@ -1,16 +1,15 @@
 # -*- coding:utf-8 -*-
 from Public.BaseService import *
-from Public.Common import *
+from Public.Cache import *
 
-_common = Common()
-ConfigObj: dict = _common.ReadJsonFile(path[0] + '/config.json')
+_cache = Cache()
 
 
 class Lang(BaseService):
 
     def __init__(self):
         super().__init__()
-        self.Type = str.lower(ConfigObj['Lang'])
+        self.Type = str.lower(_cache.Get('Lang'))
 
         if self.Type == 'en':
             self.ManagerLogin = 'manager login'

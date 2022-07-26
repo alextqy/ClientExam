@@ -5,6 +5,30 @@ from Public.FileHelper import *
 from Public.Lang import *
 from Public.UDPTool import *
 
+from Controller.ClassController import *
+from Controller.ExamineeController import *
+from Controller.ExamineeTokenController import *
+from Controller.ExamInfoController import *
+from Controller.ExamInfoHistoryController import *
+from Controller.ExamLogController import *
+from Controller.HeadlineController import *
+from Controller.KnowledgeController import *
+from Controller.ManagerController import *
+from Controller.PaperController import *
+from Controller.PaperRuleController import *
+from Controller.PracticeController import *
+from Controller.QuestionController import *
+from Controller.QuestionSolutionController import *
+from Controller.ScantronController import *
+from Controller.ScantronHistoryController import *
+from Controller.ScantronSolutionController import *
+from Controller.ScantronSolutionHistoryController import *
+from Controller.SubjectController import *
+from Controller.SysConfController import *
+from Controller.SysLogController import *
+from Controller.TeacherClassController import *
+from Controller.TeacherController import *
+
 TITLE = 'BIT EXAM'
 ICON = ''
 
@@ -19,6 +43,30 @@ class BaseTemplate():
         self.FileHelper = FileHelper()
         self.Lang = Lang()
         self.UDPTool = UDPTool()
+
+        self.ClassController = ClassController()
+        self.ExamineeController = ExamineeController()
+        self.ExamineeTokenController = ExamineeTokenController()
+        self.ExamInfoController = ExamInfoController()
+        self.ExamInfoHistoryController = ExamInfoHistoryController()
+        self.ExamLogController = ExamLogController()
+        self.HeadlineController = HeadlineController()
+        self.KnowledgeController = KnowledgeController()
+        self.ManagerController = ManagerController()
+        self.PaperController = PaperController()
+        self.PaperRuleController = PaperRuleController()
+        self.PracticeController = PracticeController()
+        self.QuestionController = QuestionController()
+        self.QuestionSolutionController = QuestionSolutionController()
+        self.ScantronController = ScantronController()
+        self.ScantronHistoryController = ScantronHistoryController()
+        self.ScantronSolutionController = ScantronSolutionController()
+        self.ScantronSolutionHistoryController = ScantronSolutionHistoryController()
+        self.SubjectController = SubjectController()
+        self.SysConfController = SysConfController()
+        self.SysLogController = SysLogController()
+        self.TeacherClassController = TeacherClassController()
+        self.TeacherController = TeacherController()
 
         self.SW, self.SH = Tk().maxsize()  # 获取显示器宽高
 

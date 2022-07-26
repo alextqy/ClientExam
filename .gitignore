@@ -2,7 +2,6 @@ desktop.ini
 /.vs
 /.vscode
 /.cache.json
-/config.json
 /__pycache__
 
 Controller/__pycache__

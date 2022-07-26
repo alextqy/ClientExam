@@ -1,14 +1,22 @@
 # -*- coding:utf-8 -*-
 from Public.BaseService import *
 from Public.Common import *
+from Public.Cache import *
+
+_common = Common()
+
+_cache = Cache()
 
 
 class UDPTool(BaseService):
 
-    def __init__(self, PORT=5002, BUFSIZE=64, SendInfoStr='BIT EXAM', TimeoutSet=15):
+    def __init__(self, PORT=_cache.Get('UDPPort'), BUFSIZE=64, SendInfoStr='BIT EXAM', TimeoutSet=15):
         super().__init__()
+        self.IP = Common().LocalIP()
+
         HOST = '192.168.' + \
-            str(Common().Explode('.', Common().LocalIP())[2]) + '.255'
+            str(Common().Explode('.', self.IP)[2]) + '.255'
+
         self.PORT = PORT
         self.BUFSIZE = BUFSIZE
         self.SendInfoStr = SendInfoStr
@@ -16,23 +24,28 @@ class UDPTool(BaseService):
         self.UDPClient = socket(AF_INET, SOCK_DGRAM)
         self.UDPClient.settimeout(TimeoutSet)
 
-    # 发送广播
+    # 发送广播(等待返回)
     def Send(self):
-        self.UDPClient.sendto(self.SendInfoStr.encode('utf8'), self.ADDR)
+        self.UDPClient.sendto(self.SendInfoStr.encode('utf8'), (self.IP, self.PORT))
         self.SendInfoStr, self.ADDR = self.UDPClient.recvfrom(self.BUFSIZE)
         InformationReceived = self.SendInfoStr.decode('utf8')
         self.UDPClient.close()
         return InformationReceived
 
-    # 发送广播(备选方案)
+    # 发送广播(不等待返回)
     def UDPBroadcast(self):
         self.UDPClient.setsockopt(SOL_SOCKET, SO_BROADCAST, True)
         while True:  # 发送广播
             sleep(1)
             try:
-                self.UDPClient.sendto(self.SendInfoStr.encode('utf8'), self.ADDR)
+                self.UDPClient.sendto((self.IP + ":" + self.PORT).encode('utf8'), (self.IP, int(self.PORT)))
             except OSError as e:
                 print(e)
+
+    # 单次发送广播
+    def SendBroadcast(self):
+        self.UDPClient.setsockopt(SOL_SOCKET, SO_BROADCAST, True)
+        self.UDPClient.sendto((self.IP + ":" + self.PORT).encode('utf8'), (self.IP, int(self.PORT)))
 
     # 接收广播
     def Receive(self, HostName, UDPPort):

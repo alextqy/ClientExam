@@ -182,14 +182,19 @@ class Common(BaseService):
         return ParamStr.count(TargetStr)
 
     # 获取本机IP
+    # def LocalIP(self) -> str:
+    #     try:
+    #         s = socket(AF_INET, SOCK_DGRAM)
+    #         s.connect(('8.8.8.8', 80))
+    #         ip = s.getsockname()[0]
+    #     finally:
+    #         s.close()
+    #     return ip
+
     def LocalIP(self) -> str:
-        try:
-            s = socket(AF_INET, SOCK_DGRAM)
-            s.connect(('8.8.8.8', 80))
-            ip = s.getsockname()[0]
-        finally:
-            s.close()
-        return ip
+        import requests
+        CallbackInfo = requests.get('https://www.baidu.com', stream=True)
+        return CallbackInfo.raw._connection.sock.getsockname()[0]
 
     # 图片转Base64
     def IMGToBase64(self, FilePath: str) -> str:
