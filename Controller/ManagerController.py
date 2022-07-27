@@ -52,7 +52,7 @@ class ManagerController(BaseController):
         Result = self.Post(Param, '/Update/Manager/Info')
         return Result
 
-    def ManagerList(self, Page: int, PageSize: int, Stext: str, State: int, Permission: int):
+    def ManagerList(self, Page: int, PageSize: int, Stext: str, State: int, Permission: int = 0):
         Param = {
             'Page': Page,
             'PageSize': PageSize,

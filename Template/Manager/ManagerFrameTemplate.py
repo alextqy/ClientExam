@@ -25,6 +25,102 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.TreeLayout = QVBoxLayout()  # 设置列表布局
         self.CenterLayout.addLayout(self.TreeLayout)  # 添加布局
 
+        # =====================================================================================================================================================================
+
+        # 页码按钮布局
+        self.PageButtonLayout = QHBoxLayout()  # 设置按钮布局
+        self.PageButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
+
+        # 当前页码
+        self.CurrentPage = QLabel(self.Lang.CurrentPage + ' 1')
+        self.CurrentPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
+        self.CurrentPage.adjustSize()  # 根据内容自适应宽度
+        self.CurrentPage.setFixedSize(120, 30)  # 尺寸
+        self.CurrentPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
+        self.CurrentPage.setStyleSheet(self.ManagerFrameStyleSheet.CurrentPage())  # 设置样式
+        self.PageButtonLayout.addWidget(self.CurrentPage)  # 添加控件
+
+        # 总页码数
+        self.TotalPage = QLabel(self.Lang.TotalPages + ' ')
+        self.TotalPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
+        self.TotalPage.adjustSize()  # 根据内容自适应宽度
+        self.TotalPage.setFixedSize(120, 30)  # 尺寸
+        self.TotalPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
+        self.TotalPage.setStyleSheet(self.ManagerFrameStyleSheet.CurrentPage())  # 设置样式
+        self.PageButtonLayout.addWidget(self.TotalPage)  # 添加控件
+
+        # 输入页码
+        self.PageInput = QLineEdit()
+        self.PageInput.setFixedSize(170, 30)  # 尺寸
+        self.PageInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        self.PageInput.setPlaceholderText(self.Lang.EnterPageNumber)  # 设置空内容提示
+        self.PageInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
+        self.PageInput.setToolTip(self.Lang.EnterPageNumber)  # 设置鼠标提示
+        self.PageButtonLayout.addWidget(self.PageInput)  # 添加控件
+
+        # 每一页展示行数
+        self.RowsInput = QLineEdit()
+        self.RowsInput.setFixedSize(170, 30)  # 尺寸
+        self.RowsInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        self.RowsInput.setPlaceholderText(self.Lang.EnterTheNumberOfLines)  # 设置空内容提示
+        self.RowsInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
+        self.RowsInput.setToolTip(self.Lang.EnterTheNumberOfLines)  # 设置鼠标提示
+        self.PageButtonLayout.addWidget(self.RowsInput)  # 添加控件
+
+        # 搜索
+        self.SearchInput = QLineEdit()
+        self.SearchInput.setFixedSize(170, 30)  # 尺寸
+        self.SearchInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        self.SearchInput.setPlaceholderText(self.Lang.Search)  # 设置空内容提示
+        self.SearchInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
+        self.SearchInput.setToolTip(self.Lang.Search)  # 设置鼠标提示
+        self.PageButtonLayout.addWidget(self.SearchInput)  # 添加控件
+
+        # 状态
+        self.StateSelect = QComboBox()  # 设置下拉框
+        self.StateSelect.adjustSize()  # 按内容自适应宽度
+        self.StateSelect.setView(QListView())  # 设置内容控件
+        self.StateSelect.setFixedHeight(30)  # 尺寸
+        self.StateSelect.setMinimumWidth(110)  # 尺寸
+        self.StateSelect.setStyleSheet(self.ManagerFrameStyleSheet.SelectBox())  # 设置样式
+        self.StateSelect.insertItem(0, ' ' + self.Lang.ManagerStatus)  # 设置下拉内容
+        self.StateSelect.setItemData(0, self.Lang.ManagerStatus, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.StateSelect.insertItem(1, self.Lang.Normal)  # 设置下拉内容
+        self.StateSelect.setItemData(1, self.Lang.Normal, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.StateSelect.insertItem(2, self.Lang.Disabled)  # 设置下拉内容
+        self.StateSelect.setItemData(2, self.Lang.Disabled, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.StateSelect.setCurrentIndex(0)  # 设置默认选项
+        self.PageButtonLayout.addWidget(self.StateSelect)  # 添加控件
+
+        # 确认按钮
+        self.ConfirmButton = QPushButton(self.Lang.Confirm)
+        self.ConfirmButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
+        self.ConfirmButton.setFixedHeight(30)  # 尺寸
+        self.ConfirmButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
+        self.PageButtonLayout.addWidget(self.ConfirmButton)  # 添加控件
+
+        # =====================================================================================================================================================================
+
+        # 页码按钮布局
+        self.PNButtonLayout = QHBoxLayout()  # 设置按钮布局
+        self.PNButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
+
+        # 上一页
+        self.PreviousPageButton = QPushButton(self.Lang.PreviousPage)
+        self.PreviousPageButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
+        self.PreviousPageButton.setFixedHeight(30)  # 尺寸
+        # self.PreviousPageButton.clicked.connect(lambda: ())  # 连接槽函数
+        self.PNButtonLayout.addWidget(self.PreviousPageButton)  # 添加控件
+
+        # 下一页
+        self.NextPageButton = QPushButton(self.Lang.NextPage)
+        self.NextPageButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
+        self.NextPageButton.setFixedHeight(30)  # 尺寸
+        # self.NextPageButton.clicked.connect(lambda: ())  # 连接槽函数
+        self.PNButtonLayout.addWidget(self.NextPageButton)  # 添加控件
+
+        # =====================================================================================================================================================================
+
         self.ButtonLayout = QHBoxLayout()  # 设置按钮布局
         self.ButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
@@ -40,85 +136,60 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.RefreshButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
         self.ButtonLayout.addWidget(self.RefreshButton)  # 添加控件
 
+        self.CenterLayout.addLayout(self.PageButtonLayout)  # 添加布局
+        self.CenterLayout.addLayout(self.PNButtonLayout)  # 添加布局
         self.CenterLayout.addLayout(self.ButtonLayout)  # 添加布局
-        self.TreeDataInit()  # 主控件写入数据
         self.setLayout(self.CenterLayout)  # 添加布局
+
+        # =====================================================================================================================================================================
+
+        self.TreeDataInit()  # 主控件写入数据
 
     # 列表
     def TreeDataInit(self):
         self.ClearLayout(self.TreeLayout)
 
-        # 树状列表
-        self.ManagerTree = BaseTreeWidget()
-        self.ManagerTree.SetSelectionMode(2)  # 设置选择模式
-        self.ManagerTree.setStyleSheet(self.ManagerFrameStyleSheet.TreeWidget())  # 设置样式
-        self.ManagerTree.setColumnCount(4)  # 设置列数
-        self.ManagerTree.setHeaderLabels(['ID', self.Lang.ManageristratorAccount, self.Lang.Name, self.Lang.ManagerStatus, self.Lang.CreationTime])  # 设置标题栏
-        # self.ManagerTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
-        self.ManagerTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.ManagerTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
-        self.TreeLayout.addWidget(self.ManagerTree)  # 添加控件
+        # 获取列表数据
+        Page = 0 if self.PageInput.text() == '' else int(self.PageInput.text())
+        PageSize = 0 if self.RowsInput.text() == '' else int(self.RowsInput.text())
+        Stext = self.SearchInput.text()
+        State = self.StateSelect.currentIndex()
+        Result = ManagerController().ManagerList(Page, PageSize, Stext, State)
+        if Result['State'] != True:
+            MSGBOX().ERROR(Result['Memo'])
+        else:
+            Data = Result['Data']
 
-        TreeItems = []
-        j = 0
-        for i in range(3):
-            j += 1
-            item = QTreeWidgetItem()  # 设置item控件
-            # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
-            item.setText(0, str(j))  # 设置内容
-            item.setText(1, 'root')  # 设置内容
-            item.setText(2, '超级管理员')  # 设置内容
-            item.setText(3, '启用')  # 设置内容
-            item.setText(4, '2077-12-02')  # 设置内容
-            item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-            item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-            item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-            item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-            TreeItems.append(item)  # 添加到item list
-        self.ManagerTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+            # 树状列表
+            self.ManagerTree = BaseTreeWidget()
+            self.ManagerTree.SetSelectionMode(2)  # 设置选择模式
+            self.ManagerTree.setStyleSheet(self.ManagerFrameStyleSheet.TreeWidget())  # 设置样式
+            self.ManagerTree.setColumnCount(4)  # 设置列数
+            self.ManagerTree.setHeaderLabels(['ID', self.Lang.ManageristratorAccount, self.Lang.Name, self.Lang.ManagerStatus, self.Lang.CreationTime])  # 设置标题栏
+            # self.ManagerTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
+            self.ManagerTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
+            self.ManagerTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
+            self.TreeLayout.addWidget(self.ManagerTree)  # 添加控件
 
-        # 设置按钮布局
-        self.PageButtonLayout = QHBoxLayout()
-        self.TreeLayout.addLayout(self.PageButtonLayout)
-
-        # 当前页码
-        self.CurrentPage = QLabel(self.Lang.CurrentPage + ' 1')
-        self.CurrentPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
-        self.CurrentPage.adjustSize()  # 根据内容自适应宽度
-        self.CurrentPage.setFixedSize(200, 30)  # 尺寸
-        self.CurrentPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.CurrentPage.setStyleSheet(self.ManagerFrameStyleSheet.CurrentPage())  # 设置样式
-        self.PageButtonLayout.addWidget(self.CurrentPage)  # 添加控件
-
-        # 上一页
-        self.PreviousPageButton = QPushButton(self.Lang.PreviousPage)
-        self.PreviousPageButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
-        self.PreviousPageButton.setFixedHeight(30)  # 尺寸
-        # self.PreviousPageButton.clicked.connect(lambda: ())  # 连接槽函数
-        self.PageButtonLayout.addWidget(self.PreviousPageButton)  # 添加控件
-
-        # 下一页
-        self.NextPageButton = QPushButton(self.Lang.NextPage)
-        self.NextPageButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
-        self.NextPageButton.setFixedHeight(30)  # 尺寸
-        # self.NextPageButton.clicked.connect(lambda: ())  # 连接槽函数
-        self.PageButtonLayout.addWidget(self.NextPageButton)  # 添加控件
-
-        # 输入页码
-        self.PageInput = QLineEdit()
-        self.PageInput.setFixedSize(200, 30)  # 尺寸
-        self.PageInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        self.PageInput.setPlaceholderText(self.Lang.EnterPageNumber)  # 设置空内容提示
-        self.PageInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
-        self.PageInput.setToolTip(self.Lang.ManageristratorAccount)  # 设置鼠标提示
-        self.PageButtonLayout.addWidget(self.PageInput)  # 添加控件
-
-        # 确认按钮
-        self.ConfirmButton = QPushButton(self.Lang.Confirm)
-        self.ConfirmButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
-        self.ConfirmButton.setFixedSize(120, 30)  # 尺寸
-        # self.ConfirmButton.clicked.connect(lambda: ())  # 连接槽函数
-        self.PageButtonLayout.addWidget(self.ConfirmButton)  # 添加控件
+            TreeItems = []
+            for i in range(len(Data)):
+                item = QTreeWidgetItem()  # 设置item控件
+                # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
+                item.setText(0, str(Data[i]['ID']))  # 设置内容
+                item.setText(1, Data[i]['Account'])  # 设置内容
+                item.setText(2, Data[i]['Name'])  # 设置内容
+                if Data[i]['State'] == 1:
+                    item.setText(3, self.Lang.Normal)  # 设置内容
+                else:
+                    item.setText(3, self.Lang.Disabled)  # 设置内容
+                item.setText(4, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
+                item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                TreeItems.append(item)  # 添加到item list
+            self.ManagerTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
     # 列表节点右键菜单
     def RightContextMenuExec(self, pos):

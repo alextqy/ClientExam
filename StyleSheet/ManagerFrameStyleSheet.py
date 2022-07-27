@@ -103,6 +103,37 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
         }
         '''
 
+    def SelectBox(self) -> str:
+        return '''
+        QComboBox{
+            font-family: ''' + self.FontFamily + ''';
+            color: black;
+            border-radius: 5px;
+            background-color: ''' + self.CommonColor + ''';
+            font-size: 15px;
+            border: 2px solid white;
+            outline: none;
+        }
+        /* 去掉下拉右侧的箭头 */
+        QComboBox::drop-down {
+            border: 0px;
+        }
+        QListView::item:selected{
+            color: white;
+            background: ''' + self.BackgroundColor + ''';
+            font-size: 15px;
+            outline: none;
+            border: 2px solid white;
+        }
+        QComboBox QAbstractItemView {
+            color: black;
+            background: ''' + self.CommonColor + ''';
+            font-size: 15px;
+            outline: none;
+            border: 2px solid white;
+        }
+        '''
+
     def TreeMenu(self) -> str:
         return '''
         QMenu {

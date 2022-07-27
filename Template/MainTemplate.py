@@ -411,6 +411,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         AccountInput.setPlaceholderText(self.Lang.ManageristratorAccount)  # 设置空内容提示
         AccountInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
         AccountInput.setToolTip(self.Lang.ManageristratorAccount)  # 设置鼠标提示
+        AccountInput.setText(self.Cache.Get('Account'))  # 设置内容
         self.CenterLayout.addWidget(AccountInput)  # 添加控件
 
         PasswordInput = QLineEdit()  # 密码输入
@@ -448,11 +449,12 @@ class MainTemplate(BaseTemplate, QMainWindow):
     # 管理员主界面
     def ManagerMainView(self, Account: str, Password: str):
         if Account != '' and Password != '':
-            managerController = ManagerController()
-            Result = managerController.ManagerSignIn(Account, Password)
+            Result = ManagerController().ManagerSignIn(Account, Password)
             if Result['State'] != True:
                 MSGBOX().ERROR(Result['Memo'])
             else:
+                self.Cache.Set('Account', Account)
+                self.Cache.Set('Token', Result['Data'])
                 self.hide()
                 self.managerMainTemplate = ManagerMainTemplate()
                 self.managerMainTemplate.show()
