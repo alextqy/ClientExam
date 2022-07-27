@@ -186,3 +186,151 @@ class BaseMenu(QMenu):
 
     def AddAction(self, Title: str, Func: any):
         self.addAction(Title).triggered.connect(Func)
+
+
+# 自定义问询窗口
+class MSGBOX(QMessageBox):
+
+    def __init__(self):
+        super().__init__()
+        self.Cache = Cache()  # 设置缓存
+        self.Title = ''
+        if self.Cache.Get('Title') != '':
+            self.Title = self.Cache.Get('Title')  # 设置标题
+        self.setWindowIcon(QIcon(ICON))  # 设置ICON
+        self.setMinimumWidth(230)
+
+    def ERROR(self, Content: str):
+        self.setStyleSheet('''
+        QDialog {
+            font-family: Microsoft Yahei;
+            background-color: #e2e4db;
+        }
+        QPushButton {
+            font-family: Microsoft Yahei;
+            color: white;
+            border-radius: 5px;
+            background-color: #ef5f5d;
+            height: 25px;
+            width: 50px;
+        }
+        QPushButton:hover {
+            color: black;
+            background-color: #ef5f5d;
+        }
+        QPushButton:pressed {
+            color: black;
+            background-color: #ef5f5d;
+            padding-left: 3px;
+            padding-top: 3px;
+        }
+        ''')
+        return self.critical(self, self.Title, Content)
+
+    def WARNING(self, Content: str):
+        self.setStyleSheet('''
+        QDialog {
+            font-family: Microsoft Yahei;
+            background-color: #e2e4db;
+        }
+        QPushButton {
+            font-family: Microsoft Yahei;
+            color: white;
+            border-radius: 5px;
+            background-color: #f6ca0d;
+            height: 25px;
+            width: 50px;
+        }
+        QPushButton:hover {
+            color: black;
+            background-color: #f6ca0d;
+        }
+        QPushButton:pressed {
+            color: black;
+            background-color: #f6ca0d;
+            padding-left: 3px;
+            padding-top: 3px;
+        }
+        ''')
+        return self.warning(self, self.Title, Content)
+
+    def COMPLETE(self, Content: str):
+        self.setStyleSheet('''
+        QDialog {
+            font-family: Microsoft Yahei;
+            background-color: #e2e4db;
+        }
+        QPushButton {
+            font-family: Microsoft Yahei;
+            color: white;
+            border-radius: 5px;
+            background-color: #9eca75;
+            height: 25px;
+            width: 50px;
+        }
+        QPushButton:hover {
+            color: black;
+            background-color: #9eca75;
+        }
+        QPushButton:pressed {
+            color: black;
+            background-color: #9eca75;
+            padding-left: 3px;
+            padding-top: 3px;
+        }
+        ''')
+        return self.about(self, self.Title, Content)
+
+    def CUE(self, Content: str):
+        self.setStyleSheet('''
+        QDialog {
+            font-family: Microsoft Yahei;
+            background-color: #e2e4db;
+        }
+        QPushButton {
+            font-family: Microsoft Yahei;
+            color: white;
+            border-radius: 5px;
+            background-color: #3f83ab;
+            height: 25px;
+            width: 50px;
+        }
+        QPushButton:hover {
+            color: black;
+            background-color: #2787cc;
+        }
+        QPushButton:pressed {
+            color: black;
+            background-color: #faffbd;
+            padding-left: 3px;
+            padding-top: 3px;
+        }
+        ''')
+        return self.information(self, self.Title, Content)
+
+    def ASK(self, Content: str):
+        self.setStyleSheet('''
+        QDialog {
+            font-family: Microsoft Yahei;
+            background-color: #e2e4db;
+        }
+        QPushButton {
+            font-family: Microsoft Yahei;
+            color: white;
+            border-radius: 5px;
+            background-color: #3f83ab;
+            height: 25px;
+            width: 50px;
+        }
+        QPushButton:hover {
+            color: black;
+            background-color: #2787cc;
+        }
+        QPushButton:pressed {
+            color: black;
+            background-color: #faffbd;
+            padding-left: 3px;
+            padding-top: 3px;
+        }
+        ''')
+        return self.question(self, self.Title, Content)

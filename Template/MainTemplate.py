@@ -4,7 +4,6 @@ from Template.Manager.ManagerMainTemplate import *
 from StyleSheet.MainStyleSheet import *
 
 
-# 登录状态监控
 class ReceiveBroadcastWorker(BaseWorker):
 
     def __init__(self):
@@ -39,7 +38,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         self.setWindowIcon(QIcon(ICON))  # 设置ICON
         # self.setWindowFlags(Qt.FramelessWindowHint)  # 隐藏窗口标题栏
         # self.setWindowFlags(Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)  # 显示 最小化 最大化 关闭 按钮
-        self.setWindowFlags(Qt.WindowStaysOnTopHint)  # 窗口置顶
+        # self.setWindowFlags(Qt.WindowStaysOnTopHint)  # 窗口置顶
         self.setFixedSize(500, 300)  # 设置窗口最最小值
         SelfSize = self.geometry()  # 获取本窗口大小
         self.move(int((self.SW - SelfSize.width()) / 2), int((self.SH - SelfSize.height()) / 2))  # 居中显示
@@ -451,7 +450,9 @@ class MainTemplate(BaseTemplate, QMainWindow):
         if Account != '' and Password != '':
             managerController = ManagerController()
             Result = managerController.ManagerSignIn(Account, Password)
-            print(Result)
-        # self.hide()
-        # self.managerMainTemplate = ManagerMainTemplate()
-        # self.managerMainTemplate.show()
+            if Result['State'] != True:
+                MSGBOX().ERROR(Result['Memo'])
+            else:
+                self.hide()
+                self.managerMainTemplate = ManagerMainTemplate()
+                self.managerMainTemplate.show()
