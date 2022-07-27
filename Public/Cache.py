@@ -9,17 +9,17 @@ class Cache(BaseService):
         self.configData = OrderedDict()
         if Path == '':
             self.configData = {
-                "Account": "",
-                "Debug": False,
-                "Lang": "zh-cn",
-                "SwitchHttps": False,
-                "Sync": False,
-                "SynchronizationCycle": 3,
-                "Title": "BIT EXAM",
-                "Token": "",
-                "TokenType": "",
-                "UDPPort": 6001,
-                "URL": "",
+                'Account': '',
+                'Debug': False,
+                'Lang': 'zh-cn',
+                'SwitchHttps': False,
+                'Sync': False,
+                'SynchronizationCycle': 3,
+                'Title': 'BIT EXAM',
+                'Token': '',
+                'TokenType': '',
+                'UDPPort': 6001,
+                'URL': '',
             }
 
         selectFile = isfile(self.jsonFile)

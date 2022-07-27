@@ -23,8 +23,8 @@ class QuestionSolutionController(BaseController):
         Param = {
             'ID': ID,
         }
-        FileEntityByte = {"Attachment": open(FileEntityPath.strip(), "rb").read()}
-        Result = self.Post(Param, "/Question/Solution/Attachment", "", "", "", FileEntityByte)
+        FileEntityByte = {'Attachment': open(FileEntityPath.strip(), 'rb').read()}
+        Result = self.Post(Param, '/Question/Solution/Attachment', '', '', '', FileEntityByte)
         return Result
 
     def QuestionSolutionDelete(self, ID: int):

@@ -41,7 +41,7 @@ class BaseController():
         }
         PostData = {**BaseData, **Param}  # 数据合并
         try:
-            JsonResult = post(URL + Func, PostData, files=Files, headers=Headers, verify=self.SwitchHttps)  # 返回json数据
+            JsonResult = post(URL + Func, PostData, files=Files, headers=Headers, verify=self.Cache.Get('SwitchHttps'))  # 返回json数据
             return loads(JsonResult.text)
         except OSError as e:
             return {'State': False, 'Memo': 'error'}

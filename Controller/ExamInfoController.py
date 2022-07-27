@@ -71,6 +71,6 @@ class ExamInfoController(BaseController):
         return Result
 
     def ImportExamInfo(self, FileEntityPath: str):
-        FileEntityByte = {"ExcelFile": open(FileEntityPath.strip(), "rb").read()}
-        Result = self.Post({}, "/Import/Exam/Info", "", "", "", FileEntityByte)
+        FileEntityByte = {'ExcelFile': open(FileEntityPath.strip(), 'rb').read()}
+        Result = self.Post({}, '/Import/Exam/Info', '', '', '', FileEntityByte)
         return Result

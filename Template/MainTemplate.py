@@ -4,10 +4,35 @@ from Template.Manager.ManagerMainTemplate import *
 from StyleSheet.MainStyleSheet import *
 
 
+# 登录状态监控
+class ReceiveBroadcastWorker(BaseWorker):
+
+    def __init__(self):
+        super().__init__()
+        self.Cache = Cache()
+        self.UDPTool = UDPTool()
+
+    def Run(self):
+        while True:
+            sleep(1)
+            if self.Cache.Get('URL') == '':
+                # try:
+                UDPReceived = self.UDPTool.UDPReceive(self.Cache.Get('UDPPort'))  # 获取UDP信息
+                if UDPReceived != '':
+                    self.Cache.Set('URL', 'http://' + UDPReceived)
+                # except OSError as e:
+                #     print(e)
+            else:
+                continue
+
+
 class MainTemplate(BaseTemplate, QMainWindow):
 
     def __init__(self, Title=TITLE):
         super().__init__()
+        self.ReceiveBroadcastThread = QThread()
+        self.ReceiveBroadcastAction()
+
         self.MainStyleSheet = MainStyleSheet()
         self.setStyleSheet(self.MainStyleSheet.BaseStyleSheet())
         self.setWindowTitle(Title)  # 窗口标题
@@ -29,6 +54,14 @@ class MainTemplate(BaseTemplate, QMainWindow):
 
         self.CenterWidget.setLayout(self.CenterLayout)  # 添加布局
         self.setCentralWidget(self.CenterWidget)  # 添加中央控件
+
+    # 广播监听
+    def ReceiveBroadcastAction(self):
+        self.ReceiveBroadcastWorker = ReceiveBroadcastWorker()
+        # self.ReceiveBroadcastWorker.FinishSignal.connect(self.KillThread(self.ReceiveBroadcastThread))
+        self.ReceiveBroadcastWorker.moveToThread(self.ReceiveBroadcastThread)
+        self.ReceiveBroadcastThread.started.connect(self.ReceiveBroadcastWorker.Run)
+        self.ReceiveBroadcastThread.start()
 
     # 登录按钮
     def LoginButtonView(self):
@@ -384,6 +417,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         PasswordInput = QLineEdit()  # 密码输入
         PasswordInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # PasswordInput.setEnabled(False)  # 不允许编辑
+        PasswordInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
         PasswordInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         PasswordInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
         PasswordInput.setStyleSheet(self.MainStyleSheet.InputBox())  # 设置样式
@@ -414,9 +448,10 @@ class MainTemplate(BaseTemplate, QMainWindow):
 
     # 管理员主界面
     def ManagerMainView(self, Account: str, Password: str):
-        # if Account != '' and Password != '':
-        #     Result = self.ManagerController.ManagerSignIn(Account, Password)
-        #     print(Result)
-        self.hide()
-        self.managerMainTemplate = ManagerMainTemplate()
-        self.managerMainTemplate.show()
+        if Account != '' and Password != '':
+            managerController = ManagerController()
+            Result = managerController.ManagerSignIn(Account, Password)
+            print(Result)
+        # self.hide()
+        # self.managerMainTemplate = ManagerMainTemplate()
+        # self.managerMainTemplate.show()

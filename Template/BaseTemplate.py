@@ -99,6 +99,11 @@ class BaseTemplate():
     #             Item.widget().deleteLater()
     #         Layout.removeItem(Item)
 
+    # 退出线程
+    def KillThread(self, ThreadObject):
+        ThreadObject.quit()
+        ThreadObject.wait()
+
     # 退出系统
     def SysExit(self) -> None:
         os._exit(0)

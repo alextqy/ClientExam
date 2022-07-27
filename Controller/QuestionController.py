@@ -23,15 +23,15 @@ class QuestionController(BaseController):
         Param = {
             'ID': ID,
         }
-        FileEntityByte = {"Attachment": open(FileEntityPath.strip(), "rb").read()}
-        Result = self.Post(Param, "/Question/Attachment", "", "", "", FileEntityByte)
+        FileEntityByte = {'Attachment': open(FileEntityPath.strip(), 'rb').read()}
+        Result = self.Post(Param, '/Question/Attachment', '', '', '', FileEntityByte)
         return Result
 
     def QuestionDisabled(self, ID: int):
         Param = {
             'ID': ID,
         }
-        Result = self.Post(Param, "/Question/Disabled")
+        Result = self.Post(Param, '/Question/Disabled')
         return Result
 
     def UpdateQuestionInfo(self, ID: int, QuestionTitle: str, QuestionType: int, Description: str, Language: str, LanguageVersion: str):
@@ -43,7 +43,7 @@ class QuestionController(BaseController):
             'Language': Language.strip(),
             'LanguageVersion': LanguageVersion.strip(),
         }
-        Result = self.Post(Param, "/Update/Question/Info")
+        Result = self.Post(Param, '/Update/Question/Info')
         return Result
 
     def QuestionList(self, Page: int, PageSize: int, Stext: str, QuestionType: int, QuestionState: int, KnowledgeID: int):
@@ -55,12 +55,12 @@ class QuestionController(BaseController):
             'QuestionState': QuestionState,
             'KnowledgeID': KnowledgeID,
         }
-        Result = self.Post(Param, "/Question/List")
+        Result = self.Post(Param, '/Question/List')
         return Result
 
     def QuestionInfo(self, ID: int):
         Param = {
             'ID': ID,
         }
-        Result = self.Post(Param, "/Question/Info")
+        Result = self.Post(Param, '/Question/Info')
         return Result
