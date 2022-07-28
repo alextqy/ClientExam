@@ -26,13 +26,15 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.CenterLayout.addLayout(self.TreeLayout)  # 添加布局
 
         # =====================================================================================================================================================================
+        self.CurrentPageNo = 1
+        self.TotalPageNo = 0
 
         # 页码按钮布局
         self.PageButtonLayout = QHBoxLayout()  # 设置按钮布局
         self.PageButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 当前页码
-        self.CurrentPage = QLabel(self.Lang.CurrentPage + ' 1')
+        self.CurrentPage = QLabel(self.Lang.CurrentPage + ' ' + str(self.CurrentPageNo))
         self.CurrentPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.CurrentPage.adjustSize()  # 根据内容自适应宽度
         self.CurrentPage.setFixedSize(120, 30)  # 尺寸
@@ -41,7 +43,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.PageButtonLayout.addWidget(self.CurrentPage)  # 添加控件
 
         # 总页码数
-        self.TotalPage = QLabel(self.Lang.TotalPages + ' ')
+        self.TotalPage = QLabel(self.Lang.TotalPages + ' ' + str(self.TotalPageNo))
         self.TotalPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.TotalPage.adjustSize()  # 根据内容自适应宽度
         self.TotalPage.setFixedSize(120, 30)  # 尺寸
@@ -51,6 +53,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
         # 输入页码
         self.PageInput = QLineEdit()
+        self.PageInput.setValidator(self.QIntValidator)  # 输入为整数类型
         self.PageInput.setFixedSize(170, 30)  # 尺寸
         self.PageInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.PageInput.setPlaceholderText(self.Lang.EnterPageNumber)  # 设置空内容提示
@@ -60,6 +63,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
         # 每一页展示行数
         self.RowsInput = QLineEdit()
+        self.RowsInput.setValidator(self.QIntValidator)  # 输入为整数类型
         self.RowsInput.setFixedSize(170, 30)  # 尺寸
         self.RowsInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.RowsInput.setPlaceholderText(self.Lang.EnterTheNumberOfLines)  # 设置空内容提示
@@ -109,14 +113,14 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.PreviousPageButton = QPushButton(self.Lang.PreviousPage)
         self.PreviousPageButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         self.PreviousPageButton.setFixedHeight(30)  # 尺寸
-        # self.PreviousPageButton.clicked.connect(lambda: ())  # 连接槽函数
+        self.PreviousPageButton.clicked.connect(lambda: self.SetPreviousPage())  # 连接槽函数
         self.PNButtonLayout.addWidget(self.PreviousPageButton)  # 添加控件
 
         # 下一页
         self.NextPageButton = QPushButton(self.Lang.NextPage)
         self.NextPageButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         self.NextPageButton.setFixedHeight(30)  # 尺寸
-        # self.NextPageButton.clicked.connect(lambda: ())  # 连接槽函数
+        self.NextPageButton.clicked.connect(lambda: self.SetNextPage())  # 连接槽函数
         self.PNButtonLayout.addWidget(self.NextPageButton)  # 添加控件
 
         # =====================================================================================================================================================================
@@ -150,11 +154,20 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ClearLayout(self.TreeLayout)
 
         # 获取列表数据
-        Page = 0 if self.PageInput.text() == '' else int(self.PageInput.text())
+        if self.PageInput.text() != '':
+            if int(self.PageInput.text()) >= self.TotalPageNo:
+                Page = self.TotalPageNo
+            else:
+                Page = int(self.PageInput.text())
+        else:
+            Page = self.CurrentPageNo
         PageSize = 0 if self.RowsInput.text() == '' else int(self.RowsInput.text())
         Stext = self.SearchInput.text()
         State = self.StateSelect.currentIndex()
         Result = ManagerController().ManagerList(Page, PageSize, Stext, State)
+        self.TotalPageNo = Result['TotalPage']
+        self.TotalPage.setText(self.Lang.TotalPages + ' ' + str(self.TotalPageNo))
+
         if Result['State'] != True:
             MSGBOX().ERROR(Result['Memo'])
         else:
@@ -190,6 +203,24 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
                 item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 TreeItems.append(item)  # 添加到item list
             self.ManagerTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+
+    # 设置上一页
+    def SetPreviousPage(self):
+        if self.CurrentPageNo == 1:
+            self.CurrentPageNo = 1
+        else:
+            self.CurrentPageNo -= 1
+        self.CurrentPage.setText(self.Lang.CurrentPage + ' ' + str(self.CurrentPageNo))
+        self.TreeDataInit()
+
+    # 设置下一页
+    def SetNextPage(self):
+        if self.CurrentPageNo >= self.TotalPageNo:
+            self.CurrentPageNo = self.TotalPageNo
+        else:
+            self.CurrentPageNo += 1
+        self.CurrentPage.setText(self.Lang.CurrentPage + ' ' + str(self.CurrentPageNo))
+        self.TreeDataInit()
 
     # 列表节点右键菜单
     def RightContextMenuExec(self, pos):

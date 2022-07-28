@@ -70,6 +70,9 @@ class BaseTemplate():
 
         self.SW, self.SH = Tk().maxsize()  # 获取显示器宽高
 
+        self.QIntValidator = QIntValidator()  # QLineEdit 输入限制为整数
+        self.QDoubleValidator = QDoubleValidator()  # QLineEdit 输入限制为浮点数
+
     # 获取控件坐标
     def CheckWidgetPos(self, WidgetObject) -> list:
         PosList = []
