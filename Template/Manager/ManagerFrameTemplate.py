@@ -179,8 +179,10 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
             self.ManagerTree = BaseTreeWidget()
             self.ManagerTree.SetSelectionMode(2)  # 设置选择模式
             self.ManagerTree.setStyleSheet(self.ManagerFrameStyleSheet.TreeWidget())  # 设置样式
-            self.ManagerTree.setColumnCount(4)  # 设置列数
-            self.ManagerTree.setHeaderLabels(['ID', self.Lang.ManageristratorAccount, self.Lang.Name, self.Lang.ManagerStatus, self.Lang.CreationTime])  # 设置标题栏
+            self.ManagerTree.setColumnCount(7)  # 设置列数
+            self.ManagerTree.hideColumn(5)  # 隐藏列
+            self.ManagerTree.hideColumn(6)  # 隐藏列
+            self.ManagerTree.setHeaderLabels(['ID', self.Lang.ManageristratorAccount, self.Lang.Name, self.Lang.ManagerStatus, self.Lang.CreationTime, 'UpdateTime', 'Permission'])  # 设置标题栏
             # self.ManagerTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
             self.ManagerTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
             self.ManagerTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
@@ -198,11 +200,15 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
                 else:
                     item.setText(3, self.Lang.Disabled)  # 设置内容
                 item.setText(4, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
+                item.setText(5, str(Data[i]['UpdateTime']))  # 设置内容
+                item.setText(6, str(Data[i]['Permission']))  # 设置内容
                 item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(6, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 TreeItems.append(item)  # 添加到item list
             self.ManagerTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
@@ -243,11 +249,16 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.TreeMenu.show()  # 展示
 
     # 节点数据详情
-    def InfoWindow(self, Item: QTreeWidgetItem):
+    def InfoWindow(self, Item):
+        ID: int = int(Item.text(0))
+        Name: str = Item.text(2)
+        UpdateTime: int = Item.text(5)
+        Permission: int = Item.text(6)
+
         self.ManagerDetailsView = QDialog()
         self.ManagerDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.ManagerDetailsView.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
-        self.ManagerDetailsView.setFixedSize(222, 88)  # 尺寸
+        self.ManagerDetailsView.setFixedSize(222, 124)  # 尺寸
 
         VLayout = QVBoxLayout()
 
@@ -257,20 +268,41 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
         NameInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
+        NameInput.setText(Name)  # 设置内容
         VLayout.addWidget(NameInput)  # 添加控件
+
+        UpdateTimeInput = QLineEdit()
+        UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))
+        UpdateTimeInput.setFixedSize(200, 30)  # 尺寸
+        UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
+        UpdateTimeInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
+        UpdateTimeInput.setToolTip(self.Lang.UpdateTime)  # 设置鼠标提示
+        UpdateTimeInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(UpdateTimeInput)  # 添加控件
 
         UpdateButton = QPushButton(self.Lang.Confirm)  # 修改管理员按钮
         UpdateButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
-        # UpdateButton.clicked.connect(lambda: ())  # 连接槽函数
+        UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, Permission, NameInput.text(), Name))  # 连接槽函数
         self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
         VLayout.addWidget(UpdateButton)
 
         self.ManagerDetailsView.setLayout(VLayout)  # 添加布局
         self.ManagerDetailsView.show()
 
+    # 更新管理员信息
+    def InfoWindowAction(self, ID: int, Permission: int, Name: str, OldName: str):
+        if Name != OldName:
+            Result = ManagerController().UpdateManagerInfo(Name, Permission, ID)
+            if Result['State'] != True:
+                MSGBOX.ERROR(Result['Memo'])
+            else:
+                self.ManagerDetailsView.close()
+                self.TreeDataInit()
+
     # 修改密码
-    def ChangePasswordWindow(self, Item: QTreeWidgetItem):
+    def ChangePasswordWindow(self, Item):
         self.ManagerPassworView = QDialog()
         self.ManagerPassworView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.ManagerPassworView.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
@@ -297,7 +329,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ManagerPassworView.show()
 
     # 删除节点数据
-    def DisableAction(self, Item: QTreeWidgetItem):
+    def DisableAction(self, Item):
         self.TreeDataInit()
 
     # 新建节点
@@ -343,6 +375,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.NewManagerView.setLayout(VLayout)  # 添加布局
         self.NewManagerView.show()
 
+    # 新建管理员
     def NewManagerAction(self, Account: str, Password: str, Name: str):
         if Account != '' and Password != '' and Name != '':
             Result = ManagerController().NewManager(Account, Password, Name)

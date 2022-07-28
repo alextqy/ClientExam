@@ -66,6 +66,7 @@ class Lang(BaseService):
             self.Disable = 'Disable'
             self.Disabled = 'Disabled'
             self.CreationTime = 'Creation time'
+            self.UpdateTime = 'Update time'
             self.ChangePassword = 'Change Password'
 
             self.Name = 'Name'
@@ -128,6 +129,7 @@ class Lang(BaseService):
             self.Disable = '禁用'
             self.Disabled = '已禁用'
             self.CreationTime = '创建时间'
+            self.UpdateTime = '更新时间'
             self.ChangePassword = '修改密码'
 
             self.Name = '姓名'
@@ -190,6 +192,7 @@ class Lang(BaseService):
             self.Disable = ''
             self.Disabled = ''
             self.CreationTime = ''
+            self.UpdateTime = ''
             self.ChangePassword = ''
 
             self.Name = ''
