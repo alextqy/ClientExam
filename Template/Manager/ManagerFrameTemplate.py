@@ -303,6 +303,8 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
     # 修改密码
     def ChangePasswordWindow(self, Item):
+        ID: int = int(Item.text(0))
+
         self.ManagerPassworView = QDialog()
         self.ManagerPassworView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.ManagerPassworView.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
@@ -316,17 +318,27 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         PWDInput.setPlaceholderText(self.Lang.ChangePassword)  # 设置空内容提示
         PWDInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
         PWDInput.setToolTip(self.Lang.ChangePassword)  # 设置鼠标提示
+        PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
         VLayout.addWidget(PWDInput)  # 添加控件
 
         UpdateButton = QPushButton(self.Lang.Confirm)  # 修改管理员按钮
         UpdateButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
-        # UpdateButton.clicked.connect(lambda: ())  # 连接槽函数
+        UpdateButton.clicked.connect(lambda: self.ChangePasswordAction(ID, PWDInput.text()))  # 连接槽函数
         self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
         VLayout.addWidget(UpdateButton)
 
         self.ManagerPassworView.setLayout(VLayout)  # 添加布局
         self.ManagerPassworView.show()
+
+    # 修改密码
+    def ChangePasswordAction(self, ID: int, Password: str):
+        if ID > 0 and Password != '':
+            Result = ManagerController().ManagerChangePassword(Password, ID)
+            if Result['State'] != True:
+                MSGBOX().ERROR(Result['Memo'])
+            else:
+                self.ManagerPassworView.close()
 
     # 删除节点数据
     def DisableAction(self, Item):
@@ -363,6 +375,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         PWDInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
         PWDInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
         PWDInput.setToolTip(self.Lang.Password)  # 设置鼠标提示
+        PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
         VLayout.addWidget(PWDInput)  # 添加控件
 
         UpdateButton = QPushButton(self.Lang.Confirm)  # 修改管理员按钮
