@@ -128,13 +128,15 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ButtonLayout = QHBoxLayout()  # 设置按钮布局
         self.ButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
-        self.NewManagerButton = QPushButton(self.Lang.NewManageristrator)  # 新建管理员按钮
+        # 新建管理员
+        self.NewManagerButton = QPushButton(self.Lang.NewManageristrator)
         self.NewManagerButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         self.NewManagerButton.setFixedHeight(30)  # 尺寸
         self.NewManagerButton.clicked.connect(lambda: self.NewManagerWindow())  # 连接槽函数
         self.ButtonLayout.addWidget(self.NewManagerButton)  # 添加控件
 
-        self.RefreshButton = QPushButton(self.Lang.Refresh)  # 刷新按钮
+        # 刷新
+        self.RefreshButton = QPushButton(self.Lang.Refresh)
         self.RefreshButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         self.RefreshButton.setFixedHeight(30)  # 尺寸
         self.RefreshButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
@@ -334,9 +336,18 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         UpdateButton = QPushButton(self.Lang.Confirm)  # 修改管理员按钮
         UpdateButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
-        # UpdateButton.clicked.connect(lambda: ())  # 连接槽函数
+        UpdateButton.clicked.connect(lambda: self.NewManagerAction(AccountInput.text(), NameInput.text(), PWDInput.text()))  # 连接槽函数
         self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
         VLayout.addWidget(UpdateButton)
 
         self.NewManagerView.setLayout(VLayout)  # 添加布局
         self.NewManagerView.show()
+
+    def NewManagerAction(self, Account: str, Password: str, Name: str):
+        if Account != '' and Password != '' and Name != '':
+            Result = ManagerController().NewManager(Account, Password, Name)
+            if Result['State'] != True:
+                MSGBOX().ERROR(Result['Memo'])
+            else:
+                self.NewManagerView.close()  # 关闭窗口
+                self.TreeDataInit()  # 主控件写入数据
