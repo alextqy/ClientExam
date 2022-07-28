@@ -342,7 +342,12 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
     # 删除节点数据
     def DisableAction(self, Item):
-        self.TreeDataInit()
+        ID: int = int(Item.text(0))
+        Result = ManagerController().ManagerDisabled(ID)
+        if Result['State'] != True:
+            MSGBOX().ERROR(Result['Memo'])
+        else:
+            self.TreeDataInit()
 
     # 新建节点
     def NewManagerWindow(self):
