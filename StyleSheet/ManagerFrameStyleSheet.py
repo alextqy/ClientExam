@@ -70,11 +70,11 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
         }
         QPushButton:hover {
             color: white;
-            background-color: #3399CC;
+            background-color: #b2b5ba;
         }
         QPushButton:pressed {
             color: black;
-            background-color: #3399CC;
+            background-color: #b2b5ba;
             padding-left: 3px;
             padding-top: 3px;
         }
@@ -155,13 +155,13 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
         }
 
         QMenu::item:selected {
-            background-color: #3399CC;
+            background-color: #b2b5ba;
             color: white;
             border-width: 0px;
         }
 
         QMenu::item:pressed {
-            background-color: #3399CC;
+            background-color: #b2b5ba;
             color: black;
             border-width: 0px;
         }
