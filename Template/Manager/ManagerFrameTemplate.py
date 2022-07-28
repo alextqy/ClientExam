@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
 from StyleSheet.ManagerFrameStyleSheet import *
 

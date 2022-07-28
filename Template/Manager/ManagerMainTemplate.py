@@ -2,6 +2,7 @@
 from Template.BaseTemplate import *
 from StyleSheet.ManagerMainStyleSheet import *
 from Template.Manager.ManagerFrameTemplate import *
+from Template.Manager.TeacherFrameTemplate import *
 
 
 class ManagerMainTemplate(BaseTemplate, QDialog):
@@ -117,6 +118,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.TeacherButton = QPushButton(self.Lang.Teacher)
         self.TeacherButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton1())  # 设置样式
         self.TeacherButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.TeacherButton.clicked.connect(lambda: self.TemplateView('TeacherFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.TeacherButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # 班级
@@ -212,5 +214,8 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         if TemplateName == 'ManagerFrameTemplate':
             self.ManagerFrameTemplate = ManagerFrameTemplate()
             self.DataLayout.addWidget(self.ManagerFrameTemplate)
+        elif TemplateName == 'TeacherFrameTemplate':
+            self.TeacherFrameTemplate = TeacherFrameTemplate()
+            self.DataLayout.addWidget(self.TeacherFrameTemplate)
         else:
             self.ClearLayout(self.DataLayout)
