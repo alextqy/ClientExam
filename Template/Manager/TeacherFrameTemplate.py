@@ -9,6 +9,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
     def __init__(self):
         super().__init__()
         self.TeacherFrameStyleSheet = TeacherFrameStyleSheet()
+        self.TeacherController = TeacherController()
         self.setStyleSheet(self.TeacherFrameStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
@@ -167,12 +168,12 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         PageSize = 0 if self.RowsInput.text() == '' else int(self.RowsInput.text())
         Stext = self.SearchInput.text()
         State = self.StateSelect.currentIndex()
-        Result = TeacherController().TeacherList(Page, PageSize, Stext, State)
+        Result = self.TeacherController.TeacherList(Page, PageSize, Stext, State)
         self.TotalPageNo = Result['TotalPage']
         self.TotalPage.setText(self.Lang.TotalPages + ' ' + str(self.TotalPageNo))
 
         if Result['State'] != True:
-            MSGBOX().ERROR(Result['Memo'])
+            self.MSGBOX.ERROR(Result['Memo'])
         else:
             Data = Result['Data']
 
@@ -298,7 +299,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
 
     # 更新信息
     def InfoWindowAction(self, ID: int, Password: str, Name: str):
-        Result = TeacherController().UpdateTeacherInfo(Password, Name, ID)
+        Result = self.TeacherController.UpdateTeacherInfo(Password, Name, ID)
         if Result['State'] != True:
             MSGBOX.ERROR(Result['Memo'])
         else:
@@ -308,9 +309,9 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
     # 删除节点数据
     def DisableAction(self):
         # ID: int = int(Item.text(0))
-        # Result = TeacherController().TeacherDisabled(ID)
+        # Result = self.TeacherController.TeacherDisabled(ID)
         # if Result['State'] != True:
-        #     MSGBOX().ERROR(Result['Memo'])
+        #     self.MSGBOX.ERROR(Result['Memo'])
         # else:
         #     self.TreeDataInit()
 
@@ -318,9 +319,9 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         for i in range(len(Teachers)):
             Item = Teachers[i]
             ID: int = int(Item.text(0))
-            Result = TeacherController().TeacherDisabled(ID)
+            Result = self.TeacherController.TeacherDisabled(ID)
             if Result['State'] != True:
-                MSGBOX().ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
                 break
             else:
                 self.TreeDataInit()
@@ -372,9 +373,9 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
     # 新建
     def NewTeacherAction(self, Account: str, Password: str, Name: str):
         if Account != '' and Password != '' and Name != '':
-            Result = TeacherController().NewTeacher(Account, Password, Name)
+            Result = self.TeacherController.NewTeacher(Account, Password, Name)
             if Result['State'] != True:
-                MSGBOX().ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.NewTeacherView.close()  # 关闭窗口
                 self.TreeDataInit()  # 主控件写入数据

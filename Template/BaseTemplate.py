@@ -43,6 +43,7 @@ class BaseTemplate():
         self.FileHelper = FileHelper()
         self.Lang = Lang()
         self.UDPTool = UDPTool()
+        self.MSGBOX = MSGBOX()
 
         # self.ClassController = ClassController()
         # self.ExamineeController = ExamineeController()

@@ -9,6 +9,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
     def __init__(self):
         super().__init__()
         self.ManagerFrameStyleSheet = ManagerFrameStyleSheet()
+        self.ManagerController = ManagerController()
         self.setStyleSheet(self.ManagerFrameStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
@@ -167,12 +168,12 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         PageSize = 0 if self.RowsInput.text() == '' else int(self.RowsInput.text())
         Stext = self.SearchInput.text()
         State = self.StateSelect.currentIndex()
-        Result = ManagerController().ManagerList(Page, PageSize, Stext, State)
+        Result = self.ManagerController.ManagerList(Page, PageSize, Stext, State)
         self.TotalPageNo = Result['TotalPage']
         self.TotalPage.setText(self.Lang.TotalPages + ' ' + str(self.TotalPageNo))
 
         if Result['State'] != True:
-            MSGBOX().ERROR(Result['Memo'])
+            self.MSGBOX.ERROR(Result['Memo'])
         else:
             Data = Result['Data']
 
@@ -295,7 +296,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
     # 更新信息
     def InfoWindowAction(self, ID: int, Permission: int, Name: str, OldName: str):
         if Name != OldName:
-            Result = ManagerController().UpdateManagerInfo(Name, Permission, ID)
+            Result = self.ManagerController.UpdateManagerInfo(Name, Permission, ID)
             if Result['State'] != True:
                 MSGBOX.ERROR(Result['Memo'])
             else:
@@ -335,18 +336,18 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
     # 修改密码
     def ChangePasswordAction(self, ID: int, Password: str):
         if ID > 0 and Password != '':
-            Result = ManagerController().ManagerChangePassword(Password, ID)
+            Result = self.ManagerController.ManagerChangePassword(Password, ID)
             if Result['State'] != True:
-                MSGBOX().ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.ManagerPassworView.close()
 
     # 删除节点数据
     def DisableAction(self):
         # ID: int = int(Item.text(0))
-        # Result = ManagerController().ManagerDisabled(ID)
+        # Result = self.ManagerController.ManagerDisabled(ID)
         # if Result['State'] != True:
-        #     MSGBOX().ERROR(Result['Memo'])
+        #     self.MSGBOX.ERROR(Result['Memo'])
         # else:
         #     self.TreeDataInit()
 
@@ -355,9 +356,9 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
             Item = Managers[i]
             ID: int = int(Item.text(0))
             if ID > 1:
-                Result = ManagerController().ManagerDisabled(ID)
+                Result = self.ManagerController.ManagerDisabled(ID)
                 if Result['State'] != True:
-                    MSGBOX().ERROR(Result['Memo'])
+                    self.MSGBOX.ERROR(Result['Memo'])
                     break
                 else:
                     self.TreeDataInit()
@@ -409,9 +410,9 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
     # 新建
     def NewManagerAction(self, Account: str, Password: str, Name: str):
         if Account != '' and Password != '' and Name != '':
-            Result = ManagerController().NewManager(Account, Password, Name)
+            Result = self.ManagerController.NewManager(Account, Password, Name)
             if Result['State'] != True:
-                MSGBOX().ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.NewManagerView.close()  # 关闭窗口
                 self.TreeDataInit()  # 主控件写入数据
