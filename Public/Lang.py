@@ -70,9 +70,14 @@ class Lang(BaseService):
             self.ChangePassword = 'Change Password'
 
             self.Name = 'Name'
-            self.NewManageristrator = 'New manager'
+            self.NewManager = 'New manager'
             self.ManagerDetails = 'Manager details'
             self.ManagerStatus = 'Manager status'
+
+            self.NewTeacher = 'New teacher'
+            self.TeacherDetails = 'Teacher details'
+            self.TeacherStatus = 'Teacher status'
+            self.TeacherAccount = 'Teacher account'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -133,9 +138,14 @@ class Lang(BaseService):
             self.ChangePassword = '修改密码'
 
             self.Name = '姓名'
-            self.NewManageristrator = '新建管理员'
+            self.NewManager = '新建管理员'
             self.ManagerDetails = '管理员详情'
             self.ManagerStatus = '管理员状态'
+
+            self.NewTeacher = '新建教师'
+            self.TeacherDetails = '教师详情'
+            self.TeacherStatus = '教师状态'
+            self.TeacherAccount = '教师账号'
 
         else:
             self.ManagerLogin = ''
@@ -196,6 +206,11 @@ class Lang(BaseService):
             self.ChangePassword = ''
 
             self.Name = ''
-            self.NewManageristrator = ''
+            self.NewManager = ''
             self.ManagerDetails = ''
             self.ManagerStatus = ''
+
+            self.NewTeacher = ''
+            self.TeacherDetails = ''
+            self.TeacherStatus = ''
+            self.TeacherAccount = ''

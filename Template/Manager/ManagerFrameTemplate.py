@@ -129,8 +129,8 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ButtonLayout = QHBoxLayout()  # 设置按钮布局
         self.ButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
-        # 新建管理员
-        self.NewManagerButton = QPushButton(self.Lang.NewManageristrator)
+        # 新建
+        self.NewManagerButton = QPushButton(self.Lang.NewManager)
         self.NewManagerButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         self.NewManagerButton.setFixedHeight(30)  # 尺寸
         self.NewManagerButton.clicked.connect(lambda: self.NewManagerWindow())  # 连接槽函数
@@ -242,7 +242,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
             self.TreeMenu.AddAction(self.Lang.ManagerDetails, lambda: self.InfoWindow(Item))
             self.TreeMenu.AddAction(self.Lang.ChangePassword, lambda: self.ChangePasswordWindow(Item))
-            self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction(Item))
+            self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction())
         else:  # 焦点外
             return
 
@@ -263,7 +263,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
         VLayout = QVBoxLayout()
 
-        NameInput = QLineEdit()  # 管理员名称输入
+        NameInput = QLineEdit()  # 名称输入
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
@@ -282,7 +282,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         UpdateTimeInput.setEnabled(False)  # 禁止输入
         VLayout.addWidget(UpdateTimeInput)  # 添加控件
 
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改管理员按钮
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改按钮
         UpdateButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
         UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, Permission, NameInput.text(), Name))  # 连接槽函数
@@ -292,7 +292,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.ManagerDetailsView.setLayout(VLayout)  # 添加布局
         self.ManagerDetailsView.show()
 
-    # 更新管理员信息
+    # 更新信息
     def InfoWindowAction(self, ID: int, Permission: int, Name: str, OldName: str):
         if Name != OldName:
             Result = ManagerController().UpdateManagerInfo(Name, Permission, ID)
@@ -313,7 +313,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
         VLayout = QVBoxLayout()
 
-        PWDInput = QLineEdit()  # 管理员密码输入
+        PWDInput = QLineEdit()  # 密码输入
         PWDInput.setFixedSize(200, 30)  # 尺寸
         PWDInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         PWDInput.setPlaceholderText(self.Lang.ChangePassword)  # 设置空内容提示
@@ -322,7 +322,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
         VLayout.addWidget(PWDInput)  # 添加控件
 
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改管理员按钮
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改按钮
         UpdateButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
         UpdateButton.clicked.connect(lambda: self.ChangePasswordAction(ID, PWDInput.text()))  # 连接槽函数
@@ -342,13 +342,25 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
                 self.ManagerPassworView.close()
 
     # 删除节点数据
-    def DisableAction(self, Item):
-        ID: int = int(Item.text(0))
-        Result = ManagerController().ManagerDisabled(ID)
-        if Result['State'] != True:
-            MSGBOX().ERROR(Result['Memo'])
-        else:
-            self.TreeDataInit()
+    def DisableAction(self):
+        # ID: int = int(Item.text(0))
+        # Result = ManagerController().ManagerDisabled(ID)
+        # if Result['State'] != True:
+        #     MSGBOX().ERROR(Result['Memo'])
+        # else:
+        #     self.TreeDataInit()
+
+        Managers = self.ManagerTree.selectedItems()
+        for i in range(len(Managers)):
+            Item = Managers[i]
+            ID: int = int(Item.text(0))
+            if ID > 1:
+                Result = ManagerController().ManagerDisabled(ID)
+                if Result['State'] != True:
+                    MSGBOX().ERROR(Result['Memo'])
+                    break
+                else:
+                    self.TreeDataInit()
 
     # 新建节点
     def NewManagerWindow(self):
@@ -359,7 +371,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
 
         VLayout = QVBoxLayout()
 
-        AccountInput = QLineEdit()  # 管理员账号输入
+        AccountInput = QLineEdit()  # 账号输入
         AccountInput.setFixedSize(200, 30)  # 尺寸
         AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.ManageristratorAccount)  # 设置空内容提示
@@ -367,7 +379,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         AccountInput.setToolTip(self.Lang.ManageristratorAccount)  # 设置鼠标提示
         VLayout.addWidget(AccountInput)  # 添加控件
 
-        NameInput = QLineEdit()  # 管理员名称输入
+        NameInput = QLineEdit()  # 名称输入
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
@@ -375,7 +387,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
-        PWDInput = QLineEdit()  # 管理员名称输入
+        PWDInput = QLineEdit()  # 名称输入
         PWDInput.setFixedSize(200, 30)  # 尺寸
         PWDInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         PWDInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
@@ -384,7 +396,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
         VLayout.addWidget(PWDInput)  # 添加控件
 
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改管理员按钮
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改按钮
         UpdateButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
         UpdateButton.clicked.connect(lambda: self.NewManagerAction(AccountInput.text(), NameInput.text(), PWDInput.text()))  # 连接槽函数
@@ -394,7 +406,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         self.NewManagerView.setLayout(VLayout)  # 添加布局
         self.NewManagerView.show()
 
-    # 新建管理员
+    # 新建
     def NewManagerAction(self, Account: str, Password: str, Name: str):
         if Account != '' and Password != '' and Name != '':
             Result = ManagerController().NewManager(Account, Password, Name)
