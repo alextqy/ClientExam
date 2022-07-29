@@ -22,11 +22,13 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.CurrentTemplate = ''
 
         # 顶部 =====================================================================================================================================================================
+
         # self.TopLayout = QHBoxLayout()
         # self.TopLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
         # self.CenterLayout.addLayout(self.TopLayout)  # 加入布局
 
         # 主体 =====================================================================================================================================================================
+
         self.BodyLayout = QHBoxLayout()  # 主体布局
         self.BodyLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
@@ -41,6 +43,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.CenterLayout.addLayout(self.BodyLayout)  # 加入布局
 
         # 底部 =====================================================================================================================================================================
+
         self.BottomLayout = QHBoxLayout()
         self.BottomLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.CenterLayout.addLayout(self.BottomLayout)  # 加入布局
@@ -48,6 +51,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         # =====================================================================================================================================================================
 
         self.MainView()
+        self.InitTemplateView()
 
         # =====================================================================================================================================================================
 
@@ -208,14 +212,24 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
 
     # =====================================================================================================================================================================
 
+    # 初始化所有模块
+    def InitTemplateView(self):
+
+        self.ManagerFrameTemplate = ManagerFrameTemplate()
+        self.ManagerFrameTemplate.hide()
+        self.DataLayout.addWidget(self.ManagerFrameTemplate)
+
+        self.TeacherFrameTemplate = TeacherFrameTemplate()
+        self.TeacherFrameTemplate.hide()
+        self.DataLayout.addWidget(self.TeacherFrameTemplate)
+
     # 框架路由
     def TemplateView(self, TemplateName: str):
-        self.ClearLayout(self.DataLayout)
+
         if TemplateName == 'ManagerFrameTemplate':
-            self.ManagerFrameTemplate = ManagerFrameTemplate()
-            self.DataLayout.addWidget(self.ManagerFrameTemplate)
-        elif TemplateName == 'TeacherFrameTemplate':
-            self.TeacherFrameTemplate = TeacherFrameTemplate()
-            self.DataLayout.addWidget(self.TeacherFrameTemplate)
-        else:
-            self.ClearLayout(self.DataLayout)
+            self.ManagerFrameTemplate.show()
+            self.TeacherFrameTemplate.hide()
+
+        if TemplateName == 'TeacherFrameTemplate':
+            self.ManagerFrameTemplate.hide()
+            self.TeacherFrameTemplate.show()
