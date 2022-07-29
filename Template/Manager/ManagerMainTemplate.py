@@ -3,6 +3,7 @@ from Template.BaseTemplate import *
 from StyleSheet.ManagerMainStyleSheet import *
 from Template.Manager.ManagerFrameTemplate import *
 from Template.Manager.TeacherFrameTemplate import *
+from Template.Manager.ClassFrameTemplate import *
 
 
 class ManagerMainTemplate(BaseTemplate, QDialog):
@@ -129,6 +130,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.ClassButton = QPushButton(self.Lang.Class)
         self.ClassButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton1())  # 设置样式
         self.ClassButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.ClassButton.clicked.connect(lambda: self.TemplateView('ClassFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.ClassButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # 考生
@@ -223,13 +225,24 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.TeacherFrameTemplate.hide()
         self.DataLayout.addWidget(self.TeacherFrameTemplate)
 
+        self.ClassFrameTemplate = ClassFrameTemplate()
+        self.ClassFrameTemplate.hide()
+        self.DataLayout.addWidget(self.ClassFrameTemplate)
+
     # 框架路由
     def TemplateView(self, TemplateName: str):
 
         if TemplateName == 'ManagerFrameTemplate':
             self.ManagerFrameTemplate.show()
             self.TeacherFrameTemplate.hide()
+            self.ClassFrameTemplate.hide()
 
         if TemplateName == 'TeacherFrameTemplate':
             self.ManagerFrameTemplate.hide()
             self.TeacherFrameTemplate.show()
+            self.ClassFrameTemplate.hide()
+
+        if TemplateName == 'ClassFrameTemplate':
+            self.ManagerFrameTemplate.hide()
+            self.TeacherFrameTemplate.hide()
+            self.ClassFrameTemplate.show()

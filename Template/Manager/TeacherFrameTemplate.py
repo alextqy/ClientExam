@@ -184,7 +184,6 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
             self.TeacherTree.setColumnCount(6)  # 设置列数
             self.TeacherTree.hideColumn(5)  # 隐藏列
             self.TeacherTree.setHeaderLabels(['ID', self.Lang.TeacherAccount, self.Lang.Name, self.Lang.TeacherStatus, self.Lang.CreationTime, 'UpdateTime'])  # 设置标题栏
-            # self.TeacherTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
             self.TeacherTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
             self.TeacherTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
             self.TreeLayout.addWidget(self.TeacherTree)  # 添加控件
@@ -260,12 +259,12 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         VLayout = QVBoxLayout()
 
         NameInput = QLineEdit()  # 名称输入
+        NameInput.setText(Name)  # 设置内容
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
         NameInput.setStyleSheet(self.TeacherFrameStyleSheet.InputBox())  # 设置样式
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
-        NameInput.setText(Name)  # 设置内容
         VLayout.addWidget(NameInput)  # 添加控件
 
         PasswordInput = QLineEdit()  # 密码输入
@@ -360,12 +359,12 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
         VLayout.addWidget(PWDInput)  # 添加控件
 
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改按钮
-        UpdateButton.setStyleSheet(self.TeacherFrameStyleSheet.Button())  # 设置样式
-        UpdateButton.setFixedHeight(30)  # 尺寸
-        UpdateButton.clicked.connect(lambda: self.NewTeacherAction(AccountInput.text(), PWDInput.text(), NameInput.text()))  # 连接槽函数
-        self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
-        VLayout.addWidget(UpdateButton)
+        AddButton = QPushButton(self.Lang.Confirm)  # 修改按钮
+        AddButton.setStyleSheet(self.TeacherFrameStyleSheet.Button())  # 设置样式
+        AddButton.setFixedHeight(30)  # 尺寸
+        AddButton.clicked.connect(lambda: self.NewTeacherAction(AccountInput.text(), PWDInput.text(), NameInput.text()))  # 连接槽函数
+        self.ButtonLayout.addWidget(AddButton)  # 添加控件
+        VLayout.addWidget(AddButton)
 
         self.NewTeacherView.setLayout(VLayout)  # 添加布局
         self.NewTeacherView.show()

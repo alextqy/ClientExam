@@ -265,12 +265,12 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         VLayout = QVBoxLayout()
 
         NameInput = QLineEdit()  # 名称输入
+        NameInput.setText(Name)  # 设置内容
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
         NameInput.setStyleSheet(self.ManagerFrameStyleSheet.InputBox())  # 设置样式
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
-        NameInput.setText(Name)  # 设置内容
         VLayout.addWidget(NameInput)  # 添加控件
 
         UpdateTimeInput = QLineEdit()
@@ -397,12 +397,12 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
         VLayout.addWidget(PWDInput)  # 添加控件
 
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改按钮
-        UpdateButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
-        UpdateButton.setFixedHeight(30)  # 尺寸
-        UpdateButton.clicked.connect(lambda: self.NewManagerAction(AccountInput.text(), NameInput.text(), PWDInput.text()))  # 连接槽函数
-        self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
-        VLayout.addWidget(UpdateButton)
+        AddButton = QPushButton(self.Lang.Confirm)  # 修改按钮
+        AddButton.setStyleSheet(self.ManagerFrameStyleSheet.Button())  # 设置样式
+        AddButton.setFixedHeight(30)  # 尺寸
+        AddButton.clicked.connect(lambda: self.NewManagerAction(AccountInput.text(), NameInput.text(), PWDInput.text()))  # 连接槽函数
+        self.ButtonLayout.addWidget(AddButton)  # 添加控件
+        VLayout.addWidget(AddButton)
 
         self.NewManagerView.setLayout(VLayout)  # 添加布局
         self.NewManagerView.show()

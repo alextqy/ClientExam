@@ -68,6 +68,7 @@ class Lang(BaseService):
             self.CreationTime = 'Creation time'
             self.UpdateTime = 'Update time'
             self.ChangePassword = 'Change Password'
+            self.Description = 'Description'
 
             self.Name = 'Name'
             self.NewManager = 'New manager'
@@ -78,6 +79,11 @@ class Lang(BaseService):
             self.TeacherDetails = 'Teacher details'
             self.TeacherStatus = 'Teacher status'
             self.TeacherAccount = 'Teacher account'
+
+            self.ClassName = 'Class name'
+            self.NewClass = 'New class'
+            self.ClassDetails = 'Class details'
+            self.ClassCode = 'Class code'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -136,6 +142,7 @@ class Lang(BaseService):
             self.CreationTime = '创建时间'
             self.UpdateTime = '更新时间'
             self.ChangePassword = '修改密码'
+            self.Description = '描述信息'
 
             self.Name = '姓名'
             self.NewManager = '新建管理员'
@@ -146,6 +153,11 @@ class Lang(BaseService):
             self.TeacherDetails = '教师详情'
             self.TeacherStatus = '教师状态'
             self.TeacherAccount = '教师账号'
+
+            self.ClassName = '班级名称'
+            self.NewClass = '新建班级'
+            self.ClassDetails = '班级详情'
+            self.ClassCode = '班级代码'
 
         else:
             self.ManagerLogin = ''
@@ -204,6 +216,7 @@ class Lang(BaseService):
             self.CreationTime = ''
             self.UpdateTime = ''
             self.ChangePassword = ''
+            self.Description = ''
 
             self.Name = ''
             self.NewManager = ''
@@ -214,3 +227,8 @@ class Lang(BaseService):
             self.TeacherDetails = ''
             self.TeacherStatus = ''
             self.TeacherAccount = ''
+
+            self.ClassName = ''
+            self.NewClass = ''
+            self.ClassDetails = ''
+            self.ClassCode = ''
