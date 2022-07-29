@@ -238,7 +238,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         # 展示判断
         if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
             self.TreeMenu.AddAction(self.Lang.TeacherDetails, lambda: self.InfoWindow(Item))
-            self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction(Item))
+            self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction())
         else:  # 焦点外
             return
 
@@ -306,13 +306,24 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
             self.TreeDataInit()
 
     # 删除节点数据
-    def DisableAction(self, Item):
-        ID: int = int(Item.text(0))
-        Result = TeacherController().TeacherDisabled(ID)
-        if Result['State'] != True:
-            MSGBOX().ERROR(Result['Memo'])
-        else:
-            self.TreeDataInit()
+    def DisableAction(self):
+        # ID: int = int(Item.text(0))
+        # Result = TeacherController().TeacherDisabled(ID)
+        # if Result['State'] != True:
+        #     MSGBOX().ERROR(Result['Memo'])
+        # else:
+        #     self.TreeDataInit()
+
+        Teachers = self.TeacherTree.selectedItems()
+        for i in range(len(Teachers)):
+            Item = Teachers[i]
+            ID: int = int(Item.text(0))
+            Result = TeacherController().TeacherDisabled(ID)
+            if Result['State'] != True:
+                MSGBOX().ERROR(Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
 
     # 新建节点
     def NewTeacherWindow(self):
