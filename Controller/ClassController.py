@@ -39,3 +39,7 @@ class ClassController(BaseController):
         }
         Result = self.Post(Param, '/Class/Info')
         return Result
+
+    def Classes(self):
+        Result = self.Post({}, '/Classes')
+        return Result

@@ -85,6 +85,11 @@ class Lang(BaseService):
             self.ClassDetails = 'Class details'
             self.ClassCode = 'Class code'
 
+            self.NewExaminee = 'New examinee'
+            self.Contact = 'Contact'
+            self.ExamineeNo = 'Examinee No.'
+            self.ExamineeDetails = 'Examinee details'
+
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
             self.TeacherLogin = '教师登录'
@@ -159,6 +164,11 @@ class Lang(BaseService):
             self.ClassDetails = '班级详情'
             self.ClassCode = '班级代码'
 
+            self.NewExaminee = '新建考生'
+            self.Contact = '联系方式'
+            self.ExamineeNo = '考生编号'
+            self.ExamineeDetails = '考生详情'
+
         else:
             self.ManagerLogin = ''
             self.TeacherLogin = ''
@@ -232,3 +242,8 @@ class Lang(BaseService):
             self.NewClass = ''
             self.ClassDetails = ''
             self.ClassCode = ''
+
+            self.NewExaminee = ''
+            self.Contact = ''
+            self.ExamineeNo = ''
+            self.ExamineeDetails = ''

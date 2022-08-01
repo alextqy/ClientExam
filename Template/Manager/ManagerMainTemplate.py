@@ -4,6 +4,7 @@ from StyleSheet.ManagerMainStyleSheet import *
 from Template.Manager.ManagerFrameTemplate import *
 from Template.Manager.TeacherFrameTemplate import *
 from Template.Manager.ClassFrameTemplate import *
+from Template.Manager.ExamineeFrameTemplate import *
 
 
 class ManagerMainTemplate(BaseTemplate, QDialog):
@@ -137,6 +138,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.ExamineeButton = QPushButton(self.Lang.Examinee)
         self.ExamineeButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton1())  # 设置样式
         self.ExamineeButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.ExamineeButton.clicked.connect(lambda: self.TemplateView('ExamineeFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.ExamineeButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # 报名
@@ -229,6 +231,10 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.ClassFrameTemplate.hide()
         self.DataLayout.addWidget(self.ClassFrameTemplate)
 
+        self.ExamineeFrameTemplate = ExamineeFrameTemplate()
+        self.ExamineeFrameTemplate.hide()
+        self.DataLayout.addWidget(self.ExamineeFrameTemplate)
+
     # 框架路由
     def TemplateView(self, TemplateName: str):
 
@@ -236,13 +242,22 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ManagerFrameTemplate.show()
             self.TeacherFrameTemplate.hide()
             self.ClassFrameTemplate.hide()
+            self.ExamineeFrameTemplate.hide()
 
         if TemplateName == 'TeacherFrameTemplate':
             self.ManagerFrameTemplate.hide()
             self.TeacherFrameTemplate.show()
             self.ClassFrameTemplate.hide()
+            self.ExamineeFrameTemplate.hide()
 
         if TemplateName == 'ClassFrameTemplate':
             self.ManagerFrameTemplate.hide()
             self.TeacherFrameTemplate.hide()
             self.ClassFrameTemplate.show()
+            self.ExamineeFrameTemplate.hide()
+
+        if TemplateName == 'ExamineeFrameTemplate':
+            self.ManagerFrameTemplate.hide()
+            self.TeacherFrameTemplate.hide()
+            self.ClassFrameTemplate.hide()
+            self.ExamineeFrameTemplate.show()
