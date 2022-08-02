@@ -82,6 +82,22 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.SearchInput.setToolTip(self.Lang.Search)  # 设置鼠标提示
         self.PageButtonLayout.addWidget(self.SearchInput)  # 添加控件
 
+        # 通过状态
+        self.PassSelect = QComboBox()  # 设置下拉框
+        self.PassSelect.adjustSize()  # 按内容自适应宽度
+        self.PassSelect.setView(QListView())  # 设置内容控件
+        self.PassSelect.setFixedHeight(30)  # 尺寸
+        self.PassSelect.setMinimumWidth(110)  # 尺寸
+        self.PassSelect.setStyleSheet(self.ExamInfoFrameStyleSheet.SelectBox())  # 设置样式
+        self.PassSelect.insertItem(0, ' ' + self.Lang.PassStatus)  # 设置下拉内容
+        self.PassSelect.setItemData(0, self.Lang.PassStatus, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.PassSelect.insertItem(1, self.Lang.No)  # 设置下拉内容
+        self.PassSelect.setItemData(1, self.Lang.No, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.PassSelect.insertItem(2, self.Lang.Yes)  # 设置下拉内容
+        self.PassSelect.setItemData(2, self.Lang.Yes, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.PassSelect.setCurrentIndex(0)  # 设置默认选项
+        self.PageButtonLayout.addWidget(self.PassSelect)  # 添加控件
+
         # 状态
         self.StateSelect = QComboBox()  # 设置下拉框
         self.StateSelect.adjustSize()  # 按内容自适应宽度
@@ -187,9 +203,9 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
             Page = self.CurrentPageNo
         PageSize = 0 if self.RowsInput.text() == '' else int(self.RowsInput.text())
         Stext = self.SearchInput.text()
+        Pass = self.PassSelect.currentIndex()
         ExamState = self.StateSelect.currentIndex()
         ExamType = self.TypeSelect.currentIndex()
-        Pass = 0
         Result = self.ExamInfoController.ExamInfoList(Page, PageSize, Stext, ExamState, ExamType, Pass)
         self.TotalPageNo = Result['TotalPage']
         self.TotalPage.setText(self.Lang.TotalPages + ' ' + str(self.TotalPageNo))
