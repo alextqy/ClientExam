@@ -10,6 +10,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         super().__init__()
         self.ExamInfoFrameStyleSheet = ExamInfoFrameStyleSheet()
         self.ExamInfoController = ExamInfoController()
+        self.ExamineeController = ExamineeController()
         self.setStyleSheet(self.ExamInfoFrameStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
@@ -56,7 +57,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         # 输入页码
         self.PageInput = QLineEdit()
         self.PageInput.setValidator(self.QIntValidator)  # 输入为整数类型
-        self.PageInput.setFixedSize(170, 30)  # 尺寸
+        self.PageInput.setFixedSize(150, 30)  # 尺寸
         self.PageInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.PageInput.setPlaceholderText(self.Lang.EnterPageNumber)  # 设置空内容提示
         self.PageInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
@@ -66,7 +67,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         # 每一页展示行数
         self.RowsInput = QLineEdit()
         self.RowsInput.setValidator(self.QIntValidator)  # 输入为整数类型
-        self.RowsInput.setFixedSize(170, 30)  # 尺寸
+        self.RowsInput.setFixedSize(150, 30)  # 尺寸
         self.RowsInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.RowsInput.setPlaceholderText(self.Lang.EnterTheNumberOfLines)  # 设置空内容提示
         self.RowsInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
@@ -75,7 +76,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
         # 搜索
         self.SearchInput = QLineEdit()
-        self.SearchInput.setFixedSize(170, 30)  # 尺寸
+        self.SearchInput.setFixedSize(150, 30)  # 尺寸
         self.SearchInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.SearchInput.setPlaceholderText(self.Lang.Search)  # 设置空内容提示
         self.SearchInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
@@ -103,7 +104,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.StateSelect.adjustSize()  # 按内容自适应宽度
         self.StateSelect.setView(QListView())  # 设置内容控件
         self.StateSelect.setFixedHeight(30)  # 尺寸
-        self.StateSelect.setMinimumWidth(110)  # 尺寸
+        self.StateSelect.setMinimumWidth(100)  # 尺寸
         self.StateSelect.setStyleSheet(self.ExamInfoFrameStyleSheet.SelectBox())  # 设置样式
         self.StateSelect.insertItem(0, ' ' + self.Lang.ExamState)  # 设置下拉内容
         self.StateSelect.setItemData(0, self.Lang.ExamState, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -123,7 +124,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.TypeSelect.adjustSize()  # 按内容自适应宽度
         self.TypeSelect.setView(QListView())  # 设置内容控件
         self.TypeSelect.setFixedHeight(30)  # 尺寸
-        self.TypeSelect.setMinimumWidth(110)  # 尺寸
+        self.TypeSelect.setMinimumWidth(100)  # 尺寸
         self.TypeSelect.setStyleSheet(self.ExamInfoFrameStyleSheet.SelectBox())  # 设置样式
         self.TypeSelect.insertItem(0, ' ' + self.Lang.ExamType)  # 设置下拉内容
         self.TypeSelect.setItemData(0, self.Lang.ExamType, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -264,6 +265,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
                 item.setText(6, str(Data[i]['ExamDuration']))  # 设置内容
                 item.setText(7, str(Data[i]['ActualDuration']))  # 设置内容
                 item.setText(8, str(Data[i]['PassLine']))  # 设置内容
+
                 if Data[i]['Pass'] == 2:
                     item.setText(9, self.Lang.Yes)  # 设置内容
                 else:
@@ -278,14 +280,18 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
                     item.setText(10, self.Lang.RegistrationVoid)  # 设置内容
                 else:
                     item.setText(10, '')  # 设置内容
+
                 item.setText(11, str(Data[i]['TotalScore']))  # 设置内容
                 item.setText(12, str(Data[i]['ActualScore']))  # 设置内容
+
                 if Data[i]['ExamType'] == 1:
                     item.setText(13, self.Lang.FormalExam)  # 设置内容
                 else:
                     item.setText(13, self.Lang.InformalExam)  # 设置内容
+
                 item.setText(14, str(Data[i]['ExamineeID']))  # 设置内容
                 item.setText(15, str(Data[i]['UpdateTime']))  # 设置内容
+
                 item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
@@ -343,3 +349,65 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
         self.TreeMenu.move(QCursor().pos())  # 移动到焦点
         self.TreeMenu.show()  # 展示
+
+    # 节点数据详情
+    def InfoWindow(self, Item):
+        ExamNo: str = Item.text(2)
+        ExamineeID: int = int(Item.text(14))
+        UpdateTime: int = int(Item.text(15))
+
+        self.ExamInfoDetailsView = QDialog()
+        self.ExamInfoDetailsView.setWindowTitle(TITLE)
+        self.ExamInfoDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.ExamInfoDetailsView.setStyleSheet(self.ExamInfoFrameStyleSheet.Dialog())  # 设置样式
+        self.ExamInfoDetailsView.setFixedSize(222, 160)  # 尺寸
+
+        VLayout = QVBoxLayout()
+
+        ExamNoInput = QLineEdit()  # 输入
+        ExamNoInput.setText(ExamNo)  # 设置内容
+        ExamNoInput.setFixedSize(200, 30)  # 尺寸
+        ExamNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        ExamNoInput.setPlaceholderText(self.Lang.ExamNo)  # 设置空内容提示
+        ExamNoInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
+        ExamNoInput.setToolTip(self.Lang.ExamNo)  # 设置鼠标提示
+        ExamNoInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(ExamNoInput)  # 添加控件
+
+        ExamineeNameInput = QLineEdit()  # 输入
+        ExamineeNameInput.setFixedSize(200, 30)  # 尺寸
+        ExamineeNameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        ExamineeNameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
+        ExamineeNameInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
+        ExamineeNameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
+        ExamineeNameInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(ExamineeNameInput)  # 添加控件
+
+        ExamineeNoInput = QLineEdit()  # 输入
+        ExamineeNoInput.setFixedSize(200, 30)  # 尺寸
+        ExamineeNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        ExamineeNoInput.setPlaceholderText(self.Lang.ExamineeNo)  # 设置空内容提示
+        ExamineeNoInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
+        ExamineeNoInput.setToolTip(self.Lang.ExamineeNo)  # 设置鼠标提示
+        ExamineeNoInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(ExamineeNoInput)  # 添加控件
+
+        if ExamineeID > 0:
+            Result = self.ExamineeController.ExamineeInfo(ExamineeID)
+            if Result['State'] == True:
+                ExamineeData = Result['Data']
+                ExamineeNameInput.setText(ExamineeData['Name'])  # 设置内容
+                ExamineeNoInput.setText(ExamineeData['ExamineeNo'])  # 设置内容
+
+        UpdateTimeInput = QLineEdit()
+        UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
+        UpdateTimeInput.setFixedSize(200, 30)  # 尺寸
+        UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
+        UpdateTimeInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
+        UpdateTimeInput.setToolTip(self.Lang.UpdateTime)  # 设置鼠标提示
+        UpdateTimeInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(UpdateTimeInput)  # 添加控件
+
+        self.ExamInfoDetailsView.setLayout(VLayout)  # 添加布局
+        self.ExamInfoDetailsView.show()

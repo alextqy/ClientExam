@@ -252,13 +252,14 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         UpdateTime: int = Item.text(5)
 
         self.TeacherDetailsView = QDialog()
+        self.TeacherDetailsView.setWindowTitle(TITLE)
         self.TeacherDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.TeacherDetailsView.setStyleSheet(self.TeacherFrameStyleSheet.Dialog())  # 设置样式
         self.TeacherDetailsView.setFixedSize(222, 160)  # 尺寸
 
         VLayout = QVBoxLayout()
 
-        NameInput = QLineEdit()  # 名称输入
+        NameInput = QLineEdit()  # 输入
         NameInput.setText(Name)  # 设置内容
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
@@ -277,7 +278,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(PasswordInput)  # 添加控件
 
         UpdateTimeInput = QLineEdit()
-        UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))
+        UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
         UpdateTimeInput.setFixedSize(200, 30)  # 尺寸
         UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
@@ -328,6 +329,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
     # 新建节点
     def NewTeacherWindow(self):
         self.NewTeacherView = QDialog()
+        self.NewTeacherView.setWindowTitle(TITLE)
         self.NewTeacherView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.NewTeacherView.setStyleSheet(self.TeacherFrameStyleSheet.Dialog())  # 设置样式
         self.NewTeacherView.setFixedSize(222, 160)  # 尺寸
@@ -342,7 +344,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         AccountInput.setToolTip(self.Lang.TeacherAccount)  # 设置鼠标提示
         VLayout.addWidget(AccountInput)  # 添加控件
 
-        NameInput = QLineEdit()  # 名称输入
+        NameInput = QLineEdit()  # 输入
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
@@ -350,7 +352,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
-        PWDInput = QLineEdit()  # 名称输入
+        PWDInput = QLineEdit()  # 输入
         PWDInput.setFixedSize(200, 30)  # 尺寸
         PWDInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         PWDInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示

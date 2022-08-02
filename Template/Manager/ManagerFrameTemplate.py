@@ -258,13 +258,14 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         Permission: int = Item.text(6)
 
         self.ManagerDetailsView = QDialog()
+        self.ManagerDetailsView.setWindowTitle(TITLE)
         self.ManagerDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.ManagerDetailsView.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
         self.ManagerDetailsView.setFixedSize(222, 124)  # 尺寸
 
         VLayout = QVBoxLayout()
 
-        NameInput = QLineEdit()  # 名称输入
+        NameInput = QLineEdit()  # 输入
         NameInput.setText(Name)  # 设置内容
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
@@ -274,7 +275,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(NameInput)  # 添加控件
 
         UpdateTimeInput = QLineEdit()
-        UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))
+        UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
         UpdateTimeInput.setFixedSize(200, 30)  # 尺寸
         UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
@@ -308,6 +309,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         ID: int = int(Item.text(0))
 
         self.ManagerPassworView = QDialog()
+        self.ManagerPassworView.setWindowTitle(TITLE)
         self.ManagerPassworView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.ManagerPassworView.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
         self.ManagerPassworView.setFixedSize(222, 88)  # 尺寸
@@ -366,6 +368,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
     # 新建节点
     def NewManagerWindow(self):
         self.NewManagerView = QDialog()
+        self.NewManagerView.setWindowTitle(TITLE)
         self.NewManagerView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.NewManagerView.setStyleSheet(self.ManagerFrameStyleSheet.Dialog())  # 设置样式
         self.NewManagerView.setFixedSize(222, 160)  # 尺寸
@@ -380,7 +383,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         AccountInput.setToolTip(self.Lang.ManageristratorAccount)  # 设置鼠标提示
         VLayout.addWidget(AccountInput)  # 添加控件
 
-        NameInput = QLineEdit()  # 名称输入
+        NameInput = QLineEdit()  # 输入
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
@@ -388,7 +391,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
-        PWDInput = QLineEdit()  # 名称输入
+        PWDInput = QLineEdit()  # 输入
         PWDInput.setFixedSize(200, 30)  # 尺寸
         PWDInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         PWDInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示

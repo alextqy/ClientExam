@@ -231,13 +231,14 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         Description: str = Item.text(4)
 
         self.ClassDetailsView = QDialog()
+        self.ClassDetailsView.setWindowTitle(TITLE)
         self.ClassDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.ClassDetailsView.setStyleSheet(self.ClassFrameStyleSheet.Dialog())  # 设置样式
         self.ClassDetailsView.setFixedSize(322, 160)  # 尺寸
 
         VLayout = QVBoxLayout()
 
-        NameInput = QLineEdit()  # 名称输入
+        NameInput = QLineEdit()  # 输入
         NameInput.setText(Name)  # 设置内容
         NameInput.setFixedSize(300, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
@@ -287,13 +288,14 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
     # 新建节点
     def NewClassWindow(self):
         self.NewClassView = QDialog()
+        self.NewClassView.setWindowTitle(TITLE)
         self.NewClassView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.NewClassView.setStyleSheet(self.ClassFrameStyleSheet.Dialog())  # 设置样式
         self.NewClassView.setFixedSize(322, 124)  # 尺寸
 
         VLayout = QVBoxLayout()
 
-        NameInput = QLineEdit()  # 名称输入
+        NameInput = QLineEdit()  # 输入
         NameInput.setFixedSize(300, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.ClassName)  # 设置空内容提示

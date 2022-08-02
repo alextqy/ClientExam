@@ -266,13 +266,14 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
             ClassName = Result['Data']['ClassName']
 
         self.ExamineeDetailsView = QDialog()
+        self.ExamineeDetailsView.setWindowTitle(TITLE)
         self.ExamineeDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.ExamineeDetailsView.setStyleSheet(self.ExamineeFrameStyleSheet.Dialog())  # 设置样式
         self.ExamineeDetailsView.setFixedSize(222, 196)  # 尺寸
 
         VLayout = QVBoxLayout()
 
-        NameInput = QLineEdit()  # 名称输入
+        NameInput = QLineEdit()  # 输入
         NameInput.setText(Name)  # 设置内容
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
@@ -281,7 +282,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
-        ContactInput = QLineEdit()  # 名称输入
+        ContactInput = QLineEdit()  # 输入
         ContactInput.setText(Contact)  # 设置内容
         ContactInput.setFixedSize(200, 30)  # 尺寸
         ContactInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
@@ -332,6 +333,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
     # 新建节点
     def NewExamineeWindow(self):
         self.NewExamineeView = QDialog()
+        self.NewExamineeView.setWindowTitle(TITLE)
         self.NewExamineeView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.NewExamineeView.setStyleSheet(self.ExamineeFrameStyleSheet.Dialog())  # 设置样式
         self.NewExamineeView.setFixedSize(222, 196)  # 尺寸
@@ -346,7 +348,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ExamineeNoInput.setToolTip(self.Lang.ExamineeNo)  # 设置鼠标提示
         VLayout.addWidget(ExamineeNoInput)  # 添加控件
 
-        NameInput = QLineEdit()  # 名称输入
+        NameInput = QLineEdit()  # 输入
         NameInput.setFixedSize(200, 30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
@@ -354,7 +356,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
-        ContactInput = QLineEdit()  # 名称输入
+        ContactInput = QLineEdit()  # 输入
         ContactInput.setFixedSize(200, 30)  # 尺寸
         ContactInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ContactInput.setPlaceholderText(self.Lang.Contact)  # 设置空内容提示
