@@ -5,6 +5,7 @@ from Template.Manager.ManagerFrameTemplate import *
 from Template.Manager.TeacherFrameTemplate import *
 from Template.Manager.ClassFrameTemplate import *
 from Template.Manager.ExamineeFrameTemplate import *
+from Template.Manager.ExamInfoFrameTemplate import *
 
 
 class ManagerMainTemplate(BaseTemplate, QDialog):
@@ -16,7 +17,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.setWindowFlags(Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)  # 显示 最小化 最大化 关闭 按钮
         self.setWindowTitle(Title)  # 窗口标题
         self.setWindowIcon(QIcon(Icon))  # 设置ICON
-        self.setMinimumSize(1200, 800)  # 设置最小尺寸
+        self.setMinimumSize(1350, 800)  # 设置最小尺寸
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
         self.CenterLayout.setContentsMargins(5, 5, 5, 5)  # 设置边距
@@ -145,6 +146,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.RegistrationDataButton = QPushButton(self.Lang.RegistrationData)
         self.RegistrationDataButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton1())  # 设置样式
         self.RegistrationDataButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.RegistrationDataButton.clicked.connect(lambda: self.TemplateView('ExamInfoFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.RegistrationDataButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # =====================================================================================================================================================================
@@ -235,6 +237,10 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.ExamineeFrameTemplate.hide()
         self.DataLayout.addWidget(self.ExamineeFrameTemplate)
 
+        self.ExamInfoFrameTemplate = ExamInfoFrameTemplate()
+        self.ExamInfoFrameTemplate.hide()
+        self.DataLayout.addWidget(self.ExamInfoFrameTemplate)
+
     # 框架路由
     def TemplateView(self, TemplateName: str):
 
@@ -243,21 +249,32 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.TeacherFrameTemplate.hide()
             self.ClassFrameTemplate.hide()
             self.ExamineeFrameTemplate.hide()
+            self.ExamInfoFrameTemplate.hide()
 
         if TemplateName == 'TeacherFrameTemplate':
             self.ManagerFrameTemplate.hide()
             self.TeacherFrameTemplate.show()
             self.ClassFrameTemplate.hide()
             self.ExamineeFrameTemplate.hide()
+            self.ExamInfoFrameTemplate.hide()
 
         if TemplateName == 'ClassFrameTemplate':
             self.ManagerFrameTemplate.hide()
             self.TeacherFrameTemplate.hide()
             self.ClassFrameTemplate.show()
             self.ExamineeFrameTemplate.hide()
+            self.ExamInfoFrameTemplate.hide()
 
         if TemplateName == 'ExamineeFrameTemplate':
             self.ManagerFrameTemplate.hide()
             self.TeacherFrameTemplate.hide()
             self.ClassFrameTemplate.hide()
             self.ExamineeFrameTemplate.show()
+            self.ExamInfoFrameTemplate.hide()
+
+        if TemplateName == 'ExamInfoFrameTemplate':
+            self.ManagerFrameTemplate.hide()
+            self.TeacherFrameTemplate.hide()
+            self.ClassFrameTemplate.hide()
+            self.ExamineeFrameTemplate.hide()
+            self.ExamInfoFrameTemplate.show()

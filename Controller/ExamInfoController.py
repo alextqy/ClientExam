@@ -24,13 +24,14 @@ class ExamInfoController(BaseController):
         Result = self.Post(Param, '/ExamInfo/Disabled')
         return Result
 
-    def ExamInfoList(self, Page: int, PageSize: int, Stext: str, ExamState: int, ExamType: int):
+    def ExamInfoList(self, Page: int, PageSize: int, Stext: str, ExamState: int, ExamType: int, Pass: int):
         Param = {
             'Page': Page,
             'PageSize': PageSize,
             'Stext': Stext.strip(),
             'ExamState': ExamState,
             'ExamType': ExamType,
+            'Pass': Pass,
         }
         Result = self.Post(Param, '/ExamInfo/List')
         return Result
