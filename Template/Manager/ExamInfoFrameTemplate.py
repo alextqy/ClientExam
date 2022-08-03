@@ -411,3 +411,81 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
         self.ExamInfoDetailsView.setLayout(VLayout)  # 添加布局
         self.ExamInfoDetailsView.show()
+
+    # 生成试卷
+    def GenerateTestPaperAction(self):
+        ExamInfoData = self.ExamInfoTree.selectedItems()
+        for i in range(len(ExamInfoData)):
+            Item = ExamInfoData[i]
+            ID: int = int(Item.text(0))
+            Result = self.ExamInfoController.GenerateTestPaper(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR('ID:' + str(ID) + ' ' + Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
+
+    # 重置试卷
+    def ResetTestPaperAction(self):
+        ExamInfoData = self.ExamInfoTree.selectedItems()
+        for i in range(len(ExamInfoData)):
+            Item = ExamInfoData[i]
+            ID: int = int(Item.text(0))
+            Result = self.ExamInfoController.ResetExamQuestionData(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR('ID:' + str(ID) + ' ' + Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
+
+    # 报名作废
+    def RegistrationVoidAction(self):
+        ExamInfoData = self.ExamInfoTree.selectedItems()
+        for i in range(len(ExamInfoData)):
+            Item = ExamInfoData[i]
+            ID: int = int(Item.text(0))
+            Result = self.ExamInfoController.ExamInfoDisabled(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR('ID:' + str(ID) + ' ' + Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
+
+    # 打分
+    def TestPaperScoringAction(self):
+        ExamInfoData = self.ExamInfoTree.selectedItems()
+        for i in range(len(ExamInfoData)):
+            Item = ExamInfoData[i]
+            ID: int = int(Item.text(0))
+            Result = self.ExamInfoController.GradeTheExam(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR('ID:' + str(ID) + ' ' + Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
+
+    # 转到历史
+    def DataIntoHistoryAction(self):
+        ExamInfoData = self.ExamInfoTree.selectedItems()
+        for i in range(len(ExamInfoData)):
+            Item = ExamInfoData[i]
+            ID: int = int(Item.text(0))
+            Result = self.ExamInfoController.ExamIntoHistory(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR('ID:' + str(ID) + ' ' + Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
+
+    # 新建节点
+    def NewExamInfoWindow(self):
+        pass
+
+    # 新建
+    def NewExamInfoAction(self):
+        pass

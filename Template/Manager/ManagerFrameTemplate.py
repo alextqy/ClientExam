@@ -360,6 +360,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
             if ID > 1:
                 Result = self.ManagerController.ManagerDisabled(ID)
                 if Result['State'] != True:
+                    self.TreeDataInit()
                     self.MSGBOX.ERROR(Result['Memo'])
                     break
                 else:

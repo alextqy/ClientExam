@@ -321,6 +321,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
             ID: int = int(Item.text(0))
             Result = self.TeacherController.TeacherDisabled(ID)
             if Result['State'] != True:
+                self.TreeDataInit()
                 self.MSGBOX.ERROR(Result['Memo'])
                 break
             else:
