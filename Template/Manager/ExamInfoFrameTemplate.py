@@ -554,6 +554,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.SubjectsWindow.ActionSignal.connect(self.SetSubject)
         self.SubjectsWindow.show()
 
+    # 设置科目
     def SetSubject(self, SubjectName: str):
         if SubjectName != '':
             self.SubjectSelectButton.setText(SubjectName)
@@ -568,6 +569,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
             self.ExamineesWindow.ActionSignal.connect(self.SetExaminee)
             self.ExamineesWindow.show()
 
+    # 设置考生
     def SetExaminee(self, ExamineeName: str, ExamineeID: str):
         if ExamineeName != '' and ExamineeID != '':
             self.ExamineeSelectButton.setText(ExamineeName)
