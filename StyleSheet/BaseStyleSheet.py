@@ -18,5 +18,4 @@ class BaseStyleSheet():
         self.UDPTool = UDPTool()
 
         self.CommonColor = '#d9d9d9'
-        self.BackgroundColor = '#272822'
         self.FontFamily = 'Microsoft Yahei'

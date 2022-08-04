@@ -121,7 +121,7 @@ class TeacherFrameStyleSheet(BaseStyleSheet):
         }
         QListView::item:selected{
             color: white;
-            background: ''' + self.BackgroundColor + ''';
+            background: #666666;
             font-size: 15px;
             outline: none;
             border: 2px solid white;

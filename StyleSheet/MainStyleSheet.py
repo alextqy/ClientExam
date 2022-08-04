@@ -11,7 +11,7 @@ class MainStyleSheet(BaseStyleSheet):
         return '''
         QMainWindow{
             font-family: ''' + self.FontFamily + ''';
-            background-color: ''' + self.BackgroundColor + ''';
+            background-color: #272822;
         }
         '''
 
@@ -68,7 +68,7 @@ class MainStyleSheet(BaseStyleSheet):
         }
         QListView::item:selected{
             color: white;
-            background: ''' + self.BackgroundColor + ''';
+            background: #666666;
             font-size: 15px;
             outline: none;
             border: 2px solid white;

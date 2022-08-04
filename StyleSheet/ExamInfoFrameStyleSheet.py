@@ -121,7 +121,7 @@ class ExamInfoFrameStyleSheet(BaseStyleSheet):
         }
         QListView::item:selected{
             color: white;
-            background: ''' + self.BackgroundColor + ''';
+            background: #666666;
             font-size: 15px;
             outline: none;
             border: 2px solid white;
@@ -194,7 +194,7 @@ class ExamInfoFrameStyleSheet(BaseStyleSheet):
         }
 
         QListWidget::item:hover {
-            background: ''' + self.BackgroundColor + ''';
+            background: #666666;
             color: white;
         }
 

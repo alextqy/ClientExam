@@ -113,7 +113,7 @@ class ManagerMainStyleSheet(BaseStyleSheet):
         return '''
         QPushButton{
             font-family: ''' + self.FontFamily + ''';
-            background-color: #666666;
+            background-color: #0066CC;
             font-size: 15px;
             color: white;
             border: 2px solid white;
@@ -122,11 +122,11 @@ class ManagerMainStyleSheet(BaseStyleSheet):
         }
         QPushButton:hover {
             color: white;
-            background-color: #3399CC;
+            background-color: #99CCCC;
         }
         QPushButton:pressed {
             color: black;
-            background-color: #3399CC;
+            background-color: #99CCCC;
             padding-left: 3px;
             padding-top: 3px;
         }
