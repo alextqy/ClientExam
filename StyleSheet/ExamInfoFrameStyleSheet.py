@@ -175,3 +175,31 @@ class ExamInfoFrameStyleSheet(BaseStyleSheet):
             background-color: ''' + self.CommonColor + ''';
         }
         '''
+
+    def List(self) -> str:
+        return '''
+        QListWidget {
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            color: black;
+            border: 2px solid white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        QListWidget::item {
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            color: black;
+        }
+
+        QListWidget::item:hover {
+            background: ''' + self.BackgroundColor + ''';
+            color: white;
+        }
+
+        QListWidget::item:selected {
+            background: white;
+            color: black;
+        }
+        '''

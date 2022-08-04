@@ -311,7 +311,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ClassInput.setEnabled(False)  # 禁止输入
         VLayout.addWidget(ClassInput)  # 添加控件
 
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改按钮
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
         UpdateButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
         UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, NameInput.text(), ContactInput.text()))  # 连接槽函数
@@ -385,11 +385,10 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ClassInput.setCurrentIndex(0)  # 设置默认选项
         VLayout.addWidget(ClassInput)  # 添加控件
 
-        AddButton = QPushButton(self.Lang.Confirm)  # 修改按钮
+        AddButton = QPushButton(self.Lang.Confirm)  # 按钮
         AddButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
         AddButton.setFixedHeight(30)  # 尺寸
         AddButton.clicked.connect(lambda: self.NewExamineeAction(ExamineeNoInput.text(), NameInput.text(), ClassInput.currentIndex(), ContactInput.text()))  # 连接槽函数
-        self.ButtonLayout.addWidget(AddButton)  # 添加控件
         VLayout.addWidget(AddButton)
 
         self.NewExamineeView.setLayout(VLayout)  # 添加布局

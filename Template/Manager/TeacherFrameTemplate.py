@@ -287,7 +287,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         UpdateTimeInput.setEnabled(False)  # 禁止输入
         VLayout.addWidget(UpdateTimeInput)  # 添加控件
 
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改按钮
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
         UpdateButton.setStyleSheet(self.TeacherFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
         UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, PasswordInput.text(), NameInput.text()))  # 连接槽函数
@@ -362,11 +362,10 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
         VLayout.addWidget(PWDInput)  # 添加控件
 
-        AddButton = QPushButton(self.Lang.Confirm)  # 修改按钮
+        AddButton = QPushButton(self.Lang.Confirm)  # 按钮
         AddButton.setStyleSheet(self.TeacherFrameStyleSheet.Button())  # 设置样式
         AddButton.setFixedHeight(30)  # 尺寸
         AddButton.clicked.connect(lambda: self.NewTeacherAction(AccountInput.text(), PWDInput.text(), NameInput.text()))  # 连接槽函数
-        self.ButtonLayout.addWidget(AddButton)  # 添加控件
         VLayout.addWidget(AddButton)
 
         self.NewTeacherView.setLayout(VLayout)  # 添加布局

@@ -266,7 +266,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         DescriptionInput.setToolTip(self.Lang.Description)  # 设置鼠标提示
         VLayout.addWidget(DescriptionInput)  # 添加控件
 
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 修改按钮
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
         UpdateButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
         UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, NameInput.text(), DescriptionInput.text()))  # 连接槽函数
@@ -311,11 +311,10 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         DescriptionInput.setToolTip(self.Lang.Description)  # 设置鼠标提示
         VLayout.addWidget(DescriptionInput)  # 添加控件
 
-        AddButton = QPushButton(self.Lang.Confirm)  # 修改按钮
+        AddButton = QPushButton(self.Lang.Confirm)  # 按钮
         AddButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
         AddButton.setFixedHeight(30)  # 尺寸
         AddButton.clicked.connect(lambda: self.NewClassAction(NameInput.text(), DescriptionInput.text()))  # 连接槽函数
-        self.ButtonLayout.addWidget(AddButton)  # 添加控件
         VLayout.addWidget(AddButton)
 
         self.NewClassView.setLayout(VLayout)  # 添加布局

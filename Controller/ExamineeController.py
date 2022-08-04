@@ -42,3 +42,7 @@ class ExamineeController(BaseController):
         }
         Result = self.Post(Param, '/Examinee/Info')
         return Result
+
+    def Examinees(self):
+        Result = self.Post({}, '/Examinees')
+        return Result

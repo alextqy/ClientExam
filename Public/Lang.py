@@ -71,6 +71,8 @@ class Lang(BaseService):
             self.Description = 'Description'
             self.Yes = 'Yes'
             self.No = 'No'
+            self.NoDataAvailable = 'No data available'
+            self.Submit = 'Submit'
 
             self.Name = 'Name'
             self.NewManager = 'New manager'
@@ -93,6 +95,7 @@ class Lang(BaseService):
             self.ExamineeDetails = 'Examinee details'
 
             self.NewRegistration = 'New registration'
+            self.ImportRegistration = 'Import registration'
             self.RegistrationDetails = 'Registration Details'
             self.RegisterInformation = 'Register information'
             self.ExamNo = 'Exam No.'
@@ -179,6 +182,8 @@ class Lang(BaseService):
             self.Description = '描述信息'
             self.Yes = '是'
             self.No = '否'
+            self.NoDataAvailable = '没有可用数据'
+            self.Submit = '提交'
 
             self.Name = '姓名'
             self.NewManager = '新建管理员'
@@ -201,6 +206,7 @@ class Lang(BaseService):
             self.ExamineeDetails = '考生详情'
 
             self.NewRegistration = '新建报名'
+            self.ImportRegistration = '导入报名'
             self.RegistrationDetails = '报名详情'
             self.RegisterInformation = '报名信息'
             self.ExamNo = '准考证号'
@@ -287,6 +293,8 @@ class Lang(BaseService):
             self.Description = ''
             self.Yes = ''
             self.No = ''
+            self.NoDataAvailable = ''
+            self.Submit = ''
 
             self.Name = ''
             self.NewManager = ''
@@ -309,6 +317,7 @@ class Lang(BaseService):
             self.ExamineeDetails = ''
 
             self.NewRegistration = ''
+            self.ImportRegistration = ''
             self.RegistrationDetails = ''
             self.RegisterInformation = ''
             self.ExamNo = ''

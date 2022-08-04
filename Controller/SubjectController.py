@@ -45,3 +45,7 @@ class SubjectController(BaseController):
         }
         Result = self.Post(Param, '/Subject/Info')
         return Result
+
+    def Subjects(self):
+        Result = self.Post({}, '/Subjects')
+        return Result

@@ -11,6 +11,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.ExamInfoFrameStyleSheet = ExamInfoFrameStyleSheet()
         self.ExamInfoController = ExamInfoController()
         self.ExamineeController = ExamineeController()
+        self.SubjectController = SubjectController()
         self.setStyleSheet(self.ExamInfoFrameStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
@@ -173,6 +174,13 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.NewExamInfoButton.setFixedHeight(30)  # 尺寸
         self.NewExamInfoButton.clicked.connect(lambda: self.NewExamInfoWindow())  # 连接槽函数
         self.ButtonLayout.addWidget(self.NewExamInfoButton)  # 添加控件
+
+        # 导入报名
+        self.ImportRegistrationButton = QPushButton(self.Lang.ImportRegistration)
+        self.ImportRegistrationButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())  # 设置样式
+        self.ImportRegistrationButton.setFixedHeight(30)  # 尺寸
+        self.ImportRegistrationButton.clicked.connect(lambda: self.ImportRegistrationWindow())  # 连接槽函数
+        self.ButtonLayout.addWidget(self.ImportRegistrationButton)  # 添加控件
 
         # 刷新
         self.RefreshButton = QPushButton(self.Lang.Refresh)
@@ -484,8 +492,229 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
     # 新建节点
     def NewExamInfoWindow(self):
-        pass
+        CheckSubjects = self.SubjectController.Subjects()
+        if CheckSubjects['State'] != True and len(CheckSubjects['Data']) == 0:
+            self.MSGBOX.WARNING(self.Lang.NoDataAvailable)
+        else:
+            self.NewExamInfoView = QDialog()
+            self.NewExamInfoView.setWindowTitle(TITLE)
+            self.NewExamInfoView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+            self.NewExamInfoView.setStyleSheet(self.ExamInfoFrameStyleSheet.Dialog())  # 设置样式
+            self.NewExamInfoView.setFixedSize(222, 196)  # 尺寸
+
+            VLayout = QVBoxLayout()
+
+            ExamNoInput = QLineEdit()  # 账号输入
+            ExamNoInput.setFixedSize(200, 30)  # 尺寸
+            ExamNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            ExamNoInput.setPlaceholderText(self.Lang.ExamNo)  # 设置空内容提示
+            ExamNoInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
+            ExamNoInput.setToolTip(self.Lang.ExamNo)  # 设置鼠标提示
+            VLayout.addWidget(ExamNoInput)  # 添加控件
+
+            TypeSelect = QComboBox()  # 设置下拉框
+            TypeSelect.adjustSize()  # 按内容自适应宽度
+            TypeSelect.setView(QListView())  # 设置内容控件
+            TypeSelect.setFixedHeight(30)  # 尺寸
+            TypeSelect.setMinimumWidth(100)  # 尺寸
+            TypeSelect.setStyleSheet(self.ExamInfoFrameStyleSheet.SelectBox())  # 设置样式
+            TypeSelect.insertItem(0, ' ' + self.Lang.ExamType)  # 设置下拉内容
+            TypeSelect.setItemData(0, self.Lang.ExamType, Qt.ToolTipRole)  # 设置下拉内容提示
+            TypeSelect.insertItem(1, self.Lang.FormalExam)  # 设置下拉内容
+            TypeSelect.setItemData(1, self.Lang.FormalExam, Qt.ToolTipRole)  # 设置下拉内容提示
+            TypeSelect.insertItem(2, self.Lang.InformalExam)  # 设置下拉内容
+            TypeSelect.setItemData(2, self.Lang.InformalExam, Qt.ToolTipRole)  # 设置下拉内容提示
+            TypeSelect.setCurrentIndex(0)  # 设置默认选项
+            VLayout.addWidget(TypeSelect)  # 添加控件
+
+            self.SubjectSelectButton = QPushButton(self.Lang.Subject)  # 按钮
+            self.SubjectSelectButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())  # 设置样式
+            self.SubjectSelectButton.setFixedHeight(30)  # 尺寸
+            self.SubjectSelectButton.clicked.connect(lambda: self.ChooseSubjects(CheckSubjects['Data']))  # 连接槽函数
+            VLayout.addWidget(self.SubjectSelectButton)
+
+            self.ExamineeSelectButton = QPushButton(self.Lang.Examinee)  # 按钮
+            self.ExamineeSelectButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())  # 设置样式
+            self.ExamineeSelectButton.setFixedHeight(30)  # 尺寸
+            self.ExamineeSelectButton.clicked.connect(lambda: self.ChooseExaminees())  # 连接槽函数
+            VLayout.addWidget(self.ExamineeSelectButton)
+
+            AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+            AddButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())  # 设置样式
+            AddButton.setFixedHeight(30)  # 尺寸
+            # AddButton.clicked.connect(lambda: self.NewExamInfoAction(SubjectSelect.currentIndex(), ExamNoInput.text(), ExamineeSelect.currentIndex(), TypeSelect.currentIndex()))  # 连接槽函数
+            VLayout.addWidget(AddButton)
+
+            self.NewExamInfoView.setLayout(VLayout)  # 添加布局
+            self.NewExamInfoView.show()
+
+    # 科目选择
+    def ChooseSubjects(self, Subjects: list):
+        self.SubjectsWindow = SubjectsWindow(Subjects)
+        self.SubjectsWindow.ActionSignal.connect(self.SetSubject)
+        self.SubjectsWindow.show()
+
+    def SetSubject(self, SubjectName: str):
+        if SubjectName != '':
+            self.SubjectSelectButton.setText(SubjectName)
+
+    # 考生选择
+    def ChooseExaminees(self):
+        CheckExaminees = self.ExamineeController.Examinees()
+        if CheckExaminees['State'] != True:
+            self.MSGBOX.ERROR(CheckExaminees['Memo'])
+        else:
+            self.ExamineesWindow = ExamineesWindow(CheckExaminees['Data'])
+            self.ExamineesWindow.ActionSignal.connect(self.SetExaminee)
+            self.ExamineesWindow.show()
+
+    def SetExaminee(self, ExamineeName: str, ExamineeID: str):
+        if ExamineeName != '' and ExamineeID != '':
+            self.ExamineeSelectButton.setText(ExamineeName)
+            self.ExamineeSelectButton.setWhatsThis(ExamineeID)
 
     # 新建
-    def NewExamInfoAction(self):
+    def NewExamInfoAction(self, SubjectName: str, ExamNo: str, ExamineeID: int, ExamType: int):
         pass
+
+    # 新建节点
+    def ImportRegistrationWindow(self):
+        pass
+
+    # 导入
+    def ImportRegistrationAction(self):
+        pass
+
+
+class SubjectsWindow(BaseTemplate, QDialog):
+    ActionSignal = Signal(str)  # 设置信号
+
+    def __init__(self, SubjectList: list):
+        super().__init__()
+        self.ExamInfoFrameStyleSheet = ExamInfoFrameStyleSheet()
+        self.setWindowTitle(TITLE)
+        self.setFixedSize(266, 274)  # 尺寸
+        self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.setStyleSheet(self.ExamInfoFrameStyleSheet.Dialog())  # 设置样式
+        self.VLayout = QVBoxLayout()
+        self.VLayout.setContentsMargins(5, 5, 5, 5)
+        self.HLayout = QHBoxLayout()
+        self.VLayout.addLayout(self.HLayout)
+        self.setLayout(self.VLayout)
+
+        self.SearchBar = QLineEdit()
+        self.SearchBar.setFixedHeight(30)
+        self.SearchBar.setPlaceholderText(self.Lang.Name)
+        self.SearchBar.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
+        self.SearchBar.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())
+        self.HLayout.addWidget(self.SearchBar)
+        self.SearchButton = QPushButton(self.Lang.Search)
+        self.SearchButton.setFixedWidth(100)
+        self.SearchButton.setFixedHeight(30)
+        self.SearchButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())
+        self.SearchButton.clicked.connect(self.SearchName)
+        self.HLayout.addWidget(self.SearchButton)
+
+        self.Tree = QListWidget()
+        # self.Tree.setSelectionMode(QAbstractItemView.ExtendedSelection)  # 设置多选
+        self.Tree.setStyleSheet(self.ExamInfoFrameStyleSheet.List())
+        self.Tree.setFocusPolicy(Qt.NoFocus)
+        self.VLayout.addWidget(self.Tree)
+
+        self.SubmitButton = QPushButton(self.Lang.Submit)
+        self.SubmitButton.setFixedHeight(30)
+        self.SubmitButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())
+        self.SubmitButton.clicked.connect(self.Send)
+        self.VLayout.addWidget(self.SubmitButton)
+
+        self.SubjectList = SubjectList
+        if len(self.SubjectList) > 0:
+            for i in range(len(self.SubjectList)):
+                Item = QListWidgetItem()
+                Item.setSizeHint(QSize(200, 30))
+                Item.setText(self.SubjectList[i]['SubjectName'])
+                Item.setWhatsThis(str(self.SubjectList[i]['ID']))
+                self.Tree.addItem(Item)
+
+    # 搜索
+    def SearchName(self):
+        Name = self.SearchBar.text()
+        if Name != '':
+            SearchList = self.Tree.findItems(Name, Qt.MatchContains)
+            if len(SearchList) > 0:
+                for i in range(len(SearchList)):
+                    if SearchList[i].text() != self.Cache.Get('SubjectName'):
+                        self.Tree.setCurrentItem(SearchList[i])
+
+    # 发送
+    def Send(self):
+        SubjectItem = self.Tree.currentItem()
+        self.ActionSignal.emit(SubjectItem.text())
+        self.close()
+
+
+class ExamineesWindow(BaseTemplate, QDialog):
+    ActionSignal = Signal(str, str)  # 设置信号
+
+    def __init__(self, ExamineeList: list):
+        super().__init__()
+        self.ExamInfoFrameStyleSheet = ExamInfoFrameStyleSheet()
+        self.setWindowTitle(TITLE)
+        self.setFixedSize(266, 274)  # 尺寸
+        self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.setStyleSheet(self.ExamInfoFrameStyleSheet.Dialog())  # 设置样式
+        self.VLayout = QVBoxLayout()
+        self.VLayout.setContentsMargins(5, 5, 5, 5)
+        self.HLayout = QHBoxLayout()
+        self.VLayout.addLayout(self.HLayout)
+        self.setLayout(self.VLayout)
+
+        self.SearchBar = QLineEdit()
+        self.SearchBar.setFixedHeight(30)
+        self.SearchBar.setPlaceholderText(self.Lang.Name)
+        self.SearchBar.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
+        self.SearchBar.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())
+        self.HLayout.addWidget(self.SearchBar)
+        self.SearchButton = QPushButton(self.Lang.Search)
+        self.SearchButton.setFixedWidth(100)
+        self.SearchButton.setFixedHeight(30)
+        self.SearchButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())
+        self.SearchButton.clicked.connect(self.SearchName)
+        self.HLayout.addWidget(self.SearchButton)
+
+        self.Tree = QListWidget()
+        # self.Tree.setSelectionMode(QAbstractItemView.ExtendedSelection)  # 设置多选
+        self.Tree.setStyleSheet(self.ExamInfoFrameStyleSheet.List())
+        self.Tree.setFocusPolicy(Qt.NoFocus)
+        self.VLayout.addWidget(self.Tree)
+
+        self.SubmitButton = QPushButton(self.Lang.Submit)
+        self.SubmitButton.setFixedHeight(30)
+        self.SubmitButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())
+        self.SubmitButton.clicked.connect(self.Send)
+        self.VLayout.addWidget(self.SubmitButton)
+
+        self.ExamineeList = ExamineeList
+        if len(self.ExamineeList) > 0:
+            for i in range(len(self.ExamineeList)):
+                Item = QListWidgetItem()
+                Item.setSizeHint(QSize(200, 30))
+                Item.setText(self.ExamineeList[i]['Name'])
+                Item.setWhatsThis(str(self.ExamineeList[i]['ID']))
+                self.Tree.addItem(Item)
+
+    # 搜索
+    def SearchName(self):
+        Name = self.SearchBar.text()
+        if Name != '':
+            SearchList = self.Tree.findItems(Name, Qt.MatchContains)
+            if len(SearchList) > 0:
+                for i in range(len(SearchList)):
+                    if SearchList[i].text() != self.Cache.Get('Name'):
+                        self.Tree.setCurrentItem(SearchList[i])
+
+    # 发送
+    def Send(self):
+        ExamineeItem = self.Tree.currentItem()
+        self.ActionSignal.emit(ExamineeItem.text(), ExamineeItem.whatsThis())
+        self.close()

@@ -451,7 +451,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         if Account != '' and Password != '':
             Result = ManagerController().ManagerSignIn(Account, Password)
             if Result['State'] != True:
-                MSGBOX().ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.Cache.Set('Account', Account)
                 self.Cache.Set('Token', Result['Data'])

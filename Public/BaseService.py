@@ -50,7 +50,7 @@ from threading import *
 # from starlette.requests import Request
 
 from tkinter import *
-from PySide6.QtCore import Qt, QObject, Signal, QThread, QSize, QPropertyAnimation, QPoint, QSequentialAnimationGroup, QParallelAnimationGroup, QRunnable, QThreadPool, QTimer, QByteArray, Slot, QUrl
+from PySide6.QtCore import Qt, QObject, Signal, QThread, QSize, QPropertyAnimation, QPoint, QSequentialAnimationGroup, QParallelAnimationGroup, QRunnable, QThreadPool, QTimer, QByteArray, Slot, QUrl, QRect, QSortFilterProxyModel
 from PySide6.QtGui import QColor, QIcon, QCursor, QPalette, QBrush, QPixmap, QPainter, QDesktopServices, QIntValidator, QDoubleValidator
 from PySide6.QtWidgets import *
 
