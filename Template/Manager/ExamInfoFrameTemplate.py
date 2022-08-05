@@ -542,7 +542,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
             AddButton = QPushButton(self.Lang.Confirm)  # 按钮
             AddButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())  # 设置样式
             AddButton.setFixedHeight(30)  # 尺寸
-            # AddButton.clicked.connect(lambda: self.NewExamInfoAction(SubjectSelect.currentIndex(), ExamNoInput.text(), ExamineeSelect.currentIndex(), TypeSelect.currentIndex()))  # 连接槽函数
+            AddButton.clicked.connect(lambda: self.NewExamInfoAction(self.SubjectSelectButton.text(), ExamNoInput.text(), int(self.ExamineeSelectButton.whatsThis()), TypeSelect.currentIndex()))  # 连接槽函数
             VLayout.addWidget(AddButton)
 
             self.NewExamInfoView.setLayout(VLayout)  # 添加布局
@@ -577,7 +577,12 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
     # 新建
     def NewExamInfoAction(self, SubjectName: str, ExamNo: str, ExamineeID: int, ExamType: int):
-        pass
+        Result = self.ExamInfoController.NewExamInfo(SubjectName, ExamNo, ExamineeID, ExamType)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.TreeDataInit()
+            self.NewExamInfoView.close()
 
     # 新建节点
     def ImportRegistrationWindow(self):
@@ -588,6 +593,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         pass
 
 
+# 选择科目
 class SubjectsWindow(BaseTemplate, QDialog):
     ActionSignal = Signal(str)  # 设置信号
 
@@ -655,6 +661,7 @@ class SubjectsWindow(BaseTemplate, QDialog):
         self.close()
 
 
+# 选择考生
 class ExamineesWindow(BaseTemplate, QDialog):
     ActionSignal = Signal(str, str)  # 设置信号
 
