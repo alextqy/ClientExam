@@ -73,6 +73,7 @@ class Lang(BaseService):
             self.No = 'No'
             self.NoDataAvailable = 'No data available'
             self.Submit = 'Submit'
+            self.OperationFailed = 'Operation failed'
 
             self.Name = 'Name'
             self.NewManager = 'New manager'
@@ -184,6 +185,7 @@ class Lang(BaseService):
             self.No = '否'
             self.NoDataAvailable = '没有可用数据'
             self.Submit = '提交'
+            self.OperationFailed = '操作失败'
 
             self.Name = '姓名'
             self.NewManager = '新建管理员'
@@ -295,6 +297,7 @@ class Lang(BaseService):
             self.No = ''
             self.NoDataAvailable = ''
             self.Submit = ''
+            self.OperationFailed = ''
 
             self.Name = ''
             self.NewManager = ''

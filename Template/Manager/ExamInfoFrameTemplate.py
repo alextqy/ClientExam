@@ -182,6 +182,13 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.ImportRegistrationButton.clicked.connect(lambda: self.ImportRegistrationWindow())  # 连接槽函数
         self.ButtonLayout.addWidget(self.ImportRegistrationButton)  # 添加控件
 
+        # Demo
+        self.DemoButton = QPushButton('Demo')
+        self.DemoButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())  # 设置样式
+        self.DemoButton.setFixedSize(150, 30)  # 尺寸
+        self.DemoButton.clicked.connect(lambda: self.CheckDemo())  # 连接槽函数
+        self.ButtonLayout.addWidget(self.DemoButton)  # 添加控件
+
         # 刷新
         self.RefreshButton = QPushButton(self.Lang.Refresh)
         self.RefreshButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())  # 设置样式
@@ -592,6 +599,20 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
     # 导入
     def ImportRegistrationAction(self):
         pass
+
+    # Demo
+    def CheckDemo(self):
+        Result = self.ExamInfoController.DownloadExamInfoDemo()
+        if Result['State'] == True:
+            FileData: bytes = self.Common.Base64ToBytes(Result['Data'])
+            DemoPath = self.FileHelper.BaseDir() + 'Tempo' + '/' + str(self.Common.TimeMS()) + '.' + Result['Memo']
+            if self.FileHelper.WFileInByte(DemoPath, FileData) == False:
+                self.MSGBOX.ERROR(self.Lang.OperationFailed)
+            else:
+                try:
+                    self.FileHelper.OpenLocalDir(DemoPath)
+                except OSError as e:
+                    self.MSGBOX.ERROR(e)
 
 
 # 选择科目
