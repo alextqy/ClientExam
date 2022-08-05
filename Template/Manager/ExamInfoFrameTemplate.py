@@ -594,7 +594,12 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
     # 新建节点
     def ImportRegistrationWindow(self):
-        pass
+        File, _ = QFileDialog.getOpenFileName(self, 'Select the file', self.FileHelper.BaseDir() + 'Tempo', '')
+        FileName = str(File)
+        if FileName != '':
+            FileType = self.FileHelper.CheckFileType(FileName).lower()
+            if FileType == 'xls' or FileType == 'xlsx':
+                print(FileName)
 
     # 导入
     def ImportRegistrationAction(self):
