@@ -537,6 +537,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
             self.ExamineeSelectButton.setStyleSheet(self.ExamInfoFrameStyleSheet.Button())  # 设置样式
             self.ExamineeSelectButton.setFixedHeight(30)  # 尺寸
             self.ExamineeSelectButton.clicked.connect(lambda: self.ChooseExaminees())  # 连接槽函数
+            self.ExamineeSelectButton.setWhatsThis('0')  # 设置默认值
             VLayout.addWidget(self.ExamineeSelectButton)
 
             AddButton = QPushButton(self.Lang.Confirm)  # 按钮
