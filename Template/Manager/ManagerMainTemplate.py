@@ -7,6 +7,8 @@ from Template.Manager.ClassFrameTemplate import *
 from Template.Manager.ExamineeFrameTemplate import *
 from Template.Manager.ExamInfoFrameTemplate import *
 
+from Template.Manager.SubjectFrameTemplate import *
+
 
 class ManagerMainTemplate(BaseTemplate, QDialog):
 
@@ -155,6 +157,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.SubjectButton = QPushButton(self.Lang.Subject)
         self.SubjectButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton2())  # 设置样式
         self.SubjectButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.SubjectButton.clicked.connect(lambda: self.TemplateView('SubjectFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.SubjectButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # 知识点
@@ -241,6 +244,10 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.ExamInfoFrameTemplate.hide()
         self.DataLayout.addWidget(self.ExamInfoFrameTemplate)
 
+        self.SubjectFrameTemplate = SubjectFrameTemplate()
+        self.SubjectFrameTemplate.hide()
+        self.DataLayout.addWidget(self.SubjectFrameTemplate)
+
     # 框架路由
     def TemplateView(self, TemplateName: str):
 
@@ -250,6 +257,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ClassFrameTemplate.hide()
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
+            self.SubjectFrameTemplate.hide()
 
         if TemplateName == 'TeacherFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -257,6 +265,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ClassFrameTemplate.hide()
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
+            self.SubjectFrameTemplate.hide()
 
         if TemplateName == 'ClassFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -264,6 +273,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ClassFrameTemplate.show()
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
+            self.SubjectFrameTemplate.hide()
 
         if TemplateName == 'ExamineeFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -271,6 +281,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ClassFrameTemplate.hide()
             self.ExamineeFrameTemplate.show()
             self.ExamInfoFrameTemplate.hide()
+            self.SubjectFrameTemplate.hide()
 
         if TemplateName == 'ExamInfoFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -278,3 +289,12 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ClassFrameTemplate.hide()
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.show()
+            self.SubjectFrameTemplate.hide()
+
+        if TemplateName == 'SubjectFrameTemplate':
+            self.ManagerFrameTemplate.hide()
+            self.TeacherFrameTemplate.hide()
+            self.ClassFrameTemplate.hide()
+            self.ExamineeFrameTemplate.hide()
+            self.ExamInfoFrameTemplate.hide()
+            self.SubjectFrameTemplate.show()
