@@ -72,8 +72,15 @@ class ExamInfoController(BaseController):
         return Result
 
     def ImportExamInfo(self, FileEntityPath: str):
-        FileEntityByte = {'ExcelFile': open(FileEntityPath.strip(), 'rb').read()}
-        Result = self.Post({}, '/Import/Exam/Info', '', '', '', FileEntityByte)
+        FileName = self.FileHelper.CheckFileName(FileEntityPath)
+        FileType = self.FileHelper.CheckFileType(FileEntityPath)
+        FileFullName = FileName + '.' + FileType
+        if FileType == 'xls':
+            ContentType = 'application/vnd.ms-excel'
+        if FileType == 'xlsx':
+            ContentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        FileData = {'ExcelFile': (FileFullName, open(FileEntityPath, 'rb'), ContentType)}
+        Result = self.Post({}, '/Import/Exam/Info', '', '', '', FileData)
         return Result
 
     def DownloadExamInfoDemo(self):

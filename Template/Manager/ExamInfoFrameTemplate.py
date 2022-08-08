@@ -599,11 +599,11 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         if FileName != '':
             FileType = self.FileHelper.CheckFileType(FileName).lower()
             if FileType == 'xls' or FileType == 'xlsx':
-                print(FileName)
-
-    # 导入
-    def ImportRegistrationAction(self):
-        pass
+                Result = self.ExamInfoController.ImportExamInfo(FileName)  # 导入
+                if Result['State'] != True:
+                    self.MSGBOX.ERROR(Result['Memo'])
+                else:
+                    self.TreeDataInit()
 
     # Demo
     def CheckDemo(self):
