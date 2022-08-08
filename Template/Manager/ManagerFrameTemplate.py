@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
-from StyleSheet.ManagerFrameStyleSheet import *
+from StyleSheet.Manager.ManagerFrameStyleSheet import *
 
 
 # 管理员管理界面

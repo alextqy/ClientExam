@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
-from StyleSheet.ExamInfoFrameStyleSheet import *
+from StyleSheet.Manager.ExamInfoFrameStyleSheet import *
 
 
 # 报名管理界面

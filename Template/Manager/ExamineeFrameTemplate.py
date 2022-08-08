@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
-from StyleSheet.ExamineeFrameStyleSheet import *
+from StyleSheet.Manager.ExamineeFrameStyleSheet import *
 
 
 # 考生管理界面

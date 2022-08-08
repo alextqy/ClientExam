@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
-from StyleSheet.ManagerMainStyleSheet import *
+from StyleSheet.Manager.ManagerMainStyleSheet import *
 from Template.Manager.ManagerFrameTemplate import *
 from Template.Manager.TeacherFrameTemplate import *
 from Template.Manager.ClassFrameTemplate import *

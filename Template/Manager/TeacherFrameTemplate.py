@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
-from StyleSheet.TeacherFrameStyleSheet import *
+from StyleSheet.Manager.TeacherFrameStyleSheet import *
 
 
 # 教师管理界面
