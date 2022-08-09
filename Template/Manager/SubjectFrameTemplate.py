@@ -151,65 +151,183 @@ class SubjectFrameTemplate(BaseTemplate, QFrame):
 
         # =====================================================================================================================================================================
 
-    #     self.TreeDataInit()  # 主控件写入数据
+        self.TreeDataInit()  # 主控件写入数据
 
-    # # 列表
-    # def TreeDataInit(self):
-    #     self.ClearLayout(self.TreeLayout)
+    # 列表
+    def TreeDataInit(self):
+        self.ClearLayout(self.TreeLayout)
 
-    #     # 获取列表数据
-    #     if self.PageInput.text() != '':
-    #         if int(self.PageInput.text()) >= self.TotalPageNo:
-    #             Page = self.TotalPageNo
-    #         else:
-    #             Page = int(self.PageInput.text())
-    #     else:
-    #         Page = self.CurrentPageNo
-    #     PageSize = 0 if self.RowsInput.text() == '' else int(self.RowsInput.text())
-    #     Stext = self.SearchInput.text()
-    #     State = self.StateSelect.currentIndex()
-    #     Result = self.SubjectController.SubjectList(Page, PageSize, Stext, State)
-    #     self.TotalPageNo = Result['TotalPage']
-    #     self.TotalPage.setText(self.Lang.TotalPages + ' ' + str(self.TotalPageNo))
+        # 获取列表数据
+        if self.PageInput.text() != '':
+            if int(self.PageInput.text()) >= self.TotalPageNo:
+                Page = self.TotalPageNo
+            else:
+                Page = int(self.PageInput.text())
+        else:
+            Page = self.CurrentPageNo
+        PageSize = 0 if self.RowsInput.text() == '' else int(self.RowsInput.text())
+        Stext = self.SearchInput.text()
+        State = self.StateSelect.currentIndex()
+        Result = self.SubjectController.SubjectList(Page, PageSize, Stext, State)
+        self.TotalPageNo = Result['TotalPage']
+        self.TotalPage.setText(self.Lang.TotalPages + ' ' + str(self.TotalPageNo))
 
-    #     if Result['State'] != True:
-    #         self.MSGBOX.ERROR(Result['Memo'])
-    #     else:
-    #         Data = Result['Data']
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            Data = Result['Data']
 
-    #         # 树状列表
-    #         self.SubjectTree = BaseTreeWidget()
-    #         self.SubjectTree.SetSelectionMode(2)  # 设置选择模式
-    #         self.SubjectTree.setStyleSheet(self.SubjectFrameStyleSheet.TreeWidget())  # 设置样式
-    #         self.SubjectTree.setColumnCount(7)  # 设置列数
-    #         self.SubjectTree.hideColumn(5)  # 隐藏列
-    #         self.SubjectTree.hideColumn(6)  # 隐藏列
-    #         self.SubjectTree.setHeaderLabels(['ID', self.Lang.SubjectistratorAccount, self.Lang.Name, self.Lang.SubjectStatus, self.Lang.CreationTime, 'UpdateTime', 'Permission'])  # 设置标题栏
-    #         # self.SubjectTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
-    #         self.SubjectTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
-    #         self.SubjectTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
-    #         self.TreeLayout.addWidget(self.SubjectTree)  # 添加控件
+            # 树状列表
+            self.SubjectTree = BaseTreeWidget()
+            self.SubjectTree.SetSelectionMode(2)  # 设置选择模式
+            self.SubjectTree.setStyleSheet(self.SubjectFrameStyleSheet.TreeWidget())  # 设置样式
+            self.SubjectTree.setColumnCount(6)  # 设置列数
+            self.SubjectTree.hideColumn(4)  # 隐藏列
+            self.SubjectTree.hideColumn(5)  # 隐藏列
+            self.SubjectTree.setHeaderLabels(['ID', self.Lang.SubjectName, self.Lang.SubjectStatus, self.Lang.CreationTime, 'SubjectCode', 'UpdateTime'])  # 设置标题栏
+            # self.SubjectTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
+            self.SubjectTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
+            self.SubjectTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
+            self.TreeLayout.addWidget(self.SubjectTree)  # 添加控件
 
-    #         TreeItems = []
-    #         for i in range(len(Data)):
-    #             item = QTreeWidgetItem()  # 设置item控件
-    #             # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
-    #             item.setText(0, str(Data[i]['ID']))  # 设置内容
-    #             item.setText(1, Data[i]['Account'])  # 设置内容
-    #             item.setText(2, Data[i]['Name'])  # 设置内容
-    #             if Data[i]['State'] == 1:
-    #                 item.setText(3, self.Lang.Normal)  # 设置内容
-    #             else:
-    #                 item.setText(3, self.Lang.Disabled)  # 设置内容
-    #             item.setText(4, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
-    #             item.setText(5, str(Data[i]['UpdateTime']))  # 设置内容
-    #             item.setText(6, str(Data[i]['Permission']))  # 设置内容
-    #             item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-    #             item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-    #             item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-    #             item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-    #             item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-    #             item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-    #             item.setTextAlignment(6, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-    #             TreeItems.append(item)  # 添加到item list
-    #         self.SubjectTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+            TreeItems = []
+            for i in range(len(Data)):
+                item = QTreeWidgetItem()  # 设置item控件
+                # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
+                item.setText(0, str(Data[i]['ID']))  # 设置内容
+                item.setText(1, Data[i]['SubjectName'])  # 设置内容
+                if Data[i]['SubjectState'] == 1:
+                    item.setText(2, self.Lang.Normal)  # 设置内容
+                else:
+                    item.setText(2, self.Lang.Disabled)  # 设置内容
+                item.setText(3, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
+                item.setText(4, Data[i]['SubjectCode'])  # 设置内容
+                item.setText(5, str(Data[i]['UpdateTime']))  # 设置内容
+                item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                TreeItems.append(item)  # 添加到item list
+            self.SubjectTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+
+    # 设置上一页
+    def SetPreviousPage(self):
+        if self.CurrentPageNo == 1:
+            self.CurrentPageNo = 1
+        else:
+            self.CurrentPageNo -= 1
+        self.CurrentPage.setText(self.Lang.CurrentPage + ' ' + str(self.CurrentPageNo))
+        self.TreeDataInit()
+
+    # 设置下一页
+    def SetNextPage(self):
+        if self.CurrentPageNo >= self.TotalPageNo:
+            self.CurrentPageNo = self.TotalPageNo
+        else:
+            self.CurrentPageNo += 1
+        self.CurrentPage.setText(self.Lang.CurrentPage + ' ' + str(self.CurrentPageNo))
+        self.TreeDataInit()
+
+    # 列表节点右键菜单
+    def RightContextMenuExec(self, pos):
+        self.TreeMenu = BaseMenu()
+        self.TreeMenu.setStyleSheet(self.SubjectFrameStyleSheet.TreeMenu())  # 设置样式
+        Item = self.SubjectTree.currentItem()  # 获取被点击行控件
+        ItemAt = self.SubjectTree.itemAt(pos)  # 获取点击焦点
+
+        # 展示判断
+        if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
+            self.TreeMenu.AddAction(self.Lang.SubjectDetails, lambda: self.InfoWindow(Item))
+            self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction())
+        else:  # 焦点外
+            return
+
+        self.TreeMenu.move(QCursor().pos())  # 移动到焦点
+        self.TreeMenu.show()  # 展示
+
+    # 节点数据详情
+    def InfoWindow(self, Item):
+        ID: int = int(Item.text(0))
+        Name: str = Item.text(1)
+        SubjectCode: int = Item.text(4)
+        UpdateTime: int = Item.text(5)
+
+        self.SubjectDetailsView = QDialog()
+        self.SubjectDetailsView.setWindowTitle(TITLE)
+        self.SubjectDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.SubjectDetailsView.setStyleSheet(self.SubjectFrameStyleSheet.Dialog())  # 设置样式
+        self.SubjectDetailsView.setFixedSize(322, 160)  # 尺寸
+
+        VLayout = QVBoxLayout()
+
+        NameInput = QLineEdit()  # 输入
+        NameInput.setText(Name)  # 设置内容
+        NameInput.setFixedHeight(30)  # 尺寸
+        NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        NameInput.setPlaceholderText(self.Lang.SubjectName)  # 设置空内容提示
+        NameInput.setStyleSheet(self.SubjectFrameStyleSheet.InputBox())  # 设置样式
+        NameInput.setToolTip(self.Lang.SubjectName)  # 设置鼠标提示
+        VLayout.addWidget(NameInput)  # 添加控件
+
+        CodeInput = QLineEdit()
+        CodeInput.setText(SubjectCode)  # 设置内容
+        CodeInput.setFixedHeight(30)  # 尺寸
+        CodeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        CodeInput.setPlaceholderText(self.Lang.SubjectCode)  # 设置空内容提示
+        CodeInput.setStyleSheet(self.SubjectFrameStyleSheet.InputBox())  # 设置样式
+        CodeInput.setToolTip(self.Lang.SubjectCode)  # 设置鼠标提示
+        CodeInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(CodeInput)  # 添加控件
+
+        UpdateTimeInput = QLineEdit()
+        UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
+        UpdateTimeInput.setFixedHeight(30)  # 尺寸
+        UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
+        UpdateTimeInput.setStyleSheet(self.SubjectFrameStyleSheet.InputBox())  # 设置样式
+        UpdateTimeInput.setToolTip(self.Lang.UpdateTime)  # 设置鼠标提示
+        UpdateTimeInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(UpdateTimeInput)  # 添加控件
+
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
+        UpdateButton.setStyleSheet(self.SubjectFrameStyleSheet.Button())  # 设置样式
+        UpdateButton.setFixedHeight(30)  # 尺寸
+        UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, NameInput.text(), Name))  # 连接槽函数
+        self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
+        VLayout.addWidget(UpdateButton)
+
+        self.SubjectDetailsView.setLayout(VLayout)  # 添加布局
+        self.SubjectDetailsView.show()
+
+    # 更新信息
+    def InfoWindowAction(self, ID: int, Name: str, OldName: str):
+        if Name != OldName:
+            Result = self.SubjectController.UpdateSubjectInfo(ID, Name)
+            if Result['State'] != True:
+                MSGBOX.ERROR(Result['Memo'])
+            else:
+                self.SubjectDetailsView.close()
+                self.TreeDataInit()
+
+    # 删除节点数据
+    def DisableAction(self):
+        # ID: int = int(Item.text(0))
+        # Result = self.SubjectController.SubjectDisabled(ID)
+        # if Result['State'] != True:
+        #     self.MSGBOX.ERROR(Result['Memo'])
+        # else:
+        #     self.TreeDataInit()
+
+        Subjects = self.SubjectTree.selectedItems()
+        for i in range(len(Subjects)):
+            Item = Subjects[i]
+            ID: int = int(Item.text(0))
+            Result = self.SubjectController.SubjectDisabled(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR(Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()

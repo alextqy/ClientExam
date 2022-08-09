@@ -122,6 +122,10 @@ class Lang(BaseService):
             self.DataIntoHistory = 'Data into history'
 
             self.SubjectName = 'Subject name'
+            self.SubjectStatus = 'Subject status'
+            self.NewSubject = 'New subject'
+            self.SubjectDetails = 'Subject details'
+            self.SubjectCode = 'Subject code'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -234,6 +238,10 @@ class Lang(BaseService):
             self.DataIntoHistory = '数据转入历史'
 
             self.SubjectName = '科目名称'
+            self.SubjectStatus = '科目状态'
+            self.NewSubject = '新建科目'
+            self.SubjectDetails = '科目详情'
+            self.SubjectCode = '科目代码'
 
         else:
             self.ManagerLogin = ''
@@ -346,3 +354,7 @@ class Lang(BaseService):
             self.DataIntoHistory = ''
 
             self.SubjectName = ''
+            self.SubjectStatus = ''
+            self.NewSubject = ''
+            self.SubjectDetails = ''
+            self.SubjectCode = ''

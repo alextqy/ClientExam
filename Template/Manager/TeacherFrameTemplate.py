@@ -261,7 +261,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
 
         NameInput = QLineEdit()  # 输入
         NameInput.setText(Name)  # 设置内容
-        NameInput.setFixedSize(200, 30)  # 尺寸
+        NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
         NameInput.setStyleSheet(self.TeacherFrameStyleSheet.InputBox())  # 设置样式
@@ -269,7 +269,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(NameInput)  # 添加控件
 
         PasswordInput = QLineEdit()  # 密码输入
-        PasswordInput.setFixedSize(200, 30)  # 尺寸
+        PasswordInput.setFixedHeight(30)  # 尺寸
         PasswordInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         PasswordInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
         PasswordInput.setStyleSheet(self.TeacherFrameStyleSheet.InputBox())  # 设置样式
@@ -279,7 +279,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
 
         UpdateTimeInput = QLineEdit()
         UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
-        UpdateTimeInput.setFixedSize(200, 30)  # 尺寸
+        UpdateTimeInput.setFixedHeight(30)  # 尺寸
         UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
         UpdateTimeInput.setStyleSheet(self.TeacherFrameStyleSheet.InputBox())  # 设置样式
@@ -338,7 +338,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         VLayout = QVBoxLayout()
 
         AccountInput = QLineEdit()  # 账号输入
-        AccountInput.setFixedSize(200, 30)  # 尺寸
+        AccountInput.setFixedHeight(30)  # 尺寸
         AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.TeacherAccount)  # 设置空内容提示
         AccountInput.setStyleSheet(self.TeacherFrameStyleSheet.InputBox())  # 设置样式
@@ -346,7 +346,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(AccountInput)  # 添加控件
 
         NameInput = QLineEdit()  # 输入
-        NameInput.setFixedSize(200, 30)  # 尺寸
+        NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
         NameInput.setStyleSheet(self.TeacherFrameStyleSheet.InputBox())  # 设置样式
@@ -354,7 +354,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(NameInput)  # 添加控件
 
         PWDInput = QLineEdit()  # 输入
-        PWDInput.setFixedSize(200, 30)  # 尺寸
+        PWDInput.setFixedHeight(30)  # 尺寸
         PWDInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         PWDInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
         PWDInput.setStyleSheet(self.TeacherFrameStyleSheet.InputBox())  # 设置样式

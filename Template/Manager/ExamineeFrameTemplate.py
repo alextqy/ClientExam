@@ -275,7 +275,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         NameInput = QLineEdit()  # 输入
         NameInput.setText(Name)  # 设置内容
-        NameInput.setFixedSize(200, 30)  # 尺寸
+        NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
         NameInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
@@ -284,7 +284,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         ContactInput = QLineEdit()  # 输入
         ContactInput.setText(Contact)  # 设置内容
-        ContactInput.setFixedSize(200, 30)  # 尺寸
+        ContactInput.setFixedHeight(30)  # 尺寸
         ContactInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ContactInput.setPlaceholderText(self.Lang.Contact)  # 设置空内容提示
         ContactInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
@@ -293,7 +293,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         ExamineeNoInput = QLineEdit()
         ExamineeNoInput.setText(ExamineeNo)
-        ExamineeNoInput.setFixedSize(200, 30)  # 尺寸
+        ExamineeNoInput.setFixedHeight(30)  # 尺寸
         ExamineeNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ExamineeNoInput.setPlaceholderText(self.Lang.ExamineeNo)  # 设置空内容提示
         ExamineeNoInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
@@ -303,7 +303,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         ClassInput = QLineEdit()
         ClassInput.setText(ClassName)
-        ClassInput.setFixedSize(200, 30)  # 尺寸
+        ClassInput.setFixedHeight(30)  # 尺寸
         ClassInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ClassInput.setPlaceholderText(self.Lang.ClassName)  # 设置空内容提示
         ClassInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
@@ -341,7 +341,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         VLayout = QVBoxLayout()
 
         ExamineeNoInput = QLineEdit()  # 账号输入
-        ExamineeNoInput.setFixedSize(200, 30)  # 尺寸
+        ExamineeNoInput.setFixedHeight(30)  # 尺寸
         ExamineeNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ExamineeNoInput.setPlaceholderText(self.Lang.ExamineeNo)  # 设置空内容提示
         ExamineeNoInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
@@ -349,7 +349,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(ExamineeNoInput)  # 添加控件
 
         NameInput = QLineEdit()  # 输入
-        NameInput.setFixedSize(200, 30)  # 尺寸
+        NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
         NameInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
@@ -357,7 +357,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(NameInput)  # 添加控件
 
         ContactInput = QLineEdit()  # 输入
-        ContactInput.setFixedSize(200, 30)  # 尺寸
+        ContactInput.setFixedHeight(30)  # 尺寸
         ContactInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ContactInput.setPlaceholderText(self.Lang.Contact)  # 设置空内容提示
         ContactInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式

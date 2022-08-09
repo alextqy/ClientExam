@@ -381,7 +381,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
         ExamNoInput = QLineEdit()  # 输入
         ExamNoInput.setText(ExamNo)  # 设置内容
-        ExamNoInput.setFixedSize(200, 30)  # 尺寸
+        ExamNoInput.setFixedHeight(30)  # 尺寸
         ExamNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ExamNoInput.setPlaceholderText(self.Lang.ExamNo)  # 设置空内容提示
         ExamNoInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
@@ -390,7 +390,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(ExamNoInput)  # 添加控件
 
         ExamineeNameInput = QLineEdit()  # 输入
-        ExamineeNameInput.setFixedSize(200, 30)  # 尺寸
+        ExamineeNameInput.setFixedHeight(30)  # 尺寸
         ExamineeNameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ExamineeNameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
         ExamineeNameInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
@@ -399,7 +399,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(ExamineeNameInput)  # 添加控件
 
         ExamineeNoInput = QLineEdit()  # 输入
-        ExamineeNoInput.setFixedSize(200, 30)  # 尺寸
+        ExamineeNoInput.setFixedHeight(30)  # 尺寸
         ExamineeNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ExamineeNoInput.setPlaceholderText(self.Lang.ExamineeNo)  # 设置空内容提示
         ExamineeNoInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
@@ -416,7 +416,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
         UpdateTimeInput = QLineEdit()
         UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
-        UpdateTimeInput.setFixedSize(200, 30)  # 尺寸
+        UpdateTimeInput.setFixedHeight(30)  # 尺寸
         UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
         UpdateTimeInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式
@@ -512,7 +512,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
             VLayout = QVBoxLayout()
 
             ExamNoInput = QLineEdit()  # 账号输入
-            ExamNoInput.setFixedSize(200, 30)  # 尺寸
+            ExamNoInput.setFixedHeight(30)  # 尺寸
             ExamNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
             ExamNoInput.setPlaceholderText(self.Lang.ExamNo)  # 设置空内容提示
             ExamNoInput.setStyleSheet(self.ExamInfoFrameStyleSheet.InputBox())  # 设置样式

@@ -240,7 +240,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
 
         NameInput = QLineEdit()  # 输入
         NameInput.setText(Name)  # 设置内容
-        NameInput.setFixedSize(300, 30)  # 尺寸
+        NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.ClassName)  # 设置空内容提示
         NameInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
@@ -249,7 +249,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
 
         ClassCodeInput = QLineEdit()
         ClassCodeInput.setText(ClassCode)  # 设置内容
-        ClassCodeInput.setFixedSize(300, 30)  # 尺寸
+        ClassCodeInput.setFixedHeight(30)  # 尺寸
         ClassCodeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ClassCodeInput.setPlaceholderText(self.Lang.ClassCode)  # 设置空内容提示
         ClassCodeInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
@@ -259,7 +259,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
 
         DescriptionInput = QLineEdit()
         DescriptionInput.setText(Description)  # 设置内容
-        DescriptionInput.setFixedSize(300, 30)  # 尺寸
+        DescriptionInput.setFixedHeight(30)  # 尺寸
         DescriptionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         DescriptionInput.setPlaceholderText(self.Lang.Description)  # 设置空内容提示
         DescriptionInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
@@ -296,7 +296,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         VLayout = QVBoxLayout()
 
         NameInput = QLineEdit()  # 输入
-        NameInput.setFixedSize(300, 30)  # 尺寸
+        NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.ClassName)  # 设置空内容提示
         NameInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
@@ -304,7 +304,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(NameInput)  # 添加控件
 
         DescriptionInput = QLineEdit()
-        DescriptionInput.setFixedSize(300, 30)  # 尺寸
+        DescriptionInput.setFixedHeight(30)  # 尺寸
         DescriptionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         DescriptionInput.setPlaceholderText(self.Lang.Description)  # 设置空内容提示
         DescriptionInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
