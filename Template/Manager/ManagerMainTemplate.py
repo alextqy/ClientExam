@@ -14,9 +14,11 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
 
     def __init__(self, Title=TITLE, Icon=ICON):
         super().__init__()
+        self.ManagerController = ManagerController()
+
         self.ManagerMainStyleSheet = ManagerMainStyleSheet()  # 实例化样式
         self.setStyleSheet(self.ManagerMainStyleSheet.BaseStyleSheet())  # 设置样式
-        self.setWindowFlags(Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)  # 显示 最小化 最大化 关闭 按钮
+        self.setWindowFlags(Qt.WindowMinMaxButtonsHint)  # 显示 最小化 最大化 关闭 按钮
         self.setWindowTitle(Title)  # 窗口标题
         self.setWindowIcon(QIcon(Icon))  # 设置ICON
         self.setMinimumSize(1350, 800)  # 设置最小尺寸
@@ -214,7 +216,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.ExitButton = QPushButton(self.Lang.Exit)
         self.ExitButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton3())  # 设置样式
         self.ExitButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        self.ExitButton.clicked.connect(lambda: os._exit(0))  # 连接槽函数
+        self.ExitButton.clicked.connect(lambda: self.ExitSystem())  # 连接槽函数
         self.MenuLayout.addWidget(self.ExitButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         self.MenuLayout.addStretch()  # 占位
@@ -298,3 +300,8 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.show()
+
+    # 退出系统
+    def ExitSystem(self):
+        self.ManagerController.ManagerSignOut()
+        os._exit(0)
