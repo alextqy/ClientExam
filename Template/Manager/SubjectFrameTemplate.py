@@ -331,3 +331,40 @@ class SubjectFrameTemplate(BaseTemplate, QFrame):
                 break
             else:
                 self.TreeDataInit()
+
+    # 新建节点
+    def NewSubjectWindow(self):
+        self.NewSubjectView = QDialog()
+        self.NewSubjectView.setWindowTitle(TITLE)
+        self.NewSubjectView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.NewSubjectView.setStyleSheet(self.SubjectFrameStyleSheet.Dialog())  # 设置样式
+        self.NewSubjectView.setFixedSize(222, 80)  # 尺寸
+
+        VLayout = QVBoxLayout()
+
+        NameInput = QLineEdit()  # 输入
+        NameInput.setFixedHeight(30)  # 尺寸
+        NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        NameInput.setPlaceholderText(self.Lang.SubjectName)  # 设置空内容提示
+        NameInput.setStyleSheet(self.SubjectFrameStyleSheet.InputBox())  # 设置样式
+        NameInput.setToolTip(self.Lang.SubjectName)  # 设置鼠标提示
+        VLayout.addWidget(NameInput)  # 添加控件
+
+        AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+        AddButton.setStyleSheet(self.SubjectFrameStyleSheet.Button())  # 设置样式
+        AddButton.setFixedHeight(30)  # 尺寸
+        AddButton.clicked.connect(lambda: self.NewSubjectAction(NameInput.text()))  # 连接槽函数
+        VLayout.addWidget(AddButton)
+
+        self.NewSubjectView.setLayout(VLayout)  # 添加布局
+        self.NewSubjectView.show()
+
+    # 新建
+    def NewSubjectAction(self, Name: str):
+        if Name != '':
+            Result = self.SubjectController.NewSubject(Name)
+            if Result['State'] != True:
+                self.MSGBOX.ERROR(Result['Memo'])
+            else:
+                self.NewSubjectView.close()  # 关闭窗口
+                self.TreeDataInit()  # 主控件写入数据
