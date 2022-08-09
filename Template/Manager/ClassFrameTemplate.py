@@ -291,7 +291,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.NewClassView.setWindowTitle(TITLE)
         self.NewClassView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.NewClassView.setStyleSheet(self.ClassFrameStyleSheet.Dialog())  # 设置样式
-        self.NewClassView.setFixedSize(322, 124)  # 尺寸
+        self.NewClassView.setFixedSize(222, 124)  # 尺寸
 
         VLayout = QVBoxLayout()
 
