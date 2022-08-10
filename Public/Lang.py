@@ -128,6 +128,12 @@ class Lang(BaseService):
             self.SubjectDetails = 'Subject details'
             self.SubjectCode = 'Subject code'
 
+            self.KnowledgePointName = 'Knowledge point name'
+            self.KnowledgePointStatus = 'Knowledge point status'
+            self.NewKnowledgePoint = 'New knowledge point'
+            self.KnowledgeDetails = 'Knowledge details'
+            self.KnowledgePointCode = 'Knowledge point code'
+
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
             self.TeacherLogin = '教师登录'
@@ -245,6 +251,12 @@ class Lang(BaseService):
             self.SubjectDetails = '科目详情'
             self.SubjectCode = '科目代码'
 
+            self.KnowledgePointName = '知识点名称'
+            self.KnowledgePointStatus = '知识点状态'
+            self.NewKnowledgePoint = '新建知识点'
+            self.KnowledgeDetails = '知识点详情'
+            self.KnowledgePointCode = '知识点代码'
+
         else:
             self.ManagerLogin = ''
             self.TeacherLogin = ''
@@ -361,3 +373,9 @@ class Lang(BaseService):
             self.NewSubject = ''
             self.SubjectDetails = ''
             self.SubjectCode = ''
+
+            self.KnowledgePointName = ''
+            self.KnowledgePointStatus = ''
+            self.NewKnowledgePoint = ''
+            self.KnowledgeDetails = ''
+            self.KnowledgePointCode = ''

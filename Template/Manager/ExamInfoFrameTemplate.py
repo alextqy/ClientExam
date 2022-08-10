@@ -585,12 +585,13 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
     # 新建
     def NewExamInfoAction(self, SubjectName: str, ExamNo: str, ExamineeID: int, ExamType: int):
-        Result = self.ExamInfoController.NewExamInfo(SubjectName, ExamNo, ExamineeID, ExamType)
-        if Result['State'] != True:
-            self.MSGBOX.ERROR(Result['Memo'])
-        else:
-            self.TreeDataInit()
-            self.NewExamInfoView.close()
+        if SubjectName != '' and ExamNo != '' and ExamineeID > 0 and ExamType > 0:
+            Result = self.ExamInfoController.NewExamInfo(SubjectName, ExamNo, ExamineeID, ExamType)
+            if Result['State'] != True:
+                self.MSGBOX.ERROR(Result['Memo'])
+            else:
+                self.TreeDataInit()
+                self.NewExamInfoView.close()
 
     # 新建节点
     def ImportRegistrationWindow(self):

@@ -308,13 +308,6 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
 
     # 删除节点数据
     def DisableAction(self):
-        # ID: int = int(Item.text(0))
-        # Result = self.TeacherController.TeacherDisabled(ID)
-        # if Result['State'] != True:
-        #     self.MSGBOX.ERROR(Result['Memo'])
-        # else:
-        #     self.TreeDataInit()
-
         Teachers = self.TeacherTree.selectedItems()
         for i in range(len(Teachers)):
             Item = Teachers[i]

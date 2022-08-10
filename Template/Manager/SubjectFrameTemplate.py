@@ -313,13 +313,6 @@ class SubjectFrameTemplate(BaseTemplate, QFrame):
 
     # 删除节点数据
     def DisableAction(self):
-        # ID: int = int(Item.text(0))
-        # Result = self.SubjectController.SubjectDisabled(ID)
-        # if Result['State'] != True:
-        #     self.MSGBOX.ERROR(Result['Memo'])
-        # else:
-        #     self.TreeDataInit()
-
         Subjects = self.SubjectTree.selectedItems()
         for i in range(len(Subjects)):
             Item = Subjects[i]
