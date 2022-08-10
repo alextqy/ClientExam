@@ -18,7 +18,7 @@ class ExamInfoHistoryFrameTemplate(BaseTemplate, QFrame):
         self.CenterLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 标题栏
-        self.Headline = QLabel(self.Lang.RegisterInformation)
+        self.Headline = QLabel(self.Lang.HistoryRegistration)
         self.Headline.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.Headline.adjustSize()  # 根据内容自适应宽度
         self.Headline.setFixedHeight(30)  # 尺寸
