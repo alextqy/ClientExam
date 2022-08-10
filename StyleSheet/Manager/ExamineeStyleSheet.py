@@ -2,7 +2,7 @@
 from StyleSheet.BaseStyleSheet import *
 
 
-class ExamineeFrameStyleSheet(BaseStyleSheet):
+class ExamineeStyleSheet(BaseStyleSheet):
 
     def __init__(self):
         super().__init__()

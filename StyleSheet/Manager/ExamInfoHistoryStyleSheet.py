@@ -2,7 +2,7 @@
 from StyleSheet.BaseStyleSheet import *
 
 
-class ManagerFrameStyleSheet(BaseStyleSheet):
+class ExamInfoHistoryStyleSheet(BaseStyleSheet):
 
     def __init__(self):
         super().__init__()
@@ -173,5 +173,33 @@ class ManagerFrameStyleSheet(BaseStyleSheet):
         QDialog{
             font-family: ''' + self.FontFamily + ''';
             background-color: ''' + self.CommonColor + ''';
+        }
+        '''
+
+    def List(self) -> str:
+        return '''
+        QListWidget {
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            color: black;
+            border: 2px solid white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        QListWidget::item {
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            color: black;
+        }
+
+        QListWidget::item:hover {
+            background: #666666;
+            color: white;
+        }
+
+        QListWidget::item:selected {
+            background: white;
+            color: black;
         }
         '''

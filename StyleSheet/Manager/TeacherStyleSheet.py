@@ -2,7 +2,7 @@
 from StyleSheet.BaseStyleSheet import *
 
 
-class ClassFrameStyleSheet(BaseStyleSheet):
+class TeacherStyleSheet(BaseStyleSheet):
 
     def __init__(self):
         super().__init__()

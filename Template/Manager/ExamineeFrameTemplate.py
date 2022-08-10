@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
-from StyleSheet.Manager.ExamineeFrameStyleSheet import *
+from StyleSheet.Manager.ExamineeStyleSheet import *
 
 
 # 考生管理界面
@@ -8,11 +8,11 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
     def __init__(self):
         super().__init__()
-        self.ExamineeFrameStyleSheet = ExamineeFrameStyleSheet()
+        self.ExamineeStyleSheet = ExamineeStyleSheet()
         self.ExamineeController = ExamineeController()
         self.ClassController = ClassController()
         self.Classes: list = []
-        self.setStyleSheet(self.ExamineeFrameStyleSheet.BaseStyleSheet())  # 设置样式
+        self.setStyleSheet(self.ExamineeStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
         self.CenterLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
@@ -23,7 +23,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.Headline.adjustSize()  # 根据内容自适应宽度
         self.Headline.setFixedHeight(30)  # 尺寸
         self.Headline.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.Headline.setStyleSheet(self.ExamineeFrameStyleSheet.Headline())  # 设置样式
+        self.Headline.setStyleSheet(self.ExamineeStyleSheet.Headline())  # 设置样式
         self.CenterLayout.addWidget(self.Headline)  # 添加控件
 
         self.TreeLayout = QVBoxLayout()  # 设置列表布局
@@ -43,7 +43,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.CurrentPage.adjustSize()  # 根据内容自适应宽度
         self.CurrentPage.setFixedSize(120, 30)  # 尺寸
         self.CurrentPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.CurrentPage.setStyleSheet(self.ExamineeFrameStyleSheet.CurrentPage())  # 设置样式
+        self.CurrentPage.setStyleSheet(self.ExamineeStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.CurrentPage)  # 添加控件
 
         # 总页码数
@@ -52,7 +52,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.TotalPage.adjustSize()  # 根据内容自适应宽度
         self.TotalPage.setFixedSize(120, 30)  # 尺寸
         self.TotalPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.TotalPage.setStyleSheet(self.ExamineeFrameStyleSheet.CurrentPage())  # 设置样式
+        self.TotalPage.setStyleSheet(self.ExamineeStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.TotalPage)  # 添加控件
 
         # 输入页码
@@ -61,7 +61,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.PageInput.setFixedSize(170, 30)  # 尺寸
         self.PageInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.PageInput.setPlaceholderText(self.Lang.EnterPageNumber)  # 设置空内容提示
-        self.PageInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        self.PageInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         self.PageInput.setToolTip(self.Lang.EnterPageNumber)  # 设置鼠标提示
         self.PageButtonLayout.addWidget(self.PageInput)  # 添加控件
 
@@ -71,7 +71,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.RowsInput.setFixedSize(170, 30)  # 尺寸
         self.RowsInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.RowsInput.setPlaceholderText(self.Lang.EnterTheNumberOfLines)  # 设置空内容提示
-        self.RowsInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        self.RowsInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         self.RowsInput.setToolTip(self.Lang.EnterTheNumberOfLines)  # 设置鼠标提示
         self.PageButtonLayout.addWidget(self.RowsInput)  # 添加控件
 
@@ -80,7 +80,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.SearchInput.setFixedSize(170, 30)  # 尺寸
         self.SearchInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.SearchInput.setPlaceholderText(self.Lang.Search)  # 设置空内容提示
-        self.SearchInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        self.SearchInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         self.SearchInput.setToolTip(self.Lang.Search)  # 设置鼠标提示
         self.PageButtonLayout.addWidget(self.SearchInput)  # 添加控件
 
@@ -90,7 +90,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.ClassSelect.setView(QListView())  # 设置内容控件
         self.ClassSelect.setFixedHeight(30)  # 尺寸
         self.ClassSelect.setMinimumWidth(110)  # 尺寸
-        self.ClassSelect.setStyleSheet(self.ExamineeFrameStyleSheet.SelectBox())  # 设置样式
+        self.ClassSelect.setStyleSheet(self.ExamineeStyleSheet.SelectBox())  # 设置样式
         self.ClassSelect.insertItem(0, ' ' + self.Lang.Class)  # 设置下拉内容
         self.ClassSelect.setItemData(0, self.Lang.Class, Qt.ToolTipRole)  # 设置下拉内容提示
         CheckClasses = self.ClassController.Classes()
@@ -108,7 +108,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         # 确认按钮
         self.ConfirmButton = QPushButton(self.Lang.Confirm)
-        self.ConfirmButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
+        self.ConfirmButton.setStyleSheet(self.ExamineeStyleSheet.Button())  # 设置样式
         self.ConfirmButton.setFixedHeight(30)  # 尺寸
         self.ConfirmButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
         self.PageButtonLayout.addWidget(self.ConfirmButton)  # 添加控件
@@ -121,14 +121,14 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         # 上一页
         self.PreviousPageButton = QPushButton(self.Lang.PreviousPage)
-        self.PreviousPageButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
+        self.PreviousPageButton.setStyleSheet(self.ExamineeStyleSheet.Button())  # 设置样式
         self.PreviousPageButton.setFixedHeight(30)  # 尺寸
         self.PreviousPageButton.clicked.connect(lambda: self.SetPreviousPage())  # 连接槽函数
         self.PNButtonLayout.addWidget(self.PreviousPageButton)  # 添加控件
 
         # 下一页
         self.NextPageButton = QPushButton(self.Lang.NextPage)
-        self.NextPageButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
+        self.NextPageButton.setStyleSheet(self.ExamineeStyleSheet.Button())  # 设置样式
         self.NextPageButton.setFixedHeight(30)  # 尺寸
         self.NextPageButton.clicked.connect(lambda: self.SetNextPage())  # 连接槽函数
         self.PNButtonLayout.addWidget(self.NextPageButton)  # 添加控件
@@ -140,14 +140,14 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         # 新建
         self.NewExamineeButton = QPushButton(self.Lang.NewExaminee)
-        self.NewExamineeButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
+        self.NewExamineeButton.setStyleSheet(self.ExamineeStyleSheet.Button())  # 设置样式
         self.NewExamineeButton.setFixedHeight(30)  # 尺寸
         self.NewExamineeButton.clicked.connect(lambda: self.NewExamineeWindow())  # 连接槽函数
         self.ButtonLayout.addWidget(self.NewExamineeButton)  # 添加控件
 
         # 刷新
         self.RefreshButton = QPushButton(self.Lang.Refresh)
-        self.RefreshButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
+        self.RefreshButton.setStyleSheet(self.ExamineeStyleSheet.Button())  # 设置样式
         self.RefreshButton.setFixedHeight(30)  # 尺寸
         self.RefreshButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
         self.ButtonLayout.addWidget(self.RefreshButton)  # 添加控件
@@ -188,7 +188,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
             # 树状列表
             self.ExamineeTree = BaseTreeWidget()
             self.ExamineeTree.SetSelectionMode(2)  # 设置选择模式
-            self.ExamineeTree.setStyleSheet(self.ExamineeFrameStyleSheet.TreeWidget())  # 设置样式
+            self.ExamineeTree.setStyleSheet(self.ExamineeStyleSheet.TreeWidget())  # 设置样式
             self.ExamineeTree.setColumnCount(6)  # 设置列数
             self.ExamineeTree.hideColumn(3)  # 隐藏列
             self.ExamineeTree.hideColumn(4)  # 隐藏列
@@ -239,7 +239,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
     # 列表节点右键菜单
     def RightContextMenuExec(self, pos):
         self.TreeMenu = BaseMenu()
-        self.TreeMenu.setStyleSheet(self.ExamineeFrameStyleSheet.TreeMenu())  # 设置样式
+        self.TreeMenu.setStyleSheet(self.ExamineeStyleSheet.TreeMenu())  # 设置样式
         Item = self.ExamineeTree.currentItem()  # 获取被点击行控件
         ItemAt = self.ExamineeTree.itemAt(pos)  # 获取点击焦点
 
@@ -268,7 +268,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.ExamineeDetailsView = QDialog()
         self.ExamineeDetailsView.setWindowTitle(TITLE)
         self.ExamineeDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
-        self.ExamineeDetailsView.setStyleSheet(self.ExamineeFrameStyleSheet.Dialog())  # 设置样式
+        self.ExamineeDetailsView.setStyleSheet(self.ExamineeStyleSheet.Dialog())  # 设置样式
         self.ExamineeDetailsView.setFixedSize(222, 196)  # 尺寸
 
         VLayout = QVBoxLayout()
@@ -278,7 +278,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
-        NameInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        NameInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
@@ -287,7 +287,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ContactInput.setFixedHeight(30)  # 尺寸
         ContactInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ContactInput.setPlaceholderText(self.Lang.Contact)  # 设置空内容提示
-        ContactInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        ContactInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         ContactInput.setToolTip(self.Lang.Contact)  # 设置鼠标提示
         VLayout.addWidget(ContactInput)  # 添加控件
 
@@ -296,7 +296,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ExamineeNoInput.setFixedHeight(30)  # 尺寸
         ExamineeNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ExamineeNoInput.setPlaceholderText(self.Lang.ExamineeNo)  # 设置空内容提示
-        ExamineeNoInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        ExamineeNoInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         ExamineeNoInput.setToolTip(self.Lang.ExamineeNo)  # 设置鼠标提示
         ExamineeNoInput.setEnabled(False)  # 禁止输入
         VLayout.addWidget(ExamineeNoInput)  # 添加控件
@@ -306,13 +306,13 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ClassInput.setFixedHeight(30)  # 尺寸
         ClassInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ClassInput.setPlaceholderText(self.Lang.ClassName)  # 设置空内容提示
-        ClassInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        ClassInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         ClassInput.setToolTip(self.Lang.ClassName)  # 设置鼠标提示
         ClassInput.setEnabled(False)  # 禁止输入
         VLayout.addWidget(ClassInput)  # 添加控件
 
         UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
-        UpdateButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
+        UpdateButton.setStyleSheet(self.ExamineeStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
         UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, NameInput.text(), ContactInput.text()))  # 连接槽函数
         self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
@@ -335,7 +335,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.NewExamineeView = QDialog()
         self.NewExamineeView.setWindowTitle(TITLE)
         self.NewExamineeView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
-        self.NewExamineeView.setStyleSheet(self.ExamineeFrameStyleSheet.Dialog())  # 设置样式
+        self.NewExamineeView.setStyleSheet(self.ExamineeStyleSheet.Dialog())  # 设置样式
         self.NewExamineeView.setFixedSize(222, 196)  # 尺寸
 
         VLayout = QVBoxLayout()
@@ -344,7 +344,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ExamineeNoInput.setFixedHeight(30)  # 尺寸
         ExamineeNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ExamineeNoInput.setPlaceholderText(self.Lang.ExamineeNo)  # 设置空内容提示
-        ExamineeNoInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        ExamineeNoInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         ExamineeNoInput.setToolTip(self.Lang.ExamineeNo)  # 设置鼠标提示
         VLayout.addWidget(ExamineeNoInput)  # 添加控件
 
@@ -352,7 +352,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
-        NameInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        NameInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
@@ -360,7 +360,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ContactInput.setFixedHeight(30)  # 尺寸
         ContactInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ContactInput.setPlaceholderText(self.Lang.Contact)  # 设置空内容提示
-        ContactInput.setStyleSheet(self.ExamineeFrameStyleSheet.InputBox())  # 设置样式
+        ContactInput.setStyleSheet(self.ExamineeStyleSheet.InputBox())  # 设置样式
         ContactInput.setToolTip(self.Lang.Contact)  # 设置鼠标提示
         VLayout.addWidget(ContactInput)  # 添加控件
 
@@ -369,7 +369,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         ClassInput.setView(QListView())  # 设置内容控件
         ClassInput.setFixedHeight(30)  # 尺寸
         # ClassInput.setMinimumWidth(110)  # 尺寸
-        ClassInput.setStyleSheet(self.ExamineeFrameStyleSheet.SelectBox())  # 设置样式
+        ClassInput.setStyleSheet(self.ExamineeStyleSheet.SelectBox())  # 设置样式
         ClassInput.insertItem(0, ' ' + self.Lang.Class)  # 设置下拉内容
         ClassInput.setItemData(0, self.Lang.Class, Qt.ToolTipRole)  # 设置下拉内容提示
         CheckClasses = self.ClassController.Classes()
@@ -386,7 +386,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         VLayout.addWidget(ClassInput)  # 添加控件
 
         AddButton = QPushButton(self.Lang.Confirm)  # 按钮
-        AddButton.setStyleSheet(self.ExamineeFrameStyleSheet.Button())  # 设置样式
+        AddButton.setStyleSheet(self.ExamineeStyleSheet.Button())  # 设置样式
         AddButton.setFixedHeight(30)  # 尺寸
         AddButton.clicked.connect(lambda: self.NewExamineeAction(ExamineeNoInput.text(), NameInput.text(), ClassInput.currentIndex(), ContactInput.text()))  # 连接槽函数
         VLayout.addWidget(AddButton)

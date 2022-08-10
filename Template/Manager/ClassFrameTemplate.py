@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from Template.BaseTemplate import *
-from StyleSheet.Manager.ClassFrameStyleSheet import *
+from StyleSheet.Manager.ClassStyleSheet import *
 
 
 # 班级管理界面
@@ -8,9 +8,9 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
 
     def __init__(self):
         super().__init__()
-        self.ClassFrameStyleSheet = ClassFrameStyleSheet()
+        self.ClassStyleSheet = ClassStyleSheet()
         self.ClassController = ClassController()
-        self.setStyleSheet(self.ClassFrameStyleSheet.BaseStyleSheet())  # 设置样式
+        self.setStyleSheet(self.ClassStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
         self.CenterLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
@@ -21,7 +21,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.Headline.adjustSize()  # 根据内容自适应宽度
         self.Headline.setFixedHeight(30)  # 尺寸
         self.Headline.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.Headline.setStyleSheet(self.ClassFrameStyleSheet.Headline())  # 设置样式
+        self.Headline.setStyleSheet(self.ClassStyleSheet.Headline())  # 设置样式
         self.CenterLayout.addWidget(self.Headline)  # 添加控件
 
         self.TreeLayout = QVBoxLayout()  # 设置列表布局
@@ -41,7 +41,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.CurrentPage.adjustSize()  # 根据内容自适应宽度
         self.CurrentPage.setFixedSize(120, 30)  # 尺寸
         self.CurrentPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.CurrentPage.setStyleSheet(self.ClassFrameStyleSheet.CurrentPage())  # 设置样式
+        self.CurrentPage.setStyleSheet(self.ClassStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.CurrentPage)  # 添加控件
 
         # 总页码数
@@ -50,7 +50,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.TotalPage.adjustSize()  # 根据内容自适应宽度
         self.TotalPage.setFixedSize(120, 30)  # 尺寸
         self.TotalPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.TotalPage.setStyleSheet(self.ClassFrameStyleSheet.CurrentPage())  # 设置样式
+        self.TotalPage.setStyleSheet(self.ClassStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.TotalPage)  # 添加控件
 
         # 输入页码
@@ -59,7 +59,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.PageInput.setFixedSize(170, 30)  # 尺寸
         self.PageInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.PageInput.setPlaceholderText(self.Lang.EnterPageNumber)  # 设置空内容提示
-        self.PageInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
+        self.PageInput.setStyleSheet(self.ClassStyleSheet.InputBox())  # 设置样式
         self.PageInput.setToolTip(self.Lang.EnterPageNumber)  # 设置鼠标提示
         self.PageButtonLayout.addWidget(self.PageInput)  # 添加控件
 
@@ -69,7 +69,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.RowsInput.setFixedSize(170, 30)  # 尺寸
         self.RowsInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.RowsInput.setPlaceholderText(self.Lang.EnterTheNumberOfLines)  # 设置空内容提示
-        self.RowsInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
+        self.RowsInput.setStyleSheet(self.ClassStyleSheet.InputBox())  # 设置样式
         self.RowsInput.setToolTip(self.Lang.EnterTheNumberOfLines)  # 设置鼠标提示
         self.PageButtonLayout.addWidget(self.RowsInput)  # 添加控件
 
@@ -78,13 +78,13 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.SearchInput.setFixedSize(170, 30)  # 尺寸
         self.SearchInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         self.SearchInput.setPlaceholderText(self.Lang.Search)  # 设置空内容提示
-        self.SearchInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
+        self.SearchInput.setStyleSheet(self.ClassStyleSheet.InputBox())  # 设置样式
         self.SearchInput.setToolTip(self.Lang.Search)  # 设置鼠标提示
         self.PageButtonLayout.addWidget(self.SearchInput)  # 添加控件
 
         # 确认按钮
         self.ConfirmButton = QPushButton(self.Lang.Confirm)
-        self.ConfirmButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
+        self.ConfirmButton.setStyleSheet(self.ClassStyleSheet.Button())  # 设置样式
         self.ConfirmButton.setFixedHeight(30)  # 尺寸
         self.ConfirmButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
         self.PageButtonLayout.addWidget(self.ConfirmButton)  # 添加控件
@@ -97,14 +97,14 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
 
         # 上一页
         self.PreviousPageButton = QPushButton(self.Lang.PreviousPage)
-        self.PreviousPageButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
+        self.PreviousPageButton.setStyleSheet(self.ClassStyleSheet.Button())  # 设置样式
         self.PreviousPageButton.setFixedHeight(30)  # 尺寸
         self.PreviousPageButton.clicked.connect(lambda: self.SetPreviousPage())  # 连接槽函数
         self.PNButtonLayout.addWidget(self.PreviousPageButton)  # 添加控件
 
         # 下一页
         self.NextPageButton = QPushButton(self.Lang.NextPage)
-        self.NextPageButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
+        self.NextPageButton.setStyleSheet(self.ClassStyleSheet.Button())  # 设置样式
         self.NextPageButton.setFixedHeight(30)  # 尺寸
         self.NextPageButton.clicked.connect(lambda: self.SetNextPage())  # 连接槽函数
         self.PNButtonLayout.addWidget(self.NextPageButton)  # 添加控件
@@ -116,14 +116,14 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
 
         # 新建
         self.NewClassButton = QPushButton(self.Lang.NewClass)
-        self.NewClassButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
+        self.NewClassButton.setStyleSheet(self.ClassStyleSheet.Button())  # 设置样式
         self.NewClassButton.setFixedHeight(30)  # 尺寸
         self.NewClassButton.clicked.connect(lambda: self.NewClassWindow())  # 连接槽函数
         self.ButtonLayout.addWidget(self.NewClassButton)  # 添加控件
 
         # 刷新
         self.RefreshButton = QPushButton(self.Lang.Refresh)
-        self.RefreshButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
+        self.RefreshButton.setStyleSheet(self.ClassStyleSheet.Button())  # 设置样式
         self.RefreshButton.setFixedHeight(30)  # 尺寸
         self.RefreshButton.clicked.connect(lambda: self.TreeDataInit())  # 连接槽函数
         self.ButtonLayout.addWidget(self.RefreshButton)  # 添加控件
@@ -163,7 +163,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
             # 树状列表
             self.ClassTree = BaseTreeWidget()
             self.ClassTree.SetSelectionMode(2)  # 设置选择模式
-            self.ClassTree.setStyleSheet(self.ClassFrameStyleSheet.TreeWidget())  # 设置样式
+            self.ClassTree.setStyleSheet(self.ClassStyleSheet.TreeWidget())  # 设置样式
             self.ClassTree.setColumnCount(5)  # 设置列数
             self.ClassTree.hideColumn(3)  # 隐藏列
             self.ClassTree.hideColumn(4)  # 隐藏列
@@ -210,7 +210,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
     # 列表节点右键菜单
     def RightContextMenuExec(self, pos):
         self.TreeMenu = BaseMenu()
-        self.TreeMenu.setStyleSheet(self.ClassFrameStyleSheet.TreeMenu())  # 设置样式
+        self.TreeMenu.setStyleSheet(self.ClassStyleSheet.TreeMenu())  # 设置样式
         Item = self.ClassTree.currentItem()  # 获取被点击行控件
         ItemAt = self.ClassTree.itemAt(pos)  # 获取点击焦点
 
@@ -233,7 +233,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.ClassDetailsView = QDialog()
         self.ClassDetailsView.setWindowTitle(TITLE)
         self.ClassDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
-        self.ClassDetailsView.setStyleSheet(self.ClassFrameStyleSheet.Dialog())  # 设置样式
+        self.ClassDetailsView.setStyleSheet(self.ClassStyleSheet.Dialog())  # 设置样式
         self.ClassDetailsView.setFixedSize(322, 160)  # 尺寸
 
         VLayout = QVBoxLayout()
@@ -243,7 +243,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.ClassName)  # 设置空内容提示
-        NameInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
+        NameInput.setStyleSheet(self.ClassStyleSheet.InputBox())  # 设置样式
         NameInput.setToolTip(self.Lang.ClassName)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
@@ -252,7 +252,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         ClassCodeInput.setFixedHeight(30)  # 尺寸
         ClassCodeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ClassCodeInput.setPlaceholderText(self.Lang.ClassCode)  # 设置空内容提示
-        ClassCodeInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
+        ClassCodeInput.setStyleSheet(self.ClassStyleSheet.InputBox())  # 设置样式
         ClassCodeInput.setToolTip(self.Lang.ClassCode)  # 设置鼠标提示
         ClassCodeInput.setEnabled(False)  # 禁止输入
         VLayout.addWidget(ClassCodeInput)  # 添加控件
@@ -262,12 +262,12 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         DescriptionInput.setFixedHeight(30)  # 尺寸
         DescriptionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         DescriptionInput.setPlaceholderText(self.Lang.Description)  # 设置空内容提示
-        DescriptionInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
+        DescriptionInput.setStyleSheet(self.ClassStyleSheet.InputBox())  # 设置样式
         DescriptionInput.setToolTip(self.Lang.Description)  # 设置鼠标提示
         VLayout.addWidget(DescriptionInput)  # 添加控件
 
         UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
-        UpdateButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
+        UpdateButton.setStyleSheet(self.ClassStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
         UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, NameInput.text(), DescriptionInput.text()))  # 连接槽函数
         self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
@@ -290,7 +290,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         self.NewClassView = QDialog()
         self.NewClassView.setWindowTitle(TITLE)
         self.NewClassView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
-        self.NewClassView.setStyleSheet(self.ClassFrameStyleSheet.Dialog())  # 设置样式
+        self.NewClassView.setStyleSheet(self.ClassStyleSheet.Dialog())  # 设置样式
         self.NewClassView.setFixedSize(222, 124)  # 尺寸
 
         VLayout = QVBoxLayout()
@@ -299,7 +299,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         NameInput.setFixedHeight(30)  # 尺寸
         NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         NameInput.setPlaceholderText(self.Lang.ClassName)  # 设置空内容提示
-        NameInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
+        NameInput.setStyleSheet(self.ClassStyleSheet.InputBox())  # 设置样式
         NameInput.setToolTip(self.Lang.ClassName)  # 设置鼠标提示
         VLayout.addWidget(NameInput)  # 添加控件
 
@@ -307,12 +307,12 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
         DescriptionInput.setFixedHeight(30)  # 尺寸
         DescriptionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         DescriptionInput.setPlaceholderText(self.Lang.Description)  # 设置空内容提示
-        DescriptionInput.setStyleSheet(self.ClassFrameStyleSheet.InputBox())  # 设置样式
+        DescriptionInput.setStyleSheet(self.ClassStyleSheet.InputBox())  # 设置样式
         DescriptionInput.setToolTip(self.Lang.Description)  # 设置鼠标提示
         VLayout.addWidget(DescriptionInput)  # 添加控件
 
         AddButton = QPushButton(self.Lang.Confirm)  # 按钮
-        AddButton.setStyleSheet(self.ClassFrameStyleSheet.Button())  # 设置样式
+        AddButton.setStyleSheet(self.ClassStyleSheet.Button())  # 设置样式
         AddButton.setFixedHeight(30)  # 尺寸
         AddButton.clicked.connect(lambda: self.NewClassAction(NameInput.text(), DescriptionInput.text()))  # 连接槽函数
         VLayout.addWidget(AddButton)

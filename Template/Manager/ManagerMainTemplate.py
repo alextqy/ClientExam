@@ -6,6 +6,7 @@ from Template.Manager.TeacherFrameTemplate import *
 from Template.Manager.ClassFrameTemplate import *
 from Template.Manager.ExamineeFrameTemplate import *
 from Template.Manager.ExamInfoFrameTemplate import *
+from Template.Manager.ExamInfoHistoryFrameTemplate import *
 
 from Template.Manager.SubjectFrameTemplate import *
 
@@ -153,6 +154,13 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.RegistrationDataButton.clicked.connect(lambda: self.TemplateView('ExamInfoFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.RegistrationDataButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
+        # 历史报名
+        self.ExamInfoHistoryFrameTemplate = QPushButton(self.Lang.HistoryRegistration)
+        self.ExamInfoHistoryFrameTemplate.setStyleSheet(self.ManagerMainStyleSheet.MenuButton1())  # 设置样式
+        self.ExamInfoHistoryFrameTemplate.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.ExamInfoHistoryFrameTemplate.clicked.connect(lambda: self.TemplateView('ExamInfoHistoryFrameTemplate'))  # 连接槽函数
+        self.MenuLayout.addWidget(self.ExamInfoHistoryFrameTemplate, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
+
         # =====================================================================================================================================================================
 
         # 科目
@@ -250,6 +258,10 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.SubjectFrameTemplate.hide()
         self.DataLayout.addWidget(self.SubjectFrameTemplate)
 
+        self.ExamInfoHistoryFrameTemplate = ExamInfoHistoryFrameTemplate()
+        self.ExamInfoHistoryFrameTemplate.hide()
+        self.DataLayout.addWidget(self.ExamInfoHistoryFrameTemplate)
+
     # 框架路由
     def TemplateView(self, TemplateName: str):
 
@@ -260,6 +272,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
+            self.ExamInfoHistoryFrameTemplate.hide()
 
         if TemplateName == 'TeacherFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -268,6 +281,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
+            self.ExamInfoHistoryFrameTemplate.hide()
 
         if TemplateName == 'ClassFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -276,6 +290,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
+            self.ExamInfoHistoryFrameTemplate.hide()
 
         if TemplateName == 'ExamineeFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -284,6 +299,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.show()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
+            self.ExamInfoHistoryFrameTemplate.hide()
 
         if TemplateName == 'ExamInfoFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -292,6 +308,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.show()
             self.SubjectFrameTemplate.hide()
+            self.ExamInfoHistoryFrameTemplate.hide()
 
         if TemplateName == 'SubjectFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -300,6 +317,16 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.show()
+            self.ExamInfoHistoryFrameTemplate.hide()
+
+        if TemplateName == 'ExamInfoHistoryFrameTemplate':
+            self.ManagerFrameTemplate.hide()
+            self.TeacherFrameTemplate.hide()
+            self.ClassFrameTemplate.hide()
+            self.ExamineeFrameTemplate.hide()
+            self.ExamInfoFrameTemplate.hide()
+            self.SubjectFrameTemplate.hide()
+            self.ExamInfoHistoryFrameTemplate.show()
 
     # 退出系统
     def ExitSystem(self):
