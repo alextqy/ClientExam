@@ -356,9 +356,9 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
 
     # 删除节点数据
     def DisableAction(self):
-        Knowledges = self.KnowledgeTree.selectedItems()
-        for i in range(len(Knowledges)):
-            Item = Knowledges[i]
+        Knowledge = self.KnowledgeTree.selectedItems()
+        for i in range(len(Knowledge)):
+            Item = Knowledge[i]
             ID: int = int(Item.text(0))
             Result = self.KnowledgeController.KnowledgeDisabled(ID)
             if Result['State'] != True:

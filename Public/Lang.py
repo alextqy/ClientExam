@@ -76,6 +76,7 @@ class Lang(BaseService):
             self.Submit = 'Submit'
             self.OperationFailed = 'Operation failed'
             self.Content = 'Content'
+            self.UploadAttachment = 'Upload Attachment'
 
             self.Name = 'Name'
             self.NewManager = 'New manager'
@@ -138,6 +139,14 @@ class Lang(BaseService):
             self.ContentCode = 'Content code'
             self.HeadlineDetails = 'Headline details'
             self.NewHeadline = 'New headline'
+
+            self.Question = 'Question'
+            self.QuestionType = 'Question type'
+            self.QuestionTitle = 'Question title'
+            self.QuestionStatus = 'Question status'
+            self.NewQuestion = 'New question'
+            self.QuestionDetails = 'Question Details'
+            self.QuestionOptions = 'Question Options'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -204,6 +213,7 @@ class Lang(BaseService):
             self.Submit = '提交'
             self.OperationFailed = '操作失败'
             self.Content = '内容'
+            self.UploadAttachment = '上传附件'
 
             self.Name = '姓名'
             self.NewManager = '新建管理员'
@@ -266,6 +276,14 @@ class Lang(BaseService):
             self.ContentCode = '内容代码'
             self.HeadlineDetails = '大标题详情'
             self.NewHeadline = '新建大标题'
+
+            self.Question = '试题'
+            self.QuestionType = '试题类型'
+            self.QuestionTitle = '试题题干'
+            self.QuestionStatus = '试题状态'
+            self.NewQuestion = '新建试题'
+            self.QuestionDetails = '试题详情'
+            self.QuestionOptions = '试题选项'
 
         else:
             self.ManagerLogin = ''
@@ -332,6 +350,7 @@ class Lang(BaseService):
             self.Submit = ''
             self.OperationFailed = ''
             self.Content = ''
+            self.UploadAttachment = ''
 
             self.Name = ''
             self.NewManager = ''
@@ -394,3 +413,11 @@ class Lang(BaseService):
             self.ContentCode = ''
             self.HeadlineDetails = ''
             self.NewHeadline = ''
+
+            self.Question = ''
+            self.QuestionType = ''
+            self.QuestionTitle = ''
+            self.QuestionStatus = ''
+            self.NewQuestion = ''
+            self.QuestionDetails = ''
+            self.QuestionOptions = ''

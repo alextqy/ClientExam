@@ -11,6 +11,7 @@ from Template.Manager.ExamInfoHistoryFrameTemplate import *
 from Template.Manager.SubjectFrameTemplate import *
 from Template.Manager.KnowledgeFrameTemplate import *
 from Template.Manager.HeadlineFrameTemplate import *
+from Template.Manager.QuestionFrameTemplate import *
 
 
 class ManagerMainTemplate(BaseTemplate, QDialog):
@@ -190,6 +191,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.TestQuestionButton = QPushButton(self.Lang.TestQuestion)
         self.TestQuestionButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton2())  # 设置样式
         self.TestQuestionButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.TestQuestionButton.clicked.connect(lambda: self.TemplateView('QuestionFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.TestQuestionButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # 试卷
@@ -274,6 +276,10 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.HeadlineFrameTemplate.hide()
         self.DataLayout.addWidget(self.HeadlineFrameTemplate)
 
+        self.QuestionFrameTemplate = QuestionFrameTemplate()
+        self.QuestionFrameTemplate.hide()
+        self.DataLayout.addWidget(self.QuestionFrameTemplate)
+
     # 框架路由
     def TemplateView(self, TemplateName: str):
 
@@ -287,6 +293,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.hide()
 
         if TemplateName == 'TeacherFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -298,6 +305,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.hide()
 
         if TemplateName == 'ClassFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -309,6 +317,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.hide()
 
         if TemplateName == 'ExamineeFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -320,6 +329,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.hide()
 
         if TemplateName == 'ExamInfoFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -331,6 +341,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.hide()
 
         if TemplateName == 'SubjectFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -342,6 +353,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.hide()
 
         if TemplateName == 'ExamInfoHistoryFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -353,6 +365,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.show()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.hide()
 
         if TemplateName == 'KnowledgeFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -364,6 +377,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.hide()
             self.KnowledgeFrameTemplate.show()
             self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.hide()
 
         if TemplateName == 'HeadlineFrameTemplate':
             self.ManagerFrameTemplate.hide()
@@ -375,6 +389,19 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamInfoHistoryFrameTemplate.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.show()
+            self.QuestionFrameTemplate.hide()
+
+        if TemplateName == 'QuestionFrameTemplate':
+            self.ManagerFrameTemplate.hide()
+            self.TeacherFrameTemplate.hide()
+            self.ClassFrameTemplate.hide()
+            self.ExamineeFrameTemplate.hide()
+            self.ExamInfoFrameTemplate.hide()
+            self.SubjectFrameTemplate.hide()
+            self.ExamInfoHistoryFrameTemplate.hide()
+            self.KnowledgeFrameTemplate.hide()
+            self.HeadlineFrameTemplate.hide()
+            self.QuestionFrameTemplate.show()
 
     # 退出系统
     def ExitSystem(self):
