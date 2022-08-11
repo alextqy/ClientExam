@@ -75,6 +75,7 @@ class Lang(BaseService):
             self.NoDataAvailable = 'No data available'
             self.Submit = 'Submit'
             self.OperationFailed = 'Operation failed'
+            self.Content = 'Content'
 
             self.Name = 'Name'
             self.NewManager = 'New manager'
@@ -133,6 +134,10 @@ class Lang(BaseService):
             self.NewKnowledgePoint = 'New knowledge point'
             self.KnowledgeDetails = 'Knowledge details'
             self.KnowledgePointCode = 'Knowledge point code'
+
+            self.ContentCode = 'Content code'
+            self.HeadlineDetails = 'Headline details'
+            self.NewHeadline = 'New headline'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -198,6 +203,7 @@ class Lang(BaseService):
             self.NoDataAvailable = '没有可用数据'
             self.Submit = '提交'
             self.OperationFailed = '操作失败'
+            self.Content = '内容'
 
             self.Name = '姓名'
             self.NewManager = '新建管理员'
@@ -256,6 +262,10 @@ class Lang(BaseService):
             self.NewKnowledgePoint = '新建知识点'
             self.KnowledgeDetails = '知识点详情'
             self.KnowledgePointCode = '知识点代码'
+
+            self.ContentCode = '内容代码'
+            self.HeadlineDetails = '大标题详情'
+            self.NewHeadline = '新建大标题'
 
         else:
             self.ManagerLogin = ''
@@ -321,6 +331,7 @@ class Lang(BaseService):
             self.NoDataAvailable = ''
             self.Submit = ''
             self.OperationFailed = ''
+            self.Content = ''
 
             self.Name = ''
             self.NewManager = ''
@@ -379,3 +390,7 @@ class Lang(BaseService):
             self.NewKnowledgePoint = ''
             self.KnowledgeDetails = ''
             self.KnowledgePointCode = ''
+
+            self.ContentCode = ''
+            self.HeadlineDetails = ''
+            self.NewHeadline = ''
