@@ -325,7 +325,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
     def InfoWindowAction(self, ID: int, Name: str, Contact: str):
         Result = self.ExamineeController.UpdateExaminee(ID, Name, Contact)
         if Result['State'] != True:
-            MSGBOX.ERROR(Result['Memo'])
+            self.MSGBOX.ERROR(Result['Memo'])
         else:
             self.ExamineeDetailsView.close()
             self.TreeDataInit()

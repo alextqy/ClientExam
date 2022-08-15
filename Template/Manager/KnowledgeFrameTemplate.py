@@ -349,7 +349,7 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
         if Name != OldName:
             Result = self.KnowledgeController.UpdateKnowledgeInfo(ID, Name)
             if Result['State'] != True:
-                MSGBOX.ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.KnowledgeDetailsView.close()
                 self.TreeDataInit()

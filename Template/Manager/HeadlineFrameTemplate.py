@@ -283,7 +283,7 @@ class HeadlineFrameTemplate(BaseTemplate, QFrame):
         if Content != OldContent:
             Result = self.HeadlineController.UpdateHeadlineInfo(ID, Content)
             if Result['State'] != True:
-                MSGBOX.ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.HeadlineDetailsView.close()
                 self.TreeDataInit()

@@ -232,7 +232,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             self.QuestionTree = BaseTreeWidget()
             self.QuestionTree.SetSelectionMode(2)  # 设置选择模式
             self.QuestionTree.setStyleSheet(self.QuestionStyleSheet.TreeWidget())  # 设置样式
-            self.QuestionTree.setColumnCount(13)  # 设置列数
+            self.QuestionTree.setColumnCount(14)  # 设置列数
             self.QuestionTree.hideColumn(5)  # 隐藏列
             self.QuestionTree.hideColumn(6)  # 隐藏列
             self.QuestionTree.hideColumn(7)  # 隐藏列
@@ -241,6 +241,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             self.QuestionTree.hideColumn(10)  # 隐藏列
             self.QuestionTree.hideColumn(11)  # 隐藏列
             self.QuestionTree.hideColumn(12)  # 隐藏列
+            self.QuestionTree.hideColumn(14)  # 隐藏列
             self.QuestionTree.setHeaderLabels([
                 'ID',
                 self.Lang.QuestionType,
@@ -296,6 +297,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
                 item.setText(10, Data[i]['Language'])  # 设置内容
                 item.setText(11, Data[i]['LanguageVersion'])  # 设置内容
                 item.setText(12, str(Data[i]['Marking']))  # 设置内容
+                item.setText(13, str(Data[i]['QuestionType']))
                 item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
@@ -309,6 +311,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
                 item.setTextAlignment(10, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(11, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(12, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(13, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 TreeItems.append(item)  # 添加到item list
             self.QuestionTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
@@ -348,3 +351,158 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
 
         self.TreeMenu.move(QCursor().pos())  # 移动到焦点
         self.TreeMenu.show()  # 展示
+
+    # 节点数据详情
+    def InfoWindow(self, Item):
+        ID: int = int(Item.text(0))
+        QuestionTitle: str = Item.text(2)
+        QuestionType: int = int(Item.text(13))
+        Description: str = Item.text(6)
+        Language: str = Item.text(10)
+        LanguageVersion: str = Item.text(11)
+        UpdateTime: int = int(Item.text(5))
+
+        self.QuestionDetailsView = QDialog()
+        self.QuestionDetailsView.setWindowTitle(TITLE)
+        self.QuestionDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.QuestionDetailsView.setStyleSheet(self.QuestionStyleSheet.Dialog())  # 设置样式
+        self.QuestionDetailsView.setMinimumWidth(322)  # 尺寸
+
+        VLayout = QVBoxLayout()
+
+        TitleInput = QLineEdit()  # 输入
+        TitleInput.setText(QuestionTitle)  # 设置内容
+        TitleInput.setFixedHeight(30)  # 尺寸
+        TitleInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        TitleInput.setPlaceholderText(self.Lang.QuestionTitle)  # 设置空内容提示
+        TitleInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+        TitleInput.setToolTip(self.Lang.QuestionTitle)  # 设置鼠标提示
+        VLayout.addWidget(TitleInput)  # 添加控件
+
+        DescriptionInput = QTextEdit()  # 输入
+        DescriptionInput.setText(Description)  # 设置内容
+        # DescriptionInput.setFixedHeight(30)  # 尺寸
+        # DescriptionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        DescriptionInput.setPlaceholderText(self.Lang.Description)  # 设置空内容提示
+        DescriptionInput.setStyleSheet(self.QuestionStyleSheet.TextEdit())  # 设置样式
+        DescriptionInput.setToolTip(self.Lang.Description)  # 设置鼠标提示
+        VLayout.addWidget(DescriptionInput)  # 添加控件
+
+        if QuestionType == 6:
+            LanguageInput = QComboBox()  # 设置下拉框
+            LanguageInput.adjustSize()  # 按内容自适应宽度
+            LanguageInput.setView(QListView())  # 设置内容控件
+            LanguageInput.setFixedHeight(30)  # 尺寸
+            LanguageInput.setMinimumWidth(100)  # 尺寸
+            LanguageInput.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
+            LanguageInput.insertItem(0, '')  # 设置下拉内容
+            LanguageInput.insertItem(1, 'Java')  # 设置下拉内容
+            LanguageInput.setItemData(1, 'Java', Qt.ToolTipRole)  # 设置下拉内容提示
+            LanguageInput.insertItem(2, 'PHP')  # 设置下拉内容
+            LanguageInput.setItemData(2, 'PHP', Qt.ToolTipRole)  # 设置下拉内容提示
+            LanguageInput.insertItem(3, 'JavaScript')  # 设置下拉内容
+            LanguageInput.setItemData(3, 'JavaScript', Qt.ToolTipRole)  # 设置下拉内容提示
+            LanguageInput.insertItem(4, 'Python')  # 设置下拉内容
+            LanguageInput.setItemData(4, 'Python', Qt.ToolTipRole)  # 设置下拉内容提示
+            LanguageInput.insertItem(5, 'C')  # 设置下拉内容
+            LanguageInput.setItemData(5, 'C', Qt.ToolTipRole)  # 设置下拉内容提示
+            if Language.lower() == 'java':
+                LanguageInput.setCurrentIndex(1)  # 设置默认选项
+            elif Language.lower() == 'php':
+                LanguageInput.setCurrentIndex(2)
+            elif Language.lower() == 'javascript':
+                LanguageInput.setCurrentIndex(3)
+            elif Language.lower() == 'python':
+                LanguageInput.setCurrentIndex(4)
+            elif Language.lower() == 'c':
+                LanguageInput.setCurrentIndex(5)
+            else:
+                LanguageInput.setCurrentIndex(0)  # 设置默认选项
+            VLayout.addWidget(LanguageInput)  # 添加控件
+
+            LanguageVersionInput = QLineEdit()
+            LanguageVersionInput.setText(LanguageVersion)  # 设置内容
+            LanguageVersionInput.setFixedHeight(30)  # 尺寸
+            LanguageVersionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            LanguageVersionInput.setPlaceholderText(self.Lang.ComputerLanguageVersion)  # 设置空内容提示
+            LanguageVersionInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+            LanguageVersionInput.setToolTip(self.Lang.ComputerLanguageVersion)  # 设置鼠标提示
+            VLayout.addWidget(LanguageVersionInput)  # 添加控件
+
+        UpdateTimeInput = QLineEdit()
+        UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
+        UpdateTimeInput.setFixedHeight(30)  # 尺寸
+        UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
+        UpdateTimeInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+        UpdateTimeInput.setToolTip(self.Lang.UpdateTime)  # 设置鼠标提示
+        UpdateTimeInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(UpdateTimeInput)  # 添加控件
+
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
+        UpdateButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        UpdateButton.setFixedHeight(30)  # 尺寸
+
+        if QuestionType == 6:
+            UpdateButton.clicked.connect(lambda: self.InfoWindowAction(
+                ID,
+                TitleInput.text(),
+                QuestionType,
+                DescriptionInput.toPlainText(),
+                LanguageInput.currentText(),
+                LanguageVersionInput.text(),
+            ))  # 连接槽函数
+        else:
+            UpdateButton.clicked.connect(lambda: self.InfoWindowAction(
+                ID,
+                TitleInput.text(),
+                QuestionType,
+                DescriptionInput.toPlainText(),
+                '',
+                '',
+            ))  # 连接槽函数
+
+        self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
+        VLayout.addWidget(UpdateButton)
+
+        self.QuestionDetailsView.setLayout(VLayout)  # 添加布局
+        self.QuestionDetailsView.show()
+
+    # 更新信息
+    def InfoWindowAction(self, ID: int, QuestionTitle: str, QuestionType: int, Description: str, Language: str, LanguageVersion: str):
+        Result = self.QuestionController.UpdateQuestionInfo(ID, QuestionTitle, QuestionType, Description, Language, LanguageVersion)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.QuestionDetailsView.close()
+            self.TreeDataInit()
+
+    # 上传附件
+    def UploadAttachment(self, Item):
+        ID: int = int(Item.text(0))
+
+    # 试题选项
+    def QuestionOptions(self, Item):
+        ID: int = int(Item.text(0))
+
+    # 删除节点数据
+    def DisableAction(self):
+        Questions = self.QuestionTree.selectedItems()
+        for i in range(len(Questions)):
+            Item = Questions[i]
+            ID: int = int(Item.text(0))
+            Result = self.QuestionController.QuestionDisabled(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR(Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
+
+    # 新建节点
+    def NewQuestionWindow(self):
+        pass
+
+    # 新建
+    def NewQuestionAction(self):
+        pass

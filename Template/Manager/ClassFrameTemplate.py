@@ -280,7 +280,7 @@ class ClassFrameTemplate(BaseTemplate, QFrame):
     def InfoWindowAction(self, ID: int, Name: str, Description: str):
         Result = self.ClassController.UpdateClassInfo(ID, Name, Description)
         if Result['State'] != True:
-            MSGBOX.ERROR(Result['Memo'])
+            self.MSGBOX.ERROR(Result['Memo'])
         else:
             self.ClassDetailsView.close()
             self.TreeDataInit()

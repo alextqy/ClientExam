@@ -175,3 +175,15 @@ class QuestionStyleSheet(BaseStyleSheet):
             background-color: ''' + self.CommonColor + ''';
         }
         '''
+
+    def TextEdit(self) -> str:
+        return '''
+        QTextEdit{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            color: black;
+            border-radius: 5px;
+            font-size: 15px;
+            border: 2px solid white;
+        }
+        '''

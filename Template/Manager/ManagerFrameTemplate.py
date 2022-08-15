@@ -299,7 +299,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
         if Name != OldName:
             Result = self.ManagerController.UpdateManagerInfo(Name, Permission, ID)
             if Result['State'] != True:
-                MSGBOX.ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.ManagerDetailsView.close()
                 self.TreeDataInit()

@@ -306,7 +306,7 @@ class SubjectFrameTemplate(BaseTemplate, QFrame):
         if Name != OldName:
             Result = self.SubjectController.UpdateSubjectInfo(ID, Name)
             if Result['State'] != True:
-                MSGBOX.ERROR(Result['Memo'])
+                self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.SubjectDetailsView.close()
                 self.TreeDataInit()

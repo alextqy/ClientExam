@@ -147,6 +147,8 @@ class Lang(BaseService):
             self.NewQuestion = 'New question'
             self.QuestionDetails = 'Question Details'
             self.QuestionOptions = 'Question Options'
+            self.ComputerLanguages = 'Computer Languages'
+            self.ComputerLanguageVersion = 'Computer language version'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -284,6 +286,8 @@ class Lang(BaseService):
             self.NewQuestion = '新建试题'
             self.QuestionDetails = '试题详情'
             self.QuestionOptions = '试题选项'
+            self.ComputerLanguages = '计算机语言'
+            self.ComputerLanguageVersion = '计算机语言版本'
 
         else:
             self.ManagerLogin = ''
@@ -421,3 +425,5 @@ class Lang(BaseService):
             self.NewQuestion = ''
             self.QuestionDetails = ''
             self.QuestionOptions = ''
+            self.ComputerLanguages = ''
+            self.ComputerLanguageVersion = ''
