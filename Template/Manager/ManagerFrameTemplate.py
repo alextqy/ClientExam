@@ -344,7 +344,7 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
             else:
                 self.ManagerPassworView.close()
 
-    # 删除节点数据
+    # 修改节点数据
     def DisableAction(self):
         # ID: int = int(Item.text(0))
         # Result = self.ManagerController.ManagerDisabled(ID)

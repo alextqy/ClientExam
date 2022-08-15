@@ -485,7 +485,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
     def QuestionOptions(self, Item):
         ID: int = int(Item.text(0))
 
-    # 删除节点数据
+    # 修改节点数据
     def DisableAction(self):
         Questions = self.QuestionTree.selectedItems()
         for i in range(len(Questions)):

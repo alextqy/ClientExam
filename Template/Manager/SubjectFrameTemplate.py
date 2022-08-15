@@ -311,7 +311,7 @@ class SubjectFrameTemplate(BaseTemplate, QFrame):
                 self.SubjectDetailsView.close()
                 self.TreeDataInit()
 
-    # 删除节点数据
+    # 修改节点数据
     def DisableAction(self):
         Subjects = self.SubjectTree.selectedItems()
         for i in range(len(Subjects)):

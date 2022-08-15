@@ -354,7 +354,7 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
                 self.KnowledgeDetailsView.close()
                 self.TreeDataInit()
 
-    # 删除节点数据
+    # 修改节点数据
     def DisableAction(self):
         Knowledge = self.KnowledgeTree.selectedItems()
         for i in range(len(Knowledge)):

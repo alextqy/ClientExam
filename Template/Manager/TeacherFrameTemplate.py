@@ -306,7 +306,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
             self.TeacherDetailsView.close()
             self.TreeDataInit()
 
-    # 删除节点数据
+    # 修改节点数据
     def DisableAction(self):
         Teachers = self.TeacherTree.selectedItems()
         for i in range(len(Teachers)):
