@@ -480,6 +480,14 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
     # 上传附件
     def UploadAttachment(self, Item):
         ID: int = int(Item.text(0))
+        File, _ = QFileDialog.getOpenFileName(self, 'Select the file', self.FileHelper.BaseDir() + 'Tempo', '')
+        FilePath = str(File)
+        if FilePath != '':
+            Result = self.QuestionController.QuestionAttachment(ID, FilePath)  # 导入
+            if Result['State'] != True:
+                self.MSGBOX.ERROR(Result['Memo'])
+            else:
+                self.TreeDataInit()
 
     # 试题选项
     def QuestionOptions(self, Item):
@@ -494,7 +502,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             Result = self.QuestionController.QuestionDisabled(ID)
             if Result['State'] != True:
                 self.TreeDataInit()
-                self.MSGBOX.ERROR(Result['Memo'])
+                self.MSGBOX.ERROR('ID:' + str(ID) + ' ' + Item.text(2) + ' ' + Result['Memo'])
                 break
             else:
                 self.TreeDataInit()

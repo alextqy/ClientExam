@@ -23,8 +23,11 @@ class QuestionController(BaseController):
         Param = {
             'ID': ID,
         }
-        FileEntityByte = {'Attachment': open(FileEntityPath.strip(), 'rb').read()}
-        Result = self.Post(Param, '/Question/Attachment', '', '', '', FileEntityByte)
+        FileType = self.FileHelper.CheckFileType(FileEntityPath)
+        FileFullName = str(self.Common.TimeMS()) + '.' + FileType
+        ContentType = self.Common.ContentType('.' + FileType)
+        FileData = {'Attachment': (FileFullName, open(FileEntityPath, 'rb'), ContentType)}
+        Result = self.Post(Param, '/Question/Attachment', '', '', '', FileData)
         return Result
 
     def QuestionDisabled(self, ID: int):
