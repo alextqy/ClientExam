@@ -30,6 +30,13 @@ class QuestionController(BaseController):
         Result = self.Post(Param, '/Question/Attachment', '', '', '', FileData)
         return Result
 
+    def QuestionViewAttachments(self, FilePath: str):
+        Param = {
+            'FilePath': FilePath,
+        }
+        Result = self.Post(Param, '/Question/View/Attachments')
+        return Result
+
     def QuestionDisabled(self, ID: int):
         Param = {
             'ID': ID,

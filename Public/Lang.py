@@ -77,6 +77,7 @@ class Lang(BaseService):
             self.OperationFailed = 'Operation failed'
             self.Content = 'Content'
             self.UploadAttachment = 'Upload Attachment'
+            self.ViewAttachments = 'View attachments'
 
             self.Name = 'Name'
             self.NewManager = 'New manager'
@@ -216,6 +217,7 @@ class Lang(BaseService):
             self.OperationFailed = '操作失败'
             self.Content = '内容'
             self.UploadAttachment = '上传附件'
+            self.ViewAttachments = '查看附件'
 
             self.Name = '姓名'
             self.NewManager = '新建管理员'
@@ -355,6 +357,7 @@ class Lang(BaseService):
             self.OperationFailed = ''
             self.Content = ''
             self.UploadAttachment = ''
+            self.ViewAttachments = ''
 
             self.Name = ''
             self.NewManager = ''

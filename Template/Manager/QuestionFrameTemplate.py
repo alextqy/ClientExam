@@ -360,6 +360,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         Description: str = Item.text(6)
         Language: str = Item.text(10)
         LanguageVersion: str = Item.text(11)
+        Attachment: str = Item.text(9)
         UpdateTime: int = int(Item.text(5))
 
         self.QuestionDetailsView = QDialog()
@@ -439,10 +440,16 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         UpdateTimeInput.setEnabled(False)  # 禁止输入
         VLayout.addWidget(UpdateTimeInput)  # 添加控件
 
+        ViewAttachmentsButton = QPushButton(self.Lang.ViewAttachments)  # 按钮
+        ViewAttachmentsButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        ViewAttachmentsButton.setFixedHeight(30)  # 尺寸
+        ViewAttachmentsButton.clicked.connect(lambda: self.ViewAttachments(Attachment))
+        self.ButtonLayout.addWidget(ViewAttachmentsButton)  # 添加控件
+        VLayout.addWidget(ViewAttachmentsButton)
+
         UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
         UpdateButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
-
         if QuestionType == 6:
             UpdateButton.clicked.connect(lambda: self.InfoWindowAction(
                 ID,
@@ -461,7 +468,6 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
                 '',
                 '',
             ))  # 连接槽函数
-
         self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
         VLayout.addWidget(UpdateButton)
 
@@ -488,6 +494,20 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
                 self.MSGBOX.ERROR(Result['Memo'])
             else:
                 self.TreeDataInit()
+
+    # 查看附件
+    def ViewAttachments(self, FilePath: str):
+        Result = self.QuestionController.QuestionViewAttachments(FilePath)
+        if Result['State'] == True:
+            FileData: bytes = self.Common.Base64ToBytes(Result['Data'])
+            DemoPath = self.FileHelper.BaseDir() + 'Tempo' + '/' + str(self.Common.TimeMS()) + '.' + Result['Memo']
+            if self.FileHelper.WFileInByte(DemoPath, FileData) == False:
+                self.MSGBOX.ERROR(self.Lang.OperationFailed)
+            else:
+                try:
+                    self.FileHelper.OpenLocalDir(DemoPath)
+                except OSError as e:
+                    self.MSGBOX.ERROR(e)
 
     # 试题选项
     def QuestionOptions(self, Item):
