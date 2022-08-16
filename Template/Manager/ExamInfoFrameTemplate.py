@@ -89,9 +89,8 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.PassSelect.adjustSize()  # 按内容自适应宽度
         self.PassSelect.setView(QListView())  # 设置内容控件
         self.PassSelect.setFixedHeight(30)  # 尺寸
-        self.PassSelect.setMinimumWidth(110)  # 尺寸
         self.PassSelect.setStyleSheet(self.ExamInfoStyleSheet.SelectBox())  # 设置样式
-        self.PassSelect.insertItem(0, ' ' + self.Lang.PassStatus)  # 设置下拉内容
+        self.PassSelect.insertItem(0, self.Lang.PassStatus)  # 设置下拉内容
         self.PassSelect.setItemData(0, self.Lang.PassStatus, Qt.ToolTipRole)  # 设置下拉内容提示
         self.PassSelect.insertItem(1, self.Lang.No)  # 设置下拉内容
         self.PassSelect.setItemData(1, self.Lang.No, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -105,9 +104,8 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.StateSelect.adjustSize()  # 按内容自适应宽度
         self.StateSelect.setView(QListView())  # 设置内容控件
         self.StateSelect.setFixedHeight(30)  # 尺寸
-        self.StateSelect.setMinimumWidth(100)  # 尺寸
         self.StateSelect.setStyleSheet(self.ExamInfoStyleSheet.SelectBox())  # 设置样式
-        self.StateSelect.insertItem(0, ' ' + self.Lang.ExamState)  # 设置下拉内容
+        self.StateSelect.insertItem(0, self.Lang.ExamState)  # 设置下拉内容
         self.StateSelect.setItemData(0, self.Lang.ExamState, Qt.ToolTipRole)  # 设置下拉内容提示
         self.StateSelect.insertItem(1, self.Lang.NoAnswerSheet)  # 设置下拉内容
         self.StateSelect.setItemData(1, self.Lang.NoAnswerSheet, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -125,9 +123,8 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
         self.TypeSelect.adjustSize()  # 按内容自适应宽度
         self.TypeSelect.setView(QListView())  # 设置内容控件
         self.TypeSelect.setFixedHeight(30)  # 尺寸
-        self.TypeSelect.setMinimumWidth(100)  # 尺寸
         self.TypeSelect.setStyleSheet(self.ExamInfoStyleSheet.SelectBox())  # 设置样式
-        self.TypeSelect.insertItem(0, ' ' + self.Lang.ExamType)  # 设置下拉内容
+        self.TypeSelect.insertItem(0, self.Lang.ExamType)  # 设置下拉内容
         self.TypeSelect.setItemData(0, self.Lang.ExamType, Qt.ToolTipRole)  # 设置下拉内容提示
         self.TypeSelect.insertItem(1, self.Lang.FormalExam)  # 设置下拉内容
         self.TypeSelect.setItemData(1, self.Lang.FormalExam, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -523,9 +520,8 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
             TypeSelect.adjustSize()  # 按内容自适应宽度
             TypeSelect.setView(QListView())  # 设置内容控件
             TypeSelect.setFixedHeight(30)  # 尺寸
-            TypeSelect.setMinimumWidth(100)  # 尺寸
             TypeSelect.setStyleSheet(self.ExamInfoStyleSheet.SelectBox())  # 设置样式
-            TypeSelect.insertItem(0, ' ' + self.Lang.ExamType)  # 设置下拉内容
+            TypeSelect.insertItem(0, self.Lang.ExamType)  # 设置下拉内容
             TypeSelect.setItemData(0, self.Lang.ExamType, Qt.ToolTipRole)  # 设置下拉内容提示
             TypeSelect.insertItem(1, self.Lang.FormalExam)  # 设置下拉内容
             TypeSelect.setItemData(1, self.Lang.FormalExam, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -645,7 +641,6 @@ class SubjectsWindow(BaseTemplate, QDialog):
         self.SearchBar.setStyleSheet(self.ExamInfoStyleSheet.InputBox())
         self.HLayout.addWidget(self.SearchBar)
         self.SearchButton = QPushButton(self.Lang.Search)
-        self.SearchButton.setFixedWidth(100)
         self.SearchButton.setFixedHeight(30)
         self.SearchButton.setStyleSheet(self.ExamInfoStyleSheet.Button())
         self.SearchButton.clicked.connect(self.SearchName)
@@ -685,8 +680,9 @@ class SubjectsWindow(BaseTemplate, QDialog):
     # 发送
     def Send(self):
         SubjectItem = self.Tree.currentItem()
-        self.ActionSignal.emit(SubjectItem.text())
-        self.close()
+        if SubjectItem is not None and SubjectItem.text() != '':
+            self.ActionSignal.emit(SubjectItem.text())
+            self.close()
 
 
 # 选择考生
@@ -713,7 +709,6 @@ class ExamineesWindow(BaseTemplate, QDialog):
         self.SearchBar.setStyleSheet(self.ExamInfoStyleSheet.InputBox())
         self.HLayout.addWidget(self.SearchBar)
         self.SearchButton = QPushButton(self.Lang.Search)
-        self.SearchButton.setFixedWidth(100)
         self.SearchButton.setFixedHeight(30)
         self.SearchButton.setStyleSheet(self.ExamInfoStyleSheet.Button())
         self.SearchButton.clicked.connect(self.SearchName)
@@ -753,5 +748,6 @@ class ExamineesWindow(BaseTemplate, QDialog):
     # 发送
     def Send(self):
         ExamineeItem = self.Tree.currentItem()
-        self.ActionSignal.emit(ExamineeItem.text(), ExamineeItem.whatsThis())
-        self.close()
+        if ExamineeItem is not None and ExamineeItem.text() != '' and ExamineeItem.whatsThis() != '':
+            self.ActionSignal.emit(ExamineeItem.text(), ExamineeItem.whatsThis())
+            self.close()

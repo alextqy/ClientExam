@@ -90,7 +90,7 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
         self.StateSelect.setFixedHeight(30)  # 尺寸
         self.StateSelect.setMinimumWidth(110)  # 尺寸
         self.StateSelect.setStyleSheet(self.KnowledgeStyleSheet.SelectBox())  # 设置样式
-        self.StateSelect.insertItem(0, ' ' + self.Lang.KnowledgePointStatus)  # 设置下拉内容
+        self.StateSelect.insertItem(0, self.Lang.KnowledgePointStatus)  # 设置下拉内容
         self.StateSelect.setItemData(0, self.Lang.KnowledgePointStatus, Qt.ToolTipRole)  # 设置下拉内容提示
         self.StateSelect.insertItem(1, self.Lang.Normal)  # 设置下拉内容
         self.StateSelect.setItemData(1, self.Lang.Normal, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -106,7 +106,7 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
         self.SubjectSelect.setFixedHeight(30)  # 尺寸
         self.SubjectSelect.setMinimumWidth(110)  # 尺寸
         self.SubjectSelect.setStyleSheet(self.KnowledgeStyleSheet.SelectBox())  # 设置样式
-        self.SubjectSelect.insertItem(0, ' ' + self.Lang.Subject)  # 设置下拉内容
+        self.SubjectSelect.insertItem(0, self.Lang.Subject)  # 设置下拉内容
         self.SubjectSelect.setItemData(0, self.Lang.Subject, Qt.ToolTipRole)  # 设置下拉内容提示
         CheckSubjects = self.SubjectController.Subjects()
         if len(CheckSubjects['Data']) > 0:
@@ -116,7 +116,7 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
                 Data = self.Subjects[i]
                 self.SubjectSelect.insertItem(j, Data['SubjectName'])  # 设置下拉内容
                 self.SubjectSelect.setItemData(j, Data['SubjectName'], Qt.ToolTipRole)  # 设置下拉内容提示
-                self.SubjectSelect.setWhatsThis(str(Data['ID']))
+                self.SubjectSelect.setItemData(j, Data['ID'])  # 设值
                 j += 1
         self.SubjectSelect.setCurrentIndex(0)  # 设置默认选项
         self.PageButtonLayout.addWidget(self.SubjectSelect)  # 添加控件
@@ -453,7 +453,7 @@ class SubjectsWindow(BaseTemplate, QDialog):
         self.SearchBar.setStyleSheet(self.KnowledgeStyleSheet.InputBox())
         self.HLayout.addWidget(self.SearchBar)
         self.SearchButton = QPushButton(self.Lang.Search)
-        self.SearchButton.setFixedWidth(100)
+        self.SearchButton.setFixedWidth(90)
         self.SearchButton.setFixedHeight(30)
         self.SearchButton.setStyleSheet(self.KnowledgeStyleSheet.Button())
         self.SearchButton.clicked.connect(self.SearchName)
@@ -493,5 +493,6 @@ class SubjectsWindow(BaseTemplate, QDialog):
     # 发送
     def Send(self):
         SubjectItem = self.Tree.currentItem()
-        self.ActionSignal.emit(SubjectItem.text(), SubjectItem.whatsThis())
-        self.close()
+        if SubjectItem is not None and SubjectItem.text() != '' and SubjectItem.whatsThis() != '':
+            self.ActionSignal.emit(SubjectItem.text(), SubjectItem.whatsThis())
+            self.close()

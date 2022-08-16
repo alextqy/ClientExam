@@ -48,6 +48,9 @@ class KnowledgeController(BaseController):
         Result = self.Post(Param, '/Knowledge/Info')
         return Result
 
-    def Knowledge(self):
-        Result = self.Post({}, '/Knowledge')
+    def Knowledge(self, SubjectID: int = 0):
+        Param = {
+            'SubjectID': SubjectID,
+        }
+        Result = self.Post(Param, '/Knowledge')
         return Result

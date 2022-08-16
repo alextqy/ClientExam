@@ -89,7 +89,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         self.StateSelect.setFixedHeight(30)  # 尺寸
         self.StateSelect.setMinimumWidth(110)  # 尺寸
         self.StateSelect.setStyleSheet(self.TeacherStyleSheet.SelectBox())  # 设置样式
-        self.StateSelect.insertItem(0, ' ' + self.Lang.TeacherStatus)  # 设置下拉内容
+        self.StateSelect.insertItem(0, self.Lang.TeacherStatus)  # 设置下拉内容
         self.StateSelect.setItemData(0, self.Lang.TeacherStatus, Qt.ToolTipRole)  # 设置下拉内容提示
         self.StateSelect.insertItem(1, self.Lang.Normal)  # 设置下拉内容
         self.StateSelect.setItemData(1, self.Lang.Normal, Qt.ToolTipRole)  # 设置下拉内容提示

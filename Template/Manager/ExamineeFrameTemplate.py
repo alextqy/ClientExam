@@ -101,7 +101,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
                 Data = self.Classes[i]
                 self.ClassSelect.insertItem(j, Data['ClassName'])  # 设置下拉内容
                 self.ClassSelect.setItemData(j, Data['ClassName'], Qt.ToolTipRole)  # 设置下拉内容提示
-                self.ClassSelect.setWhatsThis(str(Data['ID']))
+                self.ClassSelect.setItemData(j, Data['ID'])
                 j += 1
         self.ClassSelect.setCurrentIndex(0)  # 设置默认选项
         self.PageButtonLayout.addWidget(self.ClassSelect)  # 添加控件
@@ -380,7 +380,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
                 Data = self.Classes[i]
                 ClassInput.insertItem(j, Data['ClassName'])  # 设置下拉内容
                 ClassInput.setItemData(j, Data['ClassName'], Qt.ToolTipRole)  # 设置下拉内容提示
-                ClassInput.setWhatsThis(str(Data['ID']))
+                ClassInput.setItemData(j, Data['ID'])  # 设值
                 j += 1
         ClassInput.setCurrentIndex(0)  # 设置默认选项
         VLayout.addWidget(ClassInput)  # 添加控件
@@ -388,7 +388,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         AddButton = QPushButton(self.Lang.Confirm)  # 按钮
         AddButton.setStyleSheet(self.ExamineeStyleSheet.Button())  # 设置样式
         AddButton.setFixedHeight(30)  # 尺寸
-        AddButton.clicked.connect(lambda: self.NewExamineeAction(ExamineeNoInput.text(), NameInput.text(), ClassInput.currentIndex(), ContactInput.text()))  # 连接槽函数
+        AddButton.clicked.connect(lambda: self.NewExamineeAction(ExamineeNoInput.text(), NameInput.text(), ClassInput.currentData(), ContactInput.text()))  # 连接槽函数
         VLayout.addWidget(AddButton)
 
         self.NewExamineeView.setLayout(VLayout)  # 添加布局

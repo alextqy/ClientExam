@@ -10,6 +10,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         super().__init__()
         self.QuestionStyleSheet = QuestionStyleSheet()
         self.QuestionController = QuestionController()
+        self.SubjectController = SubjectController()
         self.KnowledgeController = KnowledgeController()
         self.setStyleSheet(self.QuestionStyleSheet.BaseStyleSheet())  # 设置样式
 
@@ -88,9 +89,8 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         self.StateSelect.adjustSize()  # 按内容自适应宽度
         self.StateSelect.setView(QListView())  # 设置内容控件
         self.StateSelect.setFixedHeight(30)  # 尺寸
-        self.StateSelect.setMinimumWidth(100)  # 尺寸
         self.StateSelect.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
-        self.StateSelect.insertItem(0, ' ' + self.Lang.QuestionStatus)  # 设置下拉内容
+        self.StateSelect.insertItem(0, self.Lang.QuestionStatus)  # 设置下拉内容
         self.StateSelect.setItemData(0, self.Lang.QuestionStatus, Qt.ToolTipRole)  # 设置下拉内容提示
         self.StateSelect.insertItem(1, self.Lang.Normal)  # 设置下拉内容
         self.StateSelect.setItemData(1, self.Lang.Normal, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -103,9 +103,8 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         self.TypeSelect.adjustSize()  # 按内容自适应宽度
         self.TypeSelect.setView(QListView())  # 设置内容控件
         self.TypeSelect.setFixedHeight(30)  # 尺寸
-        self.TypeSelect.setMinimumWidth(100)  # 尺寸
         self.TypeSelect.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
-        self.TypeSelect.insertItem(0, ' ' + self.Lang.QuestionType)  # 设置下拉内容
+        self.TypeSelect.insertItem(0, self.Lang.QuestionType)  # 设置下拉内容
         self.TypeSelect.setItemData(0, self.Lang.QuestionType, Qt.ToolTipRole)  # 设置下拉内容提示
         self.TypeSelect.insertItem(1, self.Lang.MultipleChoiceQuestions)  # 设置下拉内容
         self.TypeSelect.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -130,19 +129,18 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         self.KnowledgeSelect.adjustSize()  # 按内容自适应宽度
         self.KnowledgeSelect.setView(QListView())  # 设置内容控件
         self.KnowledgeSelect.setFixedHeight(30)  # 尺寸
-        self.KnowledgeSelect.setMinimumWidth(100)  # 尺寸
         self.KnowledgeSelect.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
-        self.KnowledgeSelect.insertItem(0, ' ' + self.Lang.KnowledgePoint)  # 设置下拉内容
+        self.KnowledgeSelect.insertItem(0, self.Lang.KnowledgePoint)  # 设置下拉内容
         self.KnowledgeSelect.setItemData(0, self.Lang.KnowledgePoint, Qt.ToolTipRole)  # 设置下拉内容提示
         Knowledge = self.KnowledgeController.Knowledge()
         if len(Knowledge['Data']) > 0:
-            self.Classes = Knowledge['Data']
+            KnowledgeData = Knowledge['Data']
             j = 1
-            for i in range(len(self.Classes)):
-                Data = self.Classes[i]
+            for i in range(len(KnowledgeData)):
+                Data = KnowledgeData[i]
                 self.KnowledgeSelect.insertItem(j, Data['KnowledgeName'])  # 设置下拉内容
                 self.KnowledgeSelect.setItemData(j, Data['KnowledgeName'], Qt.ToolTipRole)  # 设置下拉内容提示
-                self.KnowledgeSelect.setWhatsThis(str(Data['ID']))
+                self.KnowledgeSelect.setItemData(j, Data['ID'])
                 j += 1
         self.KnowledgeSelect.setCurrentIndex(0)  # 设置默认选项
         self.PageButtonLayout.addWidget(self.KnowledgeSelect)  # 添加控件
@@ -218,7 +216,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         Stext = self.SearchInput.text()
         Type = self.TypeSelect.currentIndex()
         State = self.StateSelect.currentIndex()
-        KnowledgeID = self.KnowledgeSelect.currentIndex()
+        KnowledgeID = self.KnowledgeSelect.currentData()
         Result = self.QuestionController.QuestionList(Page, PageSize, Stext, Type, State, KnowledgeID)
         self.TotalPageNo = Result['TotalPage']
         self.TotalPage.setText(self.Lang.TotalPages + ' ' + str(self.TotalPageNo))
@@ -362,6 +360,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         LanguageVersion: str = Item.text(11)
         Attachment: str = Item.text(9)
         UpdateTime: int = int(Item.text(5))
+        KnowledgeID: int = int(Item.text(8))
 
         self.QuestionDetailsView = QDialog()
         self.QuestionDetailsView.setWindowTitle(TITLE)
@@ -394,7 +393,6 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             LanguageInput.adjustSize()  # 按内容自适应宽度
             LanguageInput.setView(QListView())  # 设置内容控件
             LanguageInput.setFixedHeight(30)  # 尺寸
-            LanguageInput.setMinimumWidth(100)  # 尺寸
             LanguageInput.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
             LanguageInput.insertItem(0, '')  # 设置下拉内容
             LanguageInput.insertItem(1, 'Java')  # 设置下拉内容
@@ -429,6 +427,18 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             LanguageVersionInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
             LanguageVersionInput.setToolTip(self.Lang.ComputerLanguageVersion)  # 设置鼠标提示
             VLayout.addWidget(LanguageVersionInput)  # 添加控件
+
+        KnowledgeInput = QLineEdit()
+        KnowledgeInfo = self.KnowledgeController.KnowledgeInfo(KnowledgeID)
+        if KnowledgeInfo['State'] == True:
+            KnowledgeInput.setText(KnowledgeInfo['Data']['KnowledgeName'])  # 设置内容
+        KnowledgeInput.setFixedHeight(30)  # 尺寸
+        KnowledgeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        KnowledgeInput.setPlaceholderText(self.Lang.KnowledgePoint)  # 设置空内容提示
+        KnowledgeInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+        KnowledgeInput.setToolTip(self.Lang.KnowledgePoint)  # 设置鼠标提示
+        KnowledgeInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(KnowledgeInput)  # 添加控件
 
         UpdateTimeInput = QLineEdit()
         UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
@@ -529,8 +539,181 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
 
     # 新建节点
     def NewQuestionWindow(self):
-        pass
+        self.NewQuestionView = QDialog()
+        self.NewQuestionView.setWindowTitle(TITLE)
+        self.NewQuestionView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.NewQuestionView.setStyleSheet(self.QuestionStyleSheet.Dialog())  # 设置样式
+        self.NewQuestionView.setMinimumSize(322, 450)  # 尺寸
+
+        VLayout = QVBoxLayout()
+
+        QuestionTitleInput = QLineEdit()  # 账号输入
+        QuestionTitleInput.setFixedHeight(30)  # 尺寸
+        QuestionTitleInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        QuestionTitleInput.setPlaceholderText(self.Lang.QuestionTitle)  # 设置空内容提示
+        QuestionTitleInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+        QuestionTitleInput.setToolTip(self.Lang.QuestionTitle)  # 设置鼠标提示
+        VLayout.addWidget(QuestionTitleInput)  # 添加控件
+
+        # 试题类型 1单选 2判断 3多选 4填空 5问答 6编程 7拖拽 8连线
+        self.QuestionTypeInput = QComboBox()  # 设置下拉框
+        self.QuestionTypeInput.adjustSize()  # 按内容自适应宽度
+        self.QuestionTypeInput.setView(QListView())  # 设置内容控件
+        self.QuestionTypeInput.setFixedHeight(30)  # 尺寸
+        self.QuestionTypeInput.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
+        self.QuestionTypeInput.insertItem(0, self.Lang.QuestionType)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(0, self.Lang.QuestionType, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.insertItem(1, self.Lang.MultipleChoiceQuestions)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.insertItem(2, self.Lang.TrueOrFalse)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(2, self.Lang.TrueOrFalse, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.insertItem(3, self.Lang.MultipleChoices)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(3, self.Lang.MultipleChoices, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.insertItem(4, self.Lang.FillInTheBlank)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(4, self.Lang.FillInTheBlank, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.insertItem(5, self.Lang.QuestionsAndAnswers)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(5, self.Lang.QuestionsAndAnswers, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.insertItem(6, self.Lang.ProgrammingQuestions)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(6, self.Lang.ProgrammingQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.insertItem(7, self.Lang.DragAndDrop)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(7, self.Lang.DragAndDrop, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.insertItem(8, self.Lang.ConnectingQuestion)  # 设置下拉内容
+        self.QuestionTypeInput.setItemData(8, self.Lang.ConnectingQuestion, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.QuestionTypeInput.setCurrentIndex(0)  # 设置默认选项
+        self.QuestionTypeInput.activated.connect(lambda: self.ShowLanguageInfo())
+        VLayout.addWidget(self.QuestionTypeInput)  # 添加控件
+
+        # 选择科目
+        self.SubjectInput = QComboBox()  # 设置下拉框
+        self.SubjectInput.adjustSize()  # 按内容自适应宽度
+        self.SubjectInput.setView(QListView())  # 设置内容控件
+        self.SubjectInput.setFixedHeight(30)  # 尺寸
+        self.SubjectInput.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
+        self.SubjectInput.insertItem(0, self.Lang.Subject)  # 设置下拉内容
+        self.SubjectInput.setItemData(0, self.Lang.Subject, Qt.ToolTipRole)  # 设置下拉内容提示
+        Subjects = self.SubjectController.Subjects()
+        if len(Subjects['Data']) > 0:
+            SubjectsData = Subjects['Data']
+            j = 1
+            for i in range(len(SubjectsData)):
+                Data = SubjectsData[i]
+                self.SubjectInput.insertItem(j, Data['SubjectName'])  # 设置下拉内容
+                self.SubjectInput.setItemData(j, Data['SubjectName'], Qt.ToolTipRole)  # 设置下拉内容提示
+                self.SubjectInput.setItemData(j, Data['ID'])  # 设值
+                j += 1
+        self.SubjectInput.setCurrentIndex(0)  # 设置默认选项
+        self.SubjectInput.activated.connect(lambda: self.CheckKnowledge())
+        VLayout.addWidget(self.SubjectInput)  # 添加控件
+
+        # 选择知识点
+        self.KnowledgeInput = QComboBox()  # 设置下拉框
+        self.KnowledgeInput.adjustSize()  # 按内容自适应宽度
+        self.KnowledgeInput.setView(QListView())  # 设置内容控件
+        self.KnowledgeInput.setFixedHeight(30)  # 尺寸
+        self.KnowledgeInput.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
+        # self.KnowledgeInput.insertItem(0, self.Lang.KnowledgePoint)  # 设置下拉内容
+        # self.KnowledgeInput.setItemData(0, self.Lang.KnowledgePoint, Qt.ToolTipRole)  # 设置下拉内容提示
+        # self.KnowledgeInput.setCurrentIndex(0)  # 设置默认选项
+        VLayout.addWidget(self.KnowledgeInput)  # 添加控件
+
+        DescriptionInput = QTextEdit()  # 输入
+        # DescriptionInput.setText()  # 设置内容
+        # DescriptionInput.setFixedHeight(30)  # 尺寸
+        # DescriptionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        DescriptionInput.setPlaceholderText(self.Lang.Description)  # 设置空内容提示
+        DescriptionInput.setStyleSheet(self.QuestionStyleSheet.TextEdit())  # 设置样式
+        DescriptionInput.setToolTip(self.Lang.Description)  # 设置鼠标提示
+        VLayout.addWidget(DescriptionInput)  # 添加控件
+
+        self.LanguageInput = QComboBox()  # 设置下拉框
+        self.LanguageInput.adjustSize()  # 按内容自适应宽度
+        self.LanguageInput.setView(QListView())  # 设置内容控件
+        self.LanguageInput.setFixedHeight(30)  # 尺寸
+        self.LanguageInput.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
+        self.LanguageInput.insertItem(0, '')  # 设置下拉内容
+        self.LanguageInput.setItemData(0, self.Lang.ComputerLanguages, Qt.ToolTipRole)  # 设置下拉内容提示
+        self.LanguageInput.insertItem(1, 'Java')  # 设置下拉内容
+        self.LanguageInput.setItemData(1, 'Java', Qt.ToolTipRole)  # 设置下拉内容提示
+        self.LanguageInput.insertItem(2, 'PHP')  # 设置下拉内容
+        self.LanguageInput.setItemData(2, 'PHP', Qt.ToolTipRole)  # 设置下拉内容提示
+        self.LanguageInput.insertItem(3, 'JavaScript')  # 设置下拉内容
+        self.LanguageInput.setItemData(3, 'JavaScript', Qt.ToolTipRole)  # 设置下拉内容提示
+        self.LanguageInput.insertItem(4, 'Python')  # 设置下拉内容
+        self.LanguageInput.setItemData(4, 'Python', Qt.ToolTipRole)  # 设置下拉内容提示
+        self.LanguageInput.insertItem(5, 'C')  # 设置下拉内容
+        self.LanguageInput.setItemData(5, 'C', Qt.ToolTipRole)  # 设置下拉内容提示
+        self.LanguageInput.hide()
+        VLayout.addWidget(self.LanguageInput)  # 添加控件
+
+        self.LanguageVersionInput = QLineEdit()
+        self.LanguageVersionInput.setFixedHeight(30)  # 尺寸
+        self.LanguageVersionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        self.LanguageVersionInput.setPlaceholderText(self.Lang.ComputerLanguageVersion)  # 设置空内容提示
+        self.LanguageVersionInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+        self.LanguageVersionInput.setToolTip(self.Lang.ComputerLanguageVersion)  # 设置鼠标提示
+        self.LanguageVersionInput.hide()
+        VLayout.addWidget(self.LanguageVersionInput)  # 添加控件
+
+        AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+        AddButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        AddButton.setFixedHeight(30)  # 尺寸
+        AddButton.clicked.connect(lambda: self.NewQuestionAction(
+            QuestionTitleInput.text(),
+            self.QuestionTypeInput.currentIndex(),
+            self.KnowledgeInput.currentText(),
+            DescriptionInput.toPlainText(),
+            self.LanguageInput.currentText(),
+            self.LanguageVersionInput.text(),
+        ))  # 连接槽函数
+        VLayout.addWidget(AddButton)
+
+        self.NewQuestionView.setLayout(VLayout)  # 添加布局
+        self.NewQuestionView.show()
+
+    # 展示计算机语言项
+    def ShowLanguageInfo(self):
+        QuestionType: int = self.QuestionTypeInput.currentIndex()
+        if QuestionType == 6:
+            self.LanguageInput.show()
+            self.LanguageVersionInput.show()
+        else:
+            self.LanguageInput.hide()
+            self.LanguageVersionInput.hide()
+
+    # 选择知识点
+    def CheckKnowledge(self):
+        SubjectID: int = self.SubjectInput.currentData()
+        if SubjectID is not None and SubjectID > 0:
+            self.KnowledgeInput.clear()
+            Knowledge = self.KnowledgeController.Knowledge(SubjectID)
+            if len(Knowledge['Data']) > 0:
+                KnowledgeData = Knowledge['Data']
+                j = 1
+                for i in range(len(KnowledgeData)):
+                    Data = KnowledgeData[i]
+                    self.KnowledgeInput.insertItem(j, 'ID:' + str(Data['ID']) + ' ' + Data['KnowledgeName'])  # 设置下拉内容
+                    self.KnowledgeInput.setItemData(j, Data['KnowledgeName'], Qt.ToolTipRole)  # 设置下拉内容提示
+                    self.KnowledgeInput.setItemData(j, Data['ID'])  # 设值
+                    j += 1
 
     # 新建
-    def NewQuestionAction(self):
-        pass
+    def NewQuestionAction(
+        self,
+        QuestionTitle: str,
+        QuestionType: int,
+        KnowledgeInputStr: str,
+        Description: str,
+        Language: str,
+        LanguageVersion: str,
+    ):
+        KnowledgeID: int = 0
+        if KnowledgeInputStr != '':
+            KnowledgeID = int(KnowledgeInputStr.split(' ')[0].strip().split(':')[1])
+        else:
+            KnowledgeID = 0
+        Result = self.QuestionController.NewQuestion(QuestionTitle, QuestionType, KnowledgeID, Description, Language, LanguageVersion)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.NewQuestionView.close()  # 关闭窗口
+            self.TreeDataInit()  # 主控件写入数据

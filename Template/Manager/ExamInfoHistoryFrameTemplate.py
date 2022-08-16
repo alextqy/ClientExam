@@ -91,7 +91,7 @@ class ExamInfoHistoryFrameTemplate(BaseTemplate, QFrame):
         self.PassSelect.setFixedHeight(30)  # 尺寸
         self.PassSelect.setMinimumWidth(110)  # 尺寸
         self.PassSelect.setStyleSheet(self.ExamInfoHistoryStyleSheet.SelectBox())  # 设置样式
-        self.PassSelect.insertItem(0, ' ' + self.Lang.PassStatus)  # 设置下拉内容
+        self.PassSelect.insertItem(0, self.Lang.PassStatus)  # 设置下拉内容
         self.PassSelect.setItemData(0, self.Lang.PassStatus, Qt.ToolTipRole)  # 设置下拉内容提示
         self.PassSelect.insertItem(1, self.Lang.No)  # 设置下拉内容
         self.PassSelect.setItemData(1, self.Lang.No, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -105,9 +105,8 @@ class ExamInfoHistoryFrameTemplate(BaseTemplate, QFrame):
         self.StateSelect.adjustSize()  # 按内容自适应宽度
         self.StateSelect.setView(QListView())  # 设置内容控件
         self.StateSelect.setFixedHeight(30)  # 尺寸
-        self.StateSelect.setMinimumWidth(100)  # 尺寸
         self.StateSelect.setStyleSheet(self.ExamInfoHistoryStyleSheet.SelectBox())  # 设置样式
-        self.StateSelect.insertItem(0, ' ' + self.Lang.ExamState)  # 设置下拉内容
+        self.StateSelect.insertItem(0, self.Lang.ExamState)  # 设置下拉内容
         self.StateSelect.setItemData(0, self.Lang.ExamState, Qt.ToolTipRole)  # 设置下拉内容提示
         self.StateSelect.insertItem(1, self.Lang.NoAnswerSheet)  # 设置下拉内容
         self.StateSelect.setItemData(1, self.Lang.NoAnswerSheet, Qt.ToolTipRole)  # 设置下拉内容提示
@@ -125,9 +124,8 @@ class ExamInfoHistoryFrameTemplate(BaseTemplate, QFrame):
         self.TypeSelect.adjustSize()  # 按内容自适应宽度
         self.TypeSelect.setView(QListView())  # 设置内容控件
         self.TypeSelect.setFixedHeight(30)  # 尺寸
-        self.TypeSelect.setMinimumWidth(100)  # 尺寸
         self.TypeSelect.setStyleSheet(self.ExamInfoHistoryStyleSheet.SelectBox())  # 设置样式
-        self.TypeSelect.insertItem(0, ' ' + self.Lang.ExamType)  # 设置下拉内容
+        self.TypeSelect.insertItem(0, self.Lang.ExamType)  # 设置下拉内容
         self.TypeSelect.setItemData(0, self.Lang.ExamType, Qt.ToolTipRole)  # 设置下拉内容提示
         self.TypeSelect.insertItem(1, self.Lang.FormalExam)  # 设置下拉内容
         self.TypeSelect.setItemData(1, self.Lang.FormalExam, Qt.ToolTipRole)  # 设置下拉内容提示
