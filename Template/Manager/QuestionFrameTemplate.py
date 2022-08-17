@@ -10,6 +10,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         super().__init__()
         self.QuestionStyleSheet = QuestionStyleSheet()
         self.QuestionController = QuestionController()
+        self.QuestionSolutionController = QuestionSolutionController()
         self.SubjectController = SubjectController()
         self.KnowledgeController = KnowledgeController()
         self.setStyleSheet(self.QuestionStyleSheet.BaseStyleSheet())  # 设置样式
@@ -522,6 +523,12 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
     # 试题选项
     def QuestionOptions(self, Item):
         ID: int = int(Item.text(0))
+        Result = self.QuestionSolutionController.QuestionSolutions(ID)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            Solutions = Result['Data']
+            print(Solutions)
 
     # 修改节点数据
     def DisableAction(self):
@@ -543,17 +550,29 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         self.NewQuestionView.setWindowTitle(TITLE)
         self.NewQuestionView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.NewQuestionView.setStyleSheet(self.QuestionStyleSheet.Dialog())  # 设置样式
-        self.NewQuestionView.setMinimumSize(322, 450)  # 尺寸
+        self.NewQuestionView.setMinimumSize(352, 450)  # 尺寸
 
         VLayout = QVBoxLayout()
 
-        QuestionTitleInput = QLineEdit()  # 账号输入
-        QuestionTitleInput.setFixedHeight(30)  # 尺寸
-        QuestionTitleInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        QuestionTitleInput.setPlaceholderText(self.Lang.QuestionTitle)  # 设置空内容提示
-        QuestionTitleInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
-        QuestionTitleInput.setToolTip(self.Lang.QuestionTitle)  # 设置鼠标提示
-        VLayout.addWidget(QuestionTitleInput)  # 添加控件
+        TitleLayout = QHBoxLayout()
+
+        self.QuestionTitleInput = QLineEdit()  # 输入
+        self.QuestionTitleInput.setFixedHeight(30)  # 尺寸
+        self.QuestionTitleInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        self.QuestionTitleInput.setPlaceholderText(self.Lang.QuestionTitle)  # 设置空内容提示
+        self.QuestionTitleInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+        self.QuestionTitleInput.setToolTip(self.Lang.QuestionTitle)  # 设置鼠标提示
+        TitleLayout.addWidget(self.QuestionTitleInput)  # 添加控件
+
+        self.VacancyButton = QPushButton(self.Lang.SetVacancy)  # 填空题设置空位按钮
+        self.VacancyButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        self.VacancyButton.setFixedHeight(30)  # 尺寸
+        self.VacancyButton.setMinimumWidth(120)  # 尺寸
+        self.VacancyButton.clicked.connect(lambda: self.SetVacancy())
+        self.VacancyButton.hide()
+        TitleLayout.addWidget(self.VacancyButton)  # 添加控件
+
+        VLayout.addLayout(TitleLayout)  # 添加布局
 
         # 试题类型 1单选 2判断 3多选 4填空 5问答 6编程 7拖拽 8连线
         self.QuestionTypeInput = QComboBox()  # 设置下拉框
@@ -658,7 +677,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         AddButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
         AddButton.setFixedHeight(30)  # 尺寸
         AddButton.clicked.connect(lambda: self.NewQuestionAction(
-            QuestionTitleInput.text(),
+            self.QuestionTitleInput.text(),
             self.QuestionTypeInput.currentIndex(),
             self.KnowledgeInput.currentText(),
             DescriptionInput.toPlainText(),
@@ -670,13 +689,23 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         self.NewQuestionView.setLayout(VLayout)  # 添加布局
         self.NewQuestionView.show()
 
+    # 在指定位置设置填空题空位
+    def SetVacancy(self):
+        self.QuestionTitleInput.insert('<->')
+
     # 展示计算机语言项
     def ShowLanguageInfo(self):
         QuestionType: int = self.QuestionTypeInput.currentIndex()
         if QuestionType == 6:
+            self.VacancyButton.hide()
             self.LanguageInput.show()
             self.LanguageVersionInput.show()
+        elif QuestionType == 4:
+            self.VacancyButton.show()
+            self.LanguageInput.hide()
+            self.LanguageVersionInput.hide()
         else:
+            self.VacancyButton.hide()
             self.LanguageInput.hide()
             self.LanguageVersionInput.hide()
 

@@ -150,6 +150,7 @@ class Lang(BaseService):
             self.QuestionOptions = 'Question Options'
             self.ComputerLanguages = 'Computer Languages'
             self.ComputerLanguageVersion = 'Computer language version'
+            self.SetVacancy = 'Set vacancy'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -290,6 +291,7 @@ class Lang(BaseService):
             self.QuestionOptions = '试题选项'
             self.ComputerLanguages = '计算机语言'
             self.ComputerLanguageVersion = '计算机语言版本'
+            self.SetVacancy = '设置空位'
 
         else:
             self.ManagerLogin = ''
@@ -430,3 +432,4 @@ class Lang(BaseService):
             self.QuestionOptions = ''
             self.ComputerLanguages = ''
             self.ComputerLanguageVersion = ''
+            self.SetVacancy = ''

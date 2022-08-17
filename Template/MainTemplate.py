@@ -184,7 +184,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ButtonWidth: int = 300
         ButtonHeight: int = 35
 
-        AccountInput = QLineEdit()  # 账号输入
+        AccountInput = QLineEdit()  # 输入
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
         AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
@@ -221,7 +221,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ButtonWidth: int = 300
         ButtonHeight: int = 35
 
-        AccountInput = QLineEdit()  # 账号输入
+        AccountInput = QLineEdit()  # 输入
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
         AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
@@ -308,7 +308,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ButtonWidth: int = 300
         ButtonHeight: int = 35
 
-        AccountInput = QLineEdit()  # 账号输入
+        AccountInput = QLineEdit()  # 输入
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
         AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
@@ -404,7 +404,7 @@ class MainTemplate(BaseTemplate, QMainWindow):
         ButtonWidth: int = 300
         ButtonHeight: int = 35
 
-        AccountInput = QLineEdit()  # 账号输入
+        AccountInput = QLineEdit()  # 输入
         AccountInput.setFixedSize(ButtonWidth, 50)  # 尺寸
         # AccountInput.setEnabled(False)  # 不允许编辑
         AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中

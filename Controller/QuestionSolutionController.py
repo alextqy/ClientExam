@@ -42,3 +42,11 @@ class QuestionSolutionController(BaseController):
         }
         Result = self.Post(Param, '/Question/Solution/List')
         return Result
+
+    def QuestionSolutions(self, QuestionID: int, Position: int = 0):
+        Param = {
+            'QuestionID': QuestionID,
+            'Position': Position,
+        }
+        Result = self.Post(Param, '/Question/Solutions')
+        return Result

@@ -340,7 +340,7 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         VLayout = QVBoxLayout()
 
-        ExamineeNoInput = QLineEdit()  # 账号输入
+        ExamineeNoInput = QLineEdit()  # 输入
         ExamineeNoInput.setFixedHeight(30)  # 尺寸
         ExamineeNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         ExamineeNoInput.setPlaceholderText(self.Lang.ExamineeNo)  # 设置空内容提示

@@ -508,7 +508,7 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
 
             VLayout = QVBoxLayout()
 
-            ExamNoInput = QLineEdit()  # 账号输入
+            ExamNoInput = QLineEdit()  # 输入
             ExamNoInput.setFixedHeight(30)  # 尺寸
             ExamNoInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
             ExamNoInput.setPlaceholderText(self.Lang.ExamNo)  # 设置空内容提示

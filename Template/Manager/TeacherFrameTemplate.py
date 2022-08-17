@@ -330,7 +330,7 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
 
         VLayout = QVBoxLayout()
 
-        AccountInput = QLineEdit()  # 账号输入
+        AccountInput = QLineEdit()  # 输入
         AccountInput.setFixedHeight(30)  # 尺寸
         AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
         AccountInput.setPlaceholderText(self.Lang.TeacherAccount)  # 设置空内容提示
