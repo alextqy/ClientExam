@@ -200,23 +200,24 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
             self.TreeLayout.addWidget(self.ExamineeTree)  # 添加控件
 
             TreeItems = []
-            for i in range(len(Data)):
-                item = QTreeWidgetItem()  # 设置item控件
-                # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
-                item.setText(0, str(Data[i]['ID']))  # 设置内容
-                item.setText(1, Data[i]['Name'])  # 设置内容
-                item.setText(2, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
-                item.setText(3, Data[i]['Contact'])  # 设置内容
-                item.setText(4, Data[i]['ExamineeNo'])  # 设置内容
-                item.setText(5, str(Data[i]['ClassID']))  # 设置内容
-                item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                TreeItems.append(item)  # 添加到item list
-            self.ExamineeTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+            if len(TreeItems) > 0:
+                for i in range(len(Data)):
+                    item = QTreeWidgetItem()  # 设置item控件
+                    # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
+                    item.setText(0, str(Data[i]['ID']))  # 设置内容
+                    item.setText(1, Data[i]['Name'])  # 设置内容
+                    item.setText(2, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
+                    item.setText(3, Data[i]['Contact'])  # 设置内容
+                    item.setText(4, Data[i]['ExamineeNo'])  # 设置内容
+                    item.setText(5, str(Data[i]['ClassID']))  # 设置内容
+                    item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    TreeItems.append(item)  # 添加到item list
+                self.ExamineeTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
     # 设置上一页
     def SetPreviousPage(self):

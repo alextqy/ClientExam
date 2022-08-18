@@ -259,69 +259,70 @@ class ExamInfoFrameTemplate(BaseTemplate, QFrame):
             self.TreeLayout.addWidget(self.ExamInfoTree)  # 添加控件
 
             TreeItems = []
-            for i in range(len(Data)):
-                item = QTreeWidgetItem()  # 设置item控件
-                # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
-                item.setText(0, str(Data[i]['ID']))  # 设置内容
-                item.setText(1, Data[i]['SubjectName'])  # 设置内容
-                item.setText(2, Data[i]['ExamNo'])  # 设置内容
-                item.setText(3, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
-                if Data[i]['StartTime'] > 0:
-                    item.setText(4, self.Common.TimeToStr(Data[i]['StartTime']))  # 设置内容
-                else:
-                    item.setText(4, str(Data[i]['StartTime']))  # 设置内容
-                if Data[i]['EndTime'] > 0:
-                    item.setText(5, self.Common.TimeToStr(Data[i]['EndTime']))  # 设置内容
-                else:
-                    item.setText(5, str(Data[i]['EndTime']))  # 设置内容
-                item.setText(6, str(Data[i]['ExamDuration']))  # 设置内容
-                item.setText(7, str(Data[i]['ActualDuration']))  # 设置内容
-                item.setText(8, str(Data[i]['PassLine']))  # 设置内容
+            if len(TreeItems) > 0:
+                for i in range(len(Data)):
+                    item = QTreeWidgetItem()  # 设置item控件
+                    # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
+                    item.setText(0, str(Data[i]['ID']))  # 设置内容
+                    item.setText(1, Data[i]['SubjectName'])  # 设置内容
+                    item.setText(2, Data[i]['ExamNo'])  # 设置内容
+                    item.setText(3, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
+                    if Data[i]['StartTime'] > 0:
+                        item.setText(4, self.Common.TimeToStr(Data[i]['StartTime']))  # 设置内容
+                    else:
+                        item.setText(4, str(Data[i]['StartTime']))  # 设置内容
+                    if Data[i]['EndTime'] > 0:
+                        item.setText(5, self.Common.TimeToStr(Data[i]['EndTime']))  # 设置内容
+                    else:
+                        item.setText(5, str(Data[i]['EndTime']))  # 设置内容
+                    item.setText(6, str(Data[i]['ExamDuration']))  # 设置内容
+                    item.setText(7, str(Data[i]['ActualDuration']))  # 设置内容
+                    item.setText(8, str(Data[i]['PassLine']))  # 设置内容
 
-                if Data[i]['Pass'] == 2:
-                    item.setText(9, self.Lang.Yes)  # 设置内容
-                else:
-                    item.setText(9, self.Lang.No)  # 设置内容
-                if Data[i]['ExamState'] == 1:
-                    item.setText(10, self.Lang.NoAnswerSheet)  # 设置内容
-                elif Data[i]['ExamState'] == 2:
-                    item.setText(10, self.Lang.WaitForVerification)  # 设置内容
-                elif Data[i]['ExamState'] == 3:
-                    item.setText(10, self.Lang.Tested)  # 设置内容
-                elif Data[i]['ExamState'] == 4:
-                    item.setText(10, self.Lang.RegistrationVoid)  # 设置内容
-                else:
-                    item.setText(10, '')  # 设置内容
+                    if Data[i]['Pass'] == 2:
+                        item.setText(9, self.Lang.Yes)  # 设置内容
+                    else:
+                        item.setText(9, self.Lang.No)  # 设置内容
+                    if Data[i]['ExamState'] == 1:
+                        item.setText(10, self.Lang.NoAnswerSheet)  # 设置内容
+                    elif Data[i]['ExamState'] == 2:
+                        item.setText(10, self.Lang.WaitForVerification)  # 设置内容
+                    elif Data[i]['ExamState'] == 3:
+                        item.setText(10, self.Lang.Tested)  # 设置内容
+                    elif Data[i]['ExamState'] == 4:
+                        item.setText(10, self.Lang.RegistrationVoid)  # 设置内容
+                    else:
+                        item.setText(10, '')  # 设置内容
 
-                item.setText(11, str(Data[i]['TotalScore']))  # 设置内容
-                item.setText(12, str(Data[i]['ActualScore']))  # 设置内容
+                    item.setText(11, str(Data[i]['TotalScore']))  # 设置内容
+                    item.setText(12, str(Data[i]['ActualScore']))  # 设置内容
 
-                if Data[i]['ExamType'] == 1:
-                    item.setText(13, self.Lang.FormalExam)  # 设置内容
-                else:
-                    item.setText(13, self.Lang.InformalExam)  # 设置内容
+                    if Data[i]['ExamType'] == 1:
+                        item.setText(13, self.Lang.FormalExam)  # 设置内容
+                    else:
+                        item.setText(13, self.Lang.InformalExam)  # 设置内容
 
-                item.setText(14, str(Data[i]['ExamineeID']))  # 设置内容
-                item.setText(15, str(Data[i]['UpdateTime']))  # 设置内容
+                    item.setText(14, str(Data[i]['ExamineeID']))  # 设置内容
+                    item.setText(15, str(Data[i]['UpdateTime']))  # 设置内容
 
-                item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(6, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(7, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(8, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(9, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(10, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(11, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(12, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(13, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(14, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(15, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                TreeItems.append(item)  # 添加到item list
-            self.ExamInfoTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+                    item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(6, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(7, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(8, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(9, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(10, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(11, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(12, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(13, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(14, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(15, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    TreeItems.append(item)  # 添加到item list
+                self.ExamInfoTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
     # 设置上一页
     def SetPreviousPage(self):

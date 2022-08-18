@@ -262,57 +262,58 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             self.TreeLayout.addWidget(self.QuestionTree)  # 添加控件
 
             TreeItems = []
-            for i in range(len(Data)):
-                item = QTreeWidgetItem()  # 设置item控件
-                # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
-                item.setText(0, str(Data[i]['ID']))  # 设置内容
-                if Data[i]['QuestionType'] == 1:
-                    item.setText(1, self.Lang.MultipleChoiceQuestions)  # 设置内容
-                elif Data[i]['QuestionType'] == 2:
-                    item.setText(1, self.Lang.TrueOrFalse)  # 设置内容
-                elif Data[i]['QuestionType'] == 3:
-                    item.setText(1, self.Lang.MultipleChoices)  # 设置内容
-                elif Data[i]['QuestionType'] == 4:
-                    item.setText(1, self.Lang.FillInTheBlank)  # 设置内容
-                elif Data[i]['QuestionType'] == 5:
-                    item.setText(1, self.Lang.QuestionsAndAnswers)  # 设置内容
-                elif Data[i]['QuestionType'] == 6:
-                    item.setText(1, self.Lang.ProgrammingQuestions)  # 设置内容
-                elif Data[i]['QuestionType'] == 7:
-                    item.setText(1, self.Lang.DragAndDrop)  # 设置内容
-                elif Data[i]['QuestionType'] == 8:
-                    item.setText(1, self.Lang.ConnectingQuestion)  # 设置内容
-                item.setText(2, Data[i]['QuestionTitle'])  # 设置内容
-                if Data[i]['QuestionState'] == 1:
-                    item.setText(3, self.Lang.Normal)  # 设置内容
-                else:
-                    item.setText(3, self.Lang.Disabled)  # 设置内容
-                item.setText(4, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
-                item.setText(5, str(Data[i]['UpdateTime']))  # 设置内容
-                item.setText(6, Data[i]['Description'])  # 设置内容
-                item.setText(7, Data[i]['QuestionCode'])  # 设置内容
-                item.setText(8, str(Data[i]['KnowledgeID']))  # 设置内容
-                item.setText(9, Data[i]['Attachment'])  # 设置内容
-                item.setText(10, Data[i]['Language'])  # 设置内容
-                item.setText(11, Data[i]['LanguageVersion'])  # 设置内容
-                item.setText(12, str(Data[i]['Marking']))  # 设置内容
-                item.setText(13, str(Data[i]['QuestionType']))
-                item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(6, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(7, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(8, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(9, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(10, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(11, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(12, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                item.setTextAlignment(13, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
-                TreeItems.append(item)  # 添加到item list
-            self.QuestionTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+            if len(Data) > 0:
+                for i in range(len(Data)):
+                    item = QTreeWidgetItem()  # 设置item控件
+                    # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
+                    item.setText(0, str(Data[i]['ID']))  # 设置内容
+                    if Data[i]['QuestionType'] == 1:
+                        item.setText(1, self.Lang.MultipleChoiceQuestions)  # 设置内容
+                    elif Data[i]['QuestionType'] == 2:
+                        item.setText(1, self.Lang.TrueOrFalse)  # 设置内容
+                    elif Data[i]['QuestionType'] == 3:
+                        item.setText(1, self.Lang.MultipleChoices)  # 设置内容
+                    elif Data[i]['QuestionType'] == 4:
+                        item.setText(1, self.Lang.FillInTheBlank)  # 设置内容
+                    elif Data[i]['QuestionType'] == 5:
+                        item.setText(1, self.Lang.QuestionsAndAnswers)  # 设置内容
+                    elif Data[i]['QuestionType'] == 6:
+                        item.setText(1, self.Lang.ProgrammingQuestions)  # 设置内容
+                    elif Data[i]['QuestionType'] == 7:
+                        item.setText(1, self.Lang.DragAndDrop)  # 设置内容
+                    elif Data[i]['QuestionType'] == 8:
+                        item.setText(1, self.Lang.ConnectingQuestion)  # 设置内容
+                    item.setText(2, Data[i]['QuestionTitle'])  # 设置内容
+                    if Data[i]['QuestionState'] == 1:
+                        item.setText(3, self.Lang.Normal)  # 设置内容
+                    else:
+                        item.setText(3, self.Lang.Disabled)  # 设置内容
+                    item.setText(4, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
+                    item.setText(5, str(Data[i]['UpdateTime']))  # 设置内容
+                    item.setText(6, Data[i]['Description'])  # 设置内容
+                    item.setText(7, Data[i]['QuestionCode'])  # 设置内容
+                    item.setText(8, str(Data[i]['KnowledgeID']))  # 设置内容
+                    item.setText(9, Data[i]['Attachment'])  # 设置内容
+                    item.setText(10, Data[i]['Language'])  # 设置内容
+                    item.setText(11, Data[i]['LanguageVersion'])  # 设置内容
+                    item.setText(12, str(Data[i]['Marking']))  # 设置内容
+                    item.setText(13, str(Data[i]['QuestionType']))
+                    item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(6, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(7, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(8, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(9, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(10, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(11, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(12, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(13, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    TreeItems.append(item)  # 添加到item list
+                self.QuestionTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
     # 设置上一页
     def SetPreviousPage(self):
@@ -523,12 +524,16 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
     # 试题选项
     def QuestionOptions(self, Item):
         ID: int = int(Item.text(0))
+        QuestionType: int = int(Item.text(13))
         Result = self.QuestionSolutionController.QuestionSolutions(ID)
         if Result['State'] != True:
             self.MSGBOX.ERROR(Result['Memo'])
+        elif QuestionType <= 0:
+            self.MSGBOX.ERROR(self.Lang.OperationFailed)
         else:
             Solutions = Result['Data']
-            print(Solutions)
+            self.OptionsWindow = OptionsWindow(QuestionType, Solutions)
+            self.OptionsWindow.show()
 
     # 修改节点数据
     def DisableAction(self):
@@ -746,3 +751,66 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         else:
             self.NewQuestionView.close()  # 关闭窗口
             self.TreeDataInit()  # 主控件写入数据
+
+
+# 试题选项窗口
+class OptionsWindow(BaseTemplate, QDialog):
+    ActionSignal = Signal(str)  # 设置信号
+
+    def __init__(self, QuestionType: int, Options: list):
+        super().__init__()
+        self.QuestionType = QuestionType
+        self.Options = Options
+
+        self.QuestionStyleSheet = QuestionStyleSheet()
+        self.setWindowTitle(TITLE)
+        self.setMinimumSize(722, 350)  # 尺寸
+        self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.setStyleSheet(self.QuestionStyleSheet.Dialog())  # 设置样式
+        self.VLayout = QVBoxLayout()
+        self.VLayout.setContentsMargins(5, 5, 5, 5)
+        self.setLayout(self.VLayout)
+
+        self.OptionsTree = BaseTreeWidget()
+        self.OptionsTree.SetSelectionMode(2)  # 设置选择模式
+        self.OptionsTree.setStyleSheet(self.QuestionStyleSheet.TreeWidget())  # 设置样式
+        self.OptionsTree.setColumnCount(10)  # 设置列数
+        self.OptionsTree.setHeaderLabels([
+            'ID',
+            'Option',
+            'ScoreRatio',
+            'CreateTime',
+            'Position',
+            'CorrectItem',
+            'CorrectAnswer',
+            'QuestionID',
+            'OptionAttachment',
+            'UpdateTime',
+        ])  # 设置标题栏
+        self.OptionsTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
+        self.OptionsTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
+        self.VLayout.addWidget(self.OptionsTree)  # 添加控件
+
+        # 试题类型 1单选 2判断 3多选 4填空 5问答 6代码实训 7拖拽题 8连线题
+        if self.QuestionType >= 1 and self.QuestionType <= 2:
+            self.OptionsTree.hideColumn(4)  # 隐藏列
+            self.OptionsTree.hideColumn(5)  # 隐藏列
+            self.OptionsTree.hideColumn(6)  # 隐藏列
+            self.OptionsTree.hideColumn(7)  # 隐藏列
+            self.OptionsTree.hideColumn(8)  # 隐藏列
+            self.OptionsTree.hideColumn(9)  # 隐藏列
+        elif self.QuestionType == 3:
+            pass
+        elif self.QuestionType >= 4 and self.QuestionType <= 5:
+            pass
+        elif self.QuestionType == 6:
+            pass
+        elif self.QuestionType == 7:
+            pass
+        elif self.QuestionType == 8:
+            pass
+        else:
+            pass
+
+    def RightContextMenuExec(self):
+        pass
