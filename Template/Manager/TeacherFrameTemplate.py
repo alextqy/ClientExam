@@ -188,8 +188,8 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
             self.TeacherTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
             self.TreeLayout.addWidget(self.TeacherTree)  # 添加控件
 
-            TreeItems = []
-            if len(TreeItems) > 0:
+            if len(Data) > 0:
+                TreeItems = []
                 for i in range(len(Data)):
                     item = QTreeWidgetItem()  # 设置item控件
                     # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))

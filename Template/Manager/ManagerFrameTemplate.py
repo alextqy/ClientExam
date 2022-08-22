@@ -184,14 +184,22 @@ class ManagerFrameTemplate(BaseTemplate, QFrame):
             self.ManagerTree.setColumnCount(7)  # 设置列数
             self.ManagerTree.hideColumn(5)  # 隐藏列
             self.ManagerTree.hideColumn(6)  # 隐藏列
-            self.ManagerTree.setHeaderLabels(['ID', self.Lang.ManageristratorAccount, self.Lang.Name, self.Lang.ManagerStatus, self.Lang.CreationTime, 'UpdateTime', 'Permission'])  # 设置标题栏
+            self.ManagerTree.setHeaderLabels([
+                'ID',
+                self.Lang.ManageristratorAccount,
+                self.Lang.Name,
+                self.Lang.ManagerStatus,
+                self.Lang.CreationTime,
+                'UpdateTime',
+                'Permission',
+            ])  # 设置标题栏
             # self.ManagerTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
             self.ManagerTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
             self.ManagerTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
             self.TreeLayout.addWidget(self.ManagerTree)  # 添加控件
 
-            TreeItems = []
-            if len(TreeItems) > 0:
+            if len(Data) > 0:
+                TreeItems = []
                 for i in range(len(Data)):
                     item = QTreeWidgetItem()  # 设置item控件
                     # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))

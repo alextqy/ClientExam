@@ -261,8 +261,8 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             self.QuestionTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
             self.TreeLayout.addWidget(self.QuestionTree)  # 添加控件
 
-            TreeItems = []
             if len(Data) > 0:
+                TreeItems = []
                 for i in range(len(Data)):
                     item = QTreeWidgetItem()  # 设置item控件
                     # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
@@ -532,7 +532,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             self.MSGBOX.ERROR(self.Lang.OperationFailed)
         else:
             Solutions = Result['Data']
-            self.OptionsWindow = OptionsWindow(QuestionType, Solutions)
+            self.OptionsWindow = OptionsWindow(ID, QuestionType, Solutions)
             self.OptionsWindow.show()
 
     # 修改节点数据
@@ -757,10 +757,12 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
 class OptionsWindow(BaseTemplate, QDialog):
     ActionSignal = Signal(str)  # 设置信号
 
-    def __init__(self, QuestionType: int, Options: list):
+    def __init__(self, QuestionID: int, QuestionType: int, Options: list):
         super().__init__()
+        self.QuestionID = QuestionID
         self.QuestionType = QuestionType
         self.Options = Options
+        self.QuestionSolutionController = QuestionSolutionController()
 
         self.QuestionStyleSheet = QuestionStyleSheet()
         self.setWindowTitle(TITLE)
@@ -777,28 +779,61 @@ class OptionsWindow(BaseTemplate, QDialog):
         self.OptionsTree.setColumnCount(10)  # 设置列数
         self.OptionsTree.setHeaderLabels([
             'ID',
-            'Option',
-            'ScoreRatio',
-            'CreateTime',
-            'Position',
-            'CorrectItem',
-            'CorrectAnswer',
+            self.Lang.QuestionOptions,
+            self.Lang.ScoreProportion,
+            self.Lang.CorrectAnswer,
+            self.Lang.Position,
+            self.Lang.CorrectItem,
             'QuestionID',
             'OptionAttachment',
             'UpdateTime',
+            self.Lang.CreationTime,
         ])  # 设置标题栏
         self.OptionsTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.OptionsTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
         self.VLayout.addWidget(self.OptionsTree)  # 添加控件
 
+        # 写入试题选项
+        if len(self.Options) > 0:
+            TreeItems = []
+            for i in range(len(self.Options)):
+                item = QTreeWidgetItem()  # 设置item控件
+                Data = self.Options[i]
+                # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
+                item.setText(0, str(Data['ID']))  # 设置内容
+                item.setText(1, Data['Option'])  # 设置内容
+                item.setText(2, str(Data['ScoreRatio']))  # 设置内容
+                if Data['CorrectAnswer'] == 2:
+                    item.setText(3, self.Lang.CorrectOption)  # 设置内容
+                else:
+                    item.setText(3, self.Lang.WrongOption)  # 设置内容
+                item.setText(4, str(Data['Position']))  # 设置内容
+                item.setText(5, Data['CorrectItem'])  # 设置内容
+                item.setText(6, str(Data['QuestionID']))  # 设置内容
+                item.setText(7, Data['OptionAttachment'])  # 设置内容
+                item.setText(8, str(Data['UpdateTime']))  # 设置内容
+                item.setText(9, self.Common.TimeToStr(Data['CreateTime']))  # 设置内容
+                item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(6, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(7, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(8, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(9, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                TreeItems.append(item)  # 添加到item list
+            self.OptionsTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+
         # 试题类型 1单选 2判断 3多选 4填空 5问答 6代码实训 7拖拽题 8连线题
         if self.QuestionType >= 1 and self.QuestionType <= 2:
+            self.OptionsTree.hideColumn(2)  # 隐藏列
             self.OptionsTree.hideColumn(4)  # 隐藏列
             self.OptionsTree.hideColumn(5)  # 隐藏列
             self.OptionsTree.hideColumn(6)  # 隐藏列
             self.OptionsTree.hideColumn(7)  # 隐藏列
             self.OptionsTree.hideColumn(8)  # 隐藏列
-            self.OptionsTree.hideColumn(9)  # 隐藏列
         elif self.QuestionType == 3:
             pass
         elif self.QuestionType >= 4 and self.QuestionType <= 5:

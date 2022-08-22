@@ -151,6 +151,12 @@ class Lang(BaseService):
             self.ComputerLanguages = 'Computer Languages'
             self.ComputerLanguageVersion = 'Computer language version'
             self.SetVacancy = 'Set vacancy'
+            self.ScoreProportion = 'Score proportion'
+            self.CorrectAnswer = 'Correct answer'
+            self.Position = 'Position'
+            self.CorrectItem = 'Correct item'
+            self.WrongOption = 'Wrong option'
+            self.CorrectOption = 'Correct option'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -292,6 +298,12 @@ class Lang(BaseService):
             self.ComputerLanguages = '计算机语言'
             self.ComputerLanguageVersion = '计算机语言版本'
             self.SetVacancy = '设置空位'
+            self.ScoreProportion = '得分比例'
+            self.CorrectAnswer = '正确答案'
+            self.Position = '位置'
+            self.CorrectItem = '正确项'
+            self.WrongOption = '错误选项'
+            self.CorrectOption = '正确选项'
 
         else:
             self.ManagerLogin = ''
@@ -433,3 +445,9 @@ class Lang(BaseService):
             self.ComputerLanguages = ''
             self.ComputerLanguageVersion = ''
             self.SetVacancy = ''
+            self.ScoreProportion = ''
+            self.CorrectAnswer = ''
+            self.Position = ''
+            self.CorrectItem = ''
+            self.WrongOption = ''
+            self.CorrectOption = ''
