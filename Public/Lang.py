@@ -157,6 +157,7 @@ class Lang(BaseService):
             self.CorrectItem = 'Correct item'
             self.WrongOption = 'Wrong option'
             self.CorrectOption = 'Correct option'
+            self.NewOption = 'New option'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -304,6 +305,7 @@ class Lang(BaseService):
             self.CorrectItem = '正确项'
             self.WrongOption = '错误选项'
             self.CorrectOption = '正确选项'
+            self.NewOption = '新建选项'
 
         else:
             self.ManagerLogin = ''
@@ -451,3 +453,4 @@ class Lang(BaseService):
             self.CorrectItem = ''
             self.WrongOption = ''
             self.CorrectOption = ''
+            self.NewOption = ''

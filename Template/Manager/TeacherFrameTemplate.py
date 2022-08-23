@@ -13,14 +13,12 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         self.setStyleSheet(self.TeacherStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
-        self.CenterLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 标题栏
         self.Headline = QLabel(self.Lang.Teacher)
         self.Headline.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.Headline.adjustSize()  # 根据内容自适应宽度
         self.Headline.setFixedHeight(30)  # 尺寸
-        self.Headline.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.Headline.setStyleSheet(self.TeacherStyleSheet.Headline())  # 设置样式
         self.CenterLayout.addWidget(self.Headline)  # 添加控件
 
@@ -33,14 +31,12 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
 
         # 页码按钮布局
         self.PageButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.PageButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 当前页码
         self.CurrentPage = QLabel(self.Lang.CurrentPage + ' ' + str(self.CurrentPageNo))
         self.CurrentPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.CurrentPage.adjustSize()  # 根据内容自适应宽度
         self.CurrentPage.setFixedSize(120, 30)  # 尺寸
-        self.CurrentPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.CurrentPage.setStyleSheet(self.TeacherStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.CurrentPage)  # 添加控件
 
@@ -49,7 +45,6 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         self.TotalPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.TotalPage.adjustSize()  # 根据内容自适应宽度
         self.TotalPage.setFixedSize(120, 30)  # 尺寸
-        self.TotalPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.TotalPage.setStyleSheet(self.TeacherStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.TotalPage)  # 添加控件
 
@@ -109,7 +104,6 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
 
         # 页码按钮布局
         self.PNButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.PNButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 上一页
         self.PreviousPageButton = QPushButton(self.Lang.PreviousPage)
@@ -128,7 +122,6 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
         # =====================================================================================================================================================================
 
         self.ButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.ButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 新建
         self.NewTeacherButton = QPushButton(self.Lang.NewTeacher)
@@ -184,7 +177,6 @@ class TeacherFrameTemplate(BaseTemplate, QFrame):
             self.TeacherTree.setColumnCount(6)  # 设置列数
             self.TeacherTree.hideColumn(5)  # 隐藏列
             self.TeacherTree.setHeaderLabels(['ID', self.Lang.TeacherAccount, self.Lang.Name, self.Lang.TeacherStatus, self.Lang.CreationTime, 'UpdateTime'])  # 设置标题栏
-            self.TeacherTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
             self.TeacherTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
             self.TreeLayout.addWidget(self.TeacherTree)  # 添加控件
 

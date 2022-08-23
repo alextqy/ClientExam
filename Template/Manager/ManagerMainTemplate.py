@@ -28,7 +28,6 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.setMinimumSize(1350, 800)  # 设置最小尺寸
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
-        self.CenterLayout.setContentsMargins(5, 5, 5, 5)  # 设置边距
 
         self.CurrentTemplate = ''
 
@@ -100,10 +99,10 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
 
         self.DataLayout = QVBoxLayout()  # 主体数据布局
         self.DataLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.InitLabel = QLabel()  # 开始界面
-        self.InitLabel.setContentsMargins(0, 0, 0, 0)  # 设置边距
-        self.InitLabel.setStyleSheet(self.ManagerMainStyleSheet.InitLabel())  # 设置样式
-        self.DataLayout.addWidget(self.InitLabel)  # 添加控件
+        # self.InitLabel = QLabel()  # 开始界面
+        # self.InitLabel.setContentsMargins(0, 0, 0, 0)  # 设置边距
+        # self.InitLabel.setStyleSheet(self.ManagerMainStyleSheet.InitLabel())  # 设置样式
+        # self.DataLayout.addWidget(self.InitLabel)  # 添加控件
         self.DataFrame.setLayout(self.DataLayout)  # 添加布局
 
         self.BottomLabel = QLabel(TITLE)  # 底部框架

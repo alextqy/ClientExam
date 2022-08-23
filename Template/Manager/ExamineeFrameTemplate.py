@@ -15,14 +15,12 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.setStyleSheet(self.ExamineeStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
-        self.CenterLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 标题栏
         self.Headline = QLabel(self.Lang.Examinee)
         self.Headline.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.Headline.adjustSize()  # 根据内容自适应宽度
         self.Headline.setFixedHeight(30)  # 尺寸
-        self.Headline.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.Headline.setStyleSheet(self.ExamineeStyleSheet.Headline())  # 设置样式
         self.CenterLayout.addWidget(self.Headline)  # 添加控件
 
@@ -35,14 +33,12 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         # 页码按钮布局
         self.PageButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.PageButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 当前页码
         self.CurrentPage = QLabel(self.Lang.CurrentPage + ' ' + str(self.CurrentPageNo))
         self.CurrentPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.CurrentPage.adjustSize()  # 根据内容自适应宽度
         self.CurrentPage.setFixedSize(120, 30)  # 尺寸
-        self.CurrentPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.CurrentPage.setStyleSheet(self.ExamineeStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.CurrentPage)  # 添加控件
 
@@ -51,7 +47,6 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         self.TotalPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.TotalPage.adjustSize()  # 根据内容自适应宽度
         self.TotalPage.setFixedSize(120, 30)  # 尺寸
-        self.TotalPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.TotalPage.setStyleSheet(self.ExamineeStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.TotalPage)  # 添加控件
 
@@ -117,7 +112,6 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
 
         # 页码按钮布局
         self.PNButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.PNButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 上一页
         self.PreviousPageButton = QPushButton(self.Lang.PreviousPage)
@@ -136,7 +130,6 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
         # =====================================================================================================================================================================
 
         self.ButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.ButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 新建
         self.NewExamineeButton = QPushButton(self.Lang.NewExaminee)
@@ -195,7 +188,6 @@ class ExamineeFrameTemplate(BaseTemplate, QFrame):
             self.ExamineeTree.hideColumn(5)  # 隐藏列
             self.ExamineeTree.setHeaderLabels(['ID', self.Lang.Name, self.Lang.CreationTime, self.Lang.Contact, 'ExamineeNo', 'ClassID'])  # 设置标题栏
             # self.ExamineeTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
-            self.ExamineeTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
             self.ExamineeTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
             self.TreeLayout.addWidget(self.ExamineeTree)  # 添加控件
 

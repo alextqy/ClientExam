@@ -14,14 +14,12 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
         self.setStyleSheet(self.KnowledgeStyleSheet.BaseStyleSheet())  # 设置样式
 
         self.CenterLayout = QVBoxLayout()  # 设置主布局
-        self.CenterLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 标题栏
         self.Headline = QLabel(self.Lang.KnowledgePoint)
         self.Headline.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.Headline.adjustSize()  # 根据内容自适应宽度
         self.Headline.setFixedHeight(30)  # 尺寸
-        self.Headline.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.Headline.setStyleSheet(self.KnowledgeStyleSheet.Headline())  # 设置样式
         self.CenterLayout.addWidget(self.Headline)  # 添加控件
 
@@ -34,14 +32,12 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
 
         # 页码按钮布局
         self.PageButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.PageButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 当前页码
         self.CurrentPage = QLabel(self.Lang.CurrentPage + ' ' + str(self.CurrentPageNo))
         self.CurrentPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.CurrentPage.adjustSize()  # 根据内容自适应宽度
         self.CurrentPage.setFixedSize(120, 30)  # 尺寸
-        self.CurrentPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.CurrentPage.setStyleSheet(self.KnowledgeStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.CurrentPage)  # 添加控件
 
@@ -50,7 +46,6 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
         self.TotalPage.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.TotalPage.adjustSize()  # 根据内容自适应宽度
         self.TotalPage.setFixedSize(120, 30)  # 尺寸
-        self.TotalPage.setContentsMargins(0, 0, 0, 0)  # 设置边距
         self.TotalPage.setStyleSheet(self.KnowledgeStyleSheet.CurrentPage())  # 设置样式
         self.PageButtonLayout.addWidget(self.TotalPage)  # 添加控件
 
@@ -132,7 +127,6 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
 
         # 页码按钮布局
         self.PNButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.PNButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 上一页
         self.PreviousPageButton = QPushButton(self.Lang.PreviousPage)
@@ -151,7 +145,6 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
         # =====================================================================================================================================================================
 
         self.ButtonLayout = QHBoxLayout()  # 设置按钮布局
-        self.ButtonLayout.setContentsMargins(0, 0, 0, 0)  # 设置边距
 
         # 新建
         self.NewKnowledgeButton = QPushButton(self.Lang.NewKnowledgePoint)
@@ -211,7 +204,6 @@ class KnowledgeFrameTemplate(BaseTemplate, QFrame):
             self.KnowledgeTree.hideColumn(6)  # 隐藏列
             self.KnowledgeTree.setHeaderLabels(['ID', self.Lang.KnowledgePointName, self.Lang.KnowledgePointStatus, self.Lang.CreationTime, 'UpdateTime', 'SubjectID', 'KnowledgeCode'])  # 设置标题栏
             # self.KnowledgeTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
-            self.KnowledgeTree.setContentsMargins(0, 0, 0, 0)  # 设置边距
             self.KnowledgeTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
             self.TreeLayout.addWidget(self.KnowledgeTree)  # 添加控件
 
@@ -442,7 +434,6 @@ class SubjectsWindow(BaseTemplate, QDialog):
         self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.setStyleSheet(self.KnowledgeStyleSheet.Dialog())  # 设置样式
         self.VLayout = QVBoxLayout()
-        self.VLayout.setContentsMargins(5, 5, 5, 5)
         self.HLayout = QHBoxLayout()
         self.VLayout.addLayout(self.HLayout)
         self.setLayout(self.VLayout)
