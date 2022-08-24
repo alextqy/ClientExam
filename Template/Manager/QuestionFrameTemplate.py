@@ -517,14 +517,10 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
     def QuestionOptions(self, Item):
         ID: int = int(Item.text(0))
         QuestionType: int = int(Item.text(13))
-        Result = self.QuestionSolutionController.QuestionSolutions(ID)
-        if Result['State'] != True:
-            self.MSGBOX.ERROR(Result['Memo'])
-        elif QuestionType <= 0:
+        if QuestionType <= 0:
             self.MSGBOX.ERROR(self.Lang.OperationFailed)
         else:
-            Solutions = Result['Data']
-            self.OptionsWindow = OptionsWindow(ID, QuestionType, Solutions)
+            self.OptionsWindow = OptionsWindow(ID, QuestionType)
             self.OptionsWindow.show()
 
     # 修改节点数据
@@ -749,11 +745,11 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
 class OptionsWindow(BaseTemplate, QDialog):
     ActionSignal = Signal(str)  # 设置信号
 
-    def __init__(self, QuestionID: int, QuestionType: int, Options: list):
+    def __init__(self, QuestionID: int, QuestionType: int):
         super().__init__()
         self.QuestionID = QuestionID
         self.QuestionType = QuestionType
-        self.Options = Options
+        self.Options = []
         self.QuestionSolutionController = QuestionSolutionController()
 
         self.QuestionStyleSheet = QuestionStyleSheet()
@@ -763,6 +759,12 @@ class OptionsWindow(BaseTemplate, QDialog):
         self.setStyleSheet(self.QuestionStyleSheet.Dialog())  # 设置样式
         self.VLayout = QVBoxLayout()
 
+        self.InitData()
+
+        self.setLayout(self.VLayout)
+
+    def InitData(self):
+        self.ClearLayout(self.VLayout)
         self.OptionsTree = BaseTreeWidget()
         self.OptionsTree.SetSelectionMode(2)  # 设置选择模式
         self.OptionsTree.setStyleSheet(self.QuestionStyleSheet.TreeWidget())  # 设置样式
@@ -787,6 +789,12 @@ class OptionsWindow(BaseTemplate, QDialog):
         self.NewOptionButton.setFixedHeight(30)  # 尺寸
         self.NewOptionButton.clicked.connect(lambda: self.NewOption())  # 连接槽函数
         self.VLayout.addWidget(self.NewOptionButton)  # 添加控件
+
+        Result = self.QuestionSolutionController.QuestionSolutions(self.QuestionID)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.Options = Result['Data']
 
         # 写入试题选项
         if len(self.Options) > 0:
@@ -842,11 +850,86 @@ class OptionsWindow(BaseTemplate, QDialog):
         else:
             pass
 
-        self.setLayout(self.VLayout)
-
     # 新建选项
     def NewOption(self):
-        pass
+        self.NewOptionView = QDialog()
+        self.NewOptionView.setWindowTitle(TITLE)
+        self.NewOptionView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.NewOptionView.setStyleSheet(self.QuestionStyleSheet.Dialog())  # 设置样式
+        self.NewOptionView.setMinimumSize(352, 350)  # 尺寸
+
+        VLayout = QVBoxLayout()
+
+        if self.QuestionType == 1:
+            OptionInput = QTextEdit()  # 输入
+            # OptionInput.setText()  # 设置内容
+            # OptionInput.setFixedHeight(30)  # 尺寸
+            # OptionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            OptionInput.setPlaceholderText(self.Lang.Content)  # 设置空内容提示
+            OptionInput.setStyleSheet(self.QuestionStyleSheet.TextEdit())  # 设置样式
+            OptionInput.setToolTip(self.Lang.Content)  # 设置鼠标提示
+            VLayout.addWidget(OptionInput)  # 添加控件
+
+            CorrectAnswerSelect = QComboBox()  # 设置下拉框
+            CorrectAnswerSelect.adjustSize()  # 按内容自适应宽度
+            CorrectAnswerSelect.setView(QListView())  # 设置内容控件
+            CorrectAnswerSelect.setFixedHeight(30)  # 尺寸
+            CorrectAnswerSelect.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
+            CorrectAnswerSelect.insertItem(0, self.Lang.CorrectItem)  # 设置下拉内容
+            CorrectAnswerSelect.setItemData(0, self.Lang.CorrectItem, Qt.ToolTipRole)  # 设置下拉内容提示
+            CorrectAnswerSelect.insertItem(1, self.Lang.WrongOption)  # 设置下拉内容
+            CorrectAnswerSelect.setItemData(1, self.Lang.WrongOption, Qt.ToolTipRole)  # 设置下拉内容提示
+            CorrectAnswerSelect.insertItem(2, self.Lang.CorrectOption)  # 设置下拉内容
+            CorrectAnswerSelect.setItemData(2, self.Lang.CorrectOption, Qt.ToolTipRole)  # 设置下拉内容提示
+            CorrectAnswerSelect.setCurrentIndex(0)  # 设置默认选项
+            VLayout.addWidget(CorrectAnswerSelect)  # 添加控件
+
+            AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+            AddButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+            AddButton.setFixedHeight(30)  # 尺寸
+            AddButton.clicked.connect(lambda: self.NewQuestionOptionAction(
+                self.QuestionID,
+                OptionInput.toPlainText(),
+                CorrectAnswerSelect.currentIndex(),
+                '',
+                0,
+                0,
+            ))  # 连接槽函数
+            VLayout.addWidget(AddButton)
+        elif self.QuestionType == 2:
+            pass
+        elif self.QuestionType == 3:
+            pass
+        elif self.QuestionType == 4:
+            pass
+        elif self.QuestionType == 5:
+            pass
+        elif self.QuestionType == 6:
+            pass
+        elif self.QuestionType == 7:
+            pass
+        elif self.QuestionType == 8:
+            pass
+
+        self.NewOptionView.setLayout(VLayout)  # 添加布局
+        self.NewOptionView.show()
+
+    # 新建试题选项
+    def NewQuestionOptionAction(
+        self,
+        QuestionID: int,
+        Option: str,
+        CorrectAnswer: int,
+        CorrectItem: str,
+        ScoreRatio: float,
+        Position: int,
+    ):
+        Result = self.QuestionSolutionController.NewQuestionSolution(QuestionID, Option, CorrectAnswer, CorrectItem, ScoreRatio, Position)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.NewOptionView.close()  # 关闭窗口
+            self.InitData()  # 主控件写入数据
 
     # 鼠标右键
     def RightContextMenuExec(self):
