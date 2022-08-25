@@ -521,6 +521,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             self.MSGBOX.ERROR(self.Lang.OperationFailed)
         else:
             self.OptionsWindow = OptionsWindow(ID, QuestionType)
+            self.OptionsWindow.ActionSignal.connect(self.TreeDataInit)
             self.OptionsWindow.show()
 
     # 修改节点数据
@@ -743,7 +744,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
 
 # 试题选项窗口
 class OptionsWindow(BaseTemplate, QDialog):
-    ActionSignal = Signal(str)  # 设置信号
+    ActionSignal = Signal()  # 设置信号
 
     def __init__(self, QuestionID: int, QuestionType: int):
         super().__init__()
@@ -759,11 +760,11 @@ class OptionsWindow(BaseTemplate, QDialog):
         self.setStyleSheet(self.QuestionStyleSheet.Dialog())  # 设置样式
         self.VLayout = QVBoxLayout()
 
-        self.InitData()
+        self.TreeDataInit()
 
         self.setLayout(self.VLayout)
 
-    def InitData(self):
+    def TreeDataInit(self):
         self.ClearLayout(self.VLayout)
         self.OptionsTree = BaseTreeWidget()
         self.OptionsTree.SetSelectionMode(2)  # 设置选择模式
@@ -929,8 +930,61 @@ class OptionsWindow(BaseTemplate, QDialog):
             self.MSGBOX.ERROR(Result['Memo'])
         else:
             self.NewOptionView.close()  # 关闭窗口
-            self.InitData()  # 主控件写入数据
+            self.TreeDataInit()  # 主控件写入数据
 
-    # 鼠标右键
-    def RightContextMenuExec(self):
-        pass
+    # 列表节点右键菜单
+    def RightContextMenuExec(self, pos):
+        self.TreeMenu = BaseMenu()
+        self.TreeMenu.setStyleSheet(self.QuestionStyleSheet.TreeMenu())  # 设置样式
+        Item = self.OptionsTree.currentItem()  # 获取被点击行控件
+        ItemAt = self.OptionsTree.itemAt(pos)  # 获取点击焦点
+
+        # 展示判断
+        if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
+            self.TreeMenu.AddAction(self.Lang.UploadAttachment, lambda: self.UploadAttachment(Item))
+            self.TreeMenu.AddAction(self.Lang.ViewAttachments, lambda: self.QuestionSolutionViewAttachments(Item))
+            self.TreeMenu.AddAction(self.Lang.Delete, lambda: self.DeleteAction())
+        else:  # 焦点外
+            return
+
+        self.TreeMenu.move(QCursor().pos())  # 移动到焦点
+        self.TreeMenu.show()  # 展示
+
+    def UploadAttachment(self, Item):
+        ID: int = int(Item.text(0))
+        File, _ = QFileDialog.getOpenFileName(self, 'Select the file', self.FileHelper.BaseDir() + 'Tempo', '')
+        FilePath = str(File)
+        if FilePath != '':
+            Result = self.QuestionSolutionController.QuestionSolutionAttachment(ID, FilePath)  # 导入
+            if Result['State'] != True:
+                self.MSGBOX.ERROR(Result['Memo'])
+            else:
+                self.TreeDataInit()
+
+    def QuestionSolutionViewAttachments(self, Item):
+        FilePath: str = Item.text(7)
+        Result = self.QuestionSolutionController.QuestionSolutionViewAttachments(FilePath)
+        if Result['State'] == True:
+            FileData: bytes = self.Common.Base64ToBytes(Result['Data'])
+            DemoPath = self.FileHelper.BaseDir() + 'Tempo' + '/' + str(self.Common.TimeMS()) + '.' + Result['Memo']
+            if self.FileHelper.WFileInByte(DemoPath, FileData) == False:
+                self.MSGBOX.ERROR(self.Lang.OperationFailed)
+            else:
+                try:
+                    self.FileHelper.OpenLocalDir(DemoPath)
+                except OSError as e:
+                    self.MSGBOX.ERROR(e)
+
+    def DeleteAction(self):
+        Options = self.OptionsTree.selectedItems()
+        for i in range(len(Options)):
+            Item = Options[i]
+            ID: int = int(Item.text(0))
+            if ID > 1:
+                Result = self.QuestionSolutionController.QuestionSolutionDelete(ID)
+                if Result['State'] != True:
+                    self.MSGBOX.ERROR(Result['Memo'])
+                    break
+                else:
+                    self.ActionSignal.emit()
+                    self.TreeDataInit()

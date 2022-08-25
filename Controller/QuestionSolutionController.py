@@ -23,8 +23,11 @@ class QuestionSolutionController(BaseController):
         Param = {
             'ID': ID,
         }
-        FileEntityByte = {'Attachment': open(FileEntityPath.strip(), 'rb').read()}
-        Result = self.Post(Param, '/Question/Solution/Attachment', '', '', '', FileEntityByte)
+        FileType = self.FileHelper.CheckFileType(FileEntityPath)
+        FileFullName = str(self.Common.TimeMS()) + '.' + FileType
+        ContentType = self.Common.ContentType('.' + FileType)
+        FileData = {'Attachment': (FileFullName, open(FileEntityPath, 'rb'), ContentType)}
+        Result = self.Post(Param, '/Question/Solution/Attachment', '', '', '', FileData)
         return Result
 
     def QuestionSolutionDelete(self, ID: int):
@@ -49,4 +52,11 @@ class QuestionSolutionController(BaseController):
             'Position': Position,
         }
         Result = self.Post(Param, '/Question/Solutions')
+        return Result
+
+    def QuestionSolutionViewAttachments(self, FilePath: str):
+        Param = {
+            'FilePath': FilePath,
+        }
+        Result = self.Post(Param, '/Question/Solution/View/Attachments')
         return Result
