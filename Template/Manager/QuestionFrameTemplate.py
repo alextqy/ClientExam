@@ -861,7 +861,7 @@ class OptionsWindow(BaseTemplate, QDialog):
 
         VLayout = QVBoxLayout()
 
-        if self.QuestionType == 1:
+        if self.QuestionType >= 1 and self.QuestionType <= 2:
             OptionInput = QTextEdit()  # 输入
             # OptionInput.setText()  # 设置内容
             # OptionInput.setFixedHeight(30)  # 尺寸
@@ -897,8 +897,6 @@ class OptionsWindow(BaseTemplate, QDialog):
                 0,
             ))  # 连接槽函数
             VLayout.addWidget(AddButton)
-        elif self.QuestionType == 2:
-            pass
         elif self.QuestionType == 3:
             pass
         elif self.QuestionType == 4:
