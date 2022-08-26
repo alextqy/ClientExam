@@ -831,7 +831,7 @@ class OptionsWindow(BaseTemplate, QDialog):
             self.OptionsTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
         # 试题类型 1单选 2判断 3多选 4填空 5问答 6代码实训 7拖拽题 8连线题
-        if self.QuestionType >= 1 and self.QuestionType <= 2:
+        if self.QuestionType >= 1 and self.QuestionType <= 3:
             self.OptionsTree.hideColumn(2)  # 隐藏列
             self.OptionsTree.hideColumn(4)  # 隐藏列
             self.OptionsTree.hideColumn(5)  # 隐藏列
@@ -861,7 +861,7 @@ class OptionsWindow(BaseTemplate, QDialog):
 
         VLayout = QVBoxLayout()
 
-        if self.QuestionType >= 1 and self.QuestionType <= 2:
+        if self.QuestionType >= 1 and self.QuestionType <= 3:
             OptionInput = QTextEdit()  # 输入
             # OptionInput.setText()  # 设置内容
             # OptionInput.setFixedHeight(30)  # 尺寸
@@ -897,8 +897,6 @@ class OptionsWindow(BaseTemplate, QDialog):
                 0,
             ))  # 连接槽函数
             VLayout.addWidget(AddButton)
-        elif self.QuestionType == 3:
-            pass
         elif self.QuestionType == 4:
             pass
         elif self.QuestionType == 5:
