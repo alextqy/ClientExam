@@ -233,7 +233,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
             self.QuestionTree.hideColumn(10)  # 隐藏列
             self.QuestionTree.hideColumn(11)  # 隐藏列
             self.QuestionTree.hideColumn(12)  # 隐藏列
-            self.QuestionTree.hideColumn(14)  # 隐藏列
+            self.QuestionTree.hideColumn(13)  # 隐藏列
             self.QuestionTree.setHeaderLabels([
                 'ID',
                 self.Lang.QuestionType,
@@ -364,14 +364,30 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
 
         VLayout = QVBoxLayout()
 
-        TitleInput = QLineEdit()  # 输入
-        TitleInput.setText(QuestionTitle)  # 设置内容
-        TitleInput.setFixedHeight(30)  # 尺寸
-        TitleInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        TitleInput.setPlaceholderText(self.Lang.QuestionTitle)  # 设置空内容提示
-        TitleInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
-        TitleInput.setToolTip(self.Lang.QuestionTitle)  # 设置鼠标提示
-        VLayout.addWidget(TitleInput)  # 添加控件
+        TitleLayout = QHBoxLayout()
+
+        self.TitleInput = QLineEdit()  # 输入
+        self.TitleInput.setText(QuestionTitle)  # 设置内容
+        self.TitleInput.setFixedHeight(30)  # 尺寸
+        self.TitleInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        self.TitleInput.setPlaceholderText(self.Lang.QuestionTitle)  # 设置空内容提示
+        self.TitleInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+        self.TitleInput.setToolTip(self.Lang.QuestionTitle)  # 设置鼠标提示
+        TitleLayout.addWidget(self.TitleInput)  # 添加控件
+
+        VacancyButton = QPushButton(self.Lang.SetVacancy)  # 填空题设置空位按钮
+        VacancyButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        VacancyButton.setFixedHeight(30)  # 尺寸
+        VacancyButton.setMinimumWidth(120)  # 尺寸
+        VacancyButton.clicked.connect(lambda: self.SetVacancy2())
+        TitleLayout.addWidget(VacancyButton)  # 添加控件
+
+        if QuestionType == 4:
+            VacancyButton.show()
+        else:
+            VacancyButton.hide()
+
+        VLayout.addLayout(TitleLayout)
 
         DescriptionInput = QTextEdit()  # 输入
         DescriptionInput.setText(Description)  # 设置内容
@@ -457,7 +473,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         if QuestionType == 6:
             UpdateButton.clicked.connect(lambda: self.InfoWindowAction(
                 ID,
-                TitleInput.text(),
+                self.TitleInput.text(),
                 QuestionType,
                 DescriptionInput.toPlainText(),
                 LanguageInput.currentText(),
@@ -466,7 +482,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         else:
             UpdateButton.clicked.connect(lambda: self.InfoWindowAction(
                 ID,
-                TitleInput.text(),
+                self.TitleInput.text(),
                 QuestionType,
                 DescriptionInput.toPlainText(),
                 '',
@@ -562,7 +578,7 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         self.VacancyButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
         self.VacancyButton.setFixedHeight(30)  # 尺寸
         self.VacancyButton.setMinimumWidth(120)  # 尺寸
-        self.VacancyButton.clicked.connect(lambda: self.SetVacancy())
+        self.VacancyButton.clicked.connect(lambda: self.SetVacancy1())
         self.VacancyButton.hide()
         TitleLayout.addWidget(self.VacancyButton)  # 添加控件
 
@@ -684,8 +700,12 @@ class QuestionFrameTemplate(BaseTemplate, QFrame):
         self.NewQuestionView.show()
 
     # 在指定位置设置填空题空位
-    def SetVacancy(self):
+    def SetVacancy1(self):
         self.QuestionTitleInput.insert('<->')
+
+    # 在指定位置设置填空题空位
+    def SetVacancy2(self):
+        self.TitleInput.insert('<->')
 
     # 展示计算机语言项
     def ShowLanguageInfo(self):
@@ -838,10 +858,13 @@ class OptionsWindow(BaseTemplate, QDialog):
             self.OptionsTree.hideColumn(6)  # 隐藏列
             self.OptionsTree.hideColumn(7)  # 隐藏列
             self.OptionsTree.hideColumn(8)  # 隐藏列
-        elif self.QuestionType == 3:
-            pass
         elif self.QuestionType >= 4 and self.QuestionType <= 5:
-            pass
+            self.OptionsTree.hideColumn(1)  # 隐藏列
+            self.OptionsTree.hideColumn(3)  # 隐藏列
+            self.OptionsTree.hideColumn(4)  # 隐藏列
+            self.OptionsTree.hideColumn(6)  # 隐藏列
+            self.OptionsTree.hideColumn(7)  # 隐藏列
+            self.OptionsTree.hideColumn(8)  # 隐藏列
         elif self.QuestionType == 6:
             pass
         elif self.QuestionType == 7:
@@ -862,6 +885,10 @@ class OptionsWindow(BaseTemplate, QDialog):
         VLayout = QVBoxLayout()
 
         if self.QuestionType >= 1 and self.QuestionType <= 3:
+            '''
+            Option
+            CorrectAnswer
+            '''
             OptionInput = QTextEdit()  # 输入
             # OptionInput.setText()  # 设置内容
             # OptionInput.setFixedHeight(30)  # 尺寸
@@ -897,10 +924,41 @@ class OptionsWindow(BaseTemplate, QDialog):
                 0,
             ))  # 连接槽函数
             VLayout.addWidget(AddButton)
-        elif self.QuestionType == 4:
-            pass
-        elif self.QuestionType == 5:
-            pass
+        elif self.QuestionType >= 4 and self.QuestionType <= 5:
+            '''
+            CorrectItem
+            ScoreRatio
+            '''
+
+            CorrectItemInput = QTextEdit()  # 输入
+            # CorrectItemInput.setText()  # 设置内容
+            # CorrectItemInput.setFixedHeight(30)  # 尺寸
+            # CorrectItemInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            CorrectItemInput.setPlaceholderText(self.Lang.Content)  # 设置空内容提示
+            CorrectItemInput.setStyleSheet(self.QuestionStyleSheet.TextEdit())  # 设置样式
+            CorrectItemInput.setToolTip(self.Lang.Content)  # 设置鼠标提示
+            VLayout.addWidget(CorrectItemInput)  # 添加控件
+
+            ScoreRatioInput = QLineEdit()  # 输入
+            ScoreRatioInput.setFixedHeight(30)  # 尺寸
+            ScoreRatioInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            ScoreRatioInput.setPlaceholderText(self.Lang.ScoreProportion)  # 设置空内容提示
+            ScoreRatioInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
+            ScoreRatioInput.setToolTip(self.Lang.ScoreProportion)  # 设置鼠标提示
+            VLayout.addWidget(ScoreRatioInput)  # 添加控件
+
+            AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+            AddButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+            AddButton.setFixedHeight(30)  # 尺寸
+            AddButton.clicked.connect(lambda: self.NewQuestionOptionAction(
+                self.QuestionID,
+                '',
+                0,
+                CorrectItemInput.toPlainText(),
+                ScoreRatioInput.text(),
+                0,
+            ))  # 连接槽函数
+            VLayout.addWidget(AddButton)
         elif self.QuestionType == 6:
             pass
         elif self.QuestionType == 7:
