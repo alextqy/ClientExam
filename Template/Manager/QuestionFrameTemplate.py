@@ -852,21 +852,38 @@ class OptionsWindow(BaseTemplate, QDialog):
 
         # 试题类型 1单选 2判断 3多选 4填空 5问答 6代码实训 7拖拽题 8连线题
         if self.QuestionType >= 1 and self.QuestionType <= 3:
+            # self.OptionsTree.hideColumn(0)  # 隐藏列
+            # self.OptionsTree.hideColumn(1)  # 隐藏列
             self.OptionsTree.hideColumn(2)  # 隐藏列
+            # self.OptionsTree.hideColumn(3)  # 隐藏列
             self.OptionsTree.hideColumn(4)  # 隐藏列
             self.OptionsTree.hideColumn(5)  # 隐藏列
             self.OptionsTree.hideColumn(6)  # 隐藏列
             self.OptionsTree.hideColumn(7)  # 隐藏列
             self.OptionsTree.hideColumn(8)  # 隐藏列
+            # self.OptionsTree.hideColumn(9)  # 隐藏列
         elif self.QuestionType >= 4 and self.QuestionType <= 5:
+            # self.OptionsTree.hideColumn(0)  # 隐藏列
             self.OptionsTree.hideColumn(1)  # 隐藏列
+            # self.OptionsTree.hideColumn(2)  # 隐藏列
             self.OptionsTree.hideColumn(3)  # 隐藏列
             self.OptionsTree.hideColumn(4)  # 隐藏列
+            # self.OptionsTree.hideColumn(5)  # 隐藏列
             self.OptionsTree.hideColumn(6)  # 隐藏列
             self.OptionsTree.hideColumn(7)  # 隐藏列
             self.OptionsTree.hideColumn(8)  # 隐藏列
+            # self.OptionsTree.hideColumn(9)  # 隐藏列
         elif self.QuestionType == 6:
-            pass
+            # self.OptionsTree.hideColumn(0)  # 隐藏列
+            self.OptionsTree.hideColumn(1)  # 隐藏列
+            self.OptionsTree.hideColumn(2)  # 隐藏列
+            self.OptionsTree.hideColumn(3)  # 隐藏列
+            self.OptionsTree.hideColumn(4)  # 隐藏列
+            # self.OptionsTree.hideColumn(5)  # 隐藏列
+            self.OptionsTree.hideColumn(6)  # 隐藏列
+            self.OptionsTree.hideColumn(7)  # 隐藏列
+            self.OptionsTree.hideColumn(8)  # 隐藏列
+            # self.OptionsTree.hideColumn(9)  # 隐藏列
         elif self.QuestionType == 7:
             pass
         elif self.QuestionType == 8:
@@ -960,7 +977,31 @@ class OptionsWindow(BaseTemplate, QDialog):
             ))  # 连接槽函数
             VLayout.addWidget(AddButton)
         elif self.QuestionType == 6:
-            pass
+            '''
+            CorrectItem
+            '''
+
+            CorrectItemInput = QTextEdit()  # 输入
+            # CorrectItemInput.setText()  # 设置内容
+            # CorrectItemInput.setFixedHeight(30)  # 尺寸
+            # CorrectItemInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            CorrectItemInput.setPlaceholderText(self.Lang.Content)  # 设置空内容提示
+            CorrectItemInput.setStyleSheet(self.QuestionStyleSheet.TextEdit())  # 设置样式
+            CorrectItemInput.setToolTip(self.Lang.Content)  # 设置鼠标提示
+            VLayout.addWidget(CorrectItemInput)  # 添加控件
+
+            AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+            AddButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+            AddButton.setFixedHeight(30)  # 尺寸
+            AddButton.clicked.connect(lambda: self.NewQuestionOptionAction(
+                self.QuestionID,
+                '',
+                0,
+                CorrectItemInput.toPlainText(),
+                0,
+                0,
+            ))  # 连接槽函数
+            VLayout.addWidget(AddButton)
         elif self.QuestionType == 7:
             pass
         elif self.QuestionType == 8:
