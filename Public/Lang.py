@@ -158,6 +158,9 @@ class Lang(BaseService):
             self.WrongOption = 'Wrong option'
             self.CorrectOption = 'Correct option'
             self.NewOption = 'New option'
+            self.Left = 'Left'
+            self.Right = 'Right'
+            self.Copy = 'Copy'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -306,6 +309,9 @@ class Lang(BaseService):
             self.WrongOption = '错误选项'
             self.CorrectOption = '正确选项'
             self.NewOption = '新建选项'
+            self.Left = '左'
+            self.Right = '右'
+            self.Copy = '复制'
 
         else:
             self.ManagerLogin = ''
@@ -454,3 +460,6 @@ class Lang(BaseService):
             self.WrongOption = ''
             self.CorrectOption = ''
             self.NewOption = ''
+            self.Left = ''
+            self.Right = ''
+            self.Copy = ''
