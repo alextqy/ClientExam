@@ -160,6 +160,7 @@ class Lang(BaseService):
             self.NewOption = 'New option'
             self.Left = 'Left'
             self.Right = 'Right'
+            self.All = 'All'
             self.Copy = 'Copy'
 
         elif self.Type == 'zh-cn':
@@ -311,6 +312,7 @@ class Lang(BaseService):
             self.NewOption = '新建选项'
             self.Left = '左'
             self.Right = '右'
+            self.All = '全部'
             self.Copy = '复制'
 
         else:
@@ -462,4 +464,5 @@ class Lang(BaseService):
             self.NewOption = ''
             self.Left = ''
             self.Right = ''
+            self.All = ''
             self.Copy = ''

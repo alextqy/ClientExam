@@ -784,7 +784,7 @@ class OptionsWindow(BaseTemplate, QDialog):
 
         self.setLayout(self.VLayout)
 
-    def TreeDataInit(self):
+    def TreeDataInit(self, Position: int = 0):
         self.ClearLayout(self.VLayout)
         self.OptionsTree = BaseTreeWidget()
         self.OptionsTree.SetSelectionMode(2)  # 设置选择模式
@@ -805,13 +805,35 @@ class OptionsWindow(BaseTemplate, QDialog):
         self.OptionsTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
         self.VLayout.addWidget(self.OptionsTree)  # 添加控件
 
-        self.NewOptionButton = QPushButton(self.Lang.NewOption)
-        self.NewOptionButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
-        self.NewOptionButton.setFixedHeight(30)  # 尺寸
-        self.NewOptionButton.clicked.connect(lambda: self.NewOption())  # 连接槽函数
-        self.VLayout.addWidget(self.NewOptionButton)  # 添加控件
+        ButtonLayout = QHBoxLayout()
 
-        Result = self.QuestionSolutionController.QuestionSolutions(self.QuestionID)
+        LeftButton = QPushButton(self.Lang.Left)  # 按钮
+        LeftButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        LeftButton.setFixedSize(120, 30)  # 尺寸
+        LeftButton.clicked.connect(lambda: self.TreeDataInit(1))
+        ButtonLayout.addWidget(LeftButton)
+
+        RightButton = QPushButton(self.Lang.Right)  # 按钮
+        RightButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        RightButton.setFixedSize(120, 30)  # 尺寸
+        RightButton.clicked.connect(lambda: self.TreeDataInit(2))
+        ButtonLayout.addWidget(RightButton)
+
+        AllButton = QPushButton(self.Lang.All)  # 按钮
+        AllButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        AllButton.setFixedSize(120, 30)  # 尺寸
+        AllButton.clicked.connect(lambda: self.TreeDataInit(0))
+        ButtonLayout.addWidget(AllButton)
+
+        NewOptionButton = QPushButton(self.Lang.NewOption)
+        NewOptionButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
+        NewOptionButton.setFixedHeight(30)  # 尺寸
+        NewOptionButton.clicked.connect(lambda: self.NewOption())  # 连接槽函数
+        ButtonLayout.addWidget(NewOptionButton)  # 添加控件
+
+        self.VLayout.addLayout(ButtonLayout)
+
+        Result = self.QuestionSolutionController.QuestionSolutions(self.QuestionID, Position)
         if Result['State'] != True:
             self.MSGBOX.ERROR(Result['Memo'])
         else:
@@ -887,24 +909,13 @@ class OptionsWindow(BaseTemplate, QDialog):
             self.OptionsTree.hideColumn(7)  # 隐藏列
             self.OptionsTree.hideColumn(8)  # 隐藏列
             # self.OptionsTree.hideColumn(9)  # 隐藏列
-        elif self.QuestionType == 7:
+        elif self.QuestionType >= 7 and self.QuestionType <= 8:
             # self.OptionsTree.hideColumn(0)  # 隐藏列
             # self.OptionsTree.hideColumn(1)  # 隐藏列
             self.OptionsTree.hideColumn(2)  # 隐藏列
             # self.OptionsTree.hideColumn(3)  # 隐藏列
             # self.OptionsTree.hideColumn(4)  # 隐藏列
-            self.OptionsTree.hideColumn(5)  # 隐藏列
-            self.OptionsTree.hideColumn(6)  # 隐藏列
-            self.OptionsTree.hideColumn(7)  # 隐藏列
-            self.OptionsTree.hideColumn(8)  # 隐藏列
-            # self.OptionsTree.hideColumn(9)  # 隐藏列
-        elif self.QuestionType == 8:
-            # self.OptionsTree.hideColumn(0)  # 隐藏列
-            # self.OptionsTree.hideColumn(1)  # 隐藏列
-            self.OptionsTree.hideColumn(2)  # 隐藏列
-            # self.OptionsTree.hideColumn(3)  # 隐藏列
-            # self.OptionsTree.hideColumn(4)  # 隐藏列
-            self.OptionsTree.hideColumn(5)  # 隐藏列
+            # self.OptionsTree.hideColumn(5)  # 隐藏列
             self.OptionsTree.hideColumn(6)  # 隐藏列
             self.OptionsTree.hideColumn(7)  # 隐藏列
             self.OptionsTree.hideColumn(8)  # 隐藏列
@@ -1024,7 +1035,7 @@ class OptionsWindow(BaseTemplate, QDialog):
                 0,
             ))  # 连接槽函数
             VLayout.addWidget(AddButton)
-        elif self.QuestionType == 7:
+        elif self.QuestionType == 7 or self.QuestionType == 8:
             '''
             Option
             Position
@@ -1048,41 +1059,19 @@ class OptionsWindow(BaseTemplate, QDialog):
             CorrectItemInput.setToolTip(self.Lang.CorrectItem + self.Lang.QuestionTitle)  # 设置鼠标提示
             VLayout.addWidget(CorrectItemInput)  # 添加控件
 
-            AddButton = QPushButton(self.Lang.Confirm)  # 按钮
-            AddButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
-            AddButton.setFixedHeight(30)  # 尺寸
-            AddButton.clicked.connect(lambda: self.NewQuestionOptionAction(
-                self.QuestionID,
-                OptionInput.toPlainText(),
-                0,
-                CorrectItemInput.text(),
-                0,
-                0,
-            ))  # 连接槽函数
-            VLayout.addWidget(AddButton)
-        elif self.QuestionType == 8:
-            '''
-            Option
-            Position
-            CorrectItem
-            '''
-
-            OptionInput = QTextEdit()  # 输入
-            # OptionInput.setText()  # 设置内容
-            # OptionInput.setFixedHeight(30)  # 尺寸
-            # OptionInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-            OptionInput.setPlaceholderText(self.Lang.Content)  # 设置空内容提示
-            OptionInput.setStyleSheet(self.QuestionStyleSheet.TextEdit())  # 设置样式
-            OptionInput.setToolTip(self.Lang.Content)  # 设置鼠标提示
-            VLayout.addWidget(OptionInput)  # 添加控件
-
-            CorrectItemInput = QLineEdit()  # 输入
-            CorrectItemInput.setFixedHeight(30)  # 尺寸
-            CorrectItemInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-            CorrectItemInput.setPlaceholderText(self.Lang.CorrectItem + self.Lang.QuestionTitle)  # 设置空内容提示
-            CorrectItemInput.setStyleSheet(self.QuestionStyleSheet.InputBox())  # 设置样式
-            CorrectItemInput.setToolTip(self.Lang.CorrectItem + self.Lang.QuestionTitle)  # 设置鼠标提示
-            VLayout.addWidget(CorrectItemInput)  # 添加控件
+            PositionSelect = QComboBox()  # 设置下拉框
+            PositionSelect.adjustSize()  # 按内容自适应宽度
+            PositionSelect.setView(QListView())  # 设置内容控件
+            PositionSelect.setFixedHeight(30)  # 尺寸
+            PositionSelect.setStyleSheet(self.QuestionStyleSheet.SelectBox())  # 设置样式
+            PositionSelect.insertItem(0, self.Lang.Position)  # 设置下拉内容
+            PositionSelect.setItemData(0, self.Lang.Position, Qt.ToolTipRole)  # 设置下拉内容提示
+            PositionSelect.insertItem(1, self.Lang.Left)  # 设置下拉内容
+            PositionSelect.setItemData(1, self.Lang.Left, Qt.ToolTipRole)  # 设置下拉内容提示
+            PositionSelect.insertItem(2, self.Lang.Right)  # 设置下拉内容
+            PositionSelect.setItemData(2, self.Lang.Right, Qt.ToolTipRole)  # 设置下拉内容提示
+            PositionSelect.setCurrentIndex(0)  # 设置默认选项
+            VLayout.addWidget(PositionSelect)  # 添加控件
 
             AddButton = QPushButton(self.Lang.Confirm)  # 按钮
             AddButton.setStyleSheet(self.QuestionStyleSheet.Button())  # 设置样式
@@ -1093,9 +1082,11 @@ class OptionsWindow(BaseTemplate, QDialog):
                 0,
                 CorrectItemInput.text(),
                 0,
-                0,
+                PositionSelect.currentIndex(),
             ))  # 连接槽函数
             VLayout.addWidget(AddButton)
+        else:
+            return
 
         self.NewOptionView.setLayout(VLayout)  # 添加布局
         self.NewOptionView.show()
@@ -1114,6 +1105,7 @@ class OptionsWindow(BaseTemplate, QDialog):
         if Result['State'] != True:
             self.MSGBOX.ERROR(Result['Memo'])
         else:
+            self.ActionSignal.emit()
             self.NewOptionView.close()  # 关闭窗口
             self.TreeDataInit()  # 主控件写入数据
 
@@ -1129,7 +1121,7 @@ class OptionsWindow(BaseTemplate, QDialog):
             self.TreeMenu.AddAction(self.Lang.UploadAttachment, lambda: self.UploadAttachment(Item))
             self.TreeMenu.AddAction(self.Lang.ViewAttachments, lambda: self.QuestionSolutionViewAttachments(Item))
             self.TreeMenu.AddAction(self.Lang.Delete, lambda: self.DeleteAction())
-            if self.QuestionType == 7 or self.QuestionType == 8:
+            if (self.QuestionType == 7 or self.QuestionType == 8) and Item.text(4) == self.Lang.Left:
                 self.TreeMenu.AddAction(self.Lang.Copy + self.Lang.QuestionTitle, lambda: self.CopyQuestionTitleAction(Item))
         else:  # 焦点外
             return
