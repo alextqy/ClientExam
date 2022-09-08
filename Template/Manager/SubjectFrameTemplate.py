@@ -3,7 +3,7 @@ from Template.BaseTemplate import *
 from StyleSheet.Manager.SubjectStyleSheet import *
 
 
-# 管理员管理界面
+# 科目管理界面
 class SubjectFrameTemplate(BaseTemplate, QFrame):
 
     def __init__(self):

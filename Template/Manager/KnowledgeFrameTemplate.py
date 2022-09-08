@@ -3,7 +3,7 @@ from Template.BaseTemplate import *
 from StyleSheet.Manager.KnowledgeStyleSheet import *
 
 
-# 管理员管理界面
+# 知识点管理界面
 class KnowledgeFrameTemplate(BaseTemplate, QFrame):
 
     def __init__(self):

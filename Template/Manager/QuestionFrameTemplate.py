@@ -3,7 +3,7 @@ from Template.BaseTemplate import *
 from StyleSheet.Manager.QuestionStyleSheet import *
 
 
-# 管理员管理界面
+# 试题管理界面
 class QuestionFrameTemplate(BaseTemplate, QFrame):
 
     def __init__(self):

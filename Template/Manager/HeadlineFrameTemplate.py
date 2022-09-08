@@ -3,7 +3,7 @@ from Template.BaseTemplate import *
 from StyleSheet.Manager.HeadlineStyleSheet import *
 
 
-# 管理员管理界面
+# 大标题管理界面
 class HeadlineFrameTemplate(BaseTemplate, QFrame):
 
     def __init__(self):

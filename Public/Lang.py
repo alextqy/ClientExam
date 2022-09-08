@@ -163,6 +163,12 @@ class Lang(BaseService):
             self.All = 'All'
             self.Copy = 'Copy'
 
+            self.ExamPaperStatus = 'Exam paper status'
+            self.NewTestPaper = 'New test paper'
+            self.PaperName = 'Paper name'
+            self.TestPaperCode = 'Test paper code'
+            self.PaperDetails = 'Paper details'
+
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
             self.TeacherLogin = '教师登录'
@@ -315,6 +321,12 @@ class Lang(BaseService):
             self.All = '全部'
             self.Copy = '复制'
 
+            self.ExamPaperStatus = '试卷状态'
+            self.NewTestPaper = '新建试卷'
+            self.PaperName = '试卷名称'
+            self.TestPaperCode = '试卷代码'
+            self.PaperDetails = '试卷详情'
+
         else:
             self.ManagerLogin = ''
             self.TeacherLogin = ''
@@ -466,3 +478,9 @@ class Lang(BaseService):
             self.Right = ''
             self.All = ''
             self.Copy = ''
+
+            self.ExamPaperStatus = ''
+            self.NewTestPaper = ''
+            self.PaperName = ''
+            self.TestPaperCode = ''
+            self.PaperDetails = ''
