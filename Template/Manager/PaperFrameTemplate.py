@@ -407,58 +407,153 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
             else:
                 self.TreeDataInit()
 
-    '''
     # 新建节点
     def NewPaperWindow(self):
-        self.NewPaperView = QDialog()
-        self.NewPaperView.setWindowTitle(TITLE)
-        self.NewPaperView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
-        self.NewPaperView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
-        self.NewPaperView.setFixedSize(222, 160)  # 尺寸
+        CheckSubjects = self.SubjectController.Subjects()
+        if CheckSubjects['State'] != True and len(CheckSubjects['Data']) == 0:
+            self.MSGBOX.WARNING(self.Lang.NoDataAvailable)
+        else:
+            self.NewPaperView = QDialog()
+            self.NewPaperView.setWindowTitle(TITLE)
+            self.NewPaperView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+            self.NewPaperView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
+            self.NewPaperView.setFixedSize(222, 232)  # 尺寸
 
-        VLayout = QVBoxLayout()
+            VLayout = QVBoxLayout()
 
-        AccountInput = QLineEdit()  # 输入
-        AccountInput.setFixedHeight(30)  # 尺寸
-        AccountInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        AccountInput.setPlaceholderText(self.Lang.PaperistratorAccount)  # 设置空内容提示
-        AccountInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        AccountInput.setToolTip(self.Lang.PaperistratorAccount)  # 设置鼠标提示
-        VLayout.addWidget(AccountInput)  # 添加控件
+            PaperNameInput = QLineEdit()  # 输入
+            PaperNameInput.setFixedHeight(30)  # 尺寸
+            PaperNameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            PaperNameInput.setPlaceholderText(self.Lang.PaperName)  # 设置空内容提示
+            PaperNameInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+            PaperNameInput.setToolTip(self.Lang.PaperName)  # 设置鼠标提示
+            VLayout.addWidget(PaperNameInput)  # 添加控件
 
-        NameInput = QLineEdit()  # 输入
-        NameInput.setFixedHeight(30)  # 尺寸
-        NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
-        NameInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
-        VLayout.addWidget(NameInput)  # 添加控件
+            TotalScoreInput = QLineEdit()
+            TotalScoreInput.setFixedHeight(30)  # 尺寸
+            TotalScoreInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            TotalScoreInput.setPlaceholderText(self.Lang.TotalScore)  # 设置空内容提示
+            TotalScoreInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+            TotalScoreInput.setToolTip(self.Lang.TotalScore)  # 设置鼠标提示
+            VLayout.addWidget(TotalScoreInput)  # 添加控件
 
-        PWDInput = QLineEdit()  # 输入
-        PWDInput.setFixedHeight(30)  # 尺寸
-        PWDInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        PWDInput.setPlaceholderText(self.Lang.Password)  # 设置空内容提示
-        PWDInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        PWDInput.setToolTip(self.Lang.Password)  # 设置鼠标提示
-        PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
-        VLayout.addWidget(PWDInput)  # 添加控件
+            PassLineInput = QLineEdit()
+            PassLineInput.setFixedHeight(30)  # 尺寸
+            PassLineInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            PassLineInput.setPlaceholderText(self.Lang.PassLine)  # 设置空内容提示
+            PassLineInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+            PassLineInput.setToolTip(self.Lang.PassLine)  # 设置鼠标提示
+            VLayout.addWidget(PassLineInput)  # 添加控件
 
-        AddButton = QPushButton(self.Lang.Confirm)  # 按钮
-        AddButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
-        AddButton.setFixedHeight(30)  # 尺寸
-        AddButton.clicked.connect(lambda: self.NewPaperAction(AccountInput.text(), PWDInput.text(), NameInput.text()))  # 连接槽函数
-        VLayout.addWidget(AddButton)
+            ExamDurationInput = QLineEdit()
+            ExamDurationInput.setFixedHeight(30)  # 尺寸
+            ExamDurationInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            ExamDurationInput.setPlaceholderText(self.Lang.ExamDuration)  # 设置空内容提示
+            ExamDurationInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+            ExamDurationInput.setToolTip(self.Lang.ExamDuration)  # 设置鼠标提示
+            VLayout.addWidget(ExamDurationInput)  # 添加控件
 
-        self.NewPaperView.setLayout(VLayout)  # 添加布局
-        self.NewPaperView.show()
+            self.SubjectSelectButton = QPushButton(self.Lang.Subject)  # 按钮
+            self.SubjectSelectButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+            self.SubjectSelectButton.setFixedHeight(30)  # 尺寸
+            self.SubjectSelectButton.clicked.connect(lambda: self.ChooseSubjects(CheckSubjects['Data']))  # 连接槽函数
+            self.SubjectSelectButton.setWhatsThis('0')  # 设置默认值
+            VLayout.addWidget(self.SubjectSelectButton)
+
+            AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+            AddButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+            AddButton.setFixedHeight(30)  # 尺寸
+            AddButton.clicked.connect(lambda: self.NewPaperAction(PaperNameInput.text(), int(self.SubjectSelectButton.whatsThis()), TotalScoreInput.text(), PassLineInput.text(), ExamDurationInput.text()))  # 连接槽函数
+            VLayout.addWidget(AddButton)
+
+            self.NewPaperView.setLayout(VLayout)  # 添加布局
+            self.NewPaperView.show()
+
+    # 科目选择
+    def ChooseSubjects(self, Subjects: list):
+        self.SubjectsWindow = SubjectsWindow(Subjects)
+        self.SubjectsWindow.ActionSignal.connect(self.SetSubject)
+        self.SubjectsWindow.show()
+
+    # 设置科目
+    def SetSubject(self, SubjectName: str, SubjectID: str):
+        if SubjectName != '' and SubjectID != '':
+            self.SubjectSelectButton.setText(SubjectName)
+            self.SubjectSelectButton.setWhatsThis(SubjectID)
 
     # 新建
-    def NewPaperAction(self, Account: str, Password: str, Name: str):
-        if Account != '' and Password != '' and Name != '':
-            Result = self.PaperController.NewPaper(Account, Password, Name)
-            if Result['State'] != True:
-                self.MSGBOX.ERROR(Result['Memo'])
-            else:
-                self.NewPaperView.close()  # 关闭窗口
-                self.TreeDataInit()  # 主控件写入数据
-    '''
+    def NewPaperAction(self, PaperName: str, SubjectID: int, TotalScore: float, PassLine: float, ExamDuration: int):
+        Result = self.PaperController.NewPaper(PaperName, SubjectID, TotalScore, PassLine, ExamDuration)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.NewPaperView.close()  # 关闭窗口
+            self.TreeDataInit()  # 主控件写入数据
+
+
+# 选择科目
+class SubjectsWindow(BaseTemplate, QDialog):
+    ActionSignal = Signal(str, str)  # 设置信号
+
+    def __init__(self, SubjectList: list):
+        super().__init__()
+        self.PaperStyleSheet = PaperStyleSheet()
+        self.setWindowTitle(TITLE)
+        self.setFixedSize(266, 274)  # 尺寸
+        self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
+        self.VLayout = QVBoxLayout()
+        self.HLayout = QHBoxLayout()
+        self.VLayout.addLayout(self.HLayout)
+        self.setLayout(self.VLayout)
+
+        self.SearchBar = QLineEdit()
+        self.SearchBar.setFixedHeight(30)
+        self.SearchBar.setPlaceholderText(self.Lang.Name)
+        self.SearchBar.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
+        self.SearchBar.setStyleSheet(self.PaperStyleSheet.InputBox())
+        self.HLayout.addWidget(self.SearchBar)
+        self.SearchButton = QPushButton(self.Lang.Search)
+        self.SearchButton.setFixedWidth(90)
+        self.SearchButton.setFixedHeight(30)
+        self.SearchButton.setStyleSheet(self.PaperStyleSheet.Button())
+        self.SearchButton.clicked.connect(self.SearchName)
+        self.HLayout.addWidget(self.SearchButton)
+
+        self.Tree = QListWidget()
+        # self.Tree.setSelectionMode(QAbstractItemView.ExtendedSelection)  # 设置多选
+        self.Tree.setStyleSheet(self.PaperStyleSheet.List())
+        self.Tree.setFocusPolicy(Qt.NoFocus)
+        self.VLayout.addWidget(self.Tree)
+
+        self.SubmitButton = QPushButton(self.Lang.Submit)
+        self.SubmitButton.setFixedHeight(30)
+        self.SubmitButton.setStyleSheet(self.PaperStyleSheet.Button())
+        self.SubmitButton.clicked.connect(self.Send)
+        self.VLayout.addWidget(self.SubmitButton)
+
+        self.SubjectList = SubjectList
+        if len(self.SubjectList) > 0:
+            for i in range(len(self.SubjectList)):
+                Item = QListWidgetItem()
+                Item.setSizeHint(QSize(200, 30))
+                Item.setText(self.SubjectList[i]['SubjectName'])
+                Item.setWhatsThis(str(self.SubjectList[i]['ID']))
+                self.Tree.addItem(Item)
+
+    # 搜索
+    def SearchName(self):
+        Name = self.SearchBar.text()
+        if Name != '':
+            SearchList = self.Tree.findItems(Name, Qt.MatchContains)
+            if len(SearchList) > 0:
+                for i in range(len(SearchList)):
+                    if SearchList[i].text() != self.Cache.Get('SubjectName'):
+                        self.Tree.setCurrentItem(SearchList[i])
+
+    # 发送
+    def Send(self):
+        SubjectItem = self.Tree.currentItem()
+        if SubjectItem is not None and SubjectItem.text() != '' and SubjectItem.whatsThis() != '':
+            self.ActionSignal.emit(SubjectItem.text(), SubjectItem.whatsThis())
+            self.close()
