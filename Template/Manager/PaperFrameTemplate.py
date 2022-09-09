@@ -284,30 +284,85 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
         self.TreeMenu.move(QCursor().pos())  # 移动到焦点
         self.TreeMenu.show()  # 展示
 
-    '''
     # 节点数据详情
     def InfoWindow(self, Item):
         ID: int = int(Item.text(0))
-        Name: str = Item.text(2)
-        UpdateTime: int = Item.text(5)
-        Permission: int = Item.text(6)
+        PaperName: str = Item.text(1)
+        PaperCode: int = Item.text(2)
+        TotalScore: int = Item.text(3)
+        PassLine: int = Item.text(4)
+        ExamDuration: int = Item.text(5)
+        SubjectID: int = Item.text(8)
+        UpdateTime: int = Item.text(9)
+        SubjectName: str = ''
+
+        Result = self.SubjectController.SubjectInfo(SubjectID)
+        if Result['State'] == True:
+            SubjectName = Result['Data']['SubjectName']
 
         self.PaperDetailsView = QDialog()
         self.PaperDetailsView.setWindowTitle(TITLE)
         self.PaperDetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.PaperDetailsView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
-        self.PaperDetailsView.setFixedSize(222, 124)  # 尺寸
+        self.PaperDetailsView.setFixedSize(322, 304)  # 尺寸
 
         VLayout = QVBoxLayout()
 
-        NameInput = QLineEdit()  # 输入
-        NameInput.setText(Name)  # 设置内容
-        NameInput.setFixedHeight(30)  # 尺寸
-        NameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        NameInput.setPlaceholderText(self.Lang.Name)  # 设置空内容提示
-        NameInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        NameInput.setToolTip(self.Lang.Name)  # 设置鼠标提示
-        VLayout.addWidget(NameInput)  # 添加控件
+        PaperNameInput = QLineEdit()  # 输入
+        PaperNameInput.setText(PaperName)  # 设置内容
+        PaperNameInput.setFixedHeight(30)  # 尺寸
+        PaperNameInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        PaperNameInput.setPlaceholderText(self.Lang.PaperName)  # 设置空内容提示
+        PaperNameInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        PaperNameInput.setToolTip(self.Lang.PaperName)  # 设置鼠标提示
+        VLayout.addWidget(PaperNameInput)  # 添加控件
+
+        TotalScoreInput = QLineEdit()
+        TotalScoreInput.setText(TotalScore)  # 设置内容
+        TotalScoreInput.setFixedHeight(30)  # 尺寸
+        TotalScoreInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        TotalScoreInput.setPlaceholderText(self.Lang.TotalScore)  # 设置空内容提示
+        TotalScoreInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        TotalScoreInput.setToolTip(self.Lang.TotalScore)  # 设置鼠标提示
+        VLayout.addWidget(TotalScoreInput)  # 添加控件
+
+        PassLineInput = QLineEdit()
+        PassLineInput.setText(PassLine)  # 设置内容
+        PassLineInput.setFixedHeight(30)  # 尺寸
+        PassLineInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        PassLineInput.setPlaceholderText(self.Lang.PassLine)  # 设置空内容提示
+        PassLineInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        PassLineInput.setToolTip(self.Lang.PassLine)  # 设置鼠标提示
+        VLayout.addWidget(PassLineInput)  # 添加控件
+
+        ExamDurationInput = QLineEdit()
+        ExamDurationInput.setText(ExamDuration)  # 设置内容
+        ExamDurationInput.setFixedHeight(30)  # 尺寸
+        ExamDurationInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        ExamDurationInput.setPlaceholderText(self.Lang.ExamDuration)  # 设置空内容提示
+        ExamDurationInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        ExamDurationInput.setToolTip(self.Lang.ExamDuration)  # 设置鼠标提示
+        VLayout.addWidget(ExamDurationInput)  # 添加控件
+
+        PaperCodeInput = QLineEdit()  # 输入
+        PaperCodeInput.setText(PaperCode)  # 设置内容
+        PaperCodeInput.setFixedHeight(30)  # 尺寸
+        PaperCodeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        PaperCodeInput.setPlaceholderText(self.Lang.Subject)  # 设置空内容提示
+        PaperCodeInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        PaperCodeInput.setToolTip(self.Lang.Subject)  # 设置鼠标提示
+        PaperCodeInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(PaperCodeInput)  # 添加控件
+
+        SubjectInput = QLineEdit()  # 输入
+        SubjectInput.setText(SubjectName)  # 设置内容
+        SubjectInput.setFixedHeight(30)  # 尺寸
+        SubjectInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        SubjectInput.setPlaceholderText(self.Lang.Subject)  # 设置空内容提示
+        SubjectInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        SubjectInput.setToolTip(self.Lang.Subject)  # 设置鼠标提示
+        SubjectInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(SubjectInput)  # 添加控件
 
         UpdateTimeInput = QLineEdit()
         UpdateTimeInput.setText(self.Common.TimeToStr(UpdateTime))  # 设置内容
@@ -322,7 +377,7 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
         UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
         UpdateButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
         UpdateButton.setFixedHeight(30)  # 尺寸
-        UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, Permission, NameInput.text(), Name))  # 连接槽函数
+        UpdateButton.clicked.connect(lambda: self.InfoWindowAction(ID, PaperNameInput.text(), TotalScoreInput.text(), PassLineInput.text(), ExamDurationInput.text()))  # 连接槽函数
         self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
         VLayout.addWidget(UpdateButton)
 
@@ -330,15 +385,15 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
         self.PaperDetailsView.show()
 
     # 更新信息
-    def InfoWindowAction(self, ID: int, Permission: int, Name: str, OldName: str):
-        if Name != OldName:
-            Result = self.PaperController.UpdatePaperInfo(Name, Permission, ID)
-            if Result['State'] != True:
-                self.MSGBOX.ERROR(Result['Memo'])
-            else:
-                self.PaperDetailsView.close()
-                self.TreeDataInit()
+    def InfoWindowAction(self, ID: int, PaperName: str, TotalScore: float, PassLine: float, ExamDuration: int):
+        Result = self.PaperController.UpdatePaperInfo(ID, PaperName, TotalScore, PassLine, ExamDuration)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.PaperDetailsView.close()
+            self.TreeDataInit()
 
+    '''
     # 修改密码
     def ChangePasswordWindow(self, Item):
         ID: int = int(Item.text(0))
