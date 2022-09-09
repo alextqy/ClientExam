@@ -201,12 +201,6 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.TestPaperButton.clicked.connect(lambda: self.TemplateView('PaperFrameTemplate'))  # 连接槽函数
         self.MenuLayout.addWidget(self.TestPaperButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
-        # 试卷规则
-        self.TestPaperRulesButton = QPushButton(self.Lang.TestPaperRules)
-        self.TestPaperRulesButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton2())  # 设置样式
-        self.TestPaperRulesButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        self.MenuLayout.addWidget(self.TestPaperRulesButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
-
         # 答题卡
         self.AnswerSheetButton = QPushButton(self.Lang.AnswerSheet)
         self.AnswerSheetButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton2())  # 设置样式

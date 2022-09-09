@@ -278,6 +278,7 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
         if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
             self.TreeMenu.AddAction(self.Lang.PaperDetails, lambda: self.InfoWindow(Item))
             self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction())
+            self.TreeMenu.AddAction(self.Lang.TestPaperRules, lambda: self.TestPaperRulesWindow(Item))
         else:  # 焦点外
             return
 
@@ -490,6 +491,12 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
             self.NewPaperView.close()  # 关闭窗口
             self.TreeDataInit()  # 主控件写入数据
 
+    # 试卷规则
+    def TestPaperRulesWindow(self, Item):
+        ID: int = int(Item.text(0))
+        self.PaperRulesWindow = PaperRulesWindow(ID)
+        self.PaperRulesWindow.show()
+
 
 # 选择科目
 class SubjectsWindow(BaseTemplate, QDialog):
@@ -557,3 +564,22 @@ class SubjectsWindow(BaseTemplate, QDialog):
         if SubjectItem is not None and SubjectItem.text() != '' and SubjectItem.whatsThis() != '':
             self.ActionSignal.emit(SubjectItem.text(), SubjectItem.whatsThis())
             self.close()
+
+
+# 试卷规则
+class PaperRulesWindow(BaseTemplate, QDialog):
+    ActionSignal = Signal(str, str)  # 设置信号
+
+    def __init__(self, PaperID: int):
+        super().__init__()
+        self.PaperID = PaperID
+        self.PaperStyleSheet = PaperStyleSheet()
+        self.PaperRuleController = PaperRuleController()
+        self.setMinimumSize(840, 480)
+        self.setWindowTitle(TITLE)
+        self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
+        VLayout = QVBoxLayout()
+
+        self.setLayout(VLayout)  # 添加布局
+        self.show()
