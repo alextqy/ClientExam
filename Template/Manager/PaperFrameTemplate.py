@@ -348,9 +348,9 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
         PaperCodeInput.setText(PaperCode)  # 设置内容
         PaperCodeInput.setFixedHeight(30)  # 尺寸
         PaperCodeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        PaperCodeInput.setPlaceholderText(self.Lang.Subject)  # 设置空内容提示
+        PaperCodeInput.setPlaceholderText(self.Lang.TestPaperCode)  # 设置空内容提示
         PaperCodeInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        PaperCodeInput.setToolTip(self.Lang.Subject)  # 设置鼠标提示
+        PaperCodeInput.setToolTip(self.Lang.TestPaperCode)  # 设置鼠标提示
         PaperCodeInput.setEnabled(False)  # 禁止输入
         VLayout.addWidget(PaperCodeInput)  # 添加控件
 
@@ -393,69 +393,21 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
             self.PaperDetailsView.close()
             self.TreeDataInit()
 
-    '''
-    # 修改密码
-    def ChangePasswordWindow(self, Item):
-        ID: int = int(Item.text(0))
-
-        self.PaperPassworView = QDialog()
-        self.PaperPassworView.setWindowTitle(TITLE)
-        self.PaperPassworView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
-        self.PaperPassworView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
-        self.PaperPassworView.setFixedSize(222, 88)  # 尺寸
-
-        VLayout = QVBoxLayout()
-
-        PWDInput = QLineEdit()  # 密码输入
-        PWDInput.setFixedHeight(30)  # 尺寸
-        PWDInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        PWDInput.setPlaceholderText(self.Lang.ChangePassword)  # 设置空内容提示
-        PWDInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        PWDInput.setToolTip(self.Lang.ChangePassword)  # 设置鼠标提示
-        PWDInput.setEchoMode(QLineEdit.Password)  # 输入为密码类型
-        VLayout.addWidget(PWDInput)  # 添加控件
-
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
-        UpdateButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
-        UpdateButton.setFixedHeight(30)  # 尺寸
-        UpdateButton.clicked.connect(lambda: self.ChangePasswordAction(ID, PWDInput.text()))  # 连接槽函数
-        self.ButtonLayout.addWidget(UpdateButton)  # 添加控件
-        VLayout.addWidget(UpdateButton)
-
-        self.PaperPassworView.setLayout(VLayout)  # 添加布局
-        self.PaperPassworView.show()
-
-    # 修改密码
-    def ChangePasswordAction(self, ID: int, Password: str):
-        if ID > 0 and Password != '':
-            Result = self.PaperController.PaperChangePassword(Password, ID)
-            if Result['State'] != True:
-                self.MSGBOX.ERROR(Result['Memo'])
-            else:
-                self.PaperPassworView.close()
-
     # 修改节点数据
     def DisableAction(self):
-        # ID: int = int(Item.text(0))
-        # Result = self.PaperController.PaperDisabled(ID)
-        # if Result['State'] != True:
-        #     self.MSGBOX.ERROR(Result['Memo'])
-        # else:
-        #     self.TreeDataInit()
-
         Papers = self.PaperTree.selectedItems()
         for i in range(len(Papers)):
             Item = Papers[i]
             ID: int = int(Item.text(0))
-            if ID > 1:
-                Result = self.PaperController.PaperDisabled(ID)
-                if Result['State'] != True:
-                    self.TreeDataInit()
-                    self.MSGBOX.ERROR(Result['Memo'])
-                    break
-                else:
-                    self.TreeDataInit()
+            Result = self.PaperController.PaperDisabled(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR(Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
 
+    '''
     # 新建节点
     def NewPaperWindow(self):
         self.NewPaperView = QDialog()
