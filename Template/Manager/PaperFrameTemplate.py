@@ -573,13 +573,173 @@ class PaperRulesWindow(BaseTemplate, QDialog):
     def __init__(self, PaperID: int):
         super().__init__()
         self.PaperID = PaperID
-        self.PaperStyleSheet = PaperStyleSheet()
         self.PaperRuleController = PaperRuleController()
-        self.setMinimumSize(840, 480)
+        self.PaperStyleSheet = PaperStyleSheet()
         self.setWindowTitle(TITLE)
+        self.setMinimumSize(840, 480)  # 尺寸
         self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
-        VLayout = QVBoxLayout()
+        self.VLayout = QVBoxLayout()
+        self.TreeDataInit()
+        self.setLayout(self.VLayout)
 
-        self.setLayout(VLayout)  # 添加布局
-        self.show()
+    def TreeDataInit(self):
+        self.ClearLayout(self.VLayout)
+        self.PaperRulesTree = BaseTreeWidget()
+        self.PaperRulesTree.SetSelectionMode(2)  # 设置选择模式
+        self.PaperRulesTree.setStyleSheet(self.PaperStyleSheet.TreeWidget())  # 设置样式
+        self.PaperRulesTree.setColumnCount(10)  # 设置列数
+        self.PaperRulesTree.hideColumn(5)  # 隐藏列
+        self.PaperRulesTree.hideColumn(6)  # 隐藏列
+        self.PaperRulesTree.hideColumn(7)  # 隐藏列
+        self.PaperRulesTree.hideColumn(8)  # 隐藏列
+        self.PaperRulesTree.setHeaderLabels([
+            'ID',
+            self.Lang.QuestionType,
+            self.Lang.NumberOfQuestionsDrawn,
+            self.Lang.SingleQuestionScore,
+            self.Lang.ExamRulesStatus,
+            'PaperID',
+            'HeadlineID',
+            'KnowledgeID',
+            'UpdateTime',
+            self.Lang.CreationTime,
+        ])  # 设置标题栏
+        self.PaperRulesTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
+        self.VLayout.addWidget(self.PaperRulesTree)  # 添加控件
+
+        HLayout = QHBoxLayout()
+
+        NewHeadlineButton = QPushButton(self.Lang.NewHeadline)
+        NewHeadlineButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+        NewHeadlineButton.setFixedHeight(30)  # 尺寸
+        NewHeadlineButton.clicked.connect(lambda: self.NewPaperRule())  # 连接槽函数
+        HLayout.addWidget(NewHeadlineButton)  # 添加控件
+
+        NewPaperRuleButton = QPushButton(self.Lang.NewTestPaperRule)
+        NewPaperRuleButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+        NewPaperRuleButton.setFixedHeight(30)  # 尺寸
+        NewPaperRuleButton.clicked.connect(lambda: self.NewPaperRule())  # 连接槽函数
+        HLayout.addWidget(NewPaperRuleButton)  # 添加控件
+
+        self.VLayout.addLayout(HLayout)  # 添加控件
+
+        Result = self.PaperRuleController.PaperRules(self.PaperID)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.Rules = Result['Data']
+
+        # 写入试题选项
+        if len(self.Rules) > 0:
+            TreeItems = []
+            for i in range(len(self.Rules)):
+                item = QTreeWidgetItem()  # 设置item控件
+                Data = self.Rules[i]
+                # item.setIcon(0, QtGui.QIcon(os.getcwd() + '/avatar.png'))
+                item.setText(0, str(Data['ID']))  # 设置内容
+                if Data['QuestionType'] == 1:
+                    item.setText(1, self.Lang.MultipleChoiceQuestions)  # 设置内容
+                elif Data['QuestionType'] == 2:
+                    item.setText(1, self.Lang.TrueOrFalse)  # 设置内容
+                elif Data['QuestionType'] == 3:
+                    item.setText(1, self.Lang.MultipleChoices)  # 设置内容
+                elif Data['QuestionType'] == 4:
+                    item.setText(1, self.Lang.FillInTheBlank)  # 设置内容
+                elif Data['QuestionType'] == 5:
+                    item.setText(1, self.Lang.QuestionsAndAnswers)  # 设置内容
+                elif Data['QuestionType'] == 6:
+                    item.setText(1, self.Lang.ProgrammingQuestions)  # 设置内容
+                elif Data['QuestionType'] == 7:
+                    item.setText(1, self.Lang.DragAndDrop)  # 设置内容
+                elif Data['QuestionType'] == 8:
+                    item.setText(1, self.Lang.ConnectingQuestion)  # 设置内容
+                else:
+                    item.setText(1, self.Lang.Headline)  # 设置内容
+                item.setText(2, str(Data['QuestionNum']))  # 设置内容
+                item.setText(3, str(Data['SingleScore']))  # 设置内容
+                if Data['PaperRuleState'] == 1:
+                    item.setText(4, self.Lang.Normal)  # 设置内容
+                else:
+                    item.setText(4, self.Lang.Disabled)  # 设置内容
+                item.setText(5, str(Data['PaperID']))  # 设置内容
+                item.setText(6, str(Data['HeadlineID']))  # 设置内容
+                item.setText(7, str(Data['KnowledgeID']))  # 设置内容
+                item.setText(8, str(Data['UpdateTime']))  # 设置内容
+                item.setText(9, self.Common.TimeToStr(Data['CreateTime']))  # 设置内容
+                item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(3, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(4, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(5, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(6, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(7, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(8, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(9, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                TreeItems.append(item)  # 添加到item list
+            self.PaperRulesTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
+
+    # 新建大标题
+    def NewHeadline(self):
+        pass
+
+    def NewHeadlineAction(self):
+        pass
+
+    # 新建试卷规则
+    def NewPaperRule(self):
+        pass
+
+    def NewPaperRuleAction(self):
+        pass
+
+    # 列表节点右键菜单
+    def RightContextMenuExec(self, pos):
+        self.TreeMenu = BaseMenu()
+        self.TreeMenu.setStyleSheet(self.PaperStyleSheet.TreeMenu())  # 设置样式
+        Item = self.PaperRulesTree.currentItem()  # 获取被点击行控件
+        ItemAt = self.PaperRulesTree.itemAt(pos)  # 获取点击焦点
+
+        # 展示判断
+        if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
+            self.TreeMenu.AddAction(self.Lang.TestPaperRulesDetails, lambda: self.InfoWindow(Item))
+            self.TreeMenu.AddAction(self.Lang.Delete, lambda: self.DisableAction())
+            self.TreeMenu.AddAction(self.Lang.Delete, lambda: self.DeleteAction())
+        else:  # 焦点外
+            return
+
+        self.TreeMenu.move(QCursor().pos())  # 移动到焦点
+        self.TreeMenu.show()  # 展示
+
+    # 试卷规则详情
+    def InfoWindow(self):
+        pass
+
+    # 禁用试卷规则
+    def DisableAction(self):
+        Papers = self.PaperRulesTree.selectedItems()
+        for i in range(len(Papers)):
+            Item = Papers[i]
+            ID: int = int(Item.text(0))
+            Result = self.PaperRuleController.PaperRuleDisabled(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR(Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()
+
+    # 删除试卷规则
+    def DeleteAction(self):
+        Papers = self.PaperRulesTree.selectedItems()
+        for i in range(len(Papers)):
+            Item = Papers[i]
+            ID: int = int(Item.text(0))
+            Result = self.PaperRuleController.PaperRuleDelete(ID)
+            if Result['State'] != True:
+                self.TreeDataInit()
+                self.MSGBOX.ERROR(Result['Memo'])
+                break
+            else:
+                self.TreeDataInit()

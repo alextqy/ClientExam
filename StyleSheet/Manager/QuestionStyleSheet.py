@@ -187,3 +187,14 @@ class QuestionStyleSheet(BaseStyleSheet):
             border: 2px solid white;
         }
         '''
+
+    def Label(self) -> str:
+        return '''
+        QLabel{
+            font-family: ''' + self.FontFamily + ''';
+            background-color: ''' + self.CommonColor + ''';
+            font-size: 15px;
+            color: black;
+            border: 0px;
+        }
+        '''

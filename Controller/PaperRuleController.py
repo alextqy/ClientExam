@@ -49,3 +49,10 @@ class PaperRuleController(BaseController):
         }
         Result = self.Post(Param, '/Paper/Rule/Info')
         return Result
+
+    def PaperRules(self, PaperID: int):
+        Param = {
+            'PaperID': PaperID,
+        }
+        Result = self.Post(Param, '/Paper/Rules')
+        return Result
