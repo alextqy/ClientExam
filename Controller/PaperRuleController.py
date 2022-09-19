@@ -7,7 +7,7 @@ class PaperRuleController(BaseController):
     def __init__(self) -> None:
         super().__init__()
 
-    def NewPaperRule(self, HeadlineID: int, QuestionType: int, KnowledgeID: int, QuestionNum: int, SingleScore: int, PaperID: int):
+    def NewPaperRule(self, HeadlineID: int, QuestionType: int, KnowledgeID: int, QuestionNum: int, SingleScore: int, PaperID: int, SerialNumber: int):
         Param = {
             'HeadlineID': HeadlineID,
             'QuestionType': QuestionType,
@@ -15,6 +15,7 @@ class PaperRuleController(BaseController):
             'QuestionNum': QuestionNum,
             'SingleScore': SingleScore,
             'PaperID': PaperID,
+            'SerialNumber': SerialNumber,
         }
         Result = self.Post(Param, '/New/Paper/Rule')
         return Result

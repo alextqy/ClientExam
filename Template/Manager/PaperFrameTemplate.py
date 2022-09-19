@@ -688,16 +688,44 @@ class PaperRulesWindow(BaseTemplate, QDialog):
                 TreeItems.append(item)  # 添加到item list
             self.PaperRulesTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
-    # 新建大标题
+    # 添加大标题
     def NewHeadline(self):
-        pass
+        self.HeadlineView = QDialog()
+        self.HeadlineView.setWindowTitle(TITLE)
+        self.HeadlineView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.HeadlineView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
+        # self.HeadlineView.setFixedSize(222, 232)  # 尺寸
 
-    # 新建试卷规则
+        VLayout = QVBoxLayout()
+
+        self.HeadlineView.setLayout(VLayout)  # 添加布局
+        self.HeadlineView.show()
+        print(self.HeadlineView.size().width())
+        print(self.HeadlineView.size().height())
+
+    # 添加试卷规则
     def NewPaperRule(self):
-        pass
+        self.PaperRuleView = QDialog()
+        self.PaperRuleView.setWindowTitle(TITLE)
+        self.PaperRuleView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.PaperRuleView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
+        # self.PaperRuleView.setFixedSize(222, 232)  # 尺寸
 
-    def NewRuleAction(self):
-        pass
+        VLayout = QVBoxLayout()
+
+        self.PaperRuleView.setLayout(VLayout)  # 添加布局
+        self.PaperRuleView.show()
+        print(self.PaperRuleView.size().width())
+        print(self.PaperRuleView.size().height())
+
+    def NewRuleAction(self, HeadlineID: int, QuestionType: int, KnowledgeID: int, QuestionNum: int, SingleScore: int, PaperID: int, SerialNumber: int):
+        Result = self.PaperRuleController.NewPaperRule(HeadlineID, QuestionType, KnowledgeID, QuestionNum, SingleScore, PaperID, SerialNumber)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.ActionSignal.emit()
+            self.TreeDataInit()  # 主控件写入数据
+            self.DetailsView.close()  # 关闭窗口
 
     # 列表节点右键菜单
     def RightContextMenuExec(self, pos):
