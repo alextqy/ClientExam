@@ -277,8 +277,8 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
         # 展示判断
         if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
             self.TreeMenu.AddAction(self.Lang.PaperDetails, lambda: self.InfoWindow(Item))
-            self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction())
             self.TreeMenu.AddAction(self.Lang.TestPaperRules, lambda: self.TestPaperRulesWindow(Item))
+            self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction())
         else:  # 焦点外
             return
 
@@ -495,6 +495,7 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
     def TestPaperRulesWindow(self, Item):
         ID: int = int(Item.text(0))
         self.PaperRulesWindow = PaperRulesWindow(ID)
+        self.PaperRulesWindow.ActionSignal.connect(self.TreeDataInit)
         self.PaperRulesWindow.show()
 
 
@@ -568,12 +569,14 @@ class SubjectsWindow(BaseTemplate, QDialog):
 
 # 试卷规则
 class PaperRulesWindow(BaseTemplate, QDialog):
-    ActionSignal = Signal(str, str)  # 设置信号
+    ActionSignal = Signal()  # 设置信号
 
     def __init__(self, PaperID: int):
         super().__init__()
         self.PaperID = PaperID
         self.PaperRuleController = PaperRuleController()
+        self.HeadlineController = HeadlineController()
+        self.KnowledgeController = KnowledgeController()
         self.PaperStyleSheet = PaperStyleSheet()
         self.setWindowTitle(TITLE)
         self.setMinimumSize(840, 480)  # 尺寸
@@ -588,11 +591,11 @@ class PaperRulesWindow(BaseTemplate, QDialog):
         self.PaperRulesTree = BaseTreeWidget()
         self.PaperRulesTree.SetSelectionMode(2)  # 设置选择模式
         self.PaperRulesTree.setStyleSheet(self.PaperStyleSheet.TreeWidget())  # 设置样式
-        self.PaperRulesTree.setColumnCount(10)  # 设置列数
+        self.PaperRulesTree.setColumnCount(12)  # 设置列数
         self.PaperRulesTree.hideColumn(5)  # 隐藏列
         self.PaperRulesTree.hideColumn(6)  # 隐藏列
         self.PaperRulesTree.hideColumn(7)  # 隐藏列
-        self.PaperRulesTree.hideColumn(8)  # 隐藏列
+        self.PaperRulesTree.hideColumn(9)  # 隐藏列
         self.PaperRulesTree.setHeaderLabels([
             'ID',
             self.Lang.QuestionType,
@@ -602,6 +605,7 @@ class PaperRulesWindow(BaseTemplate, QDialog):
             'PaperID',
             'HeadlineID',
             'KnowledgeID',
+            self.Lang.Sort,
             'UpdateTime',
             self.Lang.CreationTime,
         ])  # 设置标题栏
@@ -610,10 +614,10 @@ class PaperRulesWindow(BaseTemplate, QDialog):
 
         HLayout = QHBoxLayout()
 
-        NewHeadlineButton = QPushButton(self.Lang.NewHeadline)
+        NewHeadlineButton = QPushButton(self.Lang.AddHeadline)
         NewHeadlineButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
         NewHeadlineButton.setFixedHeight(30)  # 尺寸
-        NewHeadlineButton.clicked.connect(lambda: self.NewPaperRule())  # 连接槽函数
+        NewHeadlineButton.clicked.connect(lambda: self.NewHeadline())  # 连接槽函数
         HLayout.addWidget(NewHeadlineButton)  # 添加控件
 
         NewPaperRuleButton = QPushButton(self.Lang.NewTestPaperRule)
@@ -665,8 +669,10 @@ class PaperRulesWindow(BaseTemplate, QDialog):
                 item.setText(5, str(Data['PaperID']))  # 设置内容
                 item.setText(6, str(Data['HeadlineID']))  # 设置内容
                 item.setText(7, str(Data['KnowledgeID']))  # 设置内容
-                item.setText(8, str(Data['UpdateTime']))  # 设置内容
-                item.setText(9, self.Common.TimeToStr(Data['CreateTime']))  # 设置内容
+                item.setText(8, str(Data['SerialNumber']))  # 设置内容
+                item.setText(9, str(Data['UpdateTime']))  # 设置内容
+                item.setText(10, self.Common.TimeToStr(Data['CreateTime']))  # 设置内容
+                item.setText(11, str(Data['QuestionType']))  # 设置内容
                 item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
@@ -677,6 +683,8 @@ class PaperRulesWindow(BaseTemplate, QDialog):
                 item.setTextAlignment(7, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(8, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 item.setTextAlignment(9, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(10, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                item.setTextAlignment(11, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                 TreeItems.append(item)  # 添加到item list
             self.PaperRulesTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
@@ -684,14 +692,11 @@ class PaperRulesWindow(BaseTemplate, QDialog):
     def NewHeadline(self):
         pass
 
-    def NewHeadlineAction(self):
-        pass
-
     # 新建试卷规则
     def NewPaperRule(self):
         pass
 
-    def NewPaperRuleAction(self):
+    def NewRuleAction(self):
         pass
 
     # 列表节点右键菜单
@@ -704,7 +709,7 @@ class PaperRulesWindow(BaseTemplate, QDialog):
         # 展示判断
         if type(Item) == QTreeWidgetItem and type(ItemAt) == QTreeWidgetItem:  # 焦点内
             self.TreeMenu.AddAction(self.Lang.TestPaperRulesDetails, lambda: self.InfoWindow(Item))
-            self.TreeMenu.AddAction(self.Lang.Delete, lambda: self.DisableAction())
+            self.TreeMenu.AddAction(self.Lang.Disable, lambda: self.DisableAction())
             self.TreeMenu.AddAction(self.Lang.Delete, lambda: self.DeleteAction())
         else:  # 焦点外
             return
@@ -713,8 +718,132 @@ class PaperRulesWindow(BaseTemplate, QDialog):
         self.TreeMenu.show()  # 展示
 
     # 试卷规则详情
-    def InfoWindow(self):
-        pass
+    def InfoWindow(self, Item):
+        ID: int = int(Item.text(0))
+        QuestionNum: str = Item.text(2)
+        SingleScore: str = Item.text(3)
+        SerialNumber: str = Item.text(8)
+        QuestionType: int = Item.text(11)
+
+        HeadlineID: int = int(Item.text(6))
+        KnowledgeID: int = int(Item.text(7))
+        UpdateTime: str = self.Common.TimeToStr(int(Item.text(9)))
+        HeadlineInfo: str = ''
+        KnowledgeInfo: str = ''
+
+        self.DetailsView = QDialog()
+        self.DetailsView.setWindowTitle(TITLE)
+        self.DetailsView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.DetailsView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
+        self.DetailsView.setFixedSize(222, 232)  # 尺寸
+
+        VLayout = QVBoxLayout()
+
+        if HeadlineID > 0:
+            CheckHeadline = self.HeadlineController.HeadlineInfo(HeadlineID)
+            if CheckHeadline['State'] == True:
+                HeadlineInfo = CheckHeadline['Data']['Content']
+        if KnowledgeID > 0:
+            CheckKnowledge = self.KnowledgeController.KnowledgeInfo(KnowledgeID)
+            if CheckKnowledge['State'] == True:
+                KnowledgeInfo = CheckKnowledge['Data']['KnowledgeName']
+
+        if HeadlineInfo != '':
+            HeadlineInput = QTextEdit()  # 输入
+            HeadlineInput.setFixedHeight(30)  # 尺寸
+            HeadlineInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            HeadlineInput.setPlaceholderText(self.Lang.Content)  # 设置空内容提示
+            HeadlineInput.setStyleSheet(self.PaperStyleSheet.TextEdit())  # 设置样式
+            HeadlineInput.setToolTip(self.Lang.Content)  # 设置鼠标提示
+            VLayout.addWidget(HeadlineInput)  # 添加控件
+        if KnowledgeInfo != '':
+            pass
+
+        QuestionNumInput = QLineEdit()
+        QuestionNumInput.setText(QuestionNum)  # 设置内容
+        QuestionNumInput.setFixedHeight(30)  # 尺寸
+        QuestionNumInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        QuestionNumInput.setPlaceholderText(self.Lang.NumberOfQuestionsDrawn)  # 设置空内容提示
+        QuestionNumInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        QuestionNumInput.setToolTip(self.Lang.NumberOfQuestionsDrawn)  # 设置鼠标提示
+        QuestionNumInput.setValidator(QIntValidator())  # 输入整数
+        VLayout.addWidget(QuestionNumInput)  # 添加控件
+
+        SingleScoreInput = QLineEdit()
+        SingleScoreInput.setText(SingleScore)  # 设置内容
+        SingleScoreInput.setFixedHeight(30)  # 尺寸
+        SingleScoreInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        SingleScoreInput.setPlaceholderText(self.Lang.SingleQuestionScore)  # 设置空内容提示
+        SingleScoreInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        SingleScoreInput.setToolTip(self.Lang.SingleQuestionScore)  # 设置鼠标提示
+        SingleScoreInput.setValidator(QDoubleValidator())  # 输入浮点数
+        VLayout.addWidget(SingleScoreInput)  # 添加控件
+
+        SerialNumberInput = QLineEdit()
+        SerialNumberInput.setText(SerialNumber)  # 设置内容
+        SerialNumberInput.setFixedHeight(30)  # 尺寸
+        SerialNumberInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        SerialNumberInput.setPlaceholderText(self.Lang.Sort)  # 设置空内容提示
+        SerialNumberInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        SerialNumberInput.setToolTip(self.Lang.Sort)  # 设置鼠标提示
+        SerialNumberInput.setValidator(QDoubleValidator())  # 输入浮点数
+        VLayout.addWidget(SerialNumberInput)  # 添加控件
+
+        # 试题类型 1单选 2判断 3多选 4填空 5问答 6编程 7拖拽 8连线
+        QuestionTypeInput = QComboBox()  # 设置下拉框
+        QuestionTypeInput.adjustSize()  # 按内容自适应宽度
+        QuestionTypeInput.setView(QListView())  # 设置内容控件
+        QuestionTypeInput.setFixedHeight(30)  # 尺寸
+        QuestionTypeInput.setStyleSheet(self.PaperStyleSheet.SelectBox())  # 设置样式
+        QuestionTypeInput.insertItem(0, self.Lang.QuestionType)  # 设置下拉内容
+        QuestionTypeInput.setItemData(0, self.Lang.QuestionType, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(1, self.Lang.MultipleChoiceQuestions)  # 设置下拉内容
+        QuestionTypeInput.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(2, self.Lang.TrueOrFalse)  # 设置下拉内容
+        QuestionTypeInput.setItemData(2, self.Lang.TrueOrFalse, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(3, self.Lang.MultipleChoices)  # 设置下拉内容
+        QuestionTypeInput.setItemData(3, self.Lang.MultipleChoices, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(4, self.Lang.FillInTheBlank)  # 设置下拉内容
+        QuestionTypeInput.setItemData(4, self.Lang.FillInTheBlank, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(5, self.Lang.QuestionsAndAnswers)  # 设置下拉内容
+        QuestionTypeInput.setItemData(5, self.Lang.QuestionsAndAnswers, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(6, self.Lang.ProgrammingQuestions)  # 设置下拉内容
+        QuestionTypeInput.setItemData(6, self.Lang.ProgrammingQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(7, self.Lang.DragAndDrop)  # 设置下拉内容
+        QuestionTypeInput.setItemData(7, self.Lang.DragAndDrop, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(8, self.Lang.ConnectingQuestion)  # 设置下拉内容
+        QuestionTypeInput.setItemData(8, self.Lang.ConnectingQuestion, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.setCurrentIndex(int(QuestionType))  # 设置默认选项
+        QuestionTypeInput.activated.connect(lambda: self.ShowLanguageInfo())
+        VLayout.addWidget(QuestionTypeInput)  # 添加控件
+
+        UpdateTimeInput = QLineEdit()
+        UpdateTimeInput.setText(UpdateTime)  # 设置内容
+        UpdateTimeInput.setFixedHeight(30)  # 尺寸
+        UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
+        UpdateTimeInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        UpdateTimeInput.setToolTip(self.Lang.UpdateTime)  # 设置鼠标提示
+        UpdateTimeInput.setEnabled(False)  # 禁止输入
+        VLayout.addWidget(UpdateTimeInput)  # 添加控件
+
+        UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
+        UpdateButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+        UpdateButton.setFixedHeight(30)  # 尺寸
+        UpdateButton.clicked.connect(lambda: self.UpdatePaperRuleAction(ID, QuestionTypeInput.currentIndex(), QuestionNumInput.text(), SingleScoreInput.text(), SerialNumberInput.text()))  # 连接槽函数
+        VLayout.addWidget(UpdateButton)
+
+        self.DetailsView.setLayout(VLayout)  # 添加布局
+        self.DetailsView.show()
+
+    def UpdatePaperRuleAction(self, ID: int, QuestionType: int, QuestionNum: int, SingleScore: float, SerialNumber: int):
+        Result = self.PaperRuleController.UpdatePaperRule(ID, QuestionType, QuestionNum, SingleScore, SerialNumber)
+        if Result['State'] != True:
+            self.MSGBOX.ERROR(Result['Memo'])
+        else:
+            self.ActionSignal.emit()
+            self.TreeDataInit()  # 主控件写入数据
+            self.DetailsView.close()  # 关闭窗口
 
     # 禁用试卷规则
     def DisableAction(self):
@@ -728,6 +857,7 @@ class PaperRulesWindow(BaseTemplate, QDialog):
                 self.MSGBOX.ERROR(Result['Memo'])
                 break
             else:
+                self.ActionSignal.emit()
                 self.TreeDataInit()
 
     # 删除试卷规则
@@ -742,4 +872,5 @@ class PaperRulesWindow(BaseTemplate, QDialog):
                 self.MSGBOX.ERROR(Result['Memo'])
                 break
             else:
+                self.ActionSignal.emit()
                 self.TreeDataInit()

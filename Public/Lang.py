@@ -174,6 +174,8 @@ class Lang(BaseService):
             self.ExamRulesStatus = 'Exam Rules Status'
             self.TestPaperRulesDetails = 'Test paper rules details'
             self.NewTestPaperRule = 'New test paper rule'
+            self.AddHeadline = 'Add headline'
+            self.Sort = 'Sort'
 
         elif self.Type == 'zh-cn':
             self.ManagerLogin = '管理员登录'
@@ -338,6 +340,8 @@ class Lang(BaseService):
             self.ExamRulesStatus = '试题规则状态'
             self.TestPaperRulesDetails = '试卷规则详情'
             self.NewTestPaperRule = '新建试卷规则'
+            self.AddHeadline = '添加大标题'
+            self.Sort = '排序'
 
         else:
             self.ManagerLogin = ''
@@ -502,3 +506,5 @@ class Lang(BaseService):
             self.ExamRulesStatus = ''
             self.TestPaperRulesDetails = ''
             self.NewTestPaperRule = ''
+            self.AddHeadline = ''
+            self.Sort = ''

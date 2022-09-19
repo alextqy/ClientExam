@@ -56,3 +56,14 @@ class PaperRuleController(BaseController):
         }
         Result = self.Post(Param, '/Paper/Rules')
         return Result
+
+    def UpdatePaperRule(self, ID: int, QuestionType: int, QuestionNum: int, SingleScore: float, SerialNumber: int):
+        Param = {
+            "ID": ID,
+            "QuestionType": QuestionType,
+            "QuestionNum": QuestionNum,
+            "SingleScore": SingleScore,
+            "SerialNumber": SerialNumber,
+        }
+        Result = self.Post(Param, '/Update/Paper/Rule')
+        return Result
