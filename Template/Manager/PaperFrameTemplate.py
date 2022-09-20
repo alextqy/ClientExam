@@ -198,7 +198,7 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
             self.PaperTree = BaseTreeWidget()
             self.PaperTree.SetSelectionMode(2)  # 设置选择模式
             self.PaperTree.setStyleSheet(self.PaperStyleSheet.TreeWidget())  # 设置样式
-            self.PaperTree.setColumnCount(10)  # 设置列数
+            self.PaperTree.setColumnCount(11)  # 设置列数
             self.PaperTree.hideColumn(2)  # 隐藏列
             self.PaperTree.hideColumn(8)  # 隐藏列
             self.PaperTree.hideColumn(9)  # 隐藏列
@@ -213,6 +213,7 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
                 self.Lang.CreationTime,
                 'SubjectID',
                 'UpdateTime',
+                self.Lang.SubjectName,
             ])  # 设置标题栏
             # self.PaperTree.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)  # 列宽自适应数据长度
             self.PaperTree.Connect(self.RightContextMenuExec)  # 鼠标右键菜单 链接槽函数
@@ -236,6 +237,7 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
                     item.setText(7, self.Common.TimeToStr(Data[i]['CreateTime']))  # 设置内容
                     item.setText(8, str(Data[i]['SubjectID']))  # 设置内容
                     item.setText(9, str(Data[i]['UpdateTime']))  # 设置内容
+                    item.setText(10, Data[i]['SubjectName'])  # 设置内容
                     item.setTextAlignment(0, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                     item.setTextAlignment(1, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                     item.setTextAlignment(2, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
@@ -246,6 +248,7 @@ class PaperFrameTemplate(BaseTemplate, QFrame):
                     item.setTextAlignment(7, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                     item.setTextAlignment(8, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                     item.setTextAlignment(9, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
+                    item.setTextAlignment(10, Qt.AlignHCenter | Qt.AlignVCenter)  # 设置item字体居中
                     TreeItems.append(item)  # 添加到item list
                 self.PaperTree.insertTopLevelItems(0, TreeItems)  # 添加到列表
 
