@@ -4,7 +4,7 @@ from StyleSheet.Manager.ExamInfoHistoryStyleSheet import *
 
 
 # 报名历史管理界面
-class ExamInfoHistoryFrameTemplate(BaseTemplate, QFrame):
+class OldExamInfoFrameTemplate(BaseTemplate, QFrame):
 
     def __init__(self):
         super().__init__()
@@ -17,7 +17,7 @@ class ExamInfoHistoryFrameTemplate(BaseTemplate, QFrame):
         self.CenterLayout = QVBoxLayout()  # 设置主布局
 
         # 标题栏
-        self.Headline = QLabel(self.Lang.HistoryRegistration)
+        self.Headline = QLabel(self.Lang.OldRegistration)
         self.Headline.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
         self.Headline.adjustSize()  # 根据内容自适应宽度
         self.Headline.setFixedHeight(30)  # 尺寸

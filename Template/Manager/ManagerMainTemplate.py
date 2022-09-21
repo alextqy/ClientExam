@@ -7,7 +7,7 @@ from Template.Manager.TeacherFrameTemplate import *
 from Template.Manager.ClassFrameTemplate import *
 from Template.Manager.ExamineeFrameTemplate import *
 from Template.Manager.ExamInfoFrameTemplate import *
-from Template.Manager.ExamInfoHistoryFrameTemplate import *
+from Template.Manager.OldExamInfoFrameTemplate import *
 from Template.Manager.SubjectFrameTemplate import *
 from Template.Manager.KnowledgeFrameTemplate import *
 from Template.Manager.HeadlineFrameTemplate import *
@@ -158,11 +158,11 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.MenuLayout.addWidget(self.RegistrationDataButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # 历史报名
-        self.ExamInfoHistoryFrameTemplate = QPushButton(self.Lang.HistoryRegistration)
-        self.ExamInfoHistoryFrameTemplate.setStyleSheet(self.ManagerMainStyleSheet.MenuButton1())  # 设置样式
-        self.ExamInfoHistoryFrameTemplate.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
-        self.ExamInfoHistoryFrameTemplate.clicked.connect(lambda: self.TemplateView('ExamInfoHistoryFrameTemplate'))  # 连接槽函数
-        self.MenuLayout.addWidget(self.ExamInfoHistoryFrameTemplate, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
+        self.OldExamInfoButton = QPushButton(self.Lang.OldRegistration)
+        self.OldExamInfoButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton1())  # 设置样式
+        self.OldExamInfoButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.OldExamInfoButton.clicked.connect(lambda: self.TemplateView('OldExamInfoButton'))  # 连接槽函数
+        self.MenuLayout.addWidget(self.OldExamInfoButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # =====================================================================================================================================================================
 
@@ -206,6 +206,12 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.AnswerSheetButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton2())  # 设置样式
         self.AnswerSheetButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
         self.MenuLayout.addWidget(self.AnswerSheetButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
+
+        # 历史答题卡
+        self.OldAnswerSheetButton = QPushButton(self.Lang.OldAnswerSheet)
+        self.OldAnswerSheetButton.setStyleSheet(self.ManagerMainStyleSheet.MenuButton2())  # 设置样式
+        self.OldAnswerSheetButton.setFixedSize(ButtonWidth, ButtonHeight)  # 尺寸
+        self.MenuLayout.addWidget(self.OldAnswerSheetButton, 0, Qt.AlignCenter | Qt.AlignTop)  # 添加控件 向上居中对齐
 
         # =====================================================================================================================================================================
 
@@ -259,9 +265,9 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.SubjectFrameTemplate.hide()
         self.DataLayout.addWidget(self.SubjectFrameTemplate)
 
-        self.ExamInfoHistoryFrameTemplate = ExamInfoHistoryFrameTemplate()
-        self.ExamInfoHistoryFrameTemplate.hide()
-        self.DataLayout.addWidget(self.ExamInfoHistoryFrameTemplate)
+        self.OldExamInfoButton = OldExamInfoFrameTemplate()
+        self.OldExamInfoButton.hide()
+        self.DataLayout.addWidget(self.OldExamInfoButton)
 
         self.KnowledgeFrameTemplate = KnowledgeFrameTemplate()
         self.KnowledgeFrameTemplate.hide()
@@ -289,7 +295,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
@@ -302,7 +308,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
@@ -315,7 +321,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
@@ -328,7 +334,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.show()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
@@ -341,7 +347,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.show()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
@@ -354,20 +360,20 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.show()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
             self.PaperFrameTemplate.hide()
 
-        if TemplateName == 'ExamInfoHistoryFrameTemplate':
+        if TemplateName == 'OldExamInfoButton':
             self.ManagerFrameTemplate.hide()
             self.TeacherFrameTemplate.hide()
             self.ClassFrameTemplate.hide()
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.show()
+            self.OldExamInfoButton.show()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
@@ -380,7 +386,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.show()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
@@ -393,7 +399,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.show()
             self.QuestionFrameTemplate.hide()
@@ -406,7 +412,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.show()
@@ -419,7 +425,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
             self.ExamineeFrameTemplate.hide()
             self.ExamInfoFrameTemplate.hide()
             self.SubjectFrameTemplate.hide()
-            self.ExamInfoHistoryFrameTemplate.hide()
+            self.OldExamInfoButton.hide()
             self.KnowledgeFrameTemplate.hide()
             self.HeadlineFrameTemplate.hide()
             self.QuestionFrameTemplate.hide()
