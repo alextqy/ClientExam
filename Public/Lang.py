@@ -42,7 +42,7 @@ class Lang(BaseService):
             self.Class = 'Class'
             self.Examinee = 'Examinee'
             self.RegistrationData = 'Registration data'
-            self.OldRegistration = 'History registration data'
+            self.OldRegistration = 'Old registration data'
             self.Subject = 'Subject'
             self.KnowledgePoint = 'Knowledge point'
             self.Headline = 'Headline'
