@@ -510,7 +510,7 @@ class SubjectsWindow(BaseTemplate, QDialog):
         super().__init__()
         self.PaperStyleSheet = PaperStyleSheet()
         self.setWindowTitle(TITLE)
-        self.setFixedSize(266, 274)  # 尺寸
+        self.setFixedSize(286, 274)  # 尺寸
         self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
         self.VLayout = QVBoxLayout()
@@ -549,6 +549,7 @@ class SubjectsWindow(BaseTemplate, QDialog):
                 Item = QListWidgetItem()
                 Item.setSizeHint(QSize(200, 30))
                 Item.setText(self.SubjectList[i]['SubjectName'])
+                Item.setToolTip(self.SubjectList[i]['SubjectName'])
                 Item.setWhatsThis(str(self.SubjectList[i]['ID']))
                 self.Tree.addItem(Item)
 
@@ -697,14 +698,61 @@ class PaperRulesWindow(BaseTemplate, QDialog):
         self.HeadlineView.setWindowTitle(TITLE)
         self.HeadlineView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.HeadlineView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
-        # self.HeadlineView.setFixedSize(222, 232)  # 尺寸
+        self.HeadlineView.setFixedSize(222, 88)  # 尺寸
 
         VLayout = QVBoxLayout()
 
+        # HeadlineInput = QComboBox()  # 设置下拉框
+        # HeadlineInput.adjustSize()  # 按内容自适应宽度
+        # HeadlineInput.setView(QListView())  # 设置内容控件
+        # HeadlineInput.setFixedHeight(30)  # 尺寸
+        # HeadlineInput.setStyleSheet(self.PaperStyleSheet.SelectBox())  # 设置样式
+        # HeadlineInput.insertItem(0, self.Lang.Headline)  # 设置下拉内容
+        # HeadlineInput.setItemData(0, self.Lang.Headline, Qt.ToolTipRole)  # 设置下拉内容提示
+        # Knowledge = self.HeadlineController.Headlines()
+        # if len(Knowledge['Data']) > 0:
+        #     KnowledgeData = Knowledge['Data']
+        #     j = 1
+        #     for i in range(len(KnowledgeData)):
+        #         Data = KnowledgeData[i]
+        #         HeadlineInput.insertItem(j, Data['Content'])  # 设置下拉内容
+        #         HeadlineInput.setItemData(j, Data['Content'], Qt.ToolTipRole)  # 设置下拉内容提示
+        #         HeadlineInput.setItemData(j, Data['ID'])  # 设值
+        #         j += 1
+        # HeadlineInput.setCurrentIndex(0)  # 设置默认选项
+        # VLayout.addWidget(HeadlineInput)  # 添加控件
+
+        self.HeadlineInput = QPushButton(self.Lang.Headline)  # 按钮
+        self.HeadlineInput.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+        self.HeadlineInput.setFixedHeight(30)  # 尺寸
+        self.HeadlineInput.clicked.connect(lambda: self.ChooseHeadline())  # 连接槽函数
+        self.HeadlineInput.setWhatsThis('0')  # 设置默认值
+        VLayout.addWidget(self.HeadlineInput)
+
+        AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+        AddButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+        AddButton.setFixedHeight(30)  # 尺寸
+        AddButton.clicked.connect(lambda: self.NewRuleAction(int(self.HeadlineInput.whatsThis()), 0, 0, 0, 0, self.PaperID, 0, 1))  # 连接槽函数
+        VLayout.addWidget(AddButton)
+
         self.HeadlineView.setLayout(VLayout)  # 添加布局
         self.HeadlineView.show()
-        print(self.HeadlineView.size().width())
-        print(self.HeadlineView.size().height())
+
+    # 大标题选择
+    def ChooseHeadline(self):
+        CheckHeadlines = self.HeadlineController.Headlines()
+        if CheckHeadlines['State'] != True:
+            self.MSGBOX.ERROR(CheckHeadlines['Memo'])
+        else:
+            self.HeadlinesWindow = HeadlinesWindow(CheckHeadlines['Data'])
+            self.HeadlinesWindow.ActionSignal.connect(self.SetHeadline)
+            self.HeadlinesWindow.show()
+
+    # 设置大标题
+    def SetHeadline(self, HeadlineContent: str, HeadlineID: str):
+        if HeadlineContent != '' and HeadlineID != '':
+            self.HeadlineInput.setText(HeadlineContent)
+            self.HeadlineInput.setWhatsThis(HeadlineID)
 
     # 添加试卷规则
     def NewPaperRule(self):
@@ -983,3 +1031,71 @@ class PaperRulesWindow(BaseTemplate, QDialog):
             else:
                 self.ActionSignal.emit()
                 self.TreeDataInit()
+
+
+# 选择考生
+class HeadlinesWindow(BaseTemplate, QDialog):
+    ActionSignal = Signal(str, str)  # 设置信号
+
+    def __init__(self, HeadlineList: list):
+        super().__init__()
+        self.PaperStyleSheet = PaperStyleSheet()
+        self.setWindowTitle(TITLE)
+        self.setFixedSize(286, 274)  # 尺寸
+        self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
+        self.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
+        self.VLayout = QVBoxLayout()
+        self.HLayout = QHBoxLayout()
+        self.VLayout.addLayout(self.HLayout)
+        self.setLayout(self.VLayout)
+
+        self.SearchBar = QLineEdit()
+        self.SearchBar.setFixedHeight(30)
+        self.SearchBar.setPlaceholderText(self.Lang.Name)
+        self.SearchBar.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 字体居中
+        self.SearchBar.setStyleSheet(self.PaperStyleSheet.InputBox())
+        self.HLayout.addWidget(self.SearchBar)
+        self.SearchButton = QPushButton(self.Lang.Search)
+        self.SearchButton.setFixedSize(85, 30)
+        self.SearchButton.setStyleSheet(self.PaperStyleSheet.Button())
+        self.SearchButton.clicked.connect(self.SearchName)
+        self.HLayout.addWidget(self.SearchButton)
+
+        self.Tree = QListWidget()
+        # self.Tree.setSelectionMode(QAbstractItemView.ExtendedSelection)  # 设置多选
+        self.Tree.setStyleSheet(self.PaperStyleSheet.List())
+        self.Tree.setFocusPolicy(Qt.NoFocus)
+        self.VLayout.addWidget(self.Tree)
+
+        self.SubmitButton = QPushButton(self.Lang.Submit)
+        self.SubmitButton.setFixedHeight(30)
+        self.SubmitButton.setStyleSheet(self.PaperStyleSheet.Button())
+        self.SubmitButton.clicked.connect(self.Send)
+        self.VLayout.addWidget(self.SubmitButton)
+
+        self.HeadlineList = HeadlineList
+        if len(self.HeadlineList) > 0:
+            for i in range(len(self.HeadlineList)):
+                Item = QListWidgetItem()
+                Item.setSizeHint(QSize(200, 30))
+                Item.setText(self.HeadlineList[i]['Content'])
+                Item.setToolTip(self.HeadlineList[i]['Content'])
+                Item.setWhatsThis(str(self.HeadlineList[i]['ID']))
+                self.Tree.addItem(Item)
+
+    # 搜索
+    def SearchName(self):
+        Name = self.SearchBar.text()
+        if Name != '':
+            SearchList = self.Tree.findItems(Name, Qt.MatchContains)
+            if len(SearchList) > 0:
+                for i in range(len(SearchList)):
+                    if SearchList[i].text() != self.Cache.Get('Name'):
+                        self.Tree.setCurrentItem(SearchList[i])
+
+    # 发送
+    def Send(self):
+        HeadlineItem = self.Tree.currentItem()
+        if HeadlineItem is not None and HeadlineItem.text() != '' and HeadlineItem.whatsThis() != '':
+            self.ActionSignal.emit(HeadlineItem.text(), HeadlineItem.whatsThis())
+            self.close()

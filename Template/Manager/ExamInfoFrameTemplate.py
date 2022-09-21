@@ -618,7 +618,7 @@ class SubjectsWindow(BaseTemplate, QDialog):
         super().__init__()
         self.ExamInfoStyleSheet = ExamInfoStyleSheet()
         self.setWindowTitle(TITLE)
-        self.setFixedSize(266, 274)  # 尺寸
+        self.setFixedSize(286, 274)  # 尺寸
         self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.setStyleSheet(self.ExamInfoStyleSheet.Dialog())  # 设置样式
         self.VLayout = QVBoxLayout()
@@ -633,7 +633,7 @@ class SubjectsWindow(BaseTemplate, QDialog):
         self.SearchBar.setStyleSheet(self.ExamInfoStyleSheet.InputBox())
         self.HLayout.addWidget(self.SearchBar)
         self.SearchButton = QPushButton(self.Lang.Search)
-        self.SearchButton.setFixedHeight(30)
+        self.SearchButton.setFixedSize(85, 30)
         self.SearchButton.setStyleSheet(self.ExamInfoStyleSheet.Button())
         self.SearchButton.clicked.connect(self.SearchName)
         self.HLayout.addWidget(self.SearchButton)
@@ -656,6 +656,7 @@ class SubjectsWindow(BaseTemplate, QDialog):
                 Item = QListWidgetItem()
                 Item.setSizeHint(QSize(200, 30))
                 Item.setText(self.SubjectList[i]['SubjectName'])
+                Item.setToolTip(self.SubjectList[i]['SubjectName'])
                 Item.setWhatsThis(str(self.SubjectList[i]['ID']))
                 self.Tree.addItem(Item)
 
@@ -685,7 +686,7 @@ class ExamineesWindow(BaseTemplate, QDialog):
         super().__init__()
         self.ExamInfoStyleSheet = ExamInfoStyleSheet()
         self.setWindowTitle(TITLE)
-        self.setFixedSize(266, 274)  # 尺寸
+        self.setFixedSize(286, 274)  # 尺寸
         self.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.setStyleSheet(self.ExamInfoStyleSheet.Dialog())  # 设置样式
         self.VLayout = QVBoxLayout()
@@ -700,7 +701,7 @@ class ExamineesWindow(BaseTemplate, QDialog):
         self.SearchBar.setStyleSheet(self.ExamInfoStyleSheet.InputBox())
         self.HLayout.addWidget(self.SearchBar)
         self.SearchButton = QPushButton(self.Lang.Search)
-        self.SearchButton.setFixedHeight(30)
+        self.SearchButton.setFixedSize(85, 30)
         self.SearchButton.setStyleSheet(self.ExamInfoStyleSheet.Button())
         self.SearchButton.clicked.connect(self.SearchName)
         self.HLayout.addWidget(self.SearchButton)
@@ -723,6 +724,7 @@ class ExamineesWindow(BaseTemplate, QDialog):
                 Item = QListWidgetItem()
                 Item.setSizeHint(QSize(200, 30))
                 Item.setText(self.ExamineeList[i]['Name'])
+                Item.setToolTip(self.SubjectList[i]['Name'])
                 Item.setWhatsThis(str(self.ExamineeList[i]['ID']))
                 self.Tree.addItem(Item)
 

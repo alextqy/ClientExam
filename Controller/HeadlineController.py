@@ -37,3 +37,7 @@ class HeadlineController(BaseController):
         }
         Result = self.Post(Param, '/Headline/Info')
         return Result
+
+    def Headlines(self):
+        Result = self.Post({}, '/Headlines')
+        return Result
