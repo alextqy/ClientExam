@@ -698,7 +698,7 @@ class PaperRulesWindow(BaseTemplate, QDialog):
         self.HeadlineView.setWindowTitle(TITLE)
         self.HeadlineView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.HeadlineView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
-        self.HeadlineView.setFixedSize(222, 88)  # 尺寸
+        self.HeadlineView.setFixedSize(222, 124)  # 尺寸
 
         VLayout = QVBoxLayout()
 
@@ -727,12 +727,22 @@ class PaperRulesWindow(BaseTemplate, QDialog):
         self.HeadlineInput.setFixedHeight(30)  # 尺寸
         self.HeadlineInput.clicked.connect(lambda: self.ChooseHeadline())  # 连接槽函数
         self.HeadlineInput.setWhatsThis('0')  # 设置默认值
+        self.HeadlineInput.adjustSize()
         VLayout.addWidget(self.HeadlineInput)
+
+        SerialNumberInput = QLineEdit()
+        SerialNumberInput.setFixedHeight(30)  # 尺寸
+        SerialNumberInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        SerialNumberInput.setPlaceholderText(self.Lang.Sort)  # 设置空内容提示
+        SerialNumberInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        SerialNumberInput.setToolTip(self.Lang.Sort)  # 设置鼠标提示
+        SerialNumberInput.setValidator(QDoubleValidator())  # 输入浮点数
+        VLayout.addWidget(SerialNumberInput)  # 添加控件
 
         AddButton = QPushButton(self.Lang.Confirm)  # 按钮
         AddButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
         AddButton.setFixedHeight(30)  # 尺寸
-        AddButton.clicked.connect(lambda: self.NewRuleAction(int(self.HeadlineInput.whatsThis()), 0, 0, 0, 0, self.PaperID, 0, 1))  # 连接槽函数
+        AddButton.clicked.connect(lambda: self.NewRuleAction(int(self.HeadlineInput.whatsThis()), 0, 0, 0, 0, self.PaperID, SerialNumberInput.text(), 1))  # 连接槽函数
         VLayout.addWidget(AddButton)
 
         self.HeadlineView.setLayout(VLayout)  # 添加布局
@@ -1033,7 +1043,7 @@ class PaperRulesWindow(BaseTemplate, QDialog):
                 self.TreeDataInit()
 
 
-# 选择考生
+# 选择大标题
 class HeadlinesWindow(BaseTemplate, QDialog):
     ActionSignal = Signal(str, str)  # 设置信号
 
