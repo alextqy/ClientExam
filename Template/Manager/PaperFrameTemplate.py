@@ -712,23 +712,104 @@ class PaperRulesWindow(BaseTemplate, QDialog):
         self.PaperRuleView.setWindowTitle(TITLE)
         self.PaperRuleView.setWindowModality(Qt.ApplicationModal)  # 禁止其他所有窗口交互
         self.PaperRuleView.setStyleSheet(self.PaperStyleSheet.Dialog())  # 设置样式
-        # self.PaperRuleView.setFixedSize(222, 232)  # 尺寸
+        self.PaperRuleView.setFixedSize(222, 232)  # 尺寸
 
         VLayout = QVBoxLayout()
 
+        # 试题类型 1单选 2判断 3多选 4填空 5问答 6编程 7拖拽 8连线
+        QuestionTypeInput = QComboBox()  # 设置下拉框
+        QuestionTypeInput.adjustSize()  # 按内容自适应宽度
+        QuestionTypeInput.setView(QListView())  # 设置内容控件
+        QuestionTypeInput.setFixedHeight(30)  # 尺寸
+        QuestionTypeInput.setStyleSheet(self.PaperStyleSheet.SelectBox())  # 设置样式
+        QuestionTypeInput.insertItem(0, self.Lang.QuestionType)  # 设置下拉内容
+        QuestionTypeInput.setItemData(0, self.Lang.QuestionType, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(1, self.Lang.MultipleChoiceQuestions)  # 设置下拉内容
+        QuestionTypeInput.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(2, self.Lang.TrueOrFalse)  # 设置下拉内容
+        QuestionTypeInput.setItemData(2, self.Lang.TrueOrFalse, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(3, self.Lang.MultipleChoices)  # 设置下拉内容
+        QuestionTypeInput.setItemData(3, self.Lang.MultipleChoices, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(4, self.Lang.FillInTheBlank)  # 设置下拉内容
+        QuestionTypeInput.setItemData(4, self.Lang.FillInTheBlank, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(5, self.Lang.QuestionsAndAnswers)  # 设置下拉内容
+        QuestionTypeInput.setItemData(5, self.Lang.QuestionsAndAnswers, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(6, self.Lang.ProgrammingQuestions)  # 设置下拉内容
+        QuestionTypeInput.setItemData(6, self.Lang.ProgrammingQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(7, self.Lang.DragAndDrop)  # 设置下拉内容
+        QuestionTypeInput.setItemData(7, self.Lang.DragAndDrop, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.insertItem(8, self.Lang.ConnectingQuestion)  # 设置下拉内容
+        QuestionTypeInput.setItemData(8, self.Lang.ConnectingQuestion, Qt.ToolTipRole)  # 设置下拉内容提示
+        QuestionTypeInput.setCurrentIndex(0)  # 设置默认选项
+        VLayout.addWidget(QuestionTypeInput)  # 添加控件
+
+        KnowledgeInput = QComboBox()  # 设置下拉框
+        KnowledgeInput.adjustSize()  # 按内容自适应宽度
+        KnowledgeInput.setView(QListView())  # 设置内容控件
+        KnowledgeInput.setFixedHeight(30)  # 尺寸
+        KnowledgeInput.setStyleSheet(self.PaperStyleSheet.SelectBox())  # 设置样式
+        KnowledgeInput.insertItem(0, self.Lang.KnowledgePoint)  # 设置下拉内容
+        KnowledgeInput.setItemData(0, self.Lang.KnowledgePoint, Qt.ToolTipRole)  # 设置下拉内容提示
+        Knowledge = self.KnowledgeController.Knowledge()
+        if len(Knowledge['Data']) > 0:
+            KnowledgeData = Knowledge['Data']
+            j = 1
+            for i in range(len(KnowledgeData)):
+                Data = KnowledgeData[i]
+                KnowledgeInput.insertItem(j, Data['KnowledgeName'])  # 设置下拉内容
+                KnowledgeInput.setItemData(j, Data['KnowledgeName'], Qt.ToolTipRole)  # 设置下拉内容提示
+                KnowledgeInput.setItemData(j, Data['ID'])  # 设值
+                j += 1
+        KnowledgeInput.setCurrentIndex(0)  # 设置默认选项
+        VLayout.addWidget(KnowledgeInput)  # 添加控件
+
+        QuestionNumInput = QLineEdit()
+        QuestionNumInput.setFixedHeight(30)  # 尺寸
+        QuestionNumInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        QuestionNumInput.setPlaceholderText(self.Lang.NumberOfQuestionsDrawn)  # 设置空内容提示
+        QuestionNumInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        QuestionNumInput.setToolTip(self.Lang.NumberOfQuestionsDrawn)  # 设置鼠标提示
+        QuestionNumInput.setValidator(QIntValidator())  # 输入整数
+        VLayout.addWidget(QuestionNumInput)  # 添加控件
+
+        SingleScoreInput = QLineEdit()
+        SingleScoreInput.setFixedHeight(30)  # 尺寸
+        SingleScoreInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        SingleScoreInput.setPlaceholderText(self.Lang.SingleQuestionScore)  # 设置空内容提示
+        SingleScoreInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        SingleScoreInput.setToolTip(self.Lang.SingleQuestionScore)  # 设置鼠标提示
+        SingleScoreInput.setValidator(QDoubleValidator())  # 输入浮点数
+        VLayout.addWidget(SingleScoreInput)  # 添加控件
+
+        SerialNumberInput = QLineEdit()
+        SerialNumberInput.setFixedHeight(30)  # 尺寸
+        SerialNumberInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+        SerialNumberInput.setPlaceholderText(self.Lang.Sort)  # 设置空内容提示
+        SerialNumberInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+        SerialNumberInput.setToolTip(self.Lang.Sort)  # 设置鼠标提示
+        SerialNumberInput.setValidator(QDoubleValidator())  # 输入浮点数
+        VLayout.addWidget(SerialNumberInput)  # 添加控件
+
+        AddButton = QPushButton(self.Lang.Confirm)  # 按钮
+        AddButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+        AddButton.setFixedHeight(30)  # 尺寸
+        AddButton.clicked.connect(lambda: self.NewRuleAction(0, QuestionTypeInput.currentIndex(), KnowledgeInput.currentData(), QuestionNumInput.text(), SingleScoreInput.text(), self.PaperID, SerialNumberInput.text(), 2))  # 连接槽函数
+        VLayout.addWidget(AddButton)
+
         self.PaperRuleView.setLayout(VLayout)  # 添加布局
         self.PaperRuleView.show()
-        print(self.PaperRuleView.size().width())
-        print(self.PaperRuleView.size().height())
 
-    def NewRuleAction(self, HeadlineID: int, QuestionType: int, KnowledgeID: int, QuestionNum: int, SingleScore: int, PaperID: int, SerialNumber: int):
+    def NewRuleAction(self, HeadlineID: int, QuestionType: int, KnowledgeID: int, QuestionNum: int, SingleScore: int, PaperID: int, SerialNumber: int, WinType: int):
         Result = self.PaperRuleController.NewPaperRule(HeadlineID, QuestionType, KnowledgeID, QuestionNum, SingleScore, PaperID, SerialNumber)
         if Result['State'] != True:
             self.MSGBOX.ERROR(Result['Memo'])
         else:
             self.ActionSignal.emit()
             self.TreeDataInit()  # 主控件写入数据
-            self.DetailsView.close()  # 关闭窗口
+            if WinType == 1:
+                self.HeadlineView.close()  # 关闭窗口
+            if WinType == 2:
+                self.PaperRuleView.close()  # 关闭窗口
 
     # 列表节点右键菜单
     def RightContextMenuExec(self, pos):
@@ -781,88 +862,85 @@ class PaperRulesWindow(BaseTemplate, QDialog):
 
         if HeadlineInfo != '':
             HeadlineInput = QTextEdit()  # 输入
-            HeadlineInput.setFixedHeight(30)  # 尺寸
+            HeadlineInput.setText(HeadlineInfo)  # 设置内容
             HeadlineInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
             HeadlineInput.setPlaceholderText(self.Lang.Content)  # 设置空内容提示
             HeadlineInput.setStyleSheet(self.PaperStyleSheet.TextEdit())  # 设置样式
             HeadlineInput.setToolTip(self.Lang.Content)  # 设置鼠标提示
             VLayout.addWidget(HeadlineInput)  # 添加控件
         if KnowledgeInfo != '':
-            pass
+            QuestionNumInput = QLineEdit()
+            QuestionNumInput.setText(QuestionNum)  # 设置内容
+            QuestionNumInput.setFixedHeight(30)  # 尺寸
+            QuestionNumInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            QuestionNumInput.setPlaceholderText(self.Lang.NumberOfQuestionsDrawn)  # 设置空内容提示
+            QuestionNumInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+            QuestionNumInput.setToolTip(self.Lang.NumberOfQuestionsDrawn)  # 设置鼠标提示
+            QuestionNumInput.setValidator(QIntValidator())  # 输入整数
+            VLayout.addWidget(QuestionNumInput)  # 添加控件
 
-        QuestionNumInput = QLineEdit()
-        QuestionNumInput.setText(QuestionNum)  # 设置内容
-        QuestionNumInput.setFixedHeight(30)  # 尺寸
-        QuestionNumInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        QuestionNumInput.setPlaceholderText(self.Lang.NumberOfQuestionsDrawn)  # 设置空内容提示
-        QuestionNumInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        QuestionNumInput.setToolTip(self.Lang.NumberOfQuestionsDrawn)  # 设置鼠标提示
-        QuestionNumInput.setValidator(QIntValidator())  # 输入整数
-        VLayout.addWidget(QuestionNumInput)  # 添加控件
+            SingleScoreInput = QLineEdit()
+            SingleScoreInput.setText(SingleScore)  # 设置内容
+            SingleScoreInput.setFixedHeight(30)  # 尺寸
+            SingleScoreInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            SingleScoreInput.setPlaceholderText(self.Lang.SingleQuestionScore)  # 设置空内容提示
+            SingleScoreInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+            SingleScoreInput.setToolTip(self.Lang.SingleQuestionScore)  # 设置鼠标提示
+            SingleScoreInput.setValidator(QDoubleValidator())  # 输入浮点数
+            VLayout.addWidget(SingleScoreInput)  # 添加控件
 
-        SingleScoreInput = QLineEdit()
-        SingleScoreInput.setText(SingleScore)  # 设置内容
-        SingleScoreInput.setFixedHeight(30)  # 尺寸
-        SingleScoreInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        SingleScoreInput.setPlaceholderText(self.Lang.SingleQuestionScore)  # 设置空内容提示
-        SingleScoreInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        SingleScoreInput.setToolTip(self.Lang.SingleQuestionScore)  # 设置鼠标提示
-        SingleScoreInput.setValidator(QDoubleValidator())  # 输入浮点数
-        VLayout.addWidget(SingleScoreInput)  # 添加控件
+            SerialNumberInput = QLineEdit()
+            SerialNumberInput.setText(SerialNumber)  # 设置内容
+            SerialNumberInput.setFixedHeight(30)  # 尺寸
+            SerialNumberInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            SerialNumberInput.setPlaceholderText(self.Lang.Sort)  # 设置空内容提示
+            SerialNumberInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+            SerialNumberInput.setToolTip(self.Lang.Sort)  # 设置鼠标提示
+            SerialNumberInput.setValidator(QDoubleValidator())  # 输入浮点数
+            VLayout.addWidget(SerialNumberInput)  # 添加控件
 
-        SerialNumberInput = QLineEdit()
-        SerialNumberInput.setText(SerialNumber)  # 设置内容
-        SerialNumberInput.setFixedHeight(30)  # 尺寸
-        SerialNumberInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        SerialNumberInput.setPlaceholderText(self.Lang.Sort)  # 设置空内容提示
-        SerialNumberInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        SerialNumberInput.setToolTip(self.Lang.Sort)  # 设置鼠标提示
-        SerialNumberInput.setValidator(QDoubleValidator())  # 输入浮点数
-        VLayout.addWidget(SerialNumberInput)  # 添加控件
+            # 试题类型 1单选 2判断 3多选 4填空 5问答 6编程 7拖拽 8连线
+            QuestionTypeInput = QComboBox()  # 设置下拉框
+            QuestionTypeInput.adjustSize()  # 按内容自适应宽度
+            QuestionTypeInput.setView(QListView())  # 设置内容控件
+            QuestionTypeInput.setFixedHeight(30)  # 尺寸
+            QuestionTypeInput.setStyleSheet(self.PaperStyleSheet.SelectBox())  # 设置样式
+            QuestionTypeInput.insertItem(0, self.Lang.QuestionType)  # 设置下拉内容
+            QuestionTypeInput.setItemData(0, self.Lang.QuestionType, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.insertItem(1, self.Lang.MultipleChoiceQuestions)  # 设置下拉内容
+            QuestionTypeInput.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.insertItem(2, self.Lang.TrueOrFalse)  # 设置下拉内容
+            QuestionTypeInput.setItemData(2, self.Lang.TrueOrFalse, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.insertItem(3, self.Lang.MultipleChoices)  # 设置下拉内容
+            QuestionTypeInput.setItemData(3, self.Lang.MultipleChoices, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.insertItem(4, self.Lang.FillInTheBlank)  # 设置下拉内容
+            QuestionTypeInput.setItemData(4, self.Lang.FillInTheBlank, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.insertItem(5, self.Lang.QuestionsAndAnswers)  # 设置下拉内容
+            QuestionTypeInput.setItemData(5, self.Lang.QuestionsAndAnswers, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.insertItem(6, self.Lang.ProgrammingQuestions)  # 设置下拉内容
+            QuestionTypeInput.setItemData(6, self.Lang.ProgrammingQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.insertItem(7, self.Lang.DragAndDrop)  # 设置下拉内容
+            QuestionTypeInput.setItemData(7, self.Lang.DragAndDrop, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.insertItem(8, self.Lang.ConnectingQuestion)  # 设置下拉内容
+            QuestionTypeInput.setItemData(8, self.Lang.ConnectingQuestion, Qt.ToolTipRole)  # 设置下拉内容提示
+            QuestionTypeInput.setCurrentIndex(int(QuestionType))  # 设置默认选项
+            VLayout.addWidget(QuestionTypeInput)  # 添加控件
 
-        # 试题类型 1单选 2判断 3多选 4填空 5问答 6编程 7拖拽 8连线
-        QuestionTypeInput = QComboBox()  # 设置下拉框
-        QuestionTypeInput.adjustSize()  # 按内容自适应宽度
-        QuestionTypeInput.setView(QListView())  # 设置内容控件
-        QuestionTypeInput.setFixedHeight(30)  # 尺寸
-        QuestionTypeInput.setStyleSheet(self.PaperStyleSheet.SelectBox())  # 设置样式
-        QuestionTypeInput.insertItem(0, self.Lang.QuestionType)  # 设置下拉内容
-        QuestionTypeInput.setItemData(0, self.Lang.QuestionType, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.insertItem(1, self.Lang.MultipleChoiceQuestions)  # 设置下拉内容
-        QuestionTypeInput.setItemData(1, self.Lang.MultipleChoiceQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.insertItem(2, self.Lang.TrueOrFalse)  # 设置下拉内容
-        QuestionTypeInput.setItemData(2, self.Lang.TrueOrFalse, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.insertItem(3, self.Lang.MultipleChoices)  # 设置下拉内容
-        QuestionTypeInput.setItemData(3, self.Lang.MultipleChoices, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.insertItem(4, self.Lang.FillInTheBlank)  # 设置下拉内容
-        QuestionTypeInput.setItemData(4, self.Lang.FillInTheBlank, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.insertItem(5, self.Lang.QuestionsAndAnswers)  # 设置下拉内容
-        QuestionTypeInput.setItemData(5, self.Lang.QuestionsAndAnswers, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.insertItem(6, self.Lang.ProgrammingQuestions)  # 设置下拉内容
-        QuestionTypeInput.setItemData(6, self.Lang.ProgrammingQuestions, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.insertItem(7, self.Lang.DragAndDrop)  # 设置下拉内容
-        QuestionTypeInput.setItemData(7, self.Lang.DragAndDrop, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.insertItem(8, self.Lang.ConnectingQuestion)  # 设置下拉内容
-        QuestionTypeInput.setItemData(8, self.Lang.ConnectingQuestion, Qt.ToolTipRole)  # 设置下拉内容提示
-        QuestionTypeInput.setCurrentIndex(int(QuestionType))  # 设置默认选项
-        QuestionTypeInput.activated.connect(lambda: self.ShowLanguageInfo())
-        VLayout.addWidget(QuestionTypeInput)  # 添加控件
+            UpdateTimeInput = QLineEdit()
+            UpdateTimeInput.setText(UpdateTime)  # 设置内容
+            UpdateTimeInput.setFixedHeight(30)  # 尺寸
+            UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
+            UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
+            UpdateTimeInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
+            UpdateTimeInput.setToolTip(self.Lang.UpdateTime)  # 设置鼠标提示
+            UpdateTimeInput.setEnabled(False)  # 禁止输入
+            VLayout.addWidget(UpdateTimeInput)  # 添加控件
 
-        UpdateTimeInput = QLineEdit()
-        UpdateTimeInput.setText(UpdateTime)  # 设置内容
-        UpdateTimeInput.setFixedHeight(30)  # 尺寸
-        UpdateTimeInput.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)  # 内容居中
-        UpdateTimeInput.setPlaceholderText(self.Lang.UpdateTime)  # 设置空内容提示
-        UpdateTimeInput.setStyleSheet(self.PaperStyleSheet.InputBox())  # 设置样式
-        UpdateTimeInput.setToolTip(self.Lang.UpdateTime)  # 设置鼠标提示
-        UpdateTimeInput.setEnabled(False)  # 禁止输入
-        VLayout.addWidget(UpdateTimeInput)  # 添加控件
-
-        UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
-        UpdateButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
-        UpdateButton.setFixedHeight(30)  # 尺寸
-        UpdateButton.clicked.connect(lambda: self.UpdatePaperRuleAction(ID, QuestionTypeInput.currentIndex(), QuestionNumInput.text(), SingleScoreInput.text(), SerialNumberInput.text()))  # 连接槽函数
-        VLayout.addWidget(UpdateButton)
+            UpdateButton = QPushButton(self.Lang.Confirm)  # 按钮
+            UpdateButton.setStyleSheet(self.PaperStyleSheet.Button())  # 设置样式
+            UpdateButton.setFixedHeight(30)  # 尺寸
+            UpdateButton.clicked.connect(lambda: self.UpdatePaperRuleAction(ID, QuestionTypeInput.currentIndex(), QuestionNumInput.text(), SingleScoreInput.text(), SerialNumberInput.text()))  # 连接槽函数
+            VLayout.addWidget(UpdateButton)
 
         self.DetailsView.setLayout(VLayout)  # 添加布局
         self.DetailsView.show()
