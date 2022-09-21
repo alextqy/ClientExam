@@ -4,7 +4,7 @@ from StyleSheet.Manager.ExamInfoHistoryStyleSheet import *
 
 
 # 报名历史管理界面
-class OldExamInfoFrameTemplate(BaseTemplate, QFrame):
+class ExamInfoHistoryFrameTemplate(BaseTemplate, QFrame):
 
     def __init__(self):
         super().__init__()

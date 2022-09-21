@@ -7,7 +7,7 @@ from Template.Manager.TeacherFrameTemplate import *
 from Template.Manager.ClassFrameTemplate import *
 from Template.Manager.ExamineeFrameTemplate import *
 from Template.Manager.ExamInfoFrameTemplate import *
-from Template.Manager.OldExamInfoFrameTemplate import *
+from Template.Manager.ExamInfoHistoryFrameTemplate import *
 from Template.Manager.SubjectFrameTemplate import *
 from Template.Manager.KnowledgeFrameTemplate import *
 from Template.Manager.HeadlineFrameTemplate import *
@@ -265,7 +265,7 @@ class ManagerMainTemplate(BaseTemplate, QDialog):
         self.SubjectFrameTemplate.hide()
         self.DataLayout.addWidget(self.SubjectFrameTemplate)
 
-        self.OldExamInfoButton = OldExamInfoFrameTemplate()
+        self.OldExamInfoButton = ExamInfoHistoryFrameTemplate()
         self.OldExamInfoButton.hide()
         self.DataLayout.addWidget(self.OldExamInfoButton)
 
