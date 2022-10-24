@@ -2,11 +2,61 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="client_exam.Views.LoginPage"
+             xmlns:models="clr-namespace:client_exam.Models"
+             BackgroundColor="Black"
              Title="">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+    <ContentPage.BindingContext>
+        <models:LoginEt />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Style x:Key="LoginEntry" TargetType="Entry">
+            <Setter Property="HorizontalOptions" Value="Fill" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="WidthRequest" Value="300" />
+            <Setter Property="CharacterSpacing" Value="1" />
+            <Setter Property="FontAutoScalingEnabled" Value="True" />
+            <Setter Property="FontSize" Value="Subtitle" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout x:Name="LoginLayout"
+        Spacing="20"
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        Opacity="0"
+        >
+
+        <Entry x:Name="AccountEntry"
+               Placeholder="Account"
+               Style="{StaticResource LoginEntry}"
+               Text="{Binding Account}"
+            ></Entry>
+
+        <Entry x:Name="PasswordEntry"
+               Placeholder="Password"
+               IsPassword="True"
+               Style="{StaticResource LoginEntry}"
+               Text="{Binding Password}"
+            ></Entry>
+
+        <Button x:Name="LoginButton"
+                Text="Login"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="Grey"
+                FontSize="20"
+                Padding="4"
+                WidthRequest="260"
+                BackgroundColor="Black"
+                Clicked="Clicked"
+                Pressed="Pressed"
+                Released="Released"
+            ></Button>
+
     </VerticalStackLayout>
 </ContentPage>

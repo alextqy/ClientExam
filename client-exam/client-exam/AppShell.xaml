@@ -6,9 +6,16 @@
     xmlns:local="clr-namespace:client_exam.Views" 
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title=""
-        ContentTemplate="{DataTemplate local:LoginPage}"
-        Route="LoginPage" />
+    <TabBar>
+        <ShellContent
+            Title="Login"
+            ContentTemplate="{DataTemplate local:LoginPage}"
+            Route="LoginPage" />
+
+        <ShellContent
+            Title="About us"
+            ContentTemplate="{DataTemplate local:AboutUsPage}"
+            Route="AboutUsPage" />
+    </TabBar>
 
 </Shell>
