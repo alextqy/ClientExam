@@ -1,9 +1,12 @@
-﻿namespace client_exam;
+﻿using client_exam.Views;
+
+namespace client_exam;
 
 public partial class AppShell : Shell
 {
-	public AppShell()
-	{
-		InitializeComponent();
-	}
+    public AppShell()
+    {
+        InitializeComponent();
+        //Routing.RegisterRoute("IndexPage", typeof(IndexPage));
+    }
 }

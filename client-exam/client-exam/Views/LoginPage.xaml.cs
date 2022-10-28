@@ -1,7 +1,13 @@
 namespace client_exam.Views;
+using client_exam.Lib;
+using client_exam.Requests;
+using System.Text.Json;
 
 public partial class LoginPage : ContentPage
 {
+    public Lang _lang = new();
+    public ManagerHttp _managerHttp = new();
+
     public LoginPage()
     {
         InitializeComponent();
@@ -10,17 +16,24 @@ public partial class LoginPage : ContentPage
 
     async private void Clicked(object sender, EventArgs e)
     {
-        if (BindingContext is Models.LoginEt loginEt)
+        if (string.IsNullOrEmpty(Account.Text) || string.IsNullOrEmpty(Password.Text))
         {
-            if (string.IsNullOrEmpty(loginEt.Account) || string.IsNullOrEmpty(loginEt.Password))
+            await DisplayAlert("Error", this._lang.IncorrectInput, "Close");
+        }
+        else
+        {
+            try
             {
-                await DisplayAlert("Error", "账号或密码不正确", "OK");
+                var Result = _managerHttp.ManagerSignIn(Account.Text, Password.Text);
+                await DisplayAlert("Error", Result, "Close");
             }
-            else
+            catch (Exception)
             {
-                await LoginLayout.FadeTo(0, 1200);
-                //await Navigation.PushAsync(new MainContent());
+                await DisplayAlert("Error", this._lang.TheRequestFailed, "Close");
             }
+            //await LoginLayout.FadeTo(0, 1200);
+            //await Navigation.PushAsync(new MenuRoot());
+            //await Shell.Current.GoToAsync("IndexPage");
         }
     }
 

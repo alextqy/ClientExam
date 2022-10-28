@@ -6,10 +6,6 @@
              BackgroundColor="Black"
              Title="">
 
-    <ContentPage.BindingContext>
-        <models:LoginEt />
-    </ContentPage.BindingContext>
-
     <ContentPage.Resources>
         <Style x:Key="LoginEntry" TargetType="Entry">
             <Setter Property="HorizontalOptions" Value="Fill" />
@@ -31,17 +27,17 @@
         Opacity="0"
         >
 
-        <Entry x:Name="AccountEntry"
+        <Entry x:Name="Account"
                Placeholder="Account"
                Style="{StaticResource LoginEntry}"
-               Text="{Binding Account}"
+               Text=""
             ></Entry>
 
-        <Entry x:Name="PasswordEntry"
+        <Entry x:Name="Password"
                Placeholder="Password"
                IsPassword="True"
                Style="{StaticResource LoginEntry}"
-               Text="{Binding Password}"
+               Text=""
             ></Entry>
 
         <Button x:Name="LoginButton"
