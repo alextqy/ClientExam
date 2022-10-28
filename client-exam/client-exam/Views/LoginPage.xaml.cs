@@ -1,7 +1,6 @@
 namespace client_exam.Views;
 using client_exam.Lib;
 using client_exam.Requests;
-using System.Text.Json;
 
 public partial class LoginPage : ContentPage
 {
