@@ -18,6 +18,11 @@
             <Setter Property="FontSize" Value="Subtitle" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
         </Style>
+
+        <Style x:Key="LoginEntryBorder" TargetType="Border">
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
     </ContentPage.Resources>
 
     <VerticalStackLayout x:Name="LoginLayout"
@@ -27,32 +32,38 @@
         Opacity="0"
         >
 
-        <Entry x:Name="Account"
-               Placeholder="Account"
-               Style="{StaticResource LoginEntry}"
-               Text=""
-            ></Entry>
+        <Border Style="{StaticResource LoginEntryBorder}">
+            <Entry Style="{StaticResource LoginEntry}"
+                   x:Name="Account"
+                   Placeholder="Account"
+                   Text=""
+            />
+        </Border>
 
-        <Entry x:Name="Password"
-               Placeholder="Password"
-               IsPassword="True"
-               Style="{StaticResource LoginEntry}"
-               Text=""
-            ></Entry>
+        <Border Style="{StaticResource LoginEntryBorder}">
+            <Entry Style="{StaticResource LoginEntry}"
+                    x:Name="Password"
+                    Placeholder="Password"
+                    IsPassword="True"
+                    Text=""
+            />
+        </Border>
 
-        <Button x:Name="LoginButton"
-                Text="Login"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                TextColor="Grey"
-                FontSize="20"
-                Padding="4"
-                WidthRequest="260"
-                BackgroundColor="Black"
-                Clicked="Clicked"
-                Pressed="Pressed"
-                Released="Released"
-            ></Button>
+        <Button
+            x:Name="LoginButton"
+            BorderWidth="3"
+            Text="Login"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            TextColor="Grey"
+            FontSize="20"
+            Padding="4"
+            WidthRequest="260"
+            BackgroundColor="Black"
+            Clicked="Clicked"
+            Pressed="Pressed"
+            Released="Released"
+        />
 
     </VerticalStackLayout>
 </ContentPage>

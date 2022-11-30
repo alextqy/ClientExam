@@ -1,11 +1,16 @@
 namespace client_exam.Views;
+
 using client_exam.Lib;
+using client_exam.Models;
 using client_exam.Requests;
+using System.Diagnostics;
+using System.Text.Json;
 
 public partial class LoginPage : ContentPage
 {
     public Lang _lang = new();
     public ManagerHttp _managerHttp = new();
+    public Tools _tools = new();
 
     public LoginPage()
     {
@@ -24,7 +29,11 @@ public partial class LoginPage : ContentPage
             try
             {
                 var Result = _managerHttp.ManagerSignIn(Account.Text, Password.Text);
-                await DisplayAlert("Error", Result, "Close");
+                var RequestInfo = JsonSerializer.Deserialize<LoginModel>(Result);
+                string CacheDir = FileSystem.Current.CacheDirectory + "/";
+                string TokenFile = CacheDir + "Token" + DateTime.Today.ToString().Split(" ")[0].Replace("/", "").Replace("\\", "");
+
+                await DisplayAlert("Succeed", CacheDir, "Close");
             }
             catch (Exception)
             {

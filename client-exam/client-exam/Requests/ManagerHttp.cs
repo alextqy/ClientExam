@@ -1,4 +1,5 @@
 ﻿using client_exam.Lib;
+using System.Xml.Linq;
 
 namespace client_exam.Requests
 {
@@ -15,7 +16,10 @@ namespace client_exam.Requests
             return this.Get("/Test", Data);
         }
 
-        public string ManagerSignIn(string Account, string Password)
+        public string ManagerSignIn(
+            string Account,
+            string Password
+        )
         {
             MultipartFormDataContent FormDataContent = new()
             {
@@ -25,5 +29,43 @@ namespace client_exam.Requests
             return this.Post("/Manager/Sign/In", FormDataContent);
         }
 
+        public string ManagerSignOut(string Token)
+        {
+            MultipartFormDataContent FormDataContent = new()
+            {
+                { new StringContent(Token), "Token" }
+            };
+            return this.Post("/Manager/Sign/Out", FormDataContent);
+        }
+
+        public string NewManager(
+            string Token,
+            string Account,
+            string Password,
+            string Name
+        )
+        {
+            MultipartFormDataContent FormDataContent = new()
+            {
+                { new StringContent(Token), "Token" },
+                { new StringContent(Account), "Account" },
+                { new StringContent(Password), "Password" },
+                { new StringContent(Name), "Name" }
+            };
+            return this.Post("/New/Manager", FormDataContent);
+        }
+
+        public string ManagerDisabled(
+            string Token,
+            string ID
+        )
+        {
+            MultipartFormDataContent FormDataContent = new()
+            {
+                { new StringContent(Token), "Token" },
+                { new StringContent(ID), "ID" }
+            };
+            return this.Post("/Manager/Disabled", FormDataContent);
+        }
     }
 }
