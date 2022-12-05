@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="client_exam.Views.MainPage"
+             Title="">
+    <VerticalStackLayout x:Name="MainLayout"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        Opacity="0"
+        >
+        <Button
+            x:Name="Manager"
+            BorderWidth="3"
+            Text="Manager"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            TextColor="Grey"
+            FontSize="20"
+            Padding="4"
+            Margin="4"
+            WidthRequest="260"
+            BackgroundColor="Black"
+            Clicked="ManagerClicked"
+            Pressed="ManagerPressed"
+            Released="ManagerReleased"
+            />
+        <Button
+            x:Name="Teacher"
+            BorderWidth="3"
+            Text="Teacher"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            TextColor="Grey"
+            FontSize="20"
+            Padding="4"
+            Margin="4"
+            WidthRequest="260"
+            BackgroundColor="Black"
+            Clicked="TeacherClicked"
+            Pressed="TeacherPressed"
+            Released="TeacherReleased"
+            />
+    </VerticalStackLayout>
+</ContentPage>

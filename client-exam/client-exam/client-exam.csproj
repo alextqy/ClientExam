@@ -49,7 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Temp\" />
+	  <AndroidResource Remove="Temp\**" />
+	  <Compile Remove="Temp\**" />
+	  <EmbeddedResource Remove="Temp\**" />
+	  <MauiCss Remove="Temp\**" />
+	  <MauiXaml Remove="Temp\**" />
+	  <None Remove="Temp\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -68,6 +73,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\LoginPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ManagerPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
