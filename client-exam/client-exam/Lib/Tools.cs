@@ -1416,6 +1416,23 @@ namespace client_exam.Lib
                 return false;
             }
         }
+
+        public bool SetToken(string Token, string TokenFileName = "Token")
+        {
+            string CacheDir = FileSystem.Current.CacheDirectory + "/";
+            if (!Mkdir(CacheDir)) return false;
+            string TokenFile = CacheDir + TokenFileName + DateTime.Today.ToString().Split(" ")[0].Replace("/", "").Replace("\\", "");
+            if (File.Exists(TokenFile) && !DelFile(TokenFile)) return false;
+            if (!CreateFile(TokenFile)) return false;
+            try { WriteFile(TokenFile, Token); }
+            catch (Exception) { return false; }
+            return true;
+        }
+
+        public string GetToken(string TokenFileName = "Token")
+        {
+            return ReadFile(FileSystem.Current.CacheDirectory + "/" + TokenFileName + DateTime.Today.ToString().Split(" ")[0].Replace("/", "").Replace("\\", ""));
+        }
     }
 
     /// <summary>

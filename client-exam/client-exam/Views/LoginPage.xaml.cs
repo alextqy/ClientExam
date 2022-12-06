@@ -22,33 +22,19 @@ public partial class LoginPage : ContentPage
         {
             try
             {
-                var Result = _managerHttp.ManagerSignIn(Account.Text, Password.Text);
+                var Result = this._managerHttp.ManagerSignIn(Account.Text, Password.Text);
                 var RequestInfo = JsonSerializer.Deserialize<LoginModel>(Result);
-                if (RequestInfo.State == false) { await DisplayAlert(this._lang.Error, RequestInfo.Memo, this._lang.Close); return; }
-                string CacheDir = FileSystem.Current.CacheDirectory + "/";
-                if (this._tools.Mkdir(CacheDir))
+                if (RequestInfo.State == true && this._tools.SetToken(RequestInfo.Data))
                 {
-                    string TokenFile = CacheDir + "Token" + DateTime.Today.ToString().Split(" ")[0].Replace("/", "").Replace("\\", "");
-                    if (File.Exists(TokenFile) && !this._tools.DelFile(TokenFile)) { await DisplayAlert(this._lang.Error, this._lang.LoginTokenGenerationFailed, this._lang.Close); return; }
-
-                    if (this._tools.CreateFile(TokenFile))
-                    {
-                        try
-                        {
-                            this._tools.WriteFile(TokenFile, RequestInfo.Data);
-                            Debug.WriteLine(TokenFile);
-                            //await LoginLayout.FadeTo(0, 1000);
-                            //await Navigation.PushAsync(new MenuRoot());
-                            //await Shell.Current.GoToAsync("IndexPage");
-                        }
-                        catch (Exception)
-                        {
-                            await DisplayAlert(this._lang.Error, this._lang.LoginTokenGenerationFailed, this._lang.Close);
-                        }
-                    }
-                    else await DisplayAlert(this._lang.Error, this._lang.LoginTokenGenerationFailed, this._lang.Close);
+                    Debug.WriteLine(this._tools.GetToken());
+                    //await LoginLayout.FadeTo(0, 1000);
+                    //await Navigation.PushAsync(new MenuRoot());
+                    await Shell.Current.GoToAsync("IndexPage");
                 }
-                else await DisplayAlert(this._lang.Error, this._lang.LoginTokenGenerationFailed, this._lang.Close);
+                else
+                {
+                    await DisplayAlert(this._lang.Error, this._lang.TheRequestFailed, this._lang.Close);
+                }
             }
             catch (Exception)
             {
