@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="client_exam.Views.MainPage"
-             BackgroundColor="Black"
-             Title="">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="client_exam.Views.MainPage"
+    BackgroundColor="Black"
+    Title="">
 
     <ContentPage.Resources>
         <Style x:Key="SelectButtonStyle" TargetType="Button">
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="TextColor" Value="Grey" />
-            <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="Padding" Value="4" />
-            <Setter Property="Margin" Value="4" />
-            <Setter Property="WidthRequest" Value="260" />
-            <Setter Property="BackgroundColor" Value="Black" />
-            <Setter Property="BorderColor" Value="Gray" />
-            <Setter Property="BorderWidth" Value="2" />
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="TextColor" Value="Grey"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="WidthRequest" Value="260"/>
+            <Setter Property="BackgroundColor" Value="Black"/>
+            <Setter Property="BorderColor" Value="Gray"/>
+            <Setter Property="BorderWidth" Value="2"/>
         </Style>
     </ContentPage.Resources>
 
-    <VerticalStackLayout x:Name="MainLayout" HorizontalOptions="Center" VerticalOptions="Center">
+    <VerticalStackLayout x:Name="MainLayout"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+
         <Button x:Name="SelectButton"
             Style="{StaticResource SelectButtonStyle}"
             Clicked="SelectButtonClicked"/>
+
         <Button x:Name="GoButton"
             Style="{StaticResource SelectButtonStyle}"
             BorderWidth="0"
             Clicked="GoButtonClicked"
             Pressed="GoButtonPressed"
             Released="GoButtonReleased"/>
+
     </VerticalStackLayout>
 </ContentPage>

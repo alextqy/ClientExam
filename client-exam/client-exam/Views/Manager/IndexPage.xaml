@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="client_exam.Views.IndexPage"
-             xmlns:Common="clr-namespace:client_exam.Views.Common"
-             BackgroundColor="Black"
-             Title="">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="client_exam.Views.IndexPage"
+    xmlns:Common="clr-namespace:client_exam.Views.Common"
+    BackgroundColor="Black"
+    Title="">
+
     <FlexLayout Direction="Column">
 
         <!-- Header -->
@@ -20,15 +21,14 @@
 
             <!-- Content -->
             <Label
-                   FlexLayout.Order="1"
-                   FlexLayout.Grow="1"
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"
-                   FontSize="Large"
-                   Text="Click Menu"
-                   TextColor="White"
-                   BackgroundColor="DarkGray"
-                   />
+                FlexLayout.Order="1"
+                FlexLayout.Grow="1"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                FontSize="Large"
+                Text="Click Menu"
+                TextColor="White"
+                BackgroundColor="DarkGray"/>
 
             <!-- Aside items -->
             <!--<BoxView FlexLayout.Basis="50"
