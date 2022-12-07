@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="client_exam.Views.LoginPage"
-             xmlns:models="clr-namespace:client_exam.Models"
              BackgroundColor="Black"
+             xmlns:models="clr-namespace:client_exam.Models"
              Title="">
 
     <ContentPage.Resources>
@@ -20,8 +20,9 @@
         </Style>
 
         <Style x:Key="LoginEntryBorder" TargetType="Border">
-            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="StrokeThickness" Value="1" />
             <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
         </Style>
     </ContentPage.Resources>
 
@@ -32,7 +33,7 @@
         Opacity="0"
         >
 
-        <Border Style="{StaticResource LoginEntryBorder}">
+        <Border Style="{StaticResource LoginEntryBorder}" >
             <Entry Style="{StaticResource LoginEntry}"
                    x:Name="Account"
                    Placeholder="Account"
@@ -49,16 +50,11 @@
             />
         </Border>
 
-        <Button
-            x:Name="LoginButton"
-            BorderWidth="3"
+        <Button x:Name="LoginButton"
             Text="Login"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
+            FontSize="Subtitle"
             TextColor="Grey"
-            FontSize="20"
             Padding="4"
-            WidthRequest="260"
             BackgroundColor="Black"
             Clicked="Clicked"
             Pressed="Pressed"

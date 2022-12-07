@@ -65,8 +65,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="Views\AboutUsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		<MauiXaml Update="Views\Common\Footer.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Common\Header.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\IndexPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -74,17 +77,8 @@
 		<MauiXaml Update="Views\LoginPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\MainPage.xaml">
+		<MauiXaml Update="Views\Common\MenuPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\ManagerPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\MenuPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\MenuRoot.xaml">
-			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
 

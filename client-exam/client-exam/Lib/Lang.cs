@@ -9,6 +9,7 @@
         public string IncorrectInput { get; set; }
         public string TheRequestFailed { get; set; }
         public string LoginTokenGenerationFailed { get; set; }
+        public string Menu { get; set; }
 
         public Lang(string Type = "en")
         {
@@ -22,6 +23,7 @@
                     this.IncorrectInput = "Incorrect input";
                     this.TheRequestFailed = "The request failed";
                     this.LoginTokenGenerationFailed = "Login token generation failed";
+                    this.Menu = "Menu";
                 }
                 if (this.Type == "cn")
                 {
@@ -30,6 +32,7 @@
                     this.IncorrectInput = "输入有误";
                     this.TheRequestFailed = "请求失败";
                     this.LoginTokenGenerationFailed = "登录令牌生成失败";
+                    this.Menu = "菜单";
                 }
             }
         }

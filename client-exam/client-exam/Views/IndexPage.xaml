@@ -2,15 +2,43 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="client_exam.Views.IndexPage"
-             BackgroundColor="DarkBlue"
-             Title="IndexPage">
-    <VerticalStackLayout
-        HorizontalOptions="Center"
-        VerticalOptions="Center"
-        >
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:Common="clr-namespace:client_exam.Views.Common"
+             BackgroundColor="Black"
+             Title="">
+    <FlexLayout Direction="Column">
+
+        <!-- Header -->
+        <Common:Header/>
+
+        <!-- Body -->
+        <FlexLayout Direction="Row" FlexLayout.Grow="1">
+
+            <!-- Navigation items-->
+            <!--<BoxView FlexLayout.Basis="50"
+                     FlexLayout.Order="0"
+                     Color="Blue" />-->
+
+            <!-- Content -->
+            <Label
+                   FlexLayout.Order="1"
+                   FlexLayout.Grow="1"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   FontSize="Large"
+                   Text="Click Menu"
+                   TextColor="White"
+                   BackgroundColor="DarkGray"
+                   />
+
+            <!-- Aside items -->
+            <!--<BoxView FlexLayout.Basis="50"
+                     FlexLayout.Order="2"
+                     Color="Green" />-->
+
+        </FlexLayout>
+
+        <!-- Footer -->
+        <Common:Footer/>
+
+    </FlexLayout>
 </ContentPage>

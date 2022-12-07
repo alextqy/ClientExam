@@ -5,7 +5,6 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-        MainLayout.FadeTo(1, 1000);
     }
 
     async private void ManagerClicked(object sender, EventArgs e)
