@@ -2,9 +2,13 @@ namespace client_exam.Views;
 
 public partial class MainPage : ContentPage
 {
+    public Lang _lang = new();
+
     public MainPage()
     {
         InitializeComponent();
+        Manager.Text = this._lang.Manager;
+        Teacher.Text = this._lang.Teacher;
     }
 
     async private void ManagerClicked(object sender, EventArgs e)

@@ -4,41 +4,32 @@
              x:Class="client_exam.Views.MainPage"
              BackgroundColor="Black"
              Title="">
-    <VerticalStackLayout x:Name="MainLayout"
-        HorizontalOptions="Center"
-        VerticalOptions="Center"
-        >
+
+    <ContentPage.Resources>
+        <Style x:Key="SelectButton" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="TextColor" Value="Grey" />
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="WidthRequest" Value="260" />
+            <Setter Property="BackgroundColor" Value="Black" />
+            <Setter Property="BorderColor" Value="Gray" />
+            <Setter Property="BorderWidth" Value="2" />
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout x:Name="MainLayout" HorizontalOptions="Center" VerticalOptions="Center">
         <Button x:Name="Manager"
-            Text="Manager"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            TextColor="Grey"
-            FontSize="Medium"
-            Padding="4"
-            Margin="4"
-            WidthRequest="260"
-            BackgroundColor="Black"
+            Style="{StaticResource SelectButton}"
             Clicked="ManagerClicked"
             Pressed="ManagerPressed"
-            Released="ManagerReleased"
-            BorderColor="Gray"
-            BorderWidth="2"
-            />
+            Released="ManagerReleased"/>
         <Button x:Name="Teacher"
-            Text="Teacher"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            TextColor="Grey"
-            FontSize="Medium"
-            Padding="4"
-            Margin="4"
-            WidthRequest="260"
-            BackgroundColor="Black"
+            Style="{StaticResource SelectButton}"
             Clicked="TeacherClicked"
             Pressed="TeacherPressed"
-            Released="TeacherReleased"
-            BorderColor="Gray"
-            BorderWidth="2"
-            />
+            Released="TeacherReleased"/>
     </VerticalStackLayout>
 </ContentPage>

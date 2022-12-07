@@ -4,6 +4,8 @@
     {
         public string Type { get; set; }
 
+        public string Manager { get; set; }
+        public string Teacher { get; set; }
         public string Error { get; set; }
         public string Close { get; set; }
         public string IncorrectInput { get; set; }
@@ -18,6 +20,8 @@
             {
                 if (this.Type == "en")
                 {
+                    this.Manager = "Manager";
+                    this.Teacher = "Teacher";
                     this.Error = "Error";
                     this.Close = "Close";
                     this.IncorrectInput = "Incorrect input";
@@ -27,6 +31,8 @@
                 }
                 if (this.Type == "cn")
                 {
+                    this.Manager = "管理员";
+                    this.Teacher = "教师";
                     this.Error = "错误";
                     this.Close = "关闭";
                     this.IncorrectInput = "输入有误";
