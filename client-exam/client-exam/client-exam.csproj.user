@@ -16,10 +16,10 @@
     <MauiXaml Update="Views\Common\Header.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="Views\IndexPage.xaml">
+    <MauiXaml Update="Views\Manager\IndexPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="Views\LoginPage.xaml">
+    <MauiXaml Update="Views\Manager\LoginPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Views\Common\MenuPage.xaml">

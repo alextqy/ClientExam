@@ -6,7 +6,7 @@
              Title="">
 
     <ContentPage.Resources>
-        <Style x:Key="SelectButton" TargetType="Button">
+        <Style x:Key="SelectButtonStyle" TargetType="Button">
             <Setter Property="HorizontalOptions" Value="Center" />
             <Setter Property="VerticalOptions" Value="Center" />
             <Setter Property="TextColor" Value="Grey" />
@@ -21,15 +21,14 @@
     </ContentPage.Resources>
 
     <VerticalStackLayout x:Name="MainLayout" HorizontalOptions="Center" VerticalOptions="Center">
-        <Button x:Name="Manager"
-            Style="{StaticResource SelectButton}"
-            Clicked="ManagerClicked"
-            Pressed="ManagerPressed"
-            Released="ManagerReleased"/>
-        <Button x:Name="Teacher"
-            Style="{StaticResource SelectButton}"
-            Clicked="TeacherClicked"
-            Pressed="TeacherPressed"
-            Released="TeacherReleased"/>
+        <Button x:Name="SelectButton"
+            Style="{StaticResource SelectButtonStyle}"
+            Clicked="SelectButtonClicked"/>
+        <Button x:Name="GoButton"
+            Style="{StaticResource SelectButtonStyle}"
+            BorderWidth="0"
+            Clicked="GoButtonClicked"
+            Pressed="GoButtonPressed"
+            Released="GoButtonReleased"/>
     </VerticalStackLayout>
 </ContentPage>
