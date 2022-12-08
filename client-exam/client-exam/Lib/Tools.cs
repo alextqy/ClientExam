@@ -1433,6 +1433,23 @@ namespace client_exam.Lib
         {
             return ReadFile(FileSystem.Current.CacheDirectory + "/" + TokenFileName + DateTime.Today.ToString().Split(" ")[0].Replace("/", "").Replace("\\", ""));
         }
+
+        //public bool SetMenuItemIndex(int Index = 0)
+        //{
+        //    string CacheDir = FileSystem.Current.CacheDirectory + "/";
+        //    if (!Mkdir(CacheDir)) return false;
+        //    string MenuItemIndexFile = CacheDir + "MenuItemIndex";
+        //    if (File.Exists(MenuItemIndexFile) && !DelFile(MenuItemIndexFile)) return false;
+        //    if (!CreateFile(MenuItemIndexFile)) return false;
+        //    try { WriteFile(MenuItemIndexFile, Index.ToString()); }
+        //    catch (Exception) { return false; }
+        //    return true;
+        //}
+
+        //public int GetMenuItemIndex()
+        //{
+        //    return Convert.ToInt32(ReadFile(FileSystem.Current.CacheDirectory + "/MenuItemIndex"));
+        //}
     }
 
     /// <summary>

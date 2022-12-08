@@ -12,6 +12,20 @@
         public string TheRequestFailed { get; set; }
         public string LoginTokenGenerationFailed { get; set; }
         public string Menu { get; set; }
+        public string Class { get; set; }
+        public string Examinee { get; set; }
+        public string ExamRegistration { get; set; }
+        public string OldExamRegistration { get; set; }
+        public string ExamSubjects { get; set; }
+        public string KnowledgePoints { get; set; }
+        public string HeadTopics { get; set; }
+        public string Questions { get; set; }
+        public string Paper { get; set; }
+        public string AnswerCards { get; set; }
+        public string OldAnswerCards { get; set; }
+        public string SystemLogs { get; set; }
+        public string ExamLogs { get; set; }
+        public string Exit { get; set; }
 
         public Lang(string Type = "en")
         {
@@ -28,6 +42,20 @@
                     this.TheRequestFailed = "The request failed";
                     this.LoginTokenGenerationFailed = "Login token generation failed";
                     this.Menu = "Menu";
+                    this.Class = "Class";
+                    this.Examinee = "Examinee";
+                    this.ExamRegistration = "Exam Registration";
+                    this.OldExamRegistration = "Old Exam Registration";
+                    this.ExamSubjects = "Exam Subjects";
+                    this.KnowledgePoints = "Knowledge Points";
+                    this.HeadTopics = "Head Topics";
+                    this.Questions = "Questions";
+                    this.Paper = "Paper";
+                    this.AnswerCards = "Answer Cards";
+                    this.OldAnswerCards = "Old Answer Cards";
+                    this.SystemLogs = "System Logs";
+                    this.ExamLogs = "Exam Logs";
+                    this.Exit = "Exit";
                 }
                 if (this.Type == "cn")
                 {
@@ -39,6 +67,20 @@
                     this.TheRequestFailed = "请求失败";
                     this.LoginTokenGenerationFailed = "登录令牌生成失败";
                     this.Menu = "菜单";
+                    this.Class = "班级";
+                    this.Examinee = "考生";
+                    this.ExamRegistration = "报名";
+                    this.OldExamRegistration = "历史报名";
+                    this.ExamSubjects = "考试科目";
+                    this.KnowledgePoints = "知识点";
+                    this.HeadTopics = "头部主题";
+                    this.Questions = "试题";
+                    this.Paper = "试卷";
+                    this.AnswerCards = "答题卡";
+                    this.OldAnswerCards = "历史答题卡";
+                    this.SystemLogs = "系统日志";
+                    this.ExamLogs = "考试日志";
+                    this.Exit = "退出";
                 }
             }
         }
