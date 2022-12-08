@@ -41,7 +41,8 @@ public partial class MenuPage : Picker
             switch (SelectedItem)
             {
                 case 1:
-                    await Shell.Current.GoToAsync($"{nameof(ManagerPage)}?{nameof(ManagerPage.ItemIndex)}={1}");
+                    await Shell.Current.GoToAsync("ManagerPage");
+                    //await Shell.Current.GoToAsync($"{nameof(ManagerPage)}?{nameof(ManagerPage.ItemIndex)}={1}");
                     break;
                 case 2:
                     await Shell.Current.GoToAsync("TeacherPage");
