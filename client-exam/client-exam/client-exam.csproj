@@ -71,19 +71,31 @@
 		<MauiXaml Update="Views\Common\Header.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\Manager\ClassPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Manager\IndexPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Manager\LoginPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Common\MenuPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		<MauiXaml Update="Views\Manager\MenuRootPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Manager\MenuPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Views\Teacher\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Manager\MenuRootPage.xaml.cs">
+	    <DependentUpon>MenuRootPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="client_exam.Views.Manager.MenuPage"
+    xmlns:local="clr-namespace:client_exam.Views.Manager"
+    xmlns:models="clr-namespace:client_exam.Models"
+    BackgroundColor="Gray"
+    Title="Menu">
+
+    <ContentPage.BindingContext>
+        <models:FlyoutPageItem/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <CollectionView x:Name="MenuView"
+            x:FieldModifier="public"
+            SelectionMode="Single">
+            <!--ItemsSource="{Binding FlyoutPageItems}"-->
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type models:FlyoutPageItem}">
+                    <models:FlyoutPageItem IconSource="" Title="Manager" TargetType="{x:Type local:ManagerPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Teacher" TargetType="{x:Type local:TeacherPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Class" TargetType="{x:Type local:ClassPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Examinee" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Exam Registration" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Old Exam Registration" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Exam Subjects" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Knowledge Points" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Head Topics" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Questions" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Paper" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="AnswerCards" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="OldAnswerCards" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="SystemLogs" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="ExamLogs" TargetType="{x:Type local:IndexPage}"/>
+                    <models:FlyoutPageItem IconSource="" Title="Exit" TargetType="{x:Type local:IndexPage}"/>
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!--<Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.RowSpan="2" Source="{Binding IconSource}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60"/>
+                        <Label Grid.Column="1" Text="{Binding Title}" FontAttributes="Bold"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="" FontAttributes="Italic" VerticalOptions="End"/>
+                    </Grid>-->
+                    <Grid Padding="5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding IconSource}"/>
+                        <Label Grid.Column="1" Margin="0,0" Text="{Binding Title}" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ScrollView>
+
+</ContentPage>

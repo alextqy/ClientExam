@@ -5,6 +5,19 @@
     xmlns:views="clr-namespace:client_exam.Views.Common"
     HorizontalOptions="Fill"
     VerticalOptions="Fill"
-    BackgroundColor="Gray">
-    <views:MenuPage/>
+    BackgroundColor="Gray"
+    HeightRequest="0">
+
+    <!--<Picker x:Name="TopMenu"
+        BackgroundColor="Gray"
+        FontSize="Small"
+        HorizontalTextAlignment="Center"
+        VerticalTextAlignment="Center"
+        Opacity="0"
+        Title=""
+        TextColor="White"
+        WidthRequest="350"
+        SelectedIndexChanged="OnPickerSelectedIndexChanged">
+    </Picker>-->
+
 </HorizontalStackLayout>

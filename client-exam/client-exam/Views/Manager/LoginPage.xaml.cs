@@ -29,7 +29,7 @@ public partial class LoginPage : ContentPage
                     Debug.WriteLine(this._tools.GetToken());
                     //await LoginLayout.FadeTo(0, 1000);
                     //await Navigation.PushAsync(new MenuRoot());
-                    await Shell.Current.GoToAsync("IndexPage");
+                    await Shell.Current.GoToAsync("MenuRootPage");
                 }
                 else
                 {

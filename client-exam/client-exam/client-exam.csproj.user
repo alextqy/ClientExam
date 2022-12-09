@@ -22,13 +22,19 @@
     <MauiXaml Update="Views\Common\Header.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Views\Manager\ClassPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Views\Manager\IndexPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Views\Manager\LoginPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="Views\Common\MenuPage.xaml">
+    <MauiXaml Update="Views\Manager\MenuRootPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Views\Manager\MenuPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>

@@ -1,9 +1,9 @@
-namespace client_exam.Views;
+namespace client_exam.Views.Manager;
 
 public partial class IndexPage : ContentPage
 {
-	public IndexPage()
-	{
-		InitializeComponent();
-	}
+    public IndexPage()
+    {
+        InitializeComponent();
+    }
 }
