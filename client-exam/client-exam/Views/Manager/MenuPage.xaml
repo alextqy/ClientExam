@@ -12,9 +12,21 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
-        <CollectionView x:Name="MenuView"
-            x:FieldModifier="public"
-            SelectionMode="Single">
+        <CollectionView x:Name="MenuView" x:FieldModifier="public" SelectionMode="Single" EmptyView="No items to display">
+
+            <CollectionView.Header>
+                <StackLayout BackgroundColor="Black">
+                    <Label Margin="10,0,0,0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        Padding="3"
+                        FontAttributes="Italic"
+                        Text="Menu"/>
+                </StackLayout>
+            </CollectionView.Header>
+
             <!--ItemsSource="{Binding FlyoutPageItems}"-->
             <CollectionView.ItemsSource>
                 <x:Array Type="{x:Type models:FlyoutPageItem}">
@@ -57,10 +69,24 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="{Binding IconSource}"/>
-                        <Label Grid.Column="1" Margin="0,0" Text="{Binding Title}" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            Margin="0,0"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            Text="{Binding Title}"
+                            />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
+            <!--<CollectionView.Footer>
+                <StackLayout BackgroundColor="LightGray">
+                    <Label Margin="10,0,0,0" FontSize="12" FontAttributes="Bold" Text="Friends of Xamarin Monkey"/>
+                </StackLayout>
+            </CollectionView.Footer>-->
+
         </CollectionView>
     </ScrollView>
 
