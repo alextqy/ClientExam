@@ -75,8 +75,7 @@
                             FontSize="20"
                             FontAttributes="Bold"
                             VerticalOptions="Center"
-                            Text="{Binding Title}"
-                            />
+                            Text="{Binding Title}"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

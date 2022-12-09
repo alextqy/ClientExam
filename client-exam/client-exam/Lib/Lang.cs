@@ -26,6 +26,8 @@
         public string SystemLogs { get; set; }
         public string ExamLogs { get; set; }
         public string Exit { get; set; }
+        public string SystemFunctions { get; set; }
+        public string AddData { get; set; }
 
         public Lang(string Type = "en")
         {
@@ -56,6 +58,8 @@
                     this.SystemLogs = "System Logs";
                     this.ExamLogs = "Exam Logs";
                     this.Exit = "Exit";
+                    this.SystemFunctions = "System Functions";
+                    this.AddData = "Add Data";
                 }
                 if (this.Type == "cn")
                 {
@@ -81,6 +85,8 @@
                     this.SystemLogs = "系统日志";
                     this.ExamLogs = "考试日志";
                     this.Exit = "退出";
+                    this.SystemFunctions = "系统功能";
+                    this.AddData = "添加数据";
                 }
             }
         }

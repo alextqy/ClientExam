@@ -20,15 +20,36 @@
                      Color="Blue" />-->
 
             <!-- Content -->
-            <Label
-                FlexLayout.Order="1"
-                FlexLayout.Grow="1"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
-                FontSize="Large"
-                Text="Manager"
-                TextColor="White"
-                BackgroundColor="DarkGray"/>
+            <AbsoluteLayout>
+                <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                    <Label Text="Manager"
+                        FlexLayout.Order="1"
+                        FlexLayout.Grow="1"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        FontSize="Large"
+                        TextColor="White"
+                        BackgroundColor="DarkGray">
+                    </Label>
+                </ScrollView>
+
+                <!--WidthRequest="56"
+                HeightRequest="56"
+                CornerRadius="28"-->
+                <Button x:Name="FloatingButton"
+                    Margin="45"
+                    Padding="10"
+                    Text="Function Buttons"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="1,1"
+                    BackgroundColor="YellowGreen">
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="AddDataItem" Clicked="AddDataItemClicked"/>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+                </Button>
+            </AbsoluteLayout>
 
             <!-- Aside items -->
             <!--<BoxView FlexLayout.Basis="50"
