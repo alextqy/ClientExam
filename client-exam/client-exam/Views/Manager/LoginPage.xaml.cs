@@ -3,8 +3,8 @@ namespace client_exam.Views;
 public partial class LoginPage : ContentPage
 {
     public Lang _lang = new();
-    public ManagerHttp _managerHttp = new();
     public Tools _tools = new();
+    public ManagerHttp _managerHttp = new();
 
     public LoginPage()
     {
@@ -23,8 +23,7 @@ public partial class LoginPage : ContentPage
             try
             {
                 var Result = this._managerHttp.ManagerSignIn(Account.Text, Password.Text);
-                var RequestInfo = JsonSerializer.Deserialize<LoginModel>(Result);
-                if (RequestInfo.State == true && this._tools.SetToken(RequestInfo.Data))
+                if (Result.State == true && this._tools.SetToken(Result.Data))
                 {
                     Debug.WriteLine(this._tools.GetToken());
                     //await LoginLayout.FadeTo(0, 1000);

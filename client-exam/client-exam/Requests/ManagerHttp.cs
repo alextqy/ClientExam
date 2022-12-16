@@ -16,7 +16,7 @@ namespace client_exam.Requests
             return this.Get("/Test", Data);
         }
 
-        public string ManagerSignIn(
+        public Result ManagerSignIn(
             string Account,
             string Password
         )
@@ -26,19 +26,19 @@ namespace client_exam.Requests
                 { new StringContent(Account), "Account" },
                 { new StringContent(Password), "Password" }
             };
-            return this.Post("/Manager/Sign/In", FormDataContent);
+            return JsonSerializer.Deserialize<Result>(this.Post("/Manager/Sign/In", FormDataContent));
         }
 
-        public string ManagerSignOut(string Token)
+        public Result ManagerSignOut(string Token)
         {
             MultipartFormDataContent FormDataContent = new()
             {
                 { new StringContent(Token), "Token" }
             };
-            return this.Post("/Manager/Sign/Out", FormDataContent);
+            return JsonSerializer.Deserialize<Result>(this.Post("/Manager/Sign/Out", FormDataContent));
         }
 
-        public string NewManager(
+        public Result NewManager(
             string Token,
             string Account,
             string Password,
@@ -52,10 +52,10 @@ namespace client_exam.Requests
                 { new StringContent(Password), "Password" },
                 { new StringContent(Name), "Name" }
             };
-            return this.Post("/New/Manager", FormDataContent);
+            return JsonSerializer.Deserialize<Result>(this.Post("/New/Manager", FormDataContent));
         }
 
-        public string ManagerDisabled(
+        public Result ManagerDisabled(
             string Token,
             string ID
         )
@@ -65,7 +65,7 @@ namespace client_exam.Requests
                 { new StringContent(Token), "Token" },
                 { new StringContent(ID), "ID" }
             };
-            return this.Post("/Manager/Disabled", FormDataContent);
+            return JsonSerializer.Deserialize<Result>(this.Post("/Manager/Disabled", FormDataContent));
         }
     }
 }

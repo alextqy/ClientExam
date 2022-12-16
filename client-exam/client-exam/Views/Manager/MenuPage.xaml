@@ -16,7 +16,7 @@
 
             <CollectionView.Header>
                 <StackLayout BackgroundColor="Black">
-                    <Label Margin="10,0,0,0"
+                    <Label Margin="1"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         HorizontalTextAlignment="Center"
@@ -24,6 +24,14 @@
                         Padding="3"
                         FontAttributes="Italic"
                         Text="Menu"/>
+                    <Button x:Name="PersonalSettings"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        Margin="3"
+                        Padding="3"
+                        BackgroundColor="Gray"
+                        TextColor="Black"
+                        Text="Personal Settings"/>
                 </StackLayout>
             </CollectionView.Header>
 
@@ -45,7 +53,6 @@
                     <models:FlyoutPageItem IconSource="" Title="OldAnswerCards" TargetType="{x:Type local:IndexPage}"/>
                     <models:FlyoutPageItem IconSource="" Title="SystemLogs" TargetType="{x:Type local:IndexPage}"/>
                     <models:FlyoutPageItem IconSource="" Title="ExamLogs" TargetType="{x:Type local:IndexPage}"/>
-                    <models:FlyoutPageItem IconSource="" Title="Exit" TargetType="{x:Type local:IndexPage}"/>
                 </x:Array>
             </CollectionView.ItemsSource>
             <CollectionView.ItemTemplate>
@@ -80,11 +87,20 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
-            <!--<CollectionView.Footer>
-                <StackLayout BackgroundColor="LightGray">
-                    <Label Margin="10,0,0,0" FontSize="12" FontAttributes="Bold" Text="Friends of Xamarin Monkey"/>
+            <CollectionView.Footer>
+                <StackLayout BackgroundColor="Black">
+                    <Button Margin="1"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        Padding="3"
+                        FontAttributes="Italic"
+                        BackgroundColor="Black"
+                        TextColor="White"
+                        FontSize="20"
+                        Text="Exit"
+                        Clicked="AccountLogout"/>
                 </StackLayout>
-            </CollectionView.Footer>-->
+            </CollectionView.Footer>
 
         </CollectionView>
     </ScrollView>
