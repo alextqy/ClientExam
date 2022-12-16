@@ -10,8 +10,7 @@ public partial class MenuRootPage : FlyoutPage
 
     void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        FlyoutPageItem item = e.CurrentSelection.FirstOrDefault() as FlyoutPageItem;
-        if (item != null)
+        if (e.CurrentSelection.FirstOrDefault() is FlyoutPageItem item)
         {
             Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
             IsPresented = true;

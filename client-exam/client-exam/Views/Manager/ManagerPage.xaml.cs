@@ -9,11 +9,11 @@ public partial class ManagerPage : ContentPage
     public ManagerPage()
     {
         InitializeComponent();
-        //AddDataItem.Text = this._lang.AddData;
+        FloatingButton.Text = this._lang.AddData;
     }
 
-    private void AddDataItemClicked(object sender, EventArgs e)
+    async private void AddDataItemClicked(object sender, EventArgs e)
     {
-
+        await Navigation.PushAsync(new ManagerDetails());
     }
 }

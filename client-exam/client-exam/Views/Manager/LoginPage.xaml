@@ -36,6 +36,7 @@
             <Entry Style="{StaticResource LoginEntry}"
                    x:Name="Account"
                    Placeholder="Account"
+                   ClearButtonVisibility="WhileEditing"
                    Text=""/>
         </Border>
 
@@ -44,6 +45,7 @@
                 x:Name="Password"
                 Placeholder="Password"
                 IsPassword="True"
+                ClearButtonVisibility="WhileEditing"
                 Text=""/>
         </Border>
 

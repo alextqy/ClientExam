@@ -80,6 +80,9 @@
 		<MauiXaml Update="Views\Manager\LoginPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\Manager\ManagerDetails.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\Manager\MenuRootPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

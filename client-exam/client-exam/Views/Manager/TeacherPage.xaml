@@ -2,14 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="client_exam.Views.Manager.TeacherPage"
-    xmlns:Common="clr-namespace:client_exam.Views.Common"
+    xmlns:common="clr-namespace:client_exam.Views.Common"
     BackgroundColor="Black"
     Title="">
 
     <FlexLayout Direction="Column">
 
         <!-- Header -->
-        <Common:Header/>
+        <common:Header/>
 
         <!-- Body -->
         <FlexLayout Direction="Row" FlexLayout.Grow="1">
@@ -38,7 +38,7 @@
         </FlexLayout>
 
         <!-- Footer -->
-        <Common:Footer/>
+        <common:Footer/>
 
     </FlexLayout>
 

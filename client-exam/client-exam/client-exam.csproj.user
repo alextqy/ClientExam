@@ -34,6 +34,9 @@
     <MauiXaml Update="Views\Manager\LoginPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Views\Manager\ManagerDetails.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Views\Manager\MenuRootPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
