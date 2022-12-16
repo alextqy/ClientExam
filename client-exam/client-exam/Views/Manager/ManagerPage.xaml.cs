@@ -9,7 +9,7 @@ public partial class ManagerPage : ContentPage
     public ManagerPage()
     {
         InitializeComponent();
-        AddDataItem.Text = this._lang.AddData;
+        //AddDataItem.Text = this._lang.AddData;
     }
 
     private void AddDataItemClicked(object sender, EventArgs e)
