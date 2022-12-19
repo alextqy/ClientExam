@@ -14,6 +14,6 @@ public partial class ManagerPage : ContentPage
 
     async private void AddDataItemClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ManagerDetails());
+        await Navigation.PushAsync(new ManagerDetailsPage());
     }
 }

@@ -80,8 +80,8 @@
 		<MauiXaml Update="Views\Manager\LoginPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Manager\ManagerDetails.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+		<MauiXaml Update="Views\Manager\ManagerDetailsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Manager\MenuRootPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -96,6 +96,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Views\Manager\ManagerDetailsPage.xaml.cs">
+			<DependentUpon>ManagerDetailsPage.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="Views\Manager\MenuRootPage.xaml.cs">
 			<DependentUpon>MenuRootPage.xaml</DependentUpon>
 		</Compile>
