@@ -1,8 +1,8 @@
 namespace client_exam.Views.Manager;
 
-public partial class ManagerDetailsPage : ContentPage
+public partial class ManagerDetails : ContentPage
 {
-    public ManagerDetailsPage()
+    public ManagerDetails()
     {
         InitializeComponent();
     }
