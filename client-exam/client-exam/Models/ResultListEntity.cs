@@ -1,18 +1,18 @@
 ﻿namespace client_exam.Models
 {
-    public class ResultList : Base
+    public class ResultListEntity : Base
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
         public int TotalPage { get; set; }
-        public string Data { get; set; }
+        public dynamic Data { get; set; }
 
-        public ResultList()
+        public ResultListEntity()
         {
             this.Page = 0;
             this.PageSize = 0;
             this.TotalPage = 0;
-            this.Data = string.Empty;
+            this.Data = null;
         }
     }
 }

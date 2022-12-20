@@ -1,12 +1,12 @@
 ﻿namespace client_exam.Models
 {
-    public class Result : Base
+    public class ResultEntity : Base
     {
         public string Data { get; set; }
 
-        public Result()
+        public ResultEntity()
         {
-            this.Data = string.Empty;
+            this.Data = null;
         }
     }
 }

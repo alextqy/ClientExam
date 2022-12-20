@@ -30,8 +30,7 @@
                         Margin="3"
                         Padding="3"
                         BackgroundColor="Gray"
-                        TextColor="Black"
-                        Text="Personal Settings"/>
+                        TextColor="Black"/>
                 </StackLayout>
             </CollectionView.Header>
 

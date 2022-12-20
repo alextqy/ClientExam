@@ -4,6 +4,7 @@
     {
         public string Type { get; set; }
 
+        public string PersonalSettings { get; set; }
         public string Manager { get; set; }
         public string Teacher { get; set; }
         public string Error { get; set; }
@@ -36,6 +37,7 @@
             {
                 if (this.Type == "en")
                 {
+                    this.PersonalSettings = "Personal Settings";
                     this.Manager = "Manager";
                     this.Teacher = "Teacher";
                     this.Error = "Error";
@@ -63,6 +65,7 @@
                 }
                 if (this.Type == "cn")
                 {
+                    this.PersonalSettings = "个人设置";
                     this.Manager = "管理员";
                     this.Teacher = "教师";
                     this.Error = "错误";

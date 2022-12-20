@@ -22,15 +22,47 @@
             <!-- Content -->
             <AbsoluteLayout>
                 <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                    <Label Text="Manager"
-                        FlexLayout.Order="1"
-                        FlexLayout.Grow="1"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        FontSize="Large"
-                        TextColor="White"
-                        BackgroundColor="DarkGray">
-                    </Label>
+                    <CollectionView x:Name="ManagersView" SelectionMode="Multiple" EmptyView="No items to display" ItemsSource ="{Binding Managers}">
+
+                        <CollectionView.Header>
+                            <StackLayout BackgroundColor="Gray">
+                                <Label x:Name="CollectionHeader"
+                                    BackgroundColor="Gray"
+                                    Margin="1"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center"
+                                    FlexLayout.Order="1"
+                                    FlexLayout.Grow="1"
+                                    Padding="3"
+                                    FontAttributes="Bold"/>
+                            </StackLayout>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--<Image Grid.RowSpan="2" Source="{Binding IconSource}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60"/>-->
+                                    <Label Grid.Column="1" Text="{Binding Account}" FontAttributes="Bold" TextColor="DarkGray"/>
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Name}" FontAttributes="Italic" VerticalOptions="End" TextColor="Gray"/>
+                                </Grid>
+                                <!--<StackLayout>
+                                    <Label Text="{Binding Account}" FontSize="22" />
+                                    <Label Text="{Binding Name}" FontSize="14" TextColor="Silver" />
+                                </StackLayout>-->
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
                 </ScrollView>
 
                 <!--WidthRequest="56"

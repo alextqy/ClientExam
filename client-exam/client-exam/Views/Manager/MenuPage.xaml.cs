@@ -9,7 +9,7 @@ public partial class MenuPage : ContentPage
     public MenuPage()
     {
         InitializeComponent();
-        //BindingContext = new AllFlyoutPageItem();
+        PersonalSettings.Text = this._lang.PersonalSettings;
     }
 
     async private void AccountLogout(object sender, EventArgs e)

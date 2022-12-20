@@ -1,4 +1,7 @@
 ﻿using client_exam.Lib;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.VisualBasic;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace client_exam.Requests
@@ -16,7 +19,7 @@ namespace client_exam.Requests
             return this.Get("/Test", Data);
         }
 
-        public Result ManagerSignIn(
+        public ResultEntity ManagerSignIn(
             string Account,
             string Password
         )
@@ -26,19 +29,19 @@ namespace client_exam.Requests
                 { new StringContent(Account), "Account" },
                 { new StringContent(Password), "Password" }
             };
-            return JsonSerializer.Deserialize<Result>(this.Post("/Manager/Sign/In", FormDataContent));
+            return JsonSerializer.Deserialize<ResultEntity>(this.Post("/Manager/Sign/In", FormDataContent));
         }
 
-        public Result ManagerSignOut(string Token)
+        public ResultEntity ManagerSignOut(string Token)
         {
             MultipartFormDataContent FormDataContent = new()
             {
                 { new StringContent(Token), "Token" }
             };
-            return JsonSerializer.Deserialize<Result>(this.Post("/Manager/Sign/Out", FormDataContent));
+            return JsonSerializer.Deserialize<ResultEntity>(this.Post("/Manager/Sign/Out", FormDataContent));
         }
 
-        public Result NewManager(
+        public ResultEntity NewManager(
             string Token,
             string Account,
             string Password,
@@ -52,10 +55,10 @@ namespace client_exam.Requests
                 { new StringContent(Password), "Password" },
                 { new StringContent(Name), "Name" }
             };
-            return JsonSerializer.Deserialize<Result>(this.Post("/New/Manager", FormDataContent));
+            return JsonSerializer.Deserialize<ResultEntity>(this.Post("/New/Manager", FormDataContent));
         }
 
-        public Result ManagerDisabled(
+        public ResultEntity ManagerDisabled(
             string Token,
             string ID
         )
@@ -65,7 +68,73 @@ namespace client_exam.Requests
                 { new StringContent(Token), "Token" },
                 { new StringContent(ID), "ID" }
             };
-            return JsonSerializer.Deserialize<Result>(this.Post("/Manager/Disabled", FormDataContent));
+            return JsonSerializer.Deserialize<ResultEntity>(this.Post("/Manager/Disabled", FormDataContent));
+        }
+
+        public ResultEntity ManagerChangePassword(
+            string Token,
+            string NewPassword,
+            string ID
+        )
+        {
+            MultipartFormDataContent FormDataContent = new()
+            {
+                { new StringContent(Token), "Token" },
+                { new StringContent(NewPassword), "NewPassword" },
+                { new StringContent(ID), "ID" }
+            };
+            return JsonSerializer.Deserialize<ResultEntity>(this.Post("/Manager/Change/Password", FormDataContent));
+        }
+
+        public ResultEntity UpdateManagerInfo(
+            string Token,
+            string Name,
+            string ID,
+            string Permission = "0"
+        )
+        {
+            MultipartFormDataContent FormDataContent = new()
+            {
+                { new StringContent(Token), "Token" },
+                { new StringContent(Name), "Name" },
+                { new StringContent(Permission), "Permission" },
+                { new StringContent(ID), "ID" }
+            };
+            return JsonSerializer.Deserialize<ResultEntity>(this.Post("/Update/Manager/Info", FormDataContent));
+        }
+
+        public ResultListEntity ManagerList(
+            string Token,
+            string Page = "1",
+            string PageSize = "10",
+            string Stext = "",
+            string State = "0",
+            string Permission = "0"
+        )
+        {
+            MultipartFormDataContent FormDataContent = new()
+            {
+                { new StringContent(Token), "Token" },
+                { new StringContent(Page), "Page" },
+                { new StringContent(PageSize), "PageSize" },
+                { new StringContent(Stext), "Stext" },
+                { new StringContent(State), "State" },
+                { new StringContent(Permission), "Permission" },
+            };
+            return JsonSerializer.Deserialize<ResultListEntity>(this.Post("/Manager/List", FormDataContent));
+        }
+
+        public ResultEntity ManagerInfo(
+            string Token,
+            string ID
+        )
+        {
+            MultipartFormDataContent FormDataContent = new()
+            {
+                { new StringContent(Token), "Token" },
+                { new StringContent(ID), "ID" },
+            };
+            return JsonSerializer.Deserialize<ResultEntity>(this.Post("/Manager/Info", FormDataContent));
         }
     }
 }
