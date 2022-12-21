@@ -2,23 +2,30 @@
 {
     public class ManagerEntity
     {
+        public int ID { get; set; }
         public string Account { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public int State { get; set; }
         public int Permission { get; set; }
+        public int CreateTime { get; set; }
         public int UpdateTime { get; set; }
         public string Token { get; set; }
 
+        public string CreateTimeStr { get; set; }
+
         public ManagerEntity()
         {
+            this.ID = 0;
             this.Account = "";
             this.Password = "";
             this.Name = "";
             this.State = 0;
             this.Permission = 0;
+            this.CreateTime = 0;
             this.UpdateTime = 0;
             this.Token = "";
+            this.CreateTimeStr = "";
         }
     }
 
@@ -50,7 +57,10 @@
             if (Result.State == true)
             {
                 foreach (ManagerEntity manager in managers)
+                {
+                    manager.CreateTimeStr = this._tools.TimeStampToDateTime(manager.CreateTime).ToString();
                     Managers.Add(manager);
+                }
             }
         }
     }

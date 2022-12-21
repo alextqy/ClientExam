@@ -268,10 +268,9 @@ namespace client_exam.Lib
         //时间戳转DateTime
         public DateTime TimeStampToDateTime(long ActTime)
         {
-            DateTime dtStart = TimeZoneInfo.ConvertTimeFromUtc(new DateTime(1970, 1, 1, 0, 0, 0), TimeZoneInfo.Local);
-            TimeSpan toNow = new(ActTime);
-            DateTime targetDt = dtStart.Add(toNow);
-            return targetDt;
+            DateTime dtDateTime = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(ActTime).ToLocalTime();
+            return dtDateTime;
         }
 
         public long DateTimeToTimeStamp(DateTime DT)

@@ -11,6 +11,9 @@ public partial class ManagerPage : ContentPage
     {
         InitializeComponent();
         CollectionHeader.Text = this._lang.Manager;
+        TitleAccount.Text = this._lang.Account;
+        TitleName.Text = this._lang.Name;
+        TitleCreateTime.Text = this._lang.CreationTime;
         FloatingButton.Text = this._lang.AddData;
         BindingContext = new AllManagers();
     }

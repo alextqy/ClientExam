@@ -29,6 +29,9 @@
         public string Exit { get; set; }
         public string SystemFunctions { get; set; }
         public string AddData { get; set; }
+        public string Account { get; set; }
+        public string Name { get; set; }
+        public string CreationTime { get; set; }
 
         public Lang(string Type = "en")
         {
@@ -62,6 +65,9 @@
                     this.Exit = "Exit";
                     this.SystemFunctions = "System Functions";
                     this.AddData = "Add Data";
+                    this.Account = "Account";
+                    this.Name = "Name";
+                    this.CreationTime = "Creation Time";
                 }
                 if (this.Type == "cn")
                 {
@@ -90,6 +96,9 @@
                     this.Exit = "退出";
                     this.SystemFunctions = "系统功能";
                     this.AddData = "添加数据";
+                    this.Account = "账号";
+                    this.Name = "名称";
+                    this.CreationTime = "创建时间";
                 }
             }
         }

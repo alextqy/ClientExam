@@ -6,6 +6,27 @@
     BackgroundColor="Black"
     Title="">
 
+    <ContentPage.Resources>
+        <Style x:Key="DataGrid" TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="GridSelectedStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="DarkGray" />
+                                <Setter TargetName="AccountLabel" Property="Label.TextColor" Value="Black" />
+                                <Setter TargetName="NameLabel1" Property="Label.TextColor" Value="Black" />
+                                <Setter TargetName="TimeLabel1" Property="Label.TextColor" Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+    </ContentPage.Resources>
+
     <FlexLayout Direction="Column">
 
         <!-- Header -->
@@ -22,12 +43,15 @@
             <!-- Content -->
             <AbsoluteLayout>
                 <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                    <CollectionView x:Name="ManagersView" SelectionMode="Multiple" EmptyView="No items to display" ItemsSource ="{Binding Managers}">
+                    <CollectionView x:Name="ManagersView"
+                        SelectionMode="Multiple"
+                        EmptyView="No items to display"
+                        ItemsSource ="{Binding Managers}">
 
                         <CollectionView.Header>
-                            <StackLayout BackgroundColor="Gray">
+                            <StackLayout BackgroundColor="Black">
                                 <Label x:Name="CollectionHeader"
-                                    BackgroundColor="Gray"
+                                    BackgroundColor="Black"
                                     Margin="1"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center"
@@ -36,29 +60,39 @@
                                     FlexLayout.Order="1"
                                     FlexLayout.Grow="1"
                                     Padding="3"
+                                    TextColor="White"
                                     FontAttributes="Bold"/>
+                                <Grid Padding="5" Margin="0,15,20,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="TitleAccount" Grid.Row="0" Grid.Column="0" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label x:Name="TitleName" Grid.Row="0" Grid.Column="1" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label x:Name="TitleCreateTime" Grid.Row="0" Grid.Column="2" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                </Grid>
                             </StackLayout>
                         </CollectionView.Header>
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Padding="10">
+                                <Grid Style="{StaticResource DataGrid}" Padding="5" Margin="0,0,20,0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <!--<Image Grid.RowSpan="2" Source="{Binding IconSource}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60"/>-->
-                                    <Label Grid.Column="1" Text="{Binding Account}" FontAttributes="Bold" TextColor="DarkGray"/>
-                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Name}" FontAttributes="Italic" VerticalOptions="End" TextColor="Gray"/>
+                                    <Label x:Name="AccountLabel" Grid.Row="0" Grid.Column="0" Text="{Binding Account}" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                    <Label x:Name="NameLabel1" Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label x:Name="TimeLabel1" Grid.Row="0" Grid.Column="2" Text="{Binding CreateTimeStr}" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
                                 </Grid>
-                                <!--<StackLayout>
-                                    <Label Text="{Binding Account}" FontSize="22" />
-                                    <Label Text="{Binding Name}" FontSize="14" TextColor="Silver" />
-                                </StackLayout>-->
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
 
