@@ -15,11 +15,18 @@ public partial class ManagerPage : ContentPage
         TitleName.Text = this._lang.Name;
         TitleCreateTime.Text = this._lang.CreationTime;
         FloatingButton.Text = this._lang.AddData;
+        //var DetailsText = this._lang.Details;
         BindingContext = new AllManagers();
     }
 
     async private void AddDataItemClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new ManagerDetailsPage());
+    }
+
+    private void DataDetails(object sender, EventArgs e)
+    {
+        var commandParameter = ((Button)(sender)).CommandParameter;
+        Debug.WriteLine(commandParameter);
     }
 }

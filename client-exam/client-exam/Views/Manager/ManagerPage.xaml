@@ -11,13 +11,23 @@
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="GridSelectedStates">
-                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter TargetName="AccountLabel" Property="Label.TextColor" Value="White"/>
+                                <Setter TargetName="NameLabel1" Property="Label.TextColor" Value="Gray"/>
+                                <Setter TargetName="TimeLabel1" Property="Label.TextColor" Value="Gray"/>
+                                <Setter TargetName="InfoButton" Property="Button.TextColor" Value="Gray"/>
+                                <Setter TargetName="InfoButton" Property="Button.BackgroundColor" Value="Black"/>
+                            </VisualState.Setters>
+                        </VisualState>
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="DarkGray" />
-                                <Setter TargetName="AccountLabel" Property="Label.TextColor" Value="Black" />
-                                <Setter TargetName="NameLabel1" Property="Label.TextColor" Value="Black" />
-                                <Setter TargetName="TimeLabel1" Property="Label.TextColor" Value="Black" />
+                                <Setter Property="BackgroundColor" Value="DarkGray"/>
+                                <Setter TargetName="AccountLabel" Property="Label.TextColor" Value="Black"/>
+                                <Setter TargetName="NameLabel1" Property="Label.TextColor" Value="Black"/>
+                                <Setter TargetName="TimeLabel1" Property="Label.TextColor" Value="Black"/>
+                                <Setter TargetName="InfoButton" Property="Button.TextColor" Value="Black"/>
+                                <Setter TargetName="InfoButton" Property="Button.BackgroundColor" Value="DarkGray"/>
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -70,6 +80,7 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
+                                        <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <Label x:Name="TitleAccount" Grid.Row="0" Grid.Column="0" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
                                     <Label x:Name="TitleName" Grid.Row="0" Grid.Column="1" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
@@ -88,10 +99,20 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
+                                        <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <Label x:Name="AccountLabel" Grid.Row="0" Grid.Column="0" Text="{Binding Account}" VerticalOptions="Center" HorizontalOptions="Start"/>
                                     <Label x:Name="NameLabel1" Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
                                     <Label x:Name="TimeLabel1" Grid.Row="0" Grid.Column="2" Text="{Binding CreateTimeStr}" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Button x:Name="InfoButton"
+                                        Grid.Row="0"
+                                        Grid.Column="3"
+                                        Text="详情"
+                                        Padding="3"
+                                        WidthRequest="50"
+                                        BorderWidth="0"
+                                        Clicked="DataDetails"
+                                        CommandParameter="{Binding ID}"/>
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

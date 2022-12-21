@@ -32,6 +32,7 @@
         public string Account { get; set; }
         public string Name { get; set; }
         public string CreationTime { get; set; }
+        public string Details { get; set; }
 
         public Lang(string Type = "en")
         {
@@ -68,6 +69,7 @@
                     this.Account = "Account";
                     this.Name = "Name";
                     this.CreationTime = "Creation Time";
+                    this.Details = "Details";
                 }
                 if (this.Type == "cn")
                 {
@@ -99,6 +101,7 @@
                     this.Account = "账号";
                     this.Name = "名称";
                     this.CreationTime = "创建时间";
+                    this.Details = "详情";
                 }
             }
         }
