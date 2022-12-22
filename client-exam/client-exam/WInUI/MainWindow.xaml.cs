@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation and Contributors.
 // Licensed under the MIT License.
 
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -34,6 +35,18 @@ namespace WInUI
         private void myButton_Click(object sender, RoutedEventArgs e)
         {
             myButton.Content = "Clicked";
+        }
+
+        private void ChangeColorItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (rectangleFill.Color == Colors.Red)
+            {
+                rectangleFill.Color = Colors.Blue;
+            }
+            else
+            {
+                rectangleFill.Color = Colors.Red;
+            }
         }
     }
 }

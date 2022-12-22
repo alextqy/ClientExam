@@ -11,6 +11,16 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Rectangle Height="100" Width="100">
+            <Rectangle.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Text="Change color" Click="ChangeColorItem_Click" />
+                </MenuFlyout>
+            </Rectangle.ContextFlyout>
+            <Rectangle.Fill>
+                <SolidColorBrush x:Name="rectangleFill" Color="Red" />
+            </Rectangle.Fill>
+        </Rectangle>
         <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
     </StackPanel>
 </Window>
