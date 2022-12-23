@@ -33,6 +33,9 @@
         public string Name { get; set; }
         public string CreationTime { get; set; }
         public string Details { get; set; }
+        public string PreviousPage { get; set; }
+        public string NextPage { get; set; }
+        public string NumberOfItems { get; set; }
 
         public Lang(string Type = "en")
         {
@@ -70,6 +73,9 @@
                     this.Name = "Name";
                     this.CreationTime = "Creation Time";
                     this.Details = "Details";
+                    this.PreviousPage = "Previous Page";
+                    this.NextPage = "Next Page";
+                    this.NumberOfItems = "Number Of Items";
                 }
                 if (this.Type == "cn")
                 {
@@ -102,6 +108,9 @@
                     this.Name = "名称";
                     this.CreationTime = "创建时间";
                     this.Details = "详情";
+                    this.PreviousPage = "上一页";
+                    this.NextPage = "下一页";
+                    this.NumberOfItems = "条目数";
                 }
             }
         }

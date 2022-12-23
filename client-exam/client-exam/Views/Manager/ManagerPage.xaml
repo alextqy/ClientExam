@@ -101,9 +101,26 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <Label x:Name="AccountLabel" Grid.Row="0" Grid.Column="0" Text="{Binding Account}" VerticalOptions="Center" HorizontalOptions="Start"/>
-                                    <Label x:Name="NameLabel1" Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                    <Label x:Name="TimeLabel1" Grid.Row="0" Grid.Column="2" Text="{Binding CreateTimeStr}" FontAttributes="Italic" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label x:Name="AccountLabel"
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="{Binding Account}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Start"/>
+                                    <Label x:Name="NameLabel1"
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Name}"
+                                        FontAttributes="Italic"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+                                    <Label x:Name="TimeLabel1"
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Text="{Binding CreateTimeStr}"
+                                        FontAttributes="Italic"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
                                     <Button x:Name="InfoButton"
                                         Grid.Row="0"
                                         Grid.Column="3"
@@ -120,23 +137,39 @@
                     </CollectionView>
                 </ScrollView>
 
-                <!--WidthRequest="56"
-                HeightRequest="56"
-                CornerRadius="28"-->
-                <Button x:Name="FloatingButton"
+                <HorizontalStackLayout
+                    Spacing="5"
                     Margin="45"
-                    Padding="10"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
-                    AbsoluteLayout.LayoutBounds="1,1"
-                    BackgroundColor="YellowGreen"
-                    MinimumWidthRequest="100"
-                    Clicked="AddDataItemClicked">
-                    <!--<FlyoutBase.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Name="AddDataItem" Clicked="AddDataItemClicked"/>
-                        </MenuFlyout>
-                    </FlyoutBase.ContextFlyout>-->
-                </Button>
+                    AbsoluteLayout.LayoutBounds="1,1">
+
+                    <Entry x:Name="NumberOfItems" ClearButtonVisibility="WhileEditing"/>
+
+                    <Button x:Name="PreviousPage"
+                        Text="Previous Page"
+                        Padding="10"
+                        BackgroundColor="YellowGreen"
+                        WidthRequest="120"
+                        Clicked="AddDataItemClicked">
+                    </Button>
+
+                    <Button x:Name="NextPage"
+                        Text="Next Page"
+                        Padding="10"
+                        BackgroundColor="YellowGreen"
+                        WidthRequest="120"
+                        Clicked="AddDataItemClicked">
+                    </Button>
+
+                    <!--WidthRequest="56" HeightRequest="56" CornerRadius="28"-->
+                    <Button x:Name="FloatingButton"
+                        Padding="10"
+                        BackgroundColor="YellowGreen"
+                        WidthRequest="120"
+                        Clicked="AddDataItemClicked">
+                    </Button>
+
+                </HorizontalStackLayout>
             </AbsoluteLayout>
 
             <!-- Aside items -->

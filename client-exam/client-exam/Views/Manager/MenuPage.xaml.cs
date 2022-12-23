@@ -9,7 +9,7 @@ public partial class MenuPage : ContentPage
     public MenuPage()
     {
         InitializeComponent();
-        PersonalSettings.Text = this._lang.PersonalSettings;
+        //PersonalSettings.Text = this._lang.PersonalSettings;
     }
 
     async private void AccountLogout(object sender, EventArgs e)

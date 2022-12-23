@@ -24,19 +24,20 @@
                         Padding="3"
                         FontAttributes="Italic"
                         Text="Menu"/>
-                    <Button x:Name="PersonalSettings"
+                    <!--<Button x:Name="PersonalSettings"
                         HorizontalOptions="Fill"
                         VerticalOptions="Fill"
                         Margin="3"
                         Padding="3"
                         BackgroundColor="Gray"
-                        TextColor="Black"/>
+                        TextColor="Black"/>-->
                 </StackLayout>
             </CollectionView.Header>
 
             <!--ItemsSource="{Binding FlyoutPageItems}"-->
             <CollectionView.ItemsSource>
                 <x:Array Type="{x:Type models:FlyoutPageItem}">
+                    <models:FlyoutPageItem IconSource="" Title="Personal Settings" TargetType="{x:Type local:IndexPage}"/>
                     <models:FlyoutPageItem IconSource="" Title="Manager" TargetType="{x:Type local:ManagerPage}"/>
                     <models:FlyoutPageItem IconSource="" Title="Teacher" TargetType="{x:Type local:TeacherPage}"/>
                     <models:FlyoutPageItem IconSource="" Title="Class" TargetType="{x:Type local:ClassPage}"/>
