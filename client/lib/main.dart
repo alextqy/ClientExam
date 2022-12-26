@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:client/requests/manager_api.dart';
 
 void main() {
   runApp(MaterialApp(
     theme: ThemeData(primarySwatch: Colors.blueGrey),
-    home: const Scaffold(
+    home: Scaffold(
       body: Index(),
     ),
   ));
 }
 
 class Index extends StatelessWidget {
-  const Index({super.key});
+  final managerApi = ManagerApi();
+  Index({super.key});
+
+  test() {
+    managerApi.test().then((res) {
+      print(res.data);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +35,9 @@ class Index extends StatelessWidget {
           "Manager",
           style: TextStyle(fontSize: 18),
         ),
-        onPressed: () => {print("manager go")},
+        onPressed: () => {
+          test(),
+        },
       ),
     );
 
@@ -44,7 +54,7 @@ class Index extends StatelessWidget {
           "Teacher",
           style: TextStyle(fontSize: 18),
         ),
-        onPressed: () => {print("manager go")},
+        onPressed: () => {print("Teacher go")},
       ),
     );
 
