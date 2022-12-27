@@ -28,11 +28,90 @@ class ManagerApi extends ResponseHelper {
         'Account': account,
         'Password': password,
       },
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> managerSignOut() async {
+    var response = await http.post(
+      Uri.http(url, '/Manager/Sign/Out'),
+      body: {
+        'Token': token,
       },
-      encoding: Encoding.getByName("utf-8"),
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> newManager([
+    String account = '',
+    String password = '',
+    String name = '',
+  ]) async {
+    var response = await http.post(
+      Uri.http(url, '/New/Manager'),
+      body: {
+        'Token': token,
+        'Account': account,
+        'Password': password,
+        'Name': name,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> managerDisabled([
+    int id = 0,
+  ]) async {
+    var response = await http.post(
+      Uri.http(url, '/Manager/Disabled'),
+      body: {
+        'Token': token,
+        'ID': id,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> managerChangePassword([
+    String newPassword = '',
+    int id = 0,
+  ]) async {
+    var response = await http.post(
+      Uri.http(url, '/Manager/Change/Password'),
+      body: {
+        'Token': token,
+        'NewPassword': newPassword,
+        'ID': id,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> updateManagerInfo([
+    String name = '',
+    String permission = '',
+    int id = 0,
+  ]) async {
+    var response = await http.post(
+      Uri.http(url, '/Update/Manager/Info'),
+      body: {
+        'Token': token,
+        'Name': name,
+        'Permission': permission,
+        'ID': id,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
     );
     return BaseModel.fromJson(jsonDecode(response.body));
   }
