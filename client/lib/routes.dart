@@ -10,7 +10,7 @@ class RouteHelper {
       case '/':
         return MaterialPageRoute(builder: (_) => Entrance());
       case '/manager/index':
-        return MaterialPageRoute(builder: (_) => const manager.Index());
+        return MaterialPageRoute(builder: (_) => manager.Index());
       case '/teacher/index':
         return MaterialPageRoute(builder: (_) => const teacher.Index());
       default:
