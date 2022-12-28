@@ -1,7 +1,8 @@
-import 'package:client/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:client/routes.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:client/public/lang.dart';
+import 'package:client/Views/common/animation.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -27,40 +28,47 @@ class Entrance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var managerButton = Container(
-        margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      child: Tooltip(
+        message: lang.administratorLoginEntry,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               fixedSize: const Size(180, 50),
-              shadowColor: Colors.grey,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               )),
           child: Text(
-            lang.manager,
+            lang.managers,
             style: const TextStyle(fontSize: 18),
           ),
           onPressed: () => {
-            Navigator.push(context, route.generate('/manager/index')),
+            Navigator.push(
+                context, RouteSlide(route.generate('/manager/login'))),
           },
-        ));
+        ),
+      ),
+    );
 
     var teacherButton = Container(
-        margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      child: Tooltip(
+        message: lang.teacherLoginPortal,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               fixedSize: const Size(180, 50),
-              shadowColor: Colors.grey,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               )),
           child: Text(
-            lang.teacher,
+            lang.teachers,
             style: const TextStyle(fontSize: 18),
           ),
           onPressed: () => {
             showAlertDialog(context),
           },
-        ));
+        ),
+      ),
+    );
 
     return Container(
         width: double.infinity,

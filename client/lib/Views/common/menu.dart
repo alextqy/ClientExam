@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:client/public/lang.dart';
+import 'package:client/routes.dart';
+
 class Common {
+  var lang = Lang();
+  var route = RouteHelper();
+
   Drawer drawer() {
     return Drawer(
       width: 180,
@@ -9,15 +15,15 @@ class Common {
         padding: const EdgeInsets.all(0),
         children: [
           SizedBox(
-            height: 90,
+            height: 120,
             child: DrawerHeader(
               padding: EdgeInsets.zero,
               margin: EdgeInsets.zero,
               decoration: const BoxDecoration(color: Colors.black38),
               child: Column(
-                children: const [
-                  SizedBox(height: 10),
-                  SizedBox(
+                children: [
+                  const SizedBox(height: 10),
+                  const SizedBox(
                     height: 60,
                     width: 60,
                     child: CircleAvatar(
@@ -37,6 +43,17 @@ class Common {
                           ),
                         ),
                       ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    child: ElevatedButton(
+                      child: Text(
+                        lang.personalSettings,
+                      ),
+                      onPressed: () {
+                        print('fuck');
+                      },
                     ),
                   ),
                 ],
