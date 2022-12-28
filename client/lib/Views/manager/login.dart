@@ -50,7 +50,7 @@ class LoginState extends State<Login> {
                     ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return null;
+                        return lang.incorrectInput;
                       }
                       return null;
                     },
@@ -77,7 +77,7 @@ class LoginState extends State<Login> {
                     ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return null;
+                        return lang.incorrectInput;
                       }
                       return null;
                     },
@@ -93,7 +93,7 @@ class LoginState extends State<Login> {
                       onPressed: () {
                         if (_formKey.currentState?.validate() != null) {}
                       },
-                      child: const Text('Submit'),
+                      child: Text(lang.submit),
                     ),
                   ),
                 ),

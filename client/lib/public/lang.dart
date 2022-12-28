@@ -11,6 +11,7 @@ class Lang {
   String account = '';
   String password = '';
   String incorrectInput = '';
+  String submit = '';
 
   String personalSettings = '';
   String menu = '';
@@ -52,6 +53,8 @@ class Lang {
       this.login = '登录';
       this.account = '账号';
       this.password = '密码';
+      this.incorrectInput = '输入有误';
+      this.submit = '提交';
 
       this.personalSettings = '个人设置';
       this.menu = '菜单';
@@ -66,6 +69,8 @@ class Lang {
       this.login = 'Login';
       this.account = 'Account';
       this.password = 'Password';
+      this.incorrectInput = 'Incorrect Input';
+      this.submit = 'Submit';
 
       this.personalSettings = 'Personal Settings';
       this.menu = 'Menu';
