@@ -93,7 +93,7 @@ class Entrance extends StatelessWidget {
           return AlertDialog(
             content: const Text('Under development'),
             title: Text(lang.title),
-            actions: <Widget>[
+            actions: [
               // TextButton(
               //   onPressed: () {
               //     Navigator.of(context).pop();

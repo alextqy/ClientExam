@@ -13,7 +13,7 @@ class RouteHelper {
         // return MaterialPageRoute(builder: (_) => Entrance());
         return Entrance();
       case '/manager/login':
-        return manager_login.Login();
+        return const manager_login.Login();
       case '/manager/index':
         // return MaterialPageRoute(builder: (_) => manager.Index());
         return manager_index.Index();
