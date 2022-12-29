@@ -1,15 +1,23 @@
+import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
 
-class Index extends StatelessWidget {
-  final common = Common();
-  Index({super.key});
+class Index extends StatefulWidget {
+  const Index({super.key});
+
+  @override
+  State<Index> createState() => IndexState();
+}
+
+class IndexState extends State<Index> {
+  var lang = Lang();
+  var common = Common();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Text(lang.menu),
       ),
       body: Container(
         width: double.infinity,

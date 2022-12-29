@@ -12,14 +12,17 @@ class RouteHelper {
       case '/':
         // return MaterialPageRoute(builder: (_) => Entrance());
         return Entrance();
+      // ===================================================================
       case '/manager/login':
         return const manager_login.Login();
       case '/manager/index':
-        // return MaterialPageRoute(builder: (_) => manager.Index());
-        return manager_index.Index();
+        // return MaterialPageRoute(builder: (_) => manager_index.Index());
+        return const manager_index.Index();
+      // ===================================================================
       case '/teacher/index':
-        // return MaterialPageRoute(builder: (_) => const teacher.Index());
+        // return MaterialPageRoute(builder: (_) => teacher_index.Index());
         return const teacher_index.Index();
+      // ===================================================================
       default:
         // return MaterialPageRoute(
         //   builder: (_) => Scaffold(

@@ -2,8 +2,8 @@ import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/requests/manager_api.dart';
-
-import 'package:client/public/tools.dart';
+import 'package:client/Views/common/animation.dart';
+import 'package:client/routes.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -14,9 +14,9 @@ class Login extends StatefulWidget {
 
 class LoginState extends State<Login> {
   var lang = Lang();
-  var tools = Tools();
   var managerApi = ManagerApi();
   var fileHelper = FileHelper();
+  var route = RouteHelper();
   String? account = '';
   String? password = '';
   final clearAccount = TextEditingController();
@@ -120,7 +120,10 @@ class LoginState extends State<Login> {
                     value.data,
                   );
                   if (writeResult) {
-                    print(value.data);
+                    Navigator.push(
+                      context,
+                      RouteSlide(route.generate('/manager/index')),
+                    );
                   } else {
                     showAlertDialog(context, lang.loginTokenGenerationFailed);
                   }

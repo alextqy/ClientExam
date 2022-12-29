@@ -51,20 +51,18 @@ class Common {
                       child: Text(
                         lang.personalSettings,
                       ),
-                      onPressed: () {
-                        print('fuck');
-                      },
+                      onPressed: () {},
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          const ListTile(
-            leading: Icon(Icons.settings),
+          ListTile(
+            leading: const Icon(Icons.settings),
             title: Text(
-              '设置',
-              style: TextStyle(color: Colors.white),
+              lang.managers,
+              style: const TextStyle(color: Colors.white),
             ),
           )
         ],
