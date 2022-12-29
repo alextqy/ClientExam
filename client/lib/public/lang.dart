@@ -12,6 +12,7 @@ class Lang {
   String password = '';
   String incorrectInput = '';
   String submit = '';
+  String loginTokenGenerationFailed = '';
 
   String personalSettings = '';
   String menu = '';
@@ -19,7 +20,6 @@ class Lang {
   String teachers = '';
 
   // String theRequestFailed = '';
-  // String loginTokenGenerationFailed = '';
   // String classes = '';
   // String examinee = '';
   // String examRegistrations = '';
@@ -55,6 +55,7 @@ class Lang {
       this.password = '密码';
       this.incorrectInput = '输入有误';
       this.submit = '提交';
+      this.loginTokenGenerationFailed = '登录令牌生成失败';
 
       this.personalSettings = '个人设置';
       this.menu = '菜单';
@@ -71,6 +72,7 @@ class Lang {
       this.password = 'Password';
       this.incorrectInput = 'Incorrect Input';
       this.submit = 'Submit';
+      this.loginTokenGenerationFailed = 'Login Token Generation Failed';
 
       this.personalSettings = 'Personal Settings';
       this.menu = 'Menu';

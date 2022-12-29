@@ -1,6 +1,9 @@
+import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/requests/manager_api.dart';
+
+import 'package:client/public/tools.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,7 +14,9 @@ class Login extends StatefulWidget {
 
 class LoginState extends State<Login> {
   var lang = Lang();
+  var tools = Tools();
   var managerApi = ManagerApi();
+  var fileHelper = FileHelper();
   String? account = '';
   String? password = '';
   final clearAccount = TextEditingController();
@@ -25,7 +30,7 @@ class LoginState extends State<Login> {
       child: TextFormField(
         controller: clearAccount,
         style: const TextStyle(
-          fontSize: 20,
+          fontSize: 18,
           color: Colors.white,
         ),
         decoration: InputDecoration(
@@ -41,7 +46,7 @@ class LoginState extends State<Login> {
           icon: const Icon(Icons.person),
           labelText: lang.account,
           labelStyle: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             color: Colors.white,
           ),
         ),
@@ -63,7 +68,7 @@ class LoginState extends State<Login> {
         controller: clearPassword,
         obscureText: true,
         style: const TextStyle(
-          fontSize: 20,
+          fontSize: 18,
           color: Colors.white,
         ),
         decoration: InputDecoration(
@@ -79,7 +84,7 @@ class LoginState extends State<Login> {
           icon: const Icon(Icons.lock),
           labelText: lang.password,
           labelStyle: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             color: Colors.white,
           ),
         ),
@@ -108,8 +113,23 @@ class LoginState extends State<Login> {
           onPressed: () {
             if (_formKey.currentState?.validate() != null) {
               var result = managerApi.managerSignIn(account!, password!);
-              result.then((value) => print(value.data));
-              // showAlertDialog(context);
+              result.then((value) {
+                if (value.state == true) {
+                  var writeResult = fileHelper.writeFile(
+                    fileHelper.tokenFileName,
+                    value.data,
+                  );
+                  if (writeResult) {
+                    print(value.data);
+                  } else {
+                    showAlertDialog(context, lang.loginTokenGenerationFailed);
+                  }
+                } else {
+                  showAlertDialog(context, value.memo);
+                }
+              }).catchError((e) {
+                showAlertDialog(context, e.toString());
+              });
             }
           },
           child: Text(
@@ -152,13 +172,13 @@ class LoginState extends State<Login> {
     );
   }
 
-  void showAlertDialog(BuildContext context) {
+  void showAlertDialog(BuildContext context, [String memo = '']) {
     showDialog(
         context: context,
         barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Text(account! + password!),
+            content: Text(memo),
             title: Text(lang.title),
             actions: [
               TextButton(
