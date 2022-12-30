@@ -1,21 +1,22 @@
-import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
+import 'package:client/public/lang.dart';
 import 'package:client/Views/common/menu.dart';
 
-class Index extends StatefulWidget {
+class PersonalSettings extends StatefulWidget {
   final String headline;
-  const Index({super.key, this.headline = ''});
+  const PersonalSettings({super.key, this.headline = ''});
 
   @override
-  // ignore: no_logic_in_create_state
-  State<Index> createState() => IndexState(headline: headline);
+  State<PersonalSettings> createState() =>
+      // ignore: no_logic_in_create_state
+      PersonalSettingsState(headline: headline);
 }
 
-class IndexState extends State<Index> {
+class PersonalSettingsState extends State<PersonalSettings> {
   var lang = Lang();
   var common = Common();
   String headline;
-  IndexState({this.headline = ''});
+  PersonalSettingsState({this.headline = ''});
 
   @override
   Widget build(BuildContext context) {

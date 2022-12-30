@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
 
 class Index extends StatefulWidget {
-  final String arg;
-  const Index({super.key, this.arg = ''});
+  final String headline;
+  const Index({super.key, this.headline = ''});
 
   @override
   // ignore: no_logic_in_create_state
-  State<Index> createState() => IndexState(arg: arg);
+  State<Index> createState() => IndexState(headline: headline);
 }
 
 class IndexState extends State<Index> {
   var lang = Lang();
   var common = Common();
-  dynamic arg;
-  IndexState({this.arg});
+  String headline;
+  IndexState({this.headline = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class IndexState extends State<Index> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: common.drawer(headline: arg),
+      drawer: common.drawer(headline: headline),
     );
   }
 }

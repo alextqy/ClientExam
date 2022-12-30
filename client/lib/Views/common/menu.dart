@@ -6,8 +6,10 @@ import 'package:client/routes.dart';
 class Common {
   var lang = Lang();
   var route = RouteHelper();
+  String headline = '';
 
   Drawer drawer({String headline = ''}) {
+    this.headline = headline;
     return Drawer(
       width: 180,
       backgroundColor: Colors.blueGrey,
@@ -34,7 +36,7 @@ class Common {
                         child: CircleAvatar(
                           backgroundColor: Colors.blueGrey,
                           child: Text(
-                            headline.substring(0, 1),
+                            this.headline.substring(0, 1),
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -59,11 +61,12 @@ class Common {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.settings),
+            leading: const Icon(Icons.manage_accounts),
             title: Text(
               lang.managers,
               style: const TextStyle(color: Colors.white),
             ),
+            onTap: () => print(lang.managers),
           )
         ],
       ),

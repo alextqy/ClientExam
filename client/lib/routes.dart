@@ -23,7 +23,7 @@ class RouteHelper {
       case '/manager/login':
         return RouteSlide(const manager_login.Login());
       case '/manager/index':
-        return RouteSlide(manager_index.Index(arg: arg));
+        return RouteSlide(manager_index.Index(headline: arg));
       // ===================================================================
       case '/teacher/index':
         return RouteSlide(const teacher_index.Index());
