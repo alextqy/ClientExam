@@ -12,27 +12,27 @@ class Lang {
   String password = '';
   String incorrectInput = '';
   String submit = '';
+  String theRequestFailed = '';
   String loginTokenGenerationFailed = '';
   String menu = '';
   String personalSettings = '';
   String managers = '';
   String teachers = '';
+  String classes = '';
+  String examinee = '';
+  String examRegistrations = '';
+  String oldExamRegistrations = '';
+  String examSubjects = '';
+  String knowledgePoints = '';
+  String topTitle = '';
+  String questions = '';
+  String paper = '';
+  String answerCards = '';
+  String oldAnswerCards = '';
+  String examLogs = '';
+  String systemLogs = '';
+  String exit = '';
 
-  // String theRequestFailed = '';
-  // String classes = '';
-  // String examinee = '';
-  // String examRegistrations = '';
-  // String oldExamRegistrations = '';
-  // String examSubjects = '';
-  // String knowledgePoints = '';
-  // String headTopics = '';
-  // String questions = '';
-  // String papers = '';
-  // String answerCards = '';
-  // String oldAnswerCards = '';
-  // String systemLogs = '';
-  // String examLogs = '';
-  // String exit = '';
   // String systemFunctions = '';
   // String addData = '';
   // String name = '';
@@ -40,7 +40,6 @@ class Lang {
   // String details = '';
   // String previousPage = '';
   // String nextPage = '';
-  // String numberOfItems = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -54,11 +53,26 @@ class Lang {
       this.password = '密码';
       this.incorrectInput = '输入有误';
       this.submit = '提交';
+      this.theRequestFailed = '请求失败';
       this.loginTokenGenerationFailed = '登录令牌生成失败';
       this.menu = '菜单';
       this.personalSettings = '个人设置';
       this.managers = '管理员';
       this.teachers = '教师';
+      this.classes = '班级';
+      this.examinee = '考生';
+      this.examRegistrations = '报名';
+      this.oldExamRegistrations = '历史报名';
+      this.examSubjects = '科目';
+      this.knowledgePoints = '知识点';
+      this.topTitle = '顶部标题';
+      this.questions = '试题';
+      this.paper = '试卷';
+      this.answerCards = '答题卡';
+      this.oldAnswerCards = '历史答题卡';
+      this.examLogs = '考试日志';
+      this.systemLogs = '系统日志';
+      this.exit = '退出';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -70,11 +84,26 @@ class Lang {
       this.password = 'Password';
       this.incorrectInput = 'Incorrect Input';
       this.submit = 'Submit';
+      this.theRequestFailed = 'The Request Failed';
       this.loginTokenGenerationFailed = 'Login Token Generation Failed';
       this.menu = 'Menu';
       this.personalSettings = 'Personal Settings';
       this.managers = 'Manager';
       this.teachers = 'Teacher';
+      this.classes = 'Classes';
+      this.examinee = 'Examinee';
+      this.examRegistrations = 'Exam Registrations';
+      this.oldExamRegistrations = 'Old Exam Registrations';
+      this.examSubjects = 'Exam Subjects';
+      this.knowledgePoints = 'Knowledge Points';
+      this.topTitle = 'Top Title';
+      this.questions = 'Questions';
+      this.paper = 'Paper';
+      this.answerCards = 'AnswerCards';
+      this.oldAnswerCards = 'Old Answer Cards';
+      this.examLogs = 'Exam Logs';
+      this.systemLogs = 'System Logs';
+      this.exit = 'Exit';
     }
   }
 }

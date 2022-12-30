@@ -130,7 +130,7 @@ class LoginState extends State<Login> {
                   showAlertDialog(context, value.memo);
                 }
               }).catchError((e) {
-                showAlertDialog(context, e.toString());
+                showAlertDialog(context, lang.theRequestFailed);
               });
             }
           },
