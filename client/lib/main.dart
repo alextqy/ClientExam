@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:client/routes.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:client/public/lang.dart';
-import 'package:client/Views/common/animation.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -42,8 +41,7 @@ class Entrance extends StatelessWidget {
             style: const TextStyle(fontSize: 18),
           ),
           onPressed: () => {
-            Navigator.push(
-                context, RouteSlide(route.generate('/manager/login'))),
+            Navigator.push(context, route.generate('/manager/login')),
           },
         ),
       ),

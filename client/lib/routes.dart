@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Views/common/animation.dart';
 import 'package:client/main.dart';
 import 'package:client/Views/manager/login.dart' as manager_login;
 import 'package:client/Views/manager/index.dart' as manager_index;
@@ -14,14 +15,14 @@ class RouteHelper {
         return Entrance();
       // ===================================================================
       case '/manager/login':
-        return const manager_login.Login();
+        return RouteSlide(const manager_login.Login());
       case '/manager/index':
         // return MaterialPageRoute(builder: (_) => manager_index.Index());
-        return const manager_index.Index();
+        return RouteSlide(const manager_index.Index());
       // ===================================================================
       case '/teacher/index':
         // return MaterialPageRoute(builder: (_) => teacher_index.Index());
-        return const teacher_index.Index();
+        return RouteSlide(const teacher_index.Index());
       // ===================================================================
       default:
         // return MaterialPageRoute(

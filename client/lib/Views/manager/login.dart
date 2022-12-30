@@ -2,7 +2,6 @@ import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/requests/manager_api.dart';
-import 'package:client/Views/common/animation.dart';
 import 'package:client/routes.dart';
 
 class Login extends StatefulWidget {
@@ -122,7 +121,7 @@ class LoginState extends State<Login> {
                   if (writeResult) {
                     Navigator.push(
                       context,
-                      RouteSlide(route.generate('/manager/index')),
+                      route.generate('/manager/index'),
                     );
                   } else {
                     showAlertDialog(context, lang.loginTokenGenerationFailed);
