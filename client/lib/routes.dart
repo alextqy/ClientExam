@@ -6,9 +6,15 @@ import 'package:client/Views/manager/login.dart' as manager_login;
 import 'package:client/Views/manager/index.dart' as manager_index;
 import 'package:client/Views/teacher/index.dart' as teacher_index;
 
+// 注册命名路由
+// Map<String, WidgetBuilder> routerMap = {
+//   "/manager/index": (context) {
+//     return const manager_index.Index();
+//   },
+// };
+
 class RouteHelper {
-  // Route<dynamic> generate(String routeName) {
-  dynamic generate(String routeName) {
+  dynamic generate(String routeName, [dynamic arg]) {
     switch (routeName) {
       case '/':
         // return MaterialPageRoute(builder: (_) => Entrance());
@@ -17,20 +23,22 @@ class RouteHelper {
       case '/manager/login':
         return RouteSlide(const manager_login.Login());
       case '/manager/index':
-        // return MaterialPageRoute(builder: (_) => manager_index.Index());
-        return RouteSlide(const manager_index.Index());
+        return RouteSlide(manager_index.Index(arg: arg));
       // ===================================================================
       case '/teacher/index':
-        // return MaterialPageRoute(builder: (_) => teacher_index.Index());
         return RouteSlide(const teacher_index.Index());
       // ===================================================================
       default:
         // return MaterialPageRoute(
         //   builder: (_) => Scaffold(
-        //       body: Center(child: Text('No route defined for $routeName'))),
+        //     body: Center(
+        //       child: Text('No route defined for $routeName'),
+        //     ),
+        //   ),
         // );
         return Scaffold(
-            body: Center(child: Text('No route defined for $routeName')));
+          body: Center(child: Text('No route defined for $routeName')),
+        );
     }
   }
 }

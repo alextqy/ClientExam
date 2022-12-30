@@ -7,7 +7,7 @@ class Common {
   var lang = Lang();
   var route = RouteHelper();
 
-  Drawer drawer() {
+  Drawer drawer({String headline = ''}) {
     return Drawer(
       width: 180,
       backgroundColor: Colors.blueGrey,
@@ -23,7 +23,7 @@ class Common {
               child: Column(
                 children: [
                   const SizedBox(height: 10),
-                  const SizedBox(
+                  SizedBox(
                     height: 60,
                     width: 60,
                     child: CircleAvatar(
@@ -34,8 +34,8 @@ class Common {
                         child: CircleAvatar(
                           backgroundColor: Colors.blueGrey,
                           child: Text(
-                            'R',
-                            style: TextStyle(
+                            headline.substring(0, 1),
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
                               fontSize: 30,

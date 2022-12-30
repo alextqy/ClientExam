@@ -121,7 +121,7 @@ class LoginState extends State<Login> {
                   if (writeResult) {
                     Navigator.push(
                       context,
-                      route.generate('/manager/index'),
+                      route.generate('/manager/index', account),
                     );
                   } else {
                     showAlertDialog(context, lang.loginTokenGenerationFailed);
