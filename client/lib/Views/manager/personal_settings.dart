@@ -30,6 +30,10 @@ class PersonalSettingsState extends State<PersonalSettings> {
         padding: const EdgeInsets.all(0),
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          color: Colors.white30,
+        ),
       ),
       drawer: common.drawer(context, headline: args['headline']),
     );
