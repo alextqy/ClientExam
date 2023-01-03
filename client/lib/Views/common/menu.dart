@@ -9,57 +9,74 @@ class Common {
   String headline = '';
 
   Drawer drawer({String headline = ''}) {
-    this.headline = headline;
+    if (headline != '') {
+      this.headline = headline.substring(0, 1);
+    }
     return Drawer(
-      width: 200,
+      width: 235,
       backgroundColor: Colors.blueGrey,
       child: ListView(
         padding: const EdgeInsets.all(0),
         children: [
           SizedBox(
-            height: 110,
+            height: 90,
             child: DrawerHeader(
               padding: EdgeInsets.zero,
               margin: EdgeInsets.zero,
               decoration: const BoxDecoration(color: Colors.black38),
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   SizedBox(
                     height: 50,
                     width: 50,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: SizedBox(
-                        height: 43,
-                        width: 43,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.blueGrey,
-                          child: Text(
-                            this.headline.substring(0, 1),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 30,
-                            ),
+                    // child: CircleAvatar(
+                    //   backgroundColor: Colors.white,
+                    //   child: SizedBox(
+                    //     height: 43,
+                    //     width: 43,
+                    //     child: CircleAvatar(
+                    //       backgroundColor: Colors.blueGrey,
+                    //       child: Text(
+                    //         this.headline.substring(0, 1),
+                    //         style: const TextStyle(
+                    //           color: Colors.white,
+                    //           fontWeight: FontWeight.w600,
+                    //           fontSize: 30,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                          const BorderSide(width: 1, color: Colors.white),
+                        ),
+                        shape: MaterialStateProperty.all(
+                          BeveledRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    child: ElevatedButton(
                       child: Text(
-                        lang.personalSettings,
+                        this.headline,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
+                        ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        print(lang.personalSettings);
+                      },
                     ),
                   ),
                 ],
               ),
             ),
           ),
+          // const SizedBox(height: 15),
           ListTile(
             horizontalTitleGap: 25,
             leading: const Icon(size: 30, Icons.manage_accounts),
@@ -195,18 +212,31 @@ class Common {
             ),
             onTap: () => print(lang.systemLogs),
           ),
-          ListTile(
-            horizontalTitleGap: 25,
-            leading: const Icon(size: 30, Icons.exit_to_app),
-            title: Text(
-              lang.exit,
-              style: const TextStyle(color: Colors.white),
+          SizedBox(
+            height: 35,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (states) {
+                    return Colors.black38;
+                  },
+                ),
+              ),
+              child: Row(
+                children: [
+                  const Expanded(child: SizedBox()),
+                  Text(lang.exit),
+                  const SizedBox(width: 10),
+                  const Icon(size: 18, Icons.exit_to_app),
+                ],
+              ),
+              onPressed: () {
+                print(lang.exit);
+              },
             ),
-            onTap: () => print(lang.exit),
           ),
         ],
       ),
     );
-    ;
   }
 }

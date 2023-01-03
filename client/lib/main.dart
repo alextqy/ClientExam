@@ -32,10 +32,11 @@ class Entrance extends StatelessWidget {
         message: lang.administratorLoginEntry,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              fixedSize: const Size(180, 50),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              )),
+            fixedSize: const Size(180, 50),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+          ),
           child: Text(
             lang.managers,
             style: const TextStyle(fontSize: 18),
@@ -53,10 +54,11 @@ class Entrance extends StatelessWidget {
         message: lang.teacherLoginPortal,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              fixedSize: const Size(180, 50),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              )),
+            fixedSize: const Size(180, 50),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+          ),
           child: Text(
             lang.teachers,
             style: const TextStyle(fontSize: 18),

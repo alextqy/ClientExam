@@ -1,3 +1,4 @@
+import 'package:client/models/route_args.dart';
 import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
@@ -16,8 +17,8 @@ class LoginState extends State<Login> {
   var managerApi = ManagerApi();
   var fileHelper = FileHelper();
   var route = RouteHelper();
-  String? account = '';
-  String? password = '';
+  String account = '';
+  String password = '';
   final clearAccount = TextEditingController();
   final clearPassword = TextEditingController();
 
@@ -50,9 +51,10 @@ class LoginState extends State<Login> {
           ),
         ),
         validator: (String? value) {
-          account = value;
           if (value == null || value.isEmpty) {
             return lang.incorrectInput;
+          } else {
+            account = value;
           }
           return null;
         },
@@ -88,9 +90,10 @@ class LoginState extends State<Login> {
           ),
         ),
         validator: (String? value) {
-          password = value;
           if (value == null || value.isEmpty) {
             return lang.incorrectInput;
+          } else {
+            password = value;
           }
           return null;
         },
@@ -111,7 +114,7 @@ class LoginState extends State<Login> {
           ),
           onPressed: () {
             if (_formKey.currentState?.validate() != null) {
-              var result = managerApi.managerSignIn(account!, password!);
+              var result = managerApi.managerSignIn(account, password);
               result.then((value) {
                 if (value.state == true) {
                   var writeResult = fileHelper.writeFile(
@@ -119,9 +122,10 @@ class LoginState extends State<Login> {
                     value.data,
                   );
                   if (writeResult) {
+                    routeArgs['headline'] = account;
                     Navigator.push(
                       context,
-                      route.generate('/manager/index', account),
+                      route.generate('/manager/index', routeArgs),
                     );
                   } else {
                     showAlertDialog(context, lang.loginTokenGenerationFailed);

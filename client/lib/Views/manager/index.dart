@@ -1,21 +1,21 @@
 import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
+import '../../models/route_args.dart';
 
 class Index extends StatefulWidget {
-  final String headline;
-  const Index({super.key, this.headline = ''});
+  const Index({super.key, routeArgs});
 
   @override
   // ignore: no_logic_in_create_state
-  State<Index> createState() => IndexState(headline: headline);
+  State<Index> createState() => IndexState(args: routeArgs);
 }
 
 class IndexState extends State<Index> {
   var lang = Lang();
   var common = Common();
-  String headline;
-  IndexState({this.headline = ''});
+  final args = routeArgs;
+  IndexState({args});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class IndexState extends State<Index> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: common.drawer(headline: headline),
+      drawer: common.drawer(headline: args['headline']),
     );
   }
 }

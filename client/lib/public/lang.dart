@@ -99,7 +99,7 @@ class Lang {
       this.topTitle = 'Top Title';
       this.questions = 'Questions';
       this.paper = 'Paper';
-      this.answerCards = 'AnswerCards';
+      this.answerCards = 'Answer Cards';
       this.oldAnswerCards = 'Old Answer Cards';
       this.examLogs = 'Exam Logs';
       this.systemLogs = 'System Logs';
