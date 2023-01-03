@@ -30,7 +30,7 @@ class IndexState extends State<Index> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: common.drawer(headline: args['headline']),
+      drawer: common.drawer(context, headline: args['headline']),
     );
   }
 }

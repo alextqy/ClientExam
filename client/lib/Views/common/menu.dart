@@ -1,3 +1,4 @@
+import 'package:client/models/route_args.dart';
 import 'package:flutter/material.dart';
 
 import 'package:client/public/lang.dart';
@@ -97,7 +98,7 @@ class Common {
     );
   }
 
-  Drawer drawer({String headline = ''}) {
+  Drawer drawer(BuildContext context, {String headline = ''}) {
     if (headline != '') {
       this.headline = headline.substring(0, 1).toUpperCase();
     }
@@ -118,7 +119,11 @@ class Common {
                     lang.managers,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.managers),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      route.generate('/manager/manager'),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,

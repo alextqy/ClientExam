@@ -31,7 +31,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: common.drawer(headline: headline),
+      drawer: common.drawer(context, headline: headline),
     );
   }
 }

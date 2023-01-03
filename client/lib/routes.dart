@@ -4,6 +4,8 @@ import 'Views/common/animation.dart';
 import 'package:client/main.dart';
 import 'package:client/Views/manager/login.dart' as manager_login;
 import 'package:client/Views/manager/index.dart' as manager_index;
+import 'package:client/Views/manager/manager.dart' as manager_manager;
+
 import 'package:client/Views/teacher/index.dart' as teacher_index;
 
 // 注册命名路由
@@ -24,6 +26,8 @@ class RouteHelper {
         return RouteSlide(const manager_login.Login());
       case '/manager/index':
         return RouteSlide(manager_index.Index(routeArgs: routeArgs));
+      case '/manager/manager':
+        return RouteSlide(manager_manager.Manager(routeArgs: routeArgs));
       // ===================================================================
       case '/teacher/index':
         return RouteSlide(const teacher_index.Index());
