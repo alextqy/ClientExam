@@ -123,8 +123,7 @@ class LoginState extends State<Login> {
                   );
                   if (writeResult) {
                     routeArgs['headline'] = account;
-                    Navigator.push(
-                      context,
+                    Navigator.of(context).push(
                       route.generate('/manager/index', routeArgs),
                     );
                   } else {

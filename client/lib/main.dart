@@ -42,7 +42,7 @@ class Entrance extends StatelessWidget {
             style: const TextStyle(fontSize: 18),
           ),
           onPressed: () => {
-            Navigator.push(context, route.generate('/manager/login')),
+            Navigator.of(context).push(route.generate('/manager/login')),
           },
         ),
       ),
