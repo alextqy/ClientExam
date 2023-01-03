@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:client/models/route_args.dart';
 import 'Views/common/animation.dart';
 import 'package:client/main.dart';
 import 'package:client/Views/manager/login.dart' as manager_login;
@@ -15,7 +14,7 @@ import 'package:client/Views/teacher/index.dart' as teacher_index;
 // };
 
 class RouteHelper {
-  dynamic generate(String routeName, [routeArgs]) {
+  dynamic generate(String routeName, [dynamic routeArgs]) {
     switch (routeName) {
       case '/':
         // return MaterialPageRoute(builder: (_) => Entrance());
