@@ -4,6 +4,8 @@ import 'Views/common/animation.dart';
 import 'package:client/main.dart';
 import 'package:client/Views/manager/login.dart' as manager_login;
 import 'package:client/Views/manager/index.dart' as manager_index;
+import 'package:client/Views/manager/personal_settings.dart'
+    as manager_personal_settings;
 import 'package:client/Views/manager/manager.dart' as manager_manager;
 
 import 'package:client/Views/teacher/index.dart' as teacher_index;
@@ -26,6 +28,9 @@ class RouteHelper {
         return RouteSlide(const manager_login.Login());
       case '/manager/index':
         return RouteSlide(manager_index.Index(routeArgs: routeArgs));
+      case '/manager/personal/settings':
+        return RouteSlide(
+            manager_personal_settings.PersonalSettings(routeArgs: routeArgs));
       case '/manager/manager':
         return RouteSlide(manager_manager.Manager(routeArgs: routeArgs));
       // ===================================================================

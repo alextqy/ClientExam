@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/Views/common/menu.dart';
+import 'package:client/models/route_args.dart';
 
 class PersonalSettings extends StatefulWidget {
-  final String headline;
-  const PersonalSettings({super.key, this.headline = ''});
+  const PersonalSettings({super.key, routeArgs});
 
   @override
   State<PersonalSettings> createState() =>
       // ignore: no_logic_in_create_state
-      PersonalSettingsState(headline: headline);
+      PersonalSettingsState(args: routeArgs);
 }
 
 class PersonalSettingsState extends State<PersonalSettings> {
   var lang = Lang();
   var common = Common();
-  String headline;
-  PersonalSettingsState({this.headline = ''});
+  final args = routeArgs;
+  PersonalSettingsState({args});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(lang.menu),
+        title: Text(lang.personalSettings),
       ),
       body: Container(
         width: double.infinity,
@@ -31,7 +31,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: common.drawer(context, headline: headline),
+      drawer: common.drawer(context, headline: args['headline']),
     );
   }
 }

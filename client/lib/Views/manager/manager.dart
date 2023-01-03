@@ -1,5 +1,5 @@
-import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
+import 'package:client/public/lang.dart';
 import 'package:client/Views/common/menu.dart';
 import 'package:client/models/route_args.dart';
 

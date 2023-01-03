@@ -1,4 +1,3 @@
-import 'package:client/models/route_args.dart';
 import 'package:flutter/material.dart';
 
 import 'package:client/public/lang.dart';
@@ -9,7 +8,7 @@ class Common {
   var route = RouteHelper();
   String headline = '';
 
-  get menuHeader {
+  dynamic menuHeader(BuildContext context) {
     return SizedBox(
       height: 80,
       width: double.infinity, // 占满父级元素宽度
@@ -61,7 +60,8 @@ class Common {
                   ),
                 ),
                 onPressed: () {
-                  print(lang.personalSettings);
+                  Navigator.of(context)
+                      .push(route.generate('/manager/personal/settings'));
                 },
               ),
             ),
@@ -107,7 +107,7 @@ class Common {
       backgroundColor: Colors.blueGrey,
       child: Column(
         children: [
-          menuHeader,
+          menuHeader(context),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(0),
