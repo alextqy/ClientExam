@@ -38,15 +38,22 @@ class RouteHelper {
         return RouteSlide(const teacher_index.Index());
       // ===================================================================
       default:
-        // return MaterialPageRoute(
-        //   builder: (_) => Scaffold(
-        //     body: Center(
-        //       child: Text('No route defined for $routeName'),
-        //     ),
-        //   ),
-        // );
-        return Scaffold(
-          body: Center(child: Text('No route defined for $routeName')),
+        return MaterialPageRoute(
+          builder: (_) => Scaffold(
+            backgroundColor: Colors.grey,
+            appBar: AppBar(
+              title: const Text("ERROR"),
+            ),
+            body: const Center(
+              child: Text(
+                'Invalid Page',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
+            ),
+          ),
         );
     }
   }
