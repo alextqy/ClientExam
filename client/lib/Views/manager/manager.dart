@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
 import 'package:client/models/route_args.dart';
 
-class Index extends StatefulWidget {
-  const Index({super.key, routeArgs});
+class Manager extends StatefulWidget {
+  const Manager({super.key, routeArgs});
 
   @override
   // ignore: no_logic_in_create_state
-  State<Index> createState() => IndexState(args: routeArgs);
+  State<Manager> createState() => ManagerState(args: routeArgs);
 }
 
-class IndexState extends State<Index> {
+class ManagerState extends State<Manager> {
   var lang = Lang();
   var common = Common();
   final args = routeArgs;
-  IndexState({args});
+  ManagerState({args});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(lang.menu),
+        title: Text(lang.managers),
       ),
       body: Container(
         width: double.infinity,
