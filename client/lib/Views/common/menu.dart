@@ -10,7 +10,7 @@ class Common {
 
   Drawer drawer({String headline = ''}) {
     if (headline != '') {
-      this.headline = headline.substring(0, 1);
+      this.headline = headline.substring(0, 1).toUpperCase();
     }
     return Drawer(
       width: 235,
