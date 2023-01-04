@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:client/Views/common/toast.dart';
 import 'package:flutter/material.dart';
 
 import 'package:client/public/lang.dart';
+import 'package:client/Views/common/toast.dart';
+import 'package:client/models/route_args.dart';
 import 'package:client/routes.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:client/public/file.dart';
@@ -66,8 +67,9 @@ class Common {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(route.generate('/manager/personal/settings'));
+                  routeArgs['headline'] = headline;
+                  Navigator.of(context).push(
+                      route.generate('/manager/personal/settings', routeArgs));
                 },
               ),
             ),
@@ -136,8 +138,9 @@ class Common {
                     style: const TextStyle(color: Colors.white),
                   ),
                   onTap: () {
+                    routeArgs['headline'] = headline;
                     Navigator.of(context).push(
-                      route.generate('/manager/manager'),
+                      route.generate('/manager/manager', routeArgs),
                     );
                   },
                 ),

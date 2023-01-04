@@ -4,7 +4,7 @@ import 'package:client/Views/common/menu.dart';
 import 'package:client/models/route_args.dart';
 
 class Manager extends StatefulWidget {
-  const Manager({super.key, routeArgs});
+  const Manager({super.key, dynamic routeArgs});
 
   @override
   // ignore: no_logic_in_create_state

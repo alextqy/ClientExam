@@ -4,7 +4,7 @@ import 'package:client/Views/common/menu.dart';
 import 'package:client/models/route_args.dart';
 
 class PersonalSettings extends StatefulWidget {
-  const PersonalSettings({super.key, routeArgs});
+  const PersonalSettings({super.key, dynamic routeArgs});
 
   @override
   State<PersonalSettings> createState() =>
