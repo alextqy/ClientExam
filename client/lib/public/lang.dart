@@ -32,6 +32,7 @@ class Lang {
   String examLogs = '';
   String systemLogs = '';
   String exit = '';
+  String longPressToExit = '';
 
   // String systemFunctions = '';
   // String addData = '';
@@ -73,6 +74,7 @@ class Lang {
       this.examLogs = '考试日志';
       this.systemLogs = '系统日志';
       this.exit = '退出';
+      this.longPressToExit = '长按退出';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -104,6 +106,7 @@ class Lang {
       this.examLogs = 'Exam Logs';
       this.systemLogs = 'System Logs';
       this.exit = 'Exit';
+      this.longPressToExit = 'Long Press To Exit';
     }
   }
 }

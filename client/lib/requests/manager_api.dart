@@ -34,7 +34,9 @@ class ManagerApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerSignOut() async {
+  Future<BaseModel> managerSignOut([
+    String token = '',
+  ]) async {
     var response = await http.post(
       Uri.http(url, '/Manager/Sign/Out'),
       body: {
@@ -47,6 +49,7 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> newManager([
+    String token = '',
     String account = '',
     String password = '',
     String name = '',
@@ -66,6 +69,7 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> managerDisabled([
+    String token = '',
     int id = 0,
   ]) async {
     var response = await http.post(
@@ -81,6 +85,7 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> managerChangePassword([
+    String token = '',
     String newPassword = '',
     int id = 0,
   ]) async {
@@ -98,6 +103,7 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> updateManagerInfo([
+    String token = '',
     String name = '',
     String permission = '',
     int id = 0,

@@ -1,12 +1,18 @@
+import 'dart:io';
+import 'package:client/Views/common/toast.dart';
 import 'package:flutter/material.dart';
 
 import 'package:client/public/lang.dart';
 import 'package:client/routes.dart';
+import 'package:client/requests/manager_api.dart';
+import 'package:client/public/file.dart';
 
 class Common {
   var lang = Lang();
   var route = RouteHelper();
   String headline = '';
+  var fileHelper = FileHelper();
+  var managerApi = ManagerApi();
 
   dynamic menuHeader(BuildContext context) {
     return SizedBox(
@@ -72,7 +78,7 @@ class Common {
     );
   }
 
-  get menuFooter {
+  dynamic menuFooter(BuildContext context) {
     return SizedBox(
       height: 35,
       child: ElevatedButton(
@@ -91,8 +97,18 @@ class Common {
             const Icon(size: 18, Icons.exit_to_app),
           ],
         ),
+        onLongPress: () {
+          try {
+            var token = fileHelper.readFile('token');
+            managerApi.managerSignOut(token);
+            fileHelper.delFile('token');
+            exit(0);
+          } catch (e) {
+            exit(0);
+          }
+        },
         onPressed: () {
-          print(lang.exit);
+          Toast().show(context, message: lang.longPressToExit);
         },
       ),
     );
@@ -254,7 +270,7 @@ class Common {
               ],
             ),
           ),
-          menuFooter,
+          menuFooter(context),
         ],
       ),
     );
