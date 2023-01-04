@@ -121,4 +121,44 @@ class ManagerApi extends ResponseHelper {
     );
     return BaseModel.fromJson(jsonDecode(response.body));
   }
+
+  Future<BaseModel> managerList([
+    String token = '',
+    int page = 1,
+    int pageSize = 10,
+    String stext = '',
+    bool state = false,
+    int permission = 0,
+  ]) async {
+    var response = await http.post(
+      Uri.http(url, '/Manager/List'),
+      body: {
+        'Token': token,
+        'Page': page,
+        'PageSize': pageSize,
+        'Stext': stext,
+        'State': state,
+        'Permission': permission,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> managerInfo([
+    String token = '',
+    String id = '0',
+  ]) async {
+    var response = await http.post(
+      Uri.http(url, '/Manager/Info'),
+      body: {
+        'Token': token,
+        'ID': id,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
 }

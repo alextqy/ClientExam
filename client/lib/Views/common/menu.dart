@@ -27,8 +27,8 @@ class Common {
           children: [
             const SizedBox(height: 20),
             SizedBox(
-              // height: 50,
-              // width: 50,
+              height: 40,
+              width: 55,
               // child: CircleAvatar(
               //   backgroundColor: Colors.white,
               //   child: SizedBox(
@@ -63,7 +63,7 @@ class Common {
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
-                    fontSize: 30,
+                    fontSize: 25,
                   ),
                 ),
                 onPressed: () {

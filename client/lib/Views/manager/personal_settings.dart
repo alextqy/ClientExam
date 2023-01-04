@@ -32,7 +32,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
         color: Colors.grey,
         child: Container(
           margin: const EdgeInsets.all(10),
-          color: Colors.white30,
+          color: Colors.white54,
         ),
       ),
       drawer: common.drawer(context, headline: args['headline']),

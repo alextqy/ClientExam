@@ -1,3 +1,4 @@
+import 'package:client/models/manager_model.dart';
 import 'package:client/models/route_args.dart';
 import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
@@ -122,9 +123,20 @@ class LoginState extends State<Login> {
                     value.data,
                   );
                   if (writeResult) {
-                    routeArgs['headline'] = account;
-                    Navigator.of(context).push(
-                      route.generate('/manager/index', routeArgs),
+                    var resultInfo =
+                        managerApi.managerInfo(fileHelper.readFile('token'));
+                    resultInfo.then(
+                      (info) {
+                        if (info.state) {
+                          var data = ManagerModel.fromJson(info.data);
+                          routeArgs['headline'] = data.name;
+                          Navigator.of(context).push(
+                            route.generate('/manager/index', routeArgs),
+                          );
+                        } else {
+                          showAlertDialog(context, lang.theRequestFailed);
+                        }
+                      },
                     );
                   } else {
                     showAlertDialog(context, lang.loginTokenGenerationFailed);
