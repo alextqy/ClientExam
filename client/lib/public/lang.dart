@@ -14,7 +14,7 @@ class Lang {
   String submit = '';
   String theRequestFailed = '';
   String loginTokenGenerationFailed = '';
-  String GetTokenException = '';
+  String getTokenException = '';
   String menu = '';
   String personalSettings = '';
   String managers = '';
@@ -36,6 +36,8 @@ class Lang {
   String longPressToExit = '';
 
   String name = '';
+  String thisItemCannotBeModified = '';
+  String createtime = '';
 
   // String systemFunctions = '';
   // String addData = '';
@@ -59,7 +61,7 @@ class Lang {
       this.submit = '提交';
       this.theRequestFailed = '请求失败';
       this.loginTokenGenerationFailed = '登录令牌生成失败';
-      this.GetTokenException = '获取令牌异常';
+      this.getTokenException = '获取令牌异常';
       this.menu = '菜单';
       this.personalSettings = '个人设置';
       this.managers = '管理员';
@@ -81,6 +83,8 @@ class Lang {
       this.longPressToExit = '长按退出';
 
       this.name = '称呼';
+      this.thisItemCannotBeModified = '该项不能被修改';
+      this.createtime = '创建时间';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -94,7 +98,7 @@ class Lang {
       this.submit = 'Submit';
       this.theRequestFailed = 'The Request Failed';
       this.loginTokenGenerationFailed = 'Login Token Generation Failed';
-      this.GetTokenException = 'Get Token Exception';
+      this.getTokenException = 'Get Token Exception';
       this.menu = 'Menu';
       this.personalSettings = 'Personal Settings';
       this.managers = 'Manager';
@@ -116,6 +120,8 @@ class Lang {
       this.longPressToExit = 'Long Press To Exit';
 
       this.name = 'Name';
+      this.thisItemCannotBeModified = 'This Item Cannot Be Modified';
+      this.createtime = 'Createtime';
     }
   }
 }

@@ -9,6 +9,9 @@ class Tools {
 
   // 时间戳转时间
   String timestampToStr(int timestamp) {
+    if (timestamp.toString().length == 10) {
+      timestamp *= 1000;
+    }
     return DateTime.fromMillisecondsSinceEpoch(timestamp)
         .toLocal()
         .toString()
