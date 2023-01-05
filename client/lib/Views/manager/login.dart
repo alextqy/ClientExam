@@ -21,8 +21,8 @@ class LoginState extends State<Login> {
   var route = RouteHelper();
   String account = '';
   String password = '';
-  final clearAccount = TextEditingController();
-  final clearPassword = TextEditingController();
+  final accountController = TextEditingController();
+  final passwordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -30,7 +30,7 @@ class LoginState extends State<Login> {
     return SizedBox(
       width: 300,
       child: TextFormField(
-        controller: clearAccount,
+        controller: accountController,
         style: const TextStyle(
           fontSize: 18,
           color: Colors.white,
@@ -38,7 +38,7 @@ class LoginState extends State<Login> {
         decoration: InputDecoration(
           suffixIcon: IconButton(
             iconSize: 20,
-            onPressed: () => clearAccount.clear(),
+            onPressed: () => accountController.clear(),
             icon: const Icon(Icons.clear),
           ),
           errorStyle: const TextStyle(
@@ -52,14 +52,14 @@ class LoginState extends State<Login> {
             color: Colors.white,
           ),
         ),
-        validator: (String? value) {
-          if (value == null || value.isEmpty) {
-            return lang.incorrectInput;
-          } else {
-            account = value;
-          }
-          return null;
-        },
+        // validator: (String? value) {
+        //   if (value == null || value.isEmpty) {
+        //     return lang.incorrectInput;
+        //   } else {
+        //     account = value;
+        //   }
+        //   return null;
+        // },
       ),
     );
   }
@@ -68,7 +68,7 @@ class LoginState extends State<Login> {
     return SizedBox(
       width: 300,
       child: TextFormField(
-        controller: clearPassword,
+        controller: passwordController,
         obscureText: true,
         style: const TextStyle(
           fontSize: 18,
@@ -77,7 +77,7 @@ class LoginState extends State<Login> {
         decoration: InputDecoration(
           suffixIcon: IconButton(
             iconSize: 20,
-            onPressed: () => clearPassword.clear(),
+            onPressed: () => passwordController.clear(),
             icon: const Icon(Icons.clear),
           ),
           errorStyle: const TextStyle(
@@ -91,14 +91,14 @@ class LoginState extends State<Login> {
             color: Colors.white,
           ),
         ),
-        validator: (String? value) {
-          if (value == null || value.isEmpty) {
-            return lang.incorrectInput;
-          } else {
-            password = value;
-          }
-          return null;
-        },
+        // validator: (String? value) {
+        //   if (value == null || value.isEmpty) {
+        //     return lang.incorrectInput;
+        //   } else {
+        //     password = value;
+        //   }
+        //   return null;
+        // },
       ),
     );
   }
@@ -116,7 +116,10 @@ class LoginState extends State<Login> {
           ),
           onPressed: () {
             if (_formKey.currentState?.validate() != null) {
-              var result = managerApi.managerSignIn(account, password);
+              var result = managerApi.managerSignIn(
+                accountController.text,
+                passwordController.text,
+              );
               result.then((value) {
                 if (value.state == true) {
                   var writeResult = fileHelper.writeFile(
