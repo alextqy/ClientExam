@@ -26,8 +26,8 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/Manager/Sign/In'),
       body: {
-        'Account': account,
-        'Password': password,
+        'Account': account.trim(),
+        'Password': password.trim(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -39,7 +39,7 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/Manager/Sign/Out'),
       body: {
-        'Token': FileHelper().readFile('token'),
+        'Token': FileHelper().readFile('token').trim(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -56,9 +56,9 @@ class ManagerApi extends ResponseHelper {
       Uri.http(url, '/New/Manager'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'Account': account,
-        'Password': password,
-        'Name': name,
+        'Account': account.trim(),
+        'Password': password.trim(),
+        'Name': name.trim(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -72,7 +72,7 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/Manager/Disabled'),
       body: {
-        'Token': FileHelper().readFile('token'),
+        'Token': FileHelper().readFile('token').trim(),
         'ID': id.toString(),
       },
       headers: postHeaders,
@@ -89,7 +89,7 @@ class ManagerApi extends ResponseHelper {
       Uri.http(url, '/Manager/Change/Password'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'NewPassword': newPassword,
+        'NewPassword': newPassword.trim(),
         'ID': id.toString(),
       },
       headers: postHeaders,
@@ -106,8 +106,8 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/Update/Manager/Info'),
       body: {
-        'Token': FileHelper().readFile('token'),
-        'Name': name,
+        'Token': FileHelper().readFile('token').trim(),
+        'Name': name.trim(),
         'Permission': permission.toString(),
         'ID': id.toString(),
       },
@@ -127,10 +127,10 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/Manager/List'),
       body: {
-        'Token': FileHelper().readFile('token'),
+        'Token': FileHelper().readFile('token').trim(),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'Stext': stext,
+        'Stext': stext.trim(),
         'State': state,
         'Permission': permission.toString(),
       },
@@ -146,7 +146,7 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/Manager/Info'),
       body: {
-        'Token': FileHelper().readFile('token'),
+        'Token': FileHelper().readFile('token').trim(),
         'ID': id.toString(),
       },
       headers: postHeaders,
