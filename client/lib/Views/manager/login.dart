@@ -1,3 +1,4 @@
+import 'package:client/Views/common/show_alert_dialog.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/models/route_args.dart';
 import 'package:client/public/file.dart';
@@ -187,25 +188,5 @@ class LoginState extends State<Login> {
         ),
       ),
     );
-  }
-
-  void showAlertDialog(BuildContext context, [String memo = '']) {
-    showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(memo),
-            title: Text(lang.title),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(lang.cancel),
-              ),
-            ],
-          );
-        });
   }
 }

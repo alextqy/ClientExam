@@ -8,7 +8,7 @@ import 'package:client/routes.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:client/public/file.dart';
 
-class Common {
+class Menu {
   var lang = Lang();
   var route = RouteHelper();
   String headline = '';

@@ -13,7 +13,7 @@ class Index extends StatefulWidget {
 
 class IndexState extends State<Index> {
   var lang = Lang();
-  var common = Common();
+  var menu = Menu();
   final args = routeArgs;
   IndexState({args});
 
@@ -30,7 +30,7 @@ class IndexState extends State<Index> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: common.drawer(context, headline: args['headline']),
+      drawer: menu.drawer(context, headline: args['headline']),
     );
   }
 }

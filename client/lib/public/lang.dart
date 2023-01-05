@@ -14,6 +14,7 @@ class Lang {
   String submit = '';
   String theRequestFailed = '';
   String loginTokenGenerationFailed = '';
+  String GetTokenException = '';
   String menu = '';
   String personalSettings = '';
   String managers = '';
@@ -34,9 +35,11 @@ class Lang {
   String exit = '';
   String longPressToExit = '';
 
+  String name = '';
+
   // String systemFunctions = '';
   // String addData = '';
-  // String name = '';
+
   // String creationTime = '';
   // String details = '';
   // String previousPage = '';
@@ -56,6 +59,7 @@ class Lang {
       this.submit = '提交';
       this.theRequestFailed = '请求失败';
       this.loginTokenGenerationFailed = '登录令牌生成失败';
+      this.GetTokenException = '获取令牌异常';
       this.menu = '菜单';
       this.personalSettings = '个人设置';
       this.managers = '管理员';
@@ -75,6 +79,8 @@ class Lang {
       this.systemLogs = '系统日志';
       this.exit = '退出';
       this.longPressToExit = '长按退出';
+
+      this.name = '称呼';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -88,6 +94,7 @@ class Lang {
       this.submit = 'Submit';
       this.theRequestFailed = 'The Request Failed';
       this.loginTokenGenerationFailed = 'Login Token Generation Failed';
+      this.GetTokenException = 'Get Token Exception';
       this.menu = 'Menu';
       this.personalSettings = 'Personal Settings';
       this.managers = 'Manager';
@@ -107,6 +114,8 @@ class Lang {
       this.systemLogs = 'System Logs';
       this.exit = 'Exit';
       this.longPressToExit = 'Long Press To Exit';
+
+      this.name = 'Name';
     }
   }
 }

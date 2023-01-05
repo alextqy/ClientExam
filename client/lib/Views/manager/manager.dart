@@ -13,7 +13,7 @@ class Manager extends StatefulWidget {
 
 class ManagerState extends State<Manager> {
   var lang = Lang();
-  var common = Common();
+  var menu = Menu();
   final args = routeArgs;
   ManagerState({args});
 
@@ -30,7 +30,7 @@ class ManagerState extends State<Manager> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: common.drawer(context, headline: args['headline']),
+      drawer: menu.drawer(context, headline: args['headline']),
     );
   }
 }
