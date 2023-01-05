@@ -12,7 +12,7 @@ class Index extends StatefulWidget {
 }
 
 class IndexState extends State<Index> {
-  final args = routeArgs;
+  var args = routeArgs;
   IndexState({args});
 
   @override

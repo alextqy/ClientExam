@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:client/routes.dart';
-import 'package:client/requests/manager_api.dart';
 import 'package:client/public/lang.dart';
 
 void main() {

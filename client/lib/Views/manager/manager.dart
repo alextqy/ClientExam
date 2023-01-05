@@ -12,7 +12,7 @@ class Manager extends StatefulWidget {
 }
 
 class ManagerState extends State<Manager> {
-  final args = routeArgs;
+  var args = routeArgs;
   ManagerState({args});
 
   @override

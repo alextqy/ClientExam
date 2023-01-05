@@ -1,8 +1,8 @@
 import 'package:client/Views/common/error_page.dart';
+import 'package:client/Views/common/show_alert_dialog.dart';
 import 'package:client/Views/common/toast.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/manager_model.dart';
-import 'package:client/public/file.dart';
 import 'package:client/public/tools.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class PersonalSettings extends StatefulWidget {
 }
 
 class PersonalSettingsState extends State<PersonalSettings> {
-  final args = routeArgs;
+  var args = routeArgs;
   PersonalSettingsState({args});
 
   mainWidget(BuildContext context, ManagerModel data) {
@@ -69,7 +69,20 @@ class PersonalSettingsState extends State<PersonalSettings> {
                         Lang().submit,
                       ),
                       onPressed: () {
-                        print(nameController.text);
+                        if (nameController.text.isNotEmpty &&
+                            nameController.text.trim() != data.name) {
+                          var result = ManagerApi().updateManagerInfo(
+                              name: nameController.text,
+                              permission: data.permission);
+                          result.then((value) {
+                            if (value.state == true) {
+                              Toast().show(context,
+                                  message: Lang().theOperationCompletes);
+                            } else {
+                              showAlertDialog(context, Lang().theRequestFailed);
+                            }
+                          });
+                        }
                       },
                     ),
                   ),
