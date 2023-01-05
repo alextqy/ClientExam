@@ -76,7 +76,7 @@ class ManagerApi extends ResponseHelper {
       Uri.http(url, '/Manager/Disabled'),
       body: {
         'Token': token,
-        'ID': id,
+        'ID': id.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -94,7 +94,7 @@ class ManagerApi extends ResponseHelper {
       body: {
         'Token': token,
         'NewPassword': newPassword,
-        'ID': id,
+        'ID': id.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -105,7 +105,7 @@ class ManagerApi extends ResponseHelper {
   Future<BaseModel> updateManagerInfo([
     String token = '',
     String name = '',
-    String permission = '',
+    int permission = 0,
     int id = 0,
   ]) async {
     var response = await http.post(
@@ -113,8 +113,8 @@ class ManagerApi extends ResponseHelper {
       body: {
         'Token': token,
         'Name': name,
-        'Permission': permission,
-        'ID': id,
+        'Permission': permission.toString(),
+        'ID': id.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -134,11 +134,11 @@ class ManagerApi extends ResponseHelper {
       Uri.http(url, '/Manager/List'),
       body: {
         'Token': token,
-        'Page': page,
-        'PageSize': pageSize,
+        'Page': page.toString(),
+        'PageSize': pageSize.toString(),
         'Stext': stext,
         'State': state,
-        'Permission': permission,
+        'Permission': permission.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -148,13 +148,13 @@ class ManagerApi extends ResponseHelper {
 
   Future<BaseModel> managerInfo([
     String token = '',
-    String id = '0',
+    int id = 0,
   ]) async {
     var response = await http.post(
       Uri.http(url, '/Manager/Info'),
       body: {
         'Token': token,
-        'ID': id,
+        'ID': id.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
