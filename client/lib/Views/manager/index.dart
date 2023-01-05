@@ -12,8 +12,6 @@ class Index extends StatefulWidget {
 }
 
 class IndexState extends State<Index> {
-  var lang = Lang();
-  var menu = Menu();
   final args = routeArgs;
   IndexState({args});
 
@@ -21,7 +19,7 @@ class IndexState extends State<Index> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(lang.menu),
+        title: Text(Lang().menu),
       ),
       body: Container(
         width: double.infinity,
@@ -30,7 +28,7 @@ class IndexState extends State<Index> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: menu.drawer(context, headline: args['headline']),
+      drawer: Menu().drawer(context, headline: args['headline']),
     );
   }
 }

@@ -12,8 +12,6 @@ class Manager extends StatefulWidget {
 }
 
 class ManagerState extends State<Manager> {
-  var lang = Lang();
-  var menu = Menu();
   final args = routeArgs;
   ManagerState({args});
 
@@ -21,7 +19,7 @@ class ManagerState extends State<Manager> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(lang.managers),
+        title: Text(Lang().managers),
       ),
       body: Container(
         width: double.infinity,
@@ -30,7 +28,7 @@ class ManagerState extends State<Manager> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: menu.drawer(context, headline: args['headline']),
+      drawer: Menu().drawer(context, headline: args['headline']),
     );
   }
 }

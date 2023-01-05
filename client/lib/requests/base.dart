@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class ResponseHelper {
   String url = '127.0.0.1:6001';
-  String token = '';
+  // String token = '';
   var postHeaders = {
     "Accept": "application/json",
     "Content-Type": "application/x-www-form-urlencoded",

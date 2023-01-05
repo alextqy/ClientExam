@@ -20,17 +20,13 @@ class PersonalSettings extends StatefulWidget {
 }
 
 class PersonalSettingsState extends State<PersonalSettings> {
-  var lang = Lang();
-  var fileHelper = FileHelper();
-  var tools = Tools();
-  var menu = Menu();
   final args = routeArgs;
-  var managerApi = ManagerApi();
   PersonalSettingsState({args});
 
   mainWidget(BuildContext context, ManagerModel data) {
     var nameController = TextEditingController(text: data.name);
     var passwordController = TextEditingController();
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -54,11 +50,11 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       controller: nameController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        labelText: lang.name,
+                        labelText: Lang().name,
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return lang.incorrectInput;
+                          return Lang().incorrectInput;
                         } else {
                           return null;
                         }
@@ -70,7 +66,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                     height: 45,
                     child: ElevatedButton(
                       child: Text(
-                        lang.submit,
+                        Lang().submit,
                       ),
                       onPressed: () {
                         print(nameController.text);
@@ -88,11 +84,11 @@ class PersonalSettingsState extends State<PersonalSettings> {
                     child: TextFormField(
                       readOnly: true,
                       onTap: () => Toast().show(context,
-                          message: lang.thisItemCannotBeModified),
+                          message: Lang().thisItemCannotBeModified),
                       controller: TextEditingController(text: data.account),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        labelText: lang.account,
+                        labelText: Lang().account,
                       ),
                     ),
                   )
@@ -107,12 +103,12 @@ class PersonalSettingsState extends State<PersonalSettings> {
                     child: TextFormField(
                       readOnly: true,
                       onTap: () => Toast().show(context,
-                          message: lang.thisItemCannotBeModified),
+                          message: Lang().thisItemCannotBeModified),
                       controller: TextEditingController(
-                          text: tools.timestampToStr(data.createTime)),
+                          text: Tools().timestampToStr(data.createTime)),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        labelText: lang.createtime,
+                        labelText: Lang().createtime,
                       ),
                     ),
                   )
@@ -128,7 +124,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       controller: passwordController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        labelText: lang.password,
+                        labelText: Lang().password,
                       ),
                     ),
                   ),
@@ -137,7 +133,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                     height: 45,
                     child: ElevatedButton(
                       child: Text(
-                        lang.submit,
+                        Lang().submit,
                       ),
                       onPressed: () {
                         print(passwordController.text);
@@ -155,11 +151,11 @@ class PersonalSettingsState extends State<PersonalSettings> {
 
   @override
   Widget build(BuildContext context) {
-    var result = managerApi.managerInfo(fileHelper.readFile('token'));
+    var result = ManagerApi().managerInfo();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(lang.personalSettings),
+        title: Text(Lang().personalSettings),
       ),
       body: FutureBuilder(
         future: result,
@@ -184,7 +180,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
           );
         },
       ),
-      drawer: menu.drawer(context, headline: args['headline']),
+      drawer: Menu().drawer(context, headline: args['headline']),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/public/file.dart';
 import 'package:http/http.dart' as http;
 import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
@@ -34,13 +35,11 @@ class ManagerApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerSignOut([
-    String token = '',
-  ]) async {
+  Future<BaseModel> managerSignOut() async {
     var response = await http.post(
       Uri.http(url, '/Manager/Sign/Out'),
       body: {
-        'Token': token,
+        'Token': FileHelper().readFile('token'),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -49,7 +48,6 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> newManager([
-    String token = '',
     String account = '',
     String password = '',
     String name = '',
@@ -57,7 +55,7 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/New/Manager'),
       body: {
-        'Token': token,
+        'Token': FileHelper().readFile('token'),
         'Account': account,
         'Password': password,
         'Name': name,
@@ -69,13 +67,12 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> managerDisabled([
-    String token = '',
     int id = 0,
   ]) async {
     var response = await http.post(
       Uri.http(url, '/Manager/Disabled'),
       body: {
-        'Token': token,
+        'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
       },
       headers: postHeaders,
@@ -85,14 +82,13 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> managerChangePassword([
-    String token = '',
     String newPassword = '',
     int id = 0,
   ]) async {
     var response = await http.post(
       Uri.http(url, '/Manager/Change/Password'),
       body: {
-        'Token': token,
+        'Token': FileHelper().readFile('token'),
         'NewPassword': newPassword,
         'ID': id.toString(),
       },
@@ -103,7 +99,6 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> updateManagerInfo([
-    String token = '',
     String name = '',
     int permission = 0,
     int id = 0,
@@ -111,7 +106,7 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/Update/Manager/Info'),
       body: {
-        'Token': token,
+        'Token': FileHelper().readFile('token'),
         'Name': name,
         'Permission': permission.toString(),
         'ID': id.toString(),
@@ -123,7 +118,6 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> managerList([
-    String token = '',
     int page = 1,
     int pageSize = 10,
     String stext = '',
@@ -133,7 +127,7 @@ class ManagerApi extends ResponseHelper {
     var response = await http.post(
       Uri.http(url, '/Manager/List'),
       body: {
-        'Token': token,
+        'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
         'Stext': stext,
@@ -147,13 +141,12 @@ class ManagerApi extends ResponseHelper {
   }
 
   Future<BaseModel> managerInfo([
-    String token = '',
     int id = 0,
   ]) async {
     var response = await http.post(
       Uri.http(url, '/Manager/Info'),
       body: {
-        'Token': token,
+        'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
       },
       headers: postHeaders,

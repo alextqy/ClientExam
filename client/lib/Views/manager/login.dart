@@ -15,10 +15,6 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-  var lang = Lang();
-  var managerApi = ManagerApi();
-  var fileHelper = FileHelper();
-  var route = RouteHelper();
   String account = '';
   String password = '';
   final accountController = TextEditingController();
@@ -46,7 +42,7 @@ class LoginState extends State<Login> {
             fontWeight: FontWeight.w600,
           ),
           icon: const Icon(Icons.person),
-          labelText: lang.account,
+          labelText: Lang().account,
           labelStyle: const TextStyle(
             fontSize: 18,
             color: Colors.white,
@@ -85,7 +81,7 @@ class LoginState extends State<Login> {
             fontWeight: FontWeight.w600,
           ),
           icon: const Icon(Icons.lock),
-          labelText: lang.password,
+          labelText: Lang().password,
           labelStyle: const TextStyle(
             fontSize: 18,
             color: Colors.white,
@@ -116,45 +112,44 @@ class LoginState extends State<Login> {
           ),
           onPressed: () {
             if (_formKey.currentState?.validate() != null) {
-              var result = managerApi.managerSignIn(
+              var result = ManagerApi().managerSignIn(
                 accountController.text,
                 passwordController.text,
               );
               result.then((value) {
                 if (value.state == true) {
-                  var writeResult = fileHelper.writeFile(
-                    fileHelper.tokenFileName,
+                  var writeResult = FileHelper().writeFile(
+                    FileHelper().tokenFileName,
                     value.data,
                   );
                   if (writeResult) {
-                    var resultInfo =
-                        managerApi.managerInfo(fileHelper.readFile('token'));
+                    var resultInfo = ManagerApi().managerInfo();
                     resultInfo.then(
                       (info) {
                         if (info.state) {
                           var data = ManagerModel.fromJson(info.data);
                           routeArgs['headline'] = data.name;
                           Navigator.of(context).push(
-                            route.generate('/manager/index', routeArgs),
+                            RouteHelper().generate('/manager/index', routeArgs),
                           );
                         } else {
-                          showAlertDialog(context, lang.theRequestFailed);
+                          showAlertDialog(context, Lang().theRequestFailed);
                         }
                       },
                     );
                   } else {
-                    showAlertDialog(context, lang.loginTokenGenerationFailed);
+                    showAlertDialog(context, Lang().loginTokenGenerationFailed);
                   }
                 } else {
                   showAlertDialog(context, value.memo);
                 }
               }).catchError((e) {
-                showAlertDialog(context, lang.theRequestFailed);
+                showAlertDialog(context, Lang().theRequestFailed);
               });
             }
           },
           child: Text(
-            lang.submit,
+            Lang().submit,
             style: const TextStyle(
               fontSize: 18,
             ),
@@ -168,7 +163,7 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(lang.login),
+        title: Text(Lang().login),
       ),
       body: Container(
         width: double.infinity,

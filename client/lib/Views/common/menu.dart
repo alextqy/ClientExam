@@ -9,11 +9,7 @@ import 'package:client/requests/manager_api.dart';
 import 'package:client/public/file.dart';
 
 class Menu {
-  var lang = Lang();
-  var route = RouteHelper();
   String headline = '';
-  var fileHelper = FileHelper();
-  var managerApi = ManagerApi();
 
   dynamic menuHeader(BuildContext context) {
     return SizedBox(
@@ -68,8 +64,8 @@ class Menu {
                 ),
                 onPressed: () {
                   routeArgs['headline'] = headline;
-                  Navigator.of(context).push(
-                      route.generate('/manager/personal/settings', routeArgs));
+                  Navigator.of(context).push(RouteHelper()
+                      .generate('/manager/personal/settings', routeArgs));
                 },
               ),
             ),
@@ -94,23 +90,22 @@ class Menu {
         child: Row(
           children: [
             const Expanded(child: SizedBox()),
-            Text(lang.exit),
+            Text(Lang().exit),
             const SizedBox(width: 10),
             const Icon(size: 18, Icons.exit_to_app),
           ],
         ),
         onLongPress: () {
           try {
-            var token = fileHelper.readFile('token');
-            managerApi.managerSignOut(token);
-            fileHelper.delFile('token');
+            ManagerApi().managerSignOut();
+            FileHelper().delFile('token');
             exit(0);
           } catch (e) {
             exit(0);
           }
         },
         onPressed: () {
-          Toast().show(context, message: lang.longPressToExit);
+          Toast().show(context, message: Lang().longPressToExit);
         },
       ),
     );
@@ -134,13 +129,13 @@ class Menu {
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.manage_accounts),
                   title: Text(
-                    lang.managers,
+                    Lang().managers,
                     style: const TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     routeArgs['headline'] = headline;
                     Navigator.of(context).push(
-                      route.generate('/manager/manager', routeArgs),
+                      RouteHelper().generate('/manager/manager', routeArgs),
                     );
                   },
                 ),
@@ -148,127 +143,127 @@ class Menu {
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.abc),
                   title: Text(
-                    lang.teachers,
+                    Lang().teachers,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.teachers),
+                  onTap: () => print(Lang().teachers),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.class_),
                   title: Text(
-                    lang.classes,
+                    Lang().classes,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.classes),
+                  onTap: () => print(Lang().classes),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.school),
                   title: Text(
-                    lang.examinee,
+                    Lang().examinee,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.examinee),
+                  onTap: () => print(Lang().examinee),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.sign_language),
                   title: Text(
-                    lang.examRegistrations,
+                    Lang().examRegistrations,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.examRegistrations),
+                  onTap: () => print(Lang().examRegistrations),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.history_edu),
                   title: Text(
-                    lang.oldExamRegistrations,
+                    Lang().oldExamRegistrations,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.oldExamRegistrations),
+                  onTap: () => print(Lang().oldExamRegistrations),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.subject),
                   title: Text(
-                    lang.examSubjects,
+                    Lang().examSubjects,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.examSubjects),
+                  onTap: () => print(Lang().examSubjects),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.grid_4x4),
                   title: Text(
-                    lang.knowledgePoints,
+                    Lang().knowledgePoints,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.knowledgePoints),
+                  onTap: () => print(Lang().knowledgePoints),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.title),
                   title: Text(
-                    lang.topTitle,
+                    Lang().topTitle,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.topTitle),
+                  onTap: () => print(Lang().topTitle),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.question_answer),
                   title: Text(
-                    lang.questions,
+                    Lang().questions,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.questions),
+                  onTap: () => print(Lang().questions),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.file_present),
                   title: Text(
-                    lang.paper,
+                    Lang().paper,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.paper),
+                  onTap: () => print(Lang().paper),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.card_membership),
                   title: Text(
-                    lang.answerCards,
+                    Lang().answerCards,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.answerCards),
+                  onTap: () => print(Lang().answerCards),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.history),
                   title: Text(
-                    lang.oldAnswerCards,
+                    Lang().oldAnswerCards,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.oldAnswerCards),
+                  onTap: () => print(Lang().oldAnswerCards),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.cast_for_education),
                   title: Text(
-                    lang.examLogs,
+                    Lang().examLogs,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.examLogs),
+                  onTap: () => print(Lang().examLogs),
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.system_update_tv),
                   title: Text(
-                    lang.systemLogs,
+                    Lang().systemLogs,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(lang.systemLogs),
+                  onTap: () => print(Lang().systemLogs),
                 ),
               ],
             ),

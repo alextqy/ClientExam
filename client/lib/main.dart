@@ -6,17 +6,14 @@ import 'package:client/public/lang.dart';
 void main() {
   runApp(MaterialApp(
     theme: ThemeData(primarySwatch: Colors.blueGrey),
-    home: Scaffold(
+    home: const Scaffold(
       body: Entrance(),
     ),
   ));
 }
 
 class Entrance extends StatelessWidget {
-  final managerApi = ManagerApi();
-  final lang = Lang();
-  final route = RouteHelper();
-  Entrance({super.key});
+  const Entrance({super.key});
 
   // test() {
   //   managerApi.test().then((res) {
@@ -29,7 +26,7 @@ class Entrance extends StatelessWidget {
     var managerButton = Container(
       margin: const EdgeInsets.all(10),
       child: Tooltip(
-        message: lang.administratorLoginEntry,
+        message: Lang().administratorLoginEntry,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             fixedSize: const Size(180, 50),
@@ -38,11 +35,12 @@ class Entrance extends StatelessWidget {
             ),
           ),
           child: Text(
-            lang.managers,
+            Lang().managers,
             style: const TextStyle(fontSize: 18),
           ),
           onPressed: () => {
-            Navigator.of(context).push(route.generate('/manager/login')),
+            Navigator.of(context)
+                .push(RouteHelper().generate('/manager/login')),
           },
         ),
       ),
@@ -51,7 +49,7 @@ class Entrance extends StatelessWidget {
     var teacherButton = Container(
       margin: const EdgeInsets.all(10),
       child: Tooltip(
-        message: lang.teacherLoginPortal,
+        message: Lang().teacherLoginPortal,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             fixedSize: const Size(180, 50),
@@ -60,7 +58,7 @@ class Entrance extends StatelessWidget {
             ),
           ),
           child: Text(
-            lang.teachers,
+            Lang().teachers,
             style: const TextStyle(fontSize: 18),
           ),
           onPressed: () => {
@@ -92,7 +90,7 @@ class Entrance extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
             content: const Text('Under development'),
-            title: Text(lang.title),
+            title: Text(Lang().title),
             actions: [
               // TextButton(
               //   onPressed: () {
@@ -104,7 +102,7 @@ class Entrance extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(lang.cancel),
+                child: Text(Lang().cancel),
               ),
             ],
           );

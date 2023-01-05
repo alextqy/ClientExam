@@ -6,7 +6,6 @@ var futureTest = Future.delayed(const Duration(seconds: 3), () {
 });
 
 errorPage() {
-  var lang = Lang();
   Container(
     width: double.infinity,
     height: double.infinity,
@@ -15,7 +14,7 @@ errorPage() {
     color: Colors.grey,
     child: Center(
       child: Text(
-        lang.theRequestFailed,
+        Lang().theRequestFailed,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 30,
