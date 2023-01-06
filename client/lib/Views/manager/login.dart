@@ -47,14 +47,14 @@ class LoginState extends State<Login> {
             color: Colors.white,
           ),
         ),
-        // validator: (String? value) {
-        //   if (value == null || value.isEmpty) {
-        //     return lang.incorrectInput;
-        //   } else {
-        //     account = value;
-        //   }
-        //   return null;
-        // },
+        validator: (String? value) {
+          if (value == null || value.isEmpty) {
+            return Lang().incorrectInput;
+          } else {
+            account = value;
+          }
+          return null;
+        },
       ),
     );
   }
@@ -86,14 +86,14 @@ class LoginState extends State<Login> {
             color: Colors.white,
           ),
         ),
-        // validator: (String? value) {
-        //   if (value == null || value.isEmpty) {
-        //     return lang.incorrectInput;
-        //   } else {
-        //     password = value;
-        //   }
-        //   return null;
-        // },
+        validator: (String? value) {
+          if (value == null || value.isEmpty) {
+            return Lang().incorrectInput;
+          } else {
+            password = value;
+          }
+          return null;
+        },
       ),
     );
   }

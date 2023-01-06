@@ -95,7 +95,7 @@ class Entrance extends StatelessWidget {
               //   onPressed: () {
               //     Navigator.of(context).pop();
               //   },
-              //   child: Text(lang.confirm),
+              //   child: Text(Lang().confirm),
               // ),
               TextButton(
                 onPressed: () {
