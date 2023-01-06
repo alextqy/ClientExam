@@ -2,19 +2,20 @@ import 'package:client/Views/common/error_page.dart';
 import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
-import 'package:client/models/route_args.dart';
 
+// ignore: must_be_immutable
 class Index extends StatefulWidget {
-  const Index({super.key, dynamic routeArgs});
+  late String headline;
+  Index({super.key, required this.headline});
 
   @override
   // ignore: no_logic_in_create_state
-  State<Index> createState() => IndexState(args: routeArgs);
+  State<Index> createState() => IndexState(headline: headline);
 }
 
 class IndexState extends State<Index> {
-  var args = routeArgs;
-  IndexState({args});
+  late String headline;
+  IndexState({this.headline = ''});
 
   mainWidget(BuildContext context, {dynamic data}) {
     return Container(
@@ -60,7 +61,7 @@ class IndexState extends State<Index> {
           return Center(child: widget);
         },
       ),
-      drawer: Menu().drawer(context, headline: args['headline']),
+      drawer: Menu().drawer(context, headline: headline),
     );
   }
 }

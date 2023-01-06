@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/Views/common/menu.dart';
-import 'package:client/models/route_args.dart';
 
+// ignore: must_be_immutable
 class Manager extends StatefulWidget {
-  const Manager({super.key, dynamic routeArgs});
+  late String headline;
+  Manager({super.key, required this.headline});
 
   @override
   // ignore: no_logic_in_create_state
-  State<Manager> createState() => ManagerState(args: routeArgs);
+  State<Manager> createState() => ManagerState(headline: headline);
 }
 
 class ManagerState extends State<Manager> {
-  var args = routeArgs;
-  ManagerState({args});
+  late String headline;
+  ManagerState({this.headline = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class ManagerState extends State<Manager> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: Menu().drawer(context, headline: args['headline']),
+      drawer: Menu().drawer(context, headline: headline),
     );
   }
 }

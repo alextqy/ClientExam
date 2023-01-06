@@ -1,6 +1,5 @@
 import 'package:client/Views/common/show_alert_dialog.dart';
 import 'package:client/models/manager_model.dart';
-import 'package:client/models/route_args.dart';
 import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
@@ -128,9 +127,9 @@ class LoginState extends State<Login> {
                       (info) {
                         if (info.state) {
                           var data = ManagerModel.fromJson(info.data);
-                          routeArgs['headline'] = data.account;
                           Navigator.of(context).push(
-                            RouteHelper().generate('/manager/index', routeArgs),
+                            RouteHelper().generate('/manager/index',
+                                headline: data.account),
                           );
                         } else {
                           showAlertDialog(context, Lang().theRequestFailed);

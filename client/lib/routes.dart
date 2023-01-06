@@ -18,7 +18,7 @@ import 'package:client/Views/teacher/index.dart' as teacher_index;
 // };
 
 class RouteHelper {
-  dynamic generate(String routeName, [dynamic routeArgs]) {
+  dynamic generate(String routeName, {String headline = ''}) {
     switch (routeName) {
       case '/':
         // return MaterialPageRoute(builder: (_) => Entrance());
@@ -27,12 +27,12 @@ class RouteHelper {
       case '/manager/login':
         return RouteSlide(const manager_login.Login());
       case '/manager/index':
-        return RouteSlide(manager_index.Index(routeArgs: routeArgs));
+        return RouteSlide(manager_index.Index(headline: headline));
       case '/manager/personal/settings':
         return RouteSlide(
-            manager_personal_settings.PersonalSettings(routeArgs: routeArgs));
+            manager_personal_settings.PersonalSettings(headline: headline));
       case '/manager/manager':
-        return RouteSlide(manager_manager.Manager(routeArgs: routeArgs));
+        return RouteSlide(manager_manager.Manager(headline: headline));
       // ===================================================================
       case '/teacher/index':
         return RouteSlide(const teacher_index.Index());

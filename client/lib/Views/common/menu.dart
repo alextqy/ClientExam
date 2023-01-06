@@ -63,9 +63,9 @@ class Menu {
                   ),
                 ),
                 onPressed: () {
-                  routeArgs['headline'] = headline;
-                  Navigator.of(context).push(RouteHelper()
-                      .generate('/manager/personal/settings', routeArgs));
+                  Navigator.of(context).push(RouteHelper().generate(
+                      '/manager/personal/settings',
+                      headline: headline));
                 },
               ),
             ),
@@ -133,9 +133,9 @@ class Menu {
                     style: const TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    routeArgs['headline'] = headline;
                     Navigator.of(context).push(
-                      RouteHelper().generate('/manager/manager', routeArgs),
+                      RouteHelper()
+                          .generate('/manager/manager', headline: headline),
                     );
                   },
                 ),

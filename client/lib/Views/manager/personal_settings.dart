@@ -8,20 +8,21 @@ import 'package:client/requests/manager_api.dart';
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/Views/common/menu.dart';
-import 'package:client/models/route_args.dart';
 
+// ignore: must_be_immutable
 class PersonalSettings extends StatefulWidget {
-  const PersonalSettings({super.key, dynamic routeArgs});
+  late String headline;
+  PersonalSettings({super.key, required this.headline});
 
   @override
   State<PersonalSettings> createState() =>
       // ignore: no_logic_in_create_state
-      PersonalSettingsState(args: routeArgs);
+      PersonalSettingsState(headline: headline);
 }
 
 class PersonalSettingsState extends State<PersonalSettings> {
-  var args = routeArgs;
-  PersonalSettingsState({args});
+  late String headline;
+  PersonalSettingsState({this.headline = ''});
 
   mainWidget(BuildContext context, {dynamic data}) {
     data as ManagerModel;
@@ -190,7 +191,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
           return Center(child: widget);
         },
       ),
-      drawer: Menu().drawer(context, headline: args['headline']),
+      drawer: Menu().drawer(context, headline: headline),
     );
   }
 }
