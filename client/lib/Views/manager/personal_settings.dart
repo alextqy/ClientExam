@@ -76,14 +76,16 @@ class PersonalSettingsState extends State<PersonalSettings> {
                           var result = ManagerApi().updateManagerInfo(
                               name: nameController.text,
                               permission: data.permission);
-                          result.then((value) {
-                            if (value.state == true) {
-                              Toast().show(context,
-                                  message: Lang().theOperationCompletes);
-                            } else {
-                              showAlertDialog(context, Lang().theRequestFailed);
-                            }
-                          });
+                          result.then(
+                            (value) {
+                              if (value.state == true) {
+                                Toast().show(context,
+                                    message: Lang().theOperationCompletes);
+                              } else {
+                                showAlertDialog(context, value.memo);
+                              }
+                            },
+                          );
                         }
                       },
                     ),
@@ -136,6 +138,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                     height: 45,
                     width: 300,
                     child: TextFormField(
+                      obscureText: true,
                       controller: passwordController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -151,7 +154,21 @@ class PersonalSettingsState extends State<PersonalSettings> {
                         Lang().submit,
                       ),
                       onPressed: () {
-                        print(passwordController.text);
+                        if (passwordController.text.isNotEmpty) {
+                          var result = ManagerApi().managerChangePassword(
+                              newPassword: passwordController.text);
+                          result.then(
+                            (value) {
+                              if (value.state == true) {
+                                passwordController.clear();
+                                Toast().show(context,
+                                    message: Lang().theOperationCompletes);
+                              } else {
+                                showAlertDialog(context, value.memo);
+                              }
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
