@@ -128,7 +128,7 @@ class LoginState extends State<Login> {
                       (info) {
                         if (info.state) {
                           var data = ManagerModel.fromJson(info.data);
-                          routeArgs['headline'] = data.name;
+                          routeArgs['headline'] = data.account;
                           Navigator.of(context).push(
                             RouteHelper().generate('/manager/index', routeArgs),
                           );
