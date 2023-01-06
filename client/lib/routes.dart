@@ -22,7 +22,7 @@ class RouteHelper {
     switch (routeName) {
       case '/':
         // return MaterialPageRoute(builder: (_) => Entrance());
-        return Entrance();
+        return const Entrance();
       // ===================================================================
       case '/manager/login':
         return RouteSlide(const manager_login.Login());
