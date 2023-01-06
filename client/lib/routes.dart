@@ -16,7 +16,7 @@ import 'package:client/Views/teacher/index.dart' as teacher_index;
 // };
 
 class RouteHelper {
-  dynamic generate(String routeName, {String headline = ''}) {
+  dynamic generate(String routeName, {String headline = '', int id = 0}) {
     switch (routeName) {
       case '/':
         // return MaterialPageRoute(builder: (_) => Entrance());
