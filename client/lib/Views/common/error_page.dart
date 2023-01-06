@@ -1,8 +1,8 @@
 import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
 
-var futureTest = Future.delayed(const Duration(seconds: 3), () {
-  return 'this is data';
+var futureTest = Future.delayed(const Duration(seconds: 1), () {
+  return 'Bit Exam';
 });
 
 errorPage() {

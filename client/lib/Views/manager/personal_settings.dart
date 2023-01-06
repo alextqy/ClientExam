@@ -23,7 +23,8 @@ class PersonalSettingsState extends State<PersonalSettings> {
   var args = routeArgs;
   PersonalSettingsState({args});
 
-  mainWidget(BuildContext context, ManagerModel data) {
+  mainWidget(BuildContext context, {dynamic data}) {
+    data as ManagerModel;
     var nameController = TextEditingController(text: data.name);
     var passwordController = TextEditingController();
 
@@ -167,9 +168,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
     var result = ManagerApi().managerInfo();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Lang().personalSettings),
-      ),
+      appBar: AppBar(title: Text(Lang().personalSettings)),
       body: FutureBuilder(
         future: result,
         builder: (context, snapshot) {
@@ -180,7 +179,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
             } else {
               var basicData = snapshot.data as BaseModel;
               var managerData = ManagerModel.fromJson(basicData.data);
-              widget = mainWidget(context, managerData);
+              widget = mainWidget(context, data: managerData);
             }
           } else {
             widget = const Padding(
@@ -188,9 +187,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
               child: CircularProgressIndicator(),
             );
           }
-          return Center(
-            child: widget,
-          );
+          return Center(child: widget);
         },
       ),
       drawer: Menu().drawer(context, headline: args['headline']),
