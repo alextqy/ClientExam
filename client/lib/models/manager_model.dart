@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ManagerModel {
   int createTime = 0;
   String password = '';
@@ -34,4 +36,11 @@ class ManagerModel {
       token: json['Token'],
     );
   }
+}
+
+List<ManagerModel> managerFromJsonList(String jsonString) {
+  List<ManagerModel> managerList = (json.decode(jsonString) as List)
+      .map((i) => ManagerModel.fromJson(i))
+      .toList();
+  return managerList;
 }

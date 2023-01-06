@@ -3,6 +3,7 @@ import 'package:client/public/file.dart';
 import 'package:http/http.dart' as http;
 import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
+import 'package:client/models/base_list.dart';
 
 class ManagerApi extends ResponseHelper {
   Future<BaseModel> test([
@@ -117,11 +118,11 @@ class ManagerApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerList({
+  Future<BaseListModel> managerList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
-    bool state = false,
+    int state = 0,
     int permission = 0,
   }) async {
     var response = await http.post(
@@ -131,13 +132,13 @@ class ManagerApi extends ResponseHelper {
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
         'Stext': stext.trim(),
-        'State': state,
+        'State': state.toString(),
         'Permission': permission.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return BaseListModel.fromJson(jsonDecode(response.body));
   }
 
   Future<BaseModel> managerInfo({

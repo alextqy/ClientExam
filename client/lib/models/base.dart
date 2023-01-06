@@ -19,13 +19,4 @@ class BaseModel {
       data: json['Data'],
     );
   }
-
-  Map toJson() {
-    var map = <String, dynamic>{};
-    map['state'] = state;
-    map['memo'] = memo;
-    map['code'] = code;
-    map['data'] = data;
-    return map;
-  }
 }
