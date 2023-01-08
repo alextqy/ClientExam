@@ -38,6 +38,7 @@ class Lang {
   String name = '';
   String thisItemCannotBeModified = '';
   String createtime = '';
+  String updateTime = '';
   String theOperationCompletes = '';
 
   // String systemFunctions = '';
@@ -86,6 +87,7 @@ class Lang {
       this.name = '称呼';
       this.thisItemCannotBeModified = '该项不能被修改';
       this.createtime = '创建时间';
+      this.updateTime = '更新时间';
       this.theOperationCompletes = '操作完成';
     } else {
       this.title = title;
@@ -124,6 +126,7 @@ class Lang {
       this.name = 'Name';
       this.thisItemCannotBeModified = 'This Item Cannot Be Modified';
       this.createtime = 'Createtime';
+      this.updateTime = 'UpdateTime';
       this.theOperationCompletes = 'The Operation Completes';
     }
   }

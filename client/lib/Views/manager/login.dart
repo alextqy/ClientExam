@@ -110,7 +110,9 @@ class LoginState extends State<Login> {
             fixedSize: const Size(220, 35),
           ),
           onPressed: () {
-            if (_formKey.currentState?.validate() != null) {
+            if (_formKey.currentState?.validate() != null &&
+                accountController.text.trim().isNotEmpty &&
+                passwordController.text.trim().isNotEmpty) {
               var result = ManagerApi().managerSignIn(
                 accountController.text,
                 passwordController.text,
