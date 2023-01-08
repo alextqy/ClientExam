@@ -20,60 +20,9 @@ class Manager extends StatefulWidget {
 
 class ManagerState extends State<Manager> {
   late String headline;
-  static const int numItems = -1;
+  static int numItems = 999999;
   List<bool> selected = List<bool>.generate(numItems, (int index) => false);
   ManagerState({this.headline = ''});
-
-  // TableCell itemWidget(String content) {
-  //   return TableCell(
-  //     child: Center(
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(10),
-  //         child: SizedBox(
-  //           child: Text(content),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // List<TableRow> dataForeach(List<ManagerModel> list) {
-  //   List<TableRow> listWidget = [];
-  //   listWidget.add(
-  //     TableRow(
-  //       decoration: const BoxDecoration(
-  //         color: Colors.white,
-  //       ),
-  //       children: [
-  //         Center(
-  //           child: Text(Lang().account),
-  //         ),
-  //         Center(
-  //           child: Text(Lang().name),
-  //         ),
-  //         Center(
-  //           child: Text(Lang().createtime),
-  //         ),
-  //         Center(
-  //           child: Text(Lang().updateTime),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  //   for (var element in list) {
-  //     listWidget.add(
-  //       TableRow(
-  //         children: [
-  //           itemWidget(element.account),
-  //           itemWidget(element.name),
-  //           itemWidget(Tools().timestampToStr(element.createTime)),
-  //           itemWidget(Tools().timestampToStr(element.updateTime)),
-  //         ],
-  //       ),
-  //     );
-  //   }
-  //   return listWidget;
-  // }
 
   List<DataRow> dataForeach(List<ManagerModel> list) {
     return List<DataRow>.generate(
@@ -93,20 +42,6 @@ class ManagerState extends State<Manager> {
         ],
       ),
     );
-    // List<DataRow> listWidget = [];
-    // for (var element in list) {
-    //   listWidget.add(
-    //     DataRow(
-    //       cells: <DataCell>[
-    //         DataCell(Text(element.account)),
-    //         DataCell(Text(element.name)),
-    //         DataCell(Text(Tools().timestampToStr(element.createTime))),
-    //         DataCell(Text(Tools().timestampToStr(element.updateTime))),
-    //       ],
-    //     ),
-    //   );
-    // }
-    // return listWidget;
   }
 
   mainWidget(BuildContext context, {dynamic data}) {
@@ -131,22 +66,12 @@ class ManagerState extends State<Manager> {
                   scrollDirection: Axis.vertical,
                   child: DataTable(
                     border: TableBorder.all(color: Colors.white, width: 1),
-                    // columnWidths: const {
-                    //   0: FixedColumnWidth(300.0),
-                    //   1: FixedColumnWidth(300.0),
-                    //   2: FixedColumnWidth(300.0),
-                    // },
-                    // textBaseline: TextBaseline.alphabetic,
-                    // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    // defaultColumnWidth: const IntrinsicColumnWidth(),
-                    // children: dataForeach(data),
-
                     headingRowHeight: 50, // 顶部 Row 高度
                     dataRowHeight: 40, // Rows 中每条 Row 高度
                     // horizontalMargin: 20, // 左侧边距
                     // columnSpacing: 80, // 每一列间距
                     // dividerThickness: 1, // 分割线宽度
-                    // showCheckboxColumn: true, // 是否展示左侧 checkbox，默认为 true，需要和 DataRow 的onSelectChanged 一起使用
+                    // showCheckboxColumn: true, // 是否展示左侧 checkbox，默认为 true，需要和 DataRow 的onSelectChanged 一起使用,
                     columns: <DataColumn>[
                       DataColumn(
                         label: Expanded(
