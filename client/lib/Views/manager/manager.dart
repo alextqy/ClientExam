@@ -74,20 +74,31 @@ class ManagerState extends State<Manager> {
   // }
 
   List<DataRow> dataForeach(List<ManagerModel> list) {
-    List<DataRow> listWidget = [];
-    for (var element in list) {
-      listWidget.add(
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text(element.account)),
-            DataCell(Text(element.name)),
-            DataCell(Text(Tools().timestampToStr(element.createTime))),
-            DataCell(Text(Tools().timestampToStr(element.updateTime))),
-          ],
-        ),
-      );
-    }
-    return listWidget;
+    return List<DataRow>.generate(
+      list.length,
+      (index) => DataRow(
+        cells: <DataCell>[
+          DataCell(Text(list[index].account)),
+          DataCell(Text(list[index].name)),
+          DataCell(Text(Tools().timestampToStr(list[index].createTime))),
+          DataCell(Text(Tools().timestampToStr(list[index].updateTime))),
+        ],
+      ),
+    );
+    // List<DataRow> listWidget = [];
+    // for (var element in list) {
+    //   listWidget.add(
+    //     DataRow(
+    //       cells: <DataCell>[
+    //         DataCell(Text(element.account)),
+    //         DataCell(Text(element.name)),
+    //         DataCell(Text(Tools().timestampToStr(element.createTime))),
+    //         DataCell(Text(Tools().timestampToStr(element.updateTime))),
+    //       ],
+    //     ),
+    //   );
+    // }
+    // return listWidget;
   }
 
   mainWidget(BuildContext context, {dynamic data}) {
