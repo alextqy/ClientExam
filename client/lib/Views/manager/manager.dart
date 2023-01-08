@@ -20,6 +20,8 @@ class Manager extends StatefulWidget {
 
 class ManagerState extends State<Manager> {
   late String headline;
+  static const int numItems = -1;
+  List<bool> selected = List<bool>.generate(numItems, (int index) => false);
   ManagerState({this.headline = ''});
 
   // TableCell itemWidget(String content) {
@@ -77,6 +79,12 @@ class ManagerState extends State<Manager> {
     return List<DataRow>.generate(
       list.length,
       (index) => DataRow(
+        selected: selected[index],
+        onSelectChanged: (bool? value) {
+          setState(() {
+            selected[index] = value!;
+          });
+        },
         cells: <DataCell>[
           DataCell(Text(list[index].account)),
           DataCell(Text(list[index].name)),
@@ -132,6 +140,13 @@ class ManagerState extends State<Manager> {
                     // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     // defaultColumnWidth: const IntrinsicColumnWidth(),
                     // children: dataForeach(data),
+
+                    headingRowHeight: 50, // 顶部 Row 高度
+                    dataRowHeight: 40, // Rows 中每条 Row 高度
+                    // horizontalMargin: 20, // 左侧边距
+                    // columnSpacing: 80, // 每一列间距
+                    // dividerThickness: 1, // 分割线宽度
+                    // showCheckboxColumn: true, // 是否展示左侧 checkbox，默认为 true，需要和 DataRow 的onSelectChanged 一起使用
                     columns: <DataColumn>[
                       DataColumn(
                         label: Expanded(
