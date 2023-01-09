@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:client/Views/common/error_page.dart';
+import 'package:client/Views/common/page_dropdown_button.dart';
 import 'package:client/models/base_list.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/public/lang.dart';
@@ -7,6 +8,9 @@ import 'package:client/public/tools.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
+
+var perPageDataDropdownButton = PerPageDataDropdownButton();
+var stateDataDropdownButton = StateDataDropdownButton();
 
 // ignore: must_be_immutable
 class Manager extends StatefulWidget {
@@ -20,28 +24,48 @@ class Manager extends StatefulWidget {
 
 class ManagerState extends State<Manager> {
   late String headline;
-  static int numItems = 999999;
-  List<bool> selected = List<bool>.generate(numItems, (int index) => false);
   ManagerState({this.headline = ''});
 
-  List<DataRow> dataForeach(List<ManagerModel> list) {
-    return List<DataRow>.generate(
-      list.length,
-      (index) => DataRow(
-        selected: selected[index],
-        onSelectChanged: (bool? value) {
-          setState(() {
-            selected[index] = value!;
-          });
-        },
-        cells: <DataCell>[
-          DataCell(Text(list[index].account)),
-          DataCell(Text(list[index].name)),
-          DataCell(Text(Tools().timestampToStr(list[index].createTime))),
-          DataCell(Text(Tools().timestampToStr(list[index].updateTime))),
-        ],
-      ),
-    );
+  List<ListTile> dataForeach(List<ManagerModel> list) {
+    List<ListTile> dataList = [];
+    for (var element in list) {
+      dataList.add(
+        ListTile(
+          // horizontalTitleGap: 25,
+          title: Text(
+            element.account,
+            style: const TextStyle(color: Colors.black),
+          ),
+          subtitle: Text(
+            '${Lang().createtime} ${Tools().timestampToStr(element.createTime)}',
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {
+              print(element.account);
+            },
+          ),
+        ),
+      );
+    }
+    return dataList;
+    // return List<DataRow>.generate(
+    //   list.length,
+    //   (index) => DataRow(
+    //     selected: selected[index],
+    //     onSelectChanged: (bool? value) {
+    //       setState(() {
+    //         selected[index] = value!;
+    //       });
+    //     },
+    //     cells: <DataCell>[
+    //       DataCell(Text(list[index].account)),
+    //       DataCell(Text(list[index].name)),
+    //       DataCell(Text(Tools().timestampToStr(list[index].createTime))),
+    //       DataCell(Text(Tools().timestampToStr(list[index].updateTime))),
+    //     ],
+    //   ),
+    // );
   }
 
   mainWidget(BuildContext context, {dynamic data}) {
@@ -62,53 +86,60 @@ class ManagerState extends State<Manager> {
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: DataTable(
-                    border: TableBorder.all(color: Colors.white, width: 1),
-                    headingRowHeight: 50, // 顶部 Row 高度
-                    dataRowHeight: 40, // Rows 中每条 Row 高度
-                    // horizontalMargin: 20, // 左侧边距
-                    // columnSpacing: 80, // 每一列间距
-                    // dividerThickness: 1, // 分割线宽度
-                    // showCheckboxColumn: true, // 是否展示左侧 checkbox，默认为 true，需要和 DataRow 的onSelectChanged 一起使用,
-                    columns: <DataColumn>[
-                      DataColumn(
-                        label: Expanded(
-                          child: Text(
-                            Lang().account,
-                            style: const TextStyle(fontStyle: FontStyle.italic),
-                          ),
+                // child: SingleChildScrollView(
+                //   scrollDirection: Axis.vertical,
+                // child: SingleChildScrollView(
+                //   scrollDirection: Axis.horizontal,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: ColoredBox(
+                        color: Colors.white,
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 30),
+                            Tooltip(
+                              message: Lang().amountOfAataPerPage,
+                              child: SizedBox(
+                                child: perPageDataDropdownButton,
+                              ),
+                            ),
+                            const SizedBox(width: 30),
+                            Tooltip(
+                              message: Lang().status,
+                              child: SizedBox(
+                                child: stateDataDropdownButton,
+                              ),
+                            ),
+                            const Expanded(child: SizedBox()),
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () => print('refresh'),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              onPressed: () => print('add'),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () => print('delete'),
+                            ),
+                          ],
                         ),
                       ),
-                      DataColumn(
-                        label: Expanded(
-                          child: Text(
-                            Lang().name,
-                            style: const TextStyle(fontStyle: FontStyle.italic),
-                          ),
-                        ),
+                    ),
+                    Expanded(
+                      child: ListView(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(0),
+                        children: dataForeach(data),
                       ),
-                      DataColumn(
-                        label: Expanded(
-                          child: Text(
-                            Lang().createtime,
-                            style: const TextStyle(fontStyle: FontStyle.italic),
-                          ),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Expanded(
-                          child: Text(
-                            Lang().updateTime,
-                            style: const TextStyle(fontStyle: FontStyle.italic),
-                          ),
-                        ),
-                      ),
-                    ],
-                    rows: dataForeach(data),
-                  ),
+                    ),
+                  ],
                 ),
+                // ),
+                // ),
               ),
             ),
           ),
