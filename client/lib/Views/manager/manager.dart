@@ -12,6 +12,10 @@ import 'package:client/Views/common/menu.dart';
 var perPageDataDropdownButton = PerPageDataDropdownButton();
 var stateDataDropdownButton = StateDataDropdownButton();
 
+int page = 1;
+int pageSize = 10;
+var result = ManagerApi().managerList(page: page, pageSize: pageSize);
+
 // ignore: must_be_immutable
 class Manager extends StatefulWidget {
   late String headline;
@@ -24,13 +28,8 @@ class Manager extends StatefulWidget {
 
 class ManagerState extends State<Manager> {
   late String headline;
-  int page = 1;
-  int pageSize = 10;
   bool sortAscending = true;
-  late Future<BaseListModel> result;
-  ManagerState({this.headline = ''}) {
-    result = ManagerApi().managerList(page: page, pageSize: pageSize);
-  }
+  ManagerState({this.headline = ''});
 
   mainWidget(BuildContext context, {dynamic data}) {
     data as List<ManagerModel>;
@@ -84,13 +83,11 @@ class ManagerState extends State<Manager> {
                           //     setState(() => pageSize = value!), // 每页数据量变更回调
                           // 全选
                           // onSelectAll: (state) => setState(
-                          //   () {
-                          //     managerSourceData.selectAll(state!);
-                          //   },
+                          //   () => managerSourceData.selectAll(state!),
                           // ),
                           // 表头
                           header: const Text(
-                            'List',
+                            '',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                           // 功能按钮
