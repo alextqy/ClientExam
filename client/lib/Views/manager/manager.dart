@@ -72,6 +72,7 @@ class ManagerState extends State<Manager> {
                           horizontalMargin: 50, // 表格外边距
                           columnSpacing: 100, // 单元格间距
                           showCheckboxColumn: true, // 是否展示复选框
+                          checkboxHorizontalMargin: 50, // 复选框边距
                           // sortAscending: sortAscending, // 升序降序
                           // sortColumnIndex: 1, // 表格索引
                           // 每页展示数据量选项
