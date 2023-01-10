@@ -41,7 +41,7 @@ class Lang {
   String updateTime = '';
   String theOperationCompletes = '';
 
-  String amountOfAataPerPage = '';
+  String rowsPerPage = '';
   String normal = '';
   String disable = '';
   String status = '';
@@ -94,7 +94,7 @@ class Lang {
       this.createtime = '创建时间';
       this.updateTime = '更新时间';
       this.theOperationCompletes = '操作完成';
-      this.amountOfAataPerPage = '每页数据量';
+      this.rowsPerPage = '每页数据量';
       this.normal = '正常';
       this.disable = '禁用';
       this.status = '状态';
@@ -137,7 +137,7 @@ class Lang {
       this.createtime = 'Createtime';
       this.updateTime = 'UpdateTime';
       this.theOperationCompletes = 'The Operation Completes';
-      this.amountOfAataPerPage = 'Amount Of Aata Per Page';
+      this.rowsPerPage = 'Rows Per Page';
       this.normal = 'normal';
       this.disable = 'disable';
       this.status = 'status';

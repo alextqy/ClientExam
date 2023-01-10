@@ -95,6 +95,14 @@ class ManagerState extends State<Manager> {
                           ),
                           // 功能按钮
                           actions: [
+                            Tooltip(
+                              message: Lang().rowsPerPage,
+                              child: perPageDataDropdownButton,
+                            ),
+                            Tooltip(
+                              message: Lang().status,
+                              child: stateDataDropdownButton,
+                            ),
                             IconButton(
                               icon: const Icon(Icons.refresh),
                               onPressed: () => print('refresh'),

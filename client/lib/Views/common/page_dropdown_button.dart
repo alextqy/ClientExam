@@ -1,13 +1,14 @@
 import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
 
-const List<int> perPageDropList = <int>[10, 50, 100];
-
 // 每页展示数据量
 // ignore: must_be_immutable
 class PerPageDataDropdownButton extends StatefulWidget {
-  int perPageDropdownValue = perPageDropList.first;
-  PerPageDataDropdownButton({super.key});
+  List<int> perPageDropList = <int>[10, 50, 100];
+  late int perPageDropdownValue;
+  PerPageDataDropdownButton({super.key}) {
+    perPageDropdownValue = perPageDropList.first;
+  }
 
   @override
   State<PerPageDataDropdownButton> createState() =>
@@ -18,6 +19,7 @@ class _PerPageDataDropdownButton extends State<PerPageDataDropdownButton> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<int>(
+      itemHeight: 50,
       value: widget.perPageDropdownValue,
       icon: const Icon(Icons.arrow_drop_down),
       style: const TextStyle(color: Colors.black),
@@ -31,7 +33,7 @@ class _PerPageDataDropdownButton extends State<PerPageDataDropdownButton> {
           widget.perPageDropdownValue = value!;
         });
       },
-      items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
+      items: widget.perPageDropList.map<DropdownMenuItem<int>>((int value) {
         return DropdownMenuItem<int>(
           value: value,
           child: Text(value.toString()),
@@ -41,12 +43,13 @@ class _PerPageDataDropdownButton extends State<PerPageDataDropdownButton> {
   }
 }
 
-List<String> stateDropList = <String>[Lang().normal, Lang().disable];
-
 // ignore: must_be_immutable
 class StateDataDropdownButton extends StatefulWidget {
-  String stateDropdownValue = stateDropList.first;
-  StateDataDropdownButton({super.key});
+  List<String> stateDropList = <String>[Lang().normal, Lang().disable];
+  late String stateDropdownValue;
+  StateDataDropdownButton({super.key}) {
+    stateDropdownValue = stateDropList.first;
+  }
 
   @override
   State<StateDataDropdownButton> createState() => _StateDataDropdownButton();
@@ -56,6 +59,7 @@ class _StateDataDropdownButton extends State<StateDataDropdownButton> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+      itemHeight: 50,
       value: widget.stateDropdownValue,
       icon: const Icon(Icons.arrow_drop_down),
       style: const TextStyle(color: Colors.black),
@@ -69,7 +73,7 @@ class _StateDataDropdownButton extends State<StateDataDropdownButton> {
           widget.stateDropdownValue = value!;
         });
       },
-      items: stateDropList.map<DropdownMenuItem<String>>((String value) {
+      items: widget.stateDropList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
