@@ -10,7 +10,7 @@ import 'package:client/Views/teacher/index.dart' as teacher_index;
 
 // 注册命名路由
 // Map<String, WidgetBuilder> routerMap = {
-//   "/manager/index": (context) {
+//   '/manager/index': (context) {
 //     return const manager_index.Index();
 //   },
 // };
@@ -40,7 +40,7 @@ class RouteHelper {
           builder: (_) => Scaffold(
             backgroundColor: Colors.grey,
             appBar: AppBar(
-              title: const Text("ERROR"),
+              title: const Text('ERROR'),
             ),
             body: const Center(
               child: Text(

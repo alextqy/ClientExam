@@ -26,48 +26,6 @@ class ManagerState extends State<Manager> {
   late String headline;
   ManagerState({this.headline = ''});
 
-  List<ListTile> dataForeach(List<ManagerModel> list) {
-    List<ListTile> dataList = [];
-    for (var element in list) {
-      dataList.add(
-        ListTile(
-          // horizontalTitleGap: 25,
-          title: Text(
-            element.account,
-            style: const TextStyle(color: Colors.black),
-          ),
-          subtitle: Text(
-            '${Lang().createtime} ${Tools().timestampToStr(element.createTime)}',
-          ),
-          trailing: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-              print(element.account);
-            },
-          ),
-        ),
-      );
-    }
-    return dataList;
-    // return List<DataRow>.generate(
-    //   list.length,
-    //   (index) => DataRow(
-    //     selected: selected[index],
-    //     onSelectChanged: (bool? value) {
-    //       setState(() {
-    //         selected[index] = value!;
-    //       });
-    //     },
-    //     cells: <DataCell>[
-    //       DataCell(Text(list[index].account)),
-    //       DataCell(Text(list[index].name)),
-    //       DataCell(Text(Tools().timestampToStr(list[index].createTime))),
-    //       DataCell(Text(Tools().timestampToStr(list[index].updateTime))),
-    //     ],
-    //   ),
-    // );
-  }
-
   mainWidget(BuildContext context, {dynamic data}) {
     data as List<ManagerModel>;
 
@@ -86,33 +44,24 @@ class ManagerState extends State<Manager> {
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
-                // child: SingleChildScrollView(
-                //   scrollDirection: Axis.vertical,
-                // child: SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                      child: ColoredBox(
-                        color: Colors.white,
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 30),
-                            Tooltip(
-                              message: Lang().amountOfAataPerPage,
-                              child: SizedBox(
-                                child: perPageDataDropdownButton,
-                              ),
-                            ),
-                            const SizedBox(width: 30),
-                            Tooltip(
-                              message: Lang().status,
-                              child: SizedBox(
-                                child: stateDataDropdownButton,
-                              ),
-                            ),
-                            const Expanded(child: SizedBox()),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  // child: SingleChildScrollView(
+                  //   scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        // height: double.infinity,
+                        child: PaginatedDataTable(
+                          rowsPerPage: data.length,
+                          headingRowHeight: 50,
+                          dataRowHeight: 50,
+                          horizontalMargin: 50,
+                          columnSpacing: 100,
+                          showCheckboxColumn: true,
+                          header: const Text(''),
+                          actions: [
                             IconButton(
                               icon: const Icon(Icons.refresh),
                               onPressed: () => print('refresh'),
@@ -126,20 +75,53 @@ class ManagerState extends State<Manager> {
                               onPressed: () => print('delete'),
                             ),
                           ],
+                          columns: [
+                            const DataColumn(
+                              label: Text(
+                                'ID',
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                Lang().account,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                Lang().name,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                Lang().createtime,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                Lang().updateTime,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                          ],
+                          source: ManagerSourceData(data),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: ListView(
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.all(0),
-                        children: dataForeach(data),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
+                  // ),
                 ),
-                // ),
-                // ),
               ),
             ),
           ),
@@ -176,4 +158,102 @@ class ManagerState extends State<Manager> {
       drawer: Menu().drawer(context, headline: headline),
     );
   }
+}
+
+class ManagerSourceData extends DataTableSource {
+  int _selectCount = 0; // 当前选中的行数
+
+  late List<Map<String, dynamic>> _sourceData;
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  late int rowCount;
+
+  @override
+  late int selectedRowCount;
+
+  late List<ManagerModel> list;
+
+  ManagerSourceData(this.list) {
+    _sourceData = dataForeach(list);
+    rowCount = _sourceData.length;
+    selectedRowCount = _selectCount;
+  }
+
+  List<Map<String, dynamic>> dataForeach(List<ManagerModel> list) {
+    return List<Map<String, dynamic>>.generate(
+      list.length,
+      (index) => {
+        'ID': list[index].id.toString(),
+        'account': list[index].account,
+        'name': list[index].name,
+        'createTime': Tools().timestampToStr(list[index].createTime),
+        'updateTime': Tools().timestampToStr(list[index].updateTime),
+        'selected': false,
+      },
+    );
+  }
+
+  @override
+  DataRow getRow(int index) => DataRow.byIndex(
+        index: index,
+        selected: _sourceData[index]['selected'],
+        onSelectChanged: (selected) {
+          _sourceData[index]['selected'] = selected;
+          notifyListeners();
+        },
+        cells: [
+          DataCell(Text(list[index].id.toString())),
+          DataCell(Text(list[index].account)),
+          DataCell(Text(list[index].name)),
+          DataCell(Text(Tools().timestampToStr(list[index].createTime))),
+          DataCell(Text(Tools().timestampToStr(list[index].updateTime))),
+        ],
+      );
+
+  void sortData<T>(
+      Comparable<T> Function(Map<String, dynamic> map) getField, bool b) {
+    _sourceData.sort((Map<String, dynamic> map1, Map<String, dynamic> map2) {
+      if (!b) {
+        //两个项进行交换
+        final Map<String, dynamic> temp = map1;
+        map1 = map2;
+        map2 = temp;
+      }
+      final Comparable<T> s1Value = getField(map1);
+      final Comparable<T> s2Value = getField(map2);
+      return Comparable.compare(s1Value, s2Value);
+    });
+    notifyListeners();
+  }
+
+  void selectAll(bool checked) {
+    for (var data in _sourceData) {
+      data['selected'] = checked;
+    }
+    _selectCount = checked ? _sourceData.length : 0;
+    notifyListeners(); // 通知监听器去刷新
+  }
+
+  // List<DataRow> dataForeach(List<ManagerModel> list) {
+  //   return List<DataRow>.generate(
+  //     list.length,
+  //     (index) => DataRow(
+  //       selected: selected[index],
+  //       onSelectChanged: (bool? value) {
+  //         setState(() {
+  //           selected[index] = value!;
+  //         });
+  //       },
+  //       cells: <DataCell>[
+  //         DataCell(Text(list[index].account)),
+  //         DataCell(Text(list[index].name)),
+  //         DataCell(Text(Tools().timestampToStr(list[index].createTime))),
+  //         DataCell(Text(Tools().timestampToStr(list[index].updateTime))),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

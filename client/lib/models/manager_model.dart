@@ -10,6 +10,7 @@ class ManagerModel {
   int id = 0;
   int permission = 0;
   String token = '';
+  bool selected = false;
 
   ManagerModel({
     required this.createTime,
