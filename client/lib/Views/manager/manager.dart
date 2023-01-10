@@ -24,10 +24,22 @@ class Manager extends StatefulWidget {
 
 class ManagerState extends State<Manager> {
   late String headline;
+  int page = 1;
+  int pageSize = 10;
+  bool sortAscending = true;
   ManagerState({this.headline = ''});
 
   mainWidget(BuildContext context, {dynamic data}) {
     data as List<ManagerModel>;
+    var managerSourceData = ManagerSourceData(data);
+
+    int contPageSize() {
+      if (pageSize >= data.length) {
+        return data.length;
+      } else {
+        return pageSize;
+      }
+    }
 
     return Container(
         width: double.infinity,
@@ -54,13 +66,28 @@ class ManagerState extends State<Manager> {
                         width: double.infinity,
                         // height: double.infinity,
                         child: PaginatedDataTable(
-                          rowsPerPage: data.length,
-                          headingRowHeight: 50,
-                          dataRowHeight: 50,
-                          horizontalMargin: 50,
-                          columnSpacing: 100,
-                          showCheckboxColumn: true,
-                          header: const Text(''),
+                          rowsPerPage: contPageSize(), // 每页展示数据量
+                          headingRowHeight: 50, // 标题栏高度
+                          dataRowHeight: 50, // 数据栏高度
+                          horizontalMargin: 50, // 表格外边距
+                          columnSpacing: 100, // 单元格间距
+                          showCheckboxColumn: true, // 是否展示复选框
+                          // sortAscending: sortAscending, // 升序降序
+                          // sortColumnIndex: 1, // 表格索引
+                          // 每页展示数据量选项
+                          availableRowsPerPage: const [10, 50, 100],
+                          // onRowsPerPageChanged: (value) =>
+                          //     setState(() => pageSize = value!), // 每页数据量变更回调
+                          // 全选
+                          // onSelectAll: (state) => setState(
+                          //   () => managerSourceData.selectAll(state!),
+                          // ),
+                          // 表头
+                          header: const Text(
+                            'List',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                          // 功能按钮
                           actions: [
                             IconButton(
                               icon: const Icon(Icons.refresh),
@@ -75,12 +102,30 @@ class ManagerState extends State<Manager> {
                               onPressed: () => print('delete'),
                             ),
                           ],
+                          // 标题栏
                           columns: [
-                            const DataColumn(
-                              label: Text(
-                                'ID',
-                                style: TextStyle(fontStyle: FontStyle.italic),
+                            DataColumn(
+                              label: Row(
+                                children: const [
+                                  Text(
+                                    'ID',
+                                    style:
+                                        TextStyle(fontStyle: FontStyle.italic),
+                                  ),
+                                  // SizedBox(child: Icon(Icons.arrow_drop_down)),
+                                ],
                               ),
+                              // onSort: (columnIndex, ascending) {
+                              //   setState(
+                              //     () {
+                              //       sortAscending = ascending;
+                              //       managerSourceData.sortData(
+                              //         (map) => map['ID'],
+                              //         ascending,
+                              //       );
+                              //     },
+                              //   );
+                              // },
                             ),
                             DataColumn(
                               label: Text(
@@ -115,7 +160,7 @@ class ManagerState extends State<Manager> {
                               ),
                             ),
                           ],
-                          source: ManagerSourceData(data),
+                          source: managerSourceData,
                         ),
                       ),
                     ],
@@ -130,7 +175,7 @@ class ManagerState extends State<Manager> {
 
   @override
   Widget build(BuildContext context) {
-    var result = ManagerApi().managerList();
+    var result = ManagerApi().managerList(page: page, pageSize: pageSize);
 
     return Scaffold(
       appBar: AppBar(title: Text(Lang().managers)),
@@ -217,7 +262,7 @@ class ManagerSourceData extends DataTableSource {
       Comparable<T> Function(Map<String, dynamic> map) getField, bool b) {
     _sourceData.sort((Map<String, dynamic> map1, Map<String, dynamic> map2) {
       if (!b) {
-        //两个项进行交换
+        // 两个项进行交换
         final Map<String, dynamic> temp = map1;
         map1 = map2;
         map2 = temp;
@@ -236,24 +281,4 @@ class ManagerSourceData extends DataTableSource {
     _selectCount = checked ? _sourceData.length : 0;
     notifyListeners(); // 通知监听器去刷新
   }
-
-  // List<DataRow> dataForeach(List<ManagerModel> list) {
-  //   return List<DataRow>.generate(
-  //     list.length,
-  //     (index) => DataRow(
-  //       selected: selected[index],
-  //       onSelectChanged: (bool? value) {
-  //         setState(() {
-  //           selected[index] = value!;
-  //         });
-  //       },
-  //       cells: <DataCell>[
-  //         DataCell(Text(list[index].account)),
-  //         DataCell(Text(list[index].name)),
-  //         DataCell(Text(Tools().timestampToStr(list[index].createTime))),
-  //         DataCell(Text(Tools().timestampToStr(list[index].updateTime))),
-  //       ],
-  //     ),
-  //   );
-  // }
 }
