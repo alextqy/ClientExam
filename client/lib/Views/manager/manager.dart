@@ -27,7 +27,10 @@ class ManagerState extends State<Manager> {
   int page = 1;
   int pageSize = 10;
   bool sortAscending = true;
-  ManagerState({this.headline = ''});
+  late Future<BaseListModel> result;
+  ManagerState({this.headline = ''}) {
+    result = ManagerApi().managerList(page: page, pageSize: pageSize);
+  }
 
   mainWidget(BuildContext context, {dynamic data}) {
     data as List<ManagerModel>;
@@ -76,12 +79,14 @@ class ManagerState extends State<Manager> {
                           // sortAscending: sortAscending, // 升序降序
                           // sortColumnIndex: 1, // 表格索引
                           // 每页展示数据量选项
-                          availableRowsPerPage: const [10, 50, 100],
+                          // availableRowsPerPage: const [10, 50, 100],
                           // onRowsPerPageChanged: (value) =>
                           //     setState(() => pageSize = value!), // 每页数据量变更回调
                           // 全选
                           // onSelectAll: (state) => setState(
-                          //   () => managerSourceData.selectAll(state!),
+                          //   () {
+                          //     managerSourceData.selectAll(state!);
+                          //   },
                           // ),
                           // 表头
                           header: const Text(
@@ -176,8 +181,6 @@ class ManagerState extends State<Manager> {
 
   @override
   Widget build(BuildContext context) {
-    var result = ManagerApi().managerList(page: page, pageSize: pageSize);
-
     return Scaffold(
       appBar: AppBar(title: Text(Lang().managers)),
       body: FutureBuilder(
@@ -232,7 +235,7 @@ class ManagerSourceData extends DataTableSource {
     return List<Map<String, dynamic>>.generate(
       list.length,
       (index) => {
-        'ID': list[index].id.toString(),
+        'id': list[index].id.toString(),
         'account': list[index].account,
         'name': list[index].name,
         'createTime': Tools().timestampToStr(list[index].createTime),
