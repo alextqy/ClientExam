@@ -23,13 +23,12 @@ class Manager extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  State<Manager> createState() => ManagerState(headline: headline);
+  State<Manager> createState() => ManagerState();
 }
 
 class ManagerState extends State<Manager> {
-  late String headline;
-  bool sortAscending = true;
-  ManagerState({this.headline = ''});
+  bool sortAscending = false;
+  bool isChecked = false;
 
   mainWidget(BuildContext context, {dynamic data}) {
     data as List<ManagerModel>;
@@ -75,16 +74,17 @@ class ManagerState extends State<Manager> {
                           columnSpacing: 100, // 单元格间距
                           showCheckboxColumn: true, // 是否展示复选框
                           checkboxHorizontalMargin: 50, // 复选框边距
-                          // sortAscending: sortAscending, // 升序降序
-                          // sortColumnIndex: 1, // 表格索引
+                          sortAscending: sortAscending, // 升序降序
+                          sortColumnIndex: 1, // 表格索引
                           // 每页展示数据量选项
                           // availableRowsPerPage: const [10, 50, 100],
                           // onRowsPerPageChanged: (value) =>
                           //     setState(() => pageSize = value!), // 每页数据量变更回调
                           // 全选
-                          // onSelectAll: (state) => setState(
-                          //   () => managerSourceData.selectAll(state!),
-                          // ),
+                          onSelectAll: ((value) {
+                            isChecked = value!;
+                            managerSourceData.selectAll(value);
+                          }),
                           // 表头
                           header: const Text(
                             '',
@@ -209,7 +209,7 @@ class ManagerState extends State<Manager> {
           return Center(child: widget);
         },
       ),
-      drawer: Menu().drawer(context, headline: headline),
+      drawer: Menu().drawer(context, headline: widget.headline),
     );
   }
 }
@@ -283,11 +283,11 @@ class ManagerSourceData extends DataTableSource {
     notifyListeners();
   }
 
-  void selectAll(bool checked) {
+  dynamic selectAll(bool? checked) {
     for (var data in _sourceData) {
       data['selected'] = checked;
     }
-    _selectCount = checked ? _sourceData.length : 0;
+    _selectCount = checked! ? _sourceData.length : 0;
     notifyListeners(); // 通知监听器去刷新
   }
 }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class Manager_bak extends StatefulWidget {
+class ManagerBak extends StatefulWidget {
   late String headline;
-  Manager_bak({super.key, required this.headline});
+  ManagerBak({super.key, required this.headline});
 
   @override
-  State<Manager_bak> createState() => _MyHomePageState();
+  State<ManagerBak> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<Manager_bak> {
+class _MyHomePageState extends State<ManagerBak> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   late int _sortColumnIndex = 0;
   bool _sortAscending = true;
