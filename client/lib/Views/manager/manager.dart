@@ -27,12 +27,14 @@ class Manager extends StatefulWidget {
 }
 
 class ManagerState extends State<Manager> {
-  bool sortAscending = false;
   bool isChecked = false;
+  bool sortAscending = false;
+  int sortColumnIndex = 0;
+  late ManagerSourceData managerSourceData;
 
   mainWidget(BuildContext context, {dynamic data}) {
     data as List<ManagerModel>;
-    var managerSourceData = ManagerSourceData(data);
+    managerSourceData = ManagerSourceData(data);
 
     int contPageSize() {
       if (pageSize >= data.length) {
@@ -71,11 +73,11 @@ class ManagerState extends State<Manager> {
                           headingRowHeight: 50, // 标题栏高度
                           dataRowHeight: 50, // 数据栏高度
                           horizontalMargin: 50, // 表格外边距
-                          columnSpacing: 100, // 单元格间距
+                          // columnSpacing: 50, // 单元格间距
                           showCheckboxColumn: true, // 是否展示复选框
                           checkboxHorizontalMargin: 50, // 复选框边距
                           sortAscending: sortAscending, // 升序降序
-                          sortColumnIndex: 1, // 表格索引
+                          sortColumnIndex: sortColumnIndex, // 表格索引
                           // 每页展示数据量选项
                           // availableRowsPerPage: const [10, 50, 100],
                           // onRowsPerPageChanged: (value) =>
@@ -128,9 +130,10 @@ class ManagerState extends State<Manager> {
                               // onSort: (columnIndex, ascending) {
                               //   setState(
                               //     () {
+                              //       sortColumnIndex = columnIndex;
                               //       sortAscending = ascending;
                               //       managerSourceData.sortData(
-                              //         (map) => map['ID'],
+                              //         (obj) => obj.id,
                               //         ascending,
                               //       );
                               //     },
