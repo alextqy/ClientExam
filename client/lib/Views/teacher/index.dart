@@ -7,14 +7,10 @@ class Index extends StatefulWidget {
   const Index({super.key, this.headline = ''});
 
   @override
-  // ignore: no_logic_in_create_state
-  State<Index> createState() => IndexState(headline: headline);
+  State<Index> createState() => IndexState();
 }
 
 class IndexState extends State<Index> {
-  String headline;
-  IndexState({this.headline = ''});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +24,7 @@ class IndexState extends State<Index> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: Menu().drawer(context, headline: headline),
+      drawer: Menu().drawer(context, headline: widget.headline),
     );
   }
 }

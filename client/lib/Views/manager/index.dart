@@ -9,14 +9,10 @@ class Index extends StatefulWidget {
   Index({super.key, required this.headline});
 
   @override
-  // ignore: no_logic_in_create_state
-  State<Index> createState() => IndexState(headline: headline);
+  State<Index> createState() => IndexState();
 }
 
 class IndexState extends State<Index> {
-  late String headline;
-  IndexState({this.headline = ''});
-
   mainWidget(BuildContext context, {dynamic data}) {
     return Container(
       width: double.infinity,
@@ -61,7 +57,7 @@ class IndexState extends State<Index> {
           return Center(child: widget);
         },
       ),
-      drawer: Menu().drawer(context, headline: headline),
+      drawer: Menu().drawer(context, headline: widget.headline),
     );
   }
 }

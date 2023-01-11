@@ -15,15 +15,10 @@ class PersonalSettings extends StatefulWidget {
   PersonalSettings({super.key, required this.headline});
 
   @override
-  State<PersonalSettings> createState() =>
-      // ignore: no_logic_in_create_state
-      PersonalSettingsState(headline: headline);
+  State<PersonalSettings> createState() => PersonalSettingsState();
 }
 
 class PersonalSettingsState extends State<PersonalSettings> {
-  late String headline;
-  PersonalSettingsState({this.headline = ''});
-
   mainWidget(BuildContext context, {dynamic data}) {
     data as ManagerModel;
     var nameController = TextEditingController(text: data.name);
@@ -208,7 +203,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
           return Center(child: widget);
         },
       ),
-      drawer: Menu().drawer(context, headline: headline),
+      drawer: Menu().drawer(context, headline: widget.headline),
     );
   }
 }
