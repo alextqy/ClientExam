@@ -123,7 +123,6 @@ class ManagerState extends State<Manager> {
                                     style:
                                         TextStyle(fontStyle: FontStyle.italic),
                                   ),
-                                  // SizedBox(child: Icon(Icons.arrow_drop_down)),
                                 ],
                               ),
                               // onSort: (columnIndex, ascending) {
@@ -217,7 +216,7 @@ class ManagerState extends State<Manager> {
 class ManagerSourceData extends DataTableSource {
   int _selectCount = 0; // 当前选中的行数
 
-  late List<Map<String, dynamic>> _sourceData;
+  late final List<ManagerModel> _sourceData;
 
   @override
   bool get isRowCountApproximate => false;
@@ -228,51 +227,34 @@ class ManagerSourceData extends DataTableSource {
   @override
   late int selectedRowCount;
 
-  late List<ManagerModel> list;
-
-  ManagerSourceData(this.list) {
-    _sourceData = dataForeach(list);
+  ManagerSourceData(this._sourceData) {
     rowCount = _sourceData.length;
     selectedRowCount = _selectCount;
-  }
-
-  List<Map<String, dynamic>> dataForeach(List<ManagerModel> list) {
-    return List<Map<String, dynamic>>.generate(
-      list.length,
-      (index) => {
-        'id': list[index].id.toString(),
-        'account': list[index].account,
-        'name': list[index].name,
-        'createTime': Tools().timestampToStr(list[index].createTime),
-        'updateTime': Tools().timestampToStr(list[index].updateTime),
-        'selected': false,
-      },
-    );
   }
 
   @override
   DataRow getRow(int index) => DataRow.byIndex(
         index: index,
-        selected: _sourceData[index]['selected'],
+        selected: _sourceData[index].selected,
         onSelectChanged: (selected) {
-          _sourceData[index]['selected'] = selected;
+          _sourceData[index].selected = selected!;
           notifyListeners();
         },
         cells: [
-          DataCell(Text(list[index].id.toString())),
-          DataCell(Text(list[index].account)),
-          DataCell(Text(list[index].name)),
-          DataCell(Text(Tools().timestampToStr(list[index].createTime))),
-          DataCell(Text(Tools().timestampToStr(list[index].updateTime))),
+          DataCell(Text(_sourceData[index].id.toString())),
+          DataCell(Text(_sourceData[index].account)),
+          DataCell(Text(_sourceData[index].name)),
+          DataCell(Text(Tools().timestampToStr(_sourceData[index].createTime))),
+          DataCell(Text(Tools().timestampToStr(_sourceData[index].updateTime))),
         ],
       );
 
   void sortData<T>(
-      Comparable<T> Function(Map<String, dynamic> map) getField, bool b) {
-    _sourceData.sort((Map<String, dynamic> map1, Map<String, dynamic> map2) {
+      Comparable<T> Function(ManagerModel object) getField, bool b) {
+    _sourceData.sort((ManagerModel map1, ManagerModel map2) {
       if (!b) {
         // 两个项进行交换
-        final Map<String, dynamic> temp = map1;
+        final ManagerModel temp = map1;
         map1 = map2;
         map2 = temp;
       }
@@ -285,7 +267,7 @@ class ManagerSourceData extends DataTableSource {
 
   dynamic selectAll(bool? checked) {
     for (var data in _sourceData) {
-      data['selected'] = checked;
+      data.selected = checked!;
     }
     _selectCount = checked! ? _sourceData.length : 0;
     notifyListeners(); // 通知监听器去刷新

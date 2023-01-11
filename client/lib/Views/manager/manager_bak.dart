@@ -199,7 +199,7 @@ class DessertDataSource extends DataTableSource {
           }
         },
         cells: <DataCell>[
-          DataCell(Text('${dessert.name}')),
+          DataCell(Text(dessert.name)),
           DataCell(Text('${dessert.chinese}')),
           DataCell(Text('${dessert.math}')),
           DataCell(Text('${dessert.english}')),
