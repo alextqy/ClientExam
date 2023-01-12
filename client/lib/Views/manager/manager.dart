@@ -255,6 +255,7 @@ class ManagerSourceData extends DataTableSource {
           _sourceData[index].selected = selected!;
           notifyListeners();
         },
+        onLongPress: () => print(_sourceData[index].id),
         cells: [
           DataCell(Text(_sourceData[index].id.toString())),
           DataCell(Text(_sourceData[index].account)),
