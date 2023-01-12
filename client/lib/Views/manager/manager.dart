@@ -139,18 +139,18 @@ class ManagerState extends State<Manager> {
                                   ),
                                 ],
                               ),
-                              // onSort: (columnIndex, ascending) {
-                              //   setState(
-                              //     () {
-                              //       sortColumnIndex = columnIndex;
-                              //       sortAscending = ascending;
-                              //       managerSourceData.sortData(
-                              //         (obj) => obj.id,
-                              //         ascending,
-                              //       );
-                              //     },
-                              //   );
-                              // },
+                              onSort: (columnIndex, ascending) {
+                                setState(
+                                  () {
+                                    sortColumnIndex = columnIndex;
+                                    sortAscending = ascending;
+                                    managerSourceData.sortData(
+                                      (obj) => obj.id,
+                                      ascending,
+                                    );
+                                  },
+                                );
+                              },
                             ),
                             DataColumn(
                               label: Text(
@@ -248,49 +248,55 @@ class ManagerSourceData extends DataTableSource {
   }
 
   @override
-  DataRow getRow(int index) => DataRow.byIndex(
-        index: index,
-        selected: _sourceData[index].selected,
-        onSelectChanged: (selected) {
-          _sourceData[index].selected = selected!;
+  DataRow? getRow(int index) {
+    assert(index >= 0);
+    if (index >= _sourceData.length) return null;
+    return DataRow.byIndex(
+      index: index,
+      selected: _sourceData[index].selected,
+      onSelectChanged: (bool? selected) {
+        if (_sourceData[index].selected != selected) {
+          _selectCount += selected! ? 1 : -1;
+          assert(_selectCount >= 0);
+          _sourceData[index].selected = selected;
           notifyListeners();
-        },
-        onLongPress: () => print(_sourceData[index].id),
-        cells: [
-          DataCell(
-            Tooltip(
-              message: Lang().longPress,
-              child: Text(_sourceData[index].id.toString()),
-            ),
+        }
+      },
+      onLongPress: () => print(_sourceData[index].id),
+      cells: [
+        DataCell(
+          Tooltip(
+            message: Lang().longPress,
+            child: Text(_sourceData[index].id.toString()),
           ),
-          DataCell(
-            Tooltip(
-              message: Lang().longPress,
-              child: Text(_sourceData[index].account),
-            ),
+        ),
+        DataCell(
+          Tooltip(
+            message: Lang().longPress,
+            child: Text(_sourceData[index].account),
           ),
-          DataCell(
-            Tooltip(
-              message: Lang().longPress,
-              child: Text(_sourceData[index].name),
-            ),
+        ),
+        DataCell(
+          Tooltip(
+            message: Lang().longPress,
+            child: Text(_sourceData[index].name),
           ),
-          DataCell(
-            Tooltip(
-              message: Lang().longPress,
-              child:
-                  Text(Tools().timestampToStr(_sourceData[index].createTime)),
-            ),
+        ),
+        DataCell(
+          Tooltip(
+            message: Lang().longPress,
+            child: Text(Tools().timestampToStr(_sourceData[index].createTime)),
           ),
-          DataCell(
-            Tooltip(
-              message: Lang().longPress,
-              child:
-                  Text(Tools().timestampToStr(_sourceData[index].updateTime)),
-            ),
+        ),
+        DataCell(
+          Tooltip(
+            message: Lang().longPress,
+            child: Text(Tools().timestampToStr(_sourceData[index].updateTime)),
           ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 
   void sortData<T>(
       Comparable<T> Function(ManagerModel object) getField, bool b) {
