@@ -1,12 +1,13 @@
+import 'package:client/Views/manager/manager_bak.dart' as manager;
 import 'package:flutter/material.dart';
 import 'Views/common/animation.dart';
 import 'package:client/main.dart';
-import 'package:client/Views/manager/login.dart' as manager_login;
-import 'package:client/Views/manager/index.dart' as manager_index;
+import 'package:client/Views/manager/login.dart' as manager;
+import 'package:client/Views/manager/index.dart' as manager;
 import 'package:client/Views/manager/personal_settings.dart'
     as manager_personal_settings;
-import 'package:client/Views/manager/manager.dart' as manager_manager;
-import 'package:client/Views/teacher/index.dart' as teacher_index;
+import 'package:client/Views/manager/manager.dart' as manager;
+import 'package:client/Views/teacher/index.dart' as teacher;
 
 // 注册命名路由
 // Map<String, WidgetBuilder> routerMap = {
@@ -23,17 +24,17 @@ class RouteHelper {
         return const Entrance();
       // ===================================================================
       case '/manager/login':
-        return RouteSlide(const manager_login.Login());
+        return RouteSlide(const manager.Login());
       case '/manager/index':
-        return RouteSlide(manager_index.Index(headline: headline));
+        return RouteSlide(manager.Index(headline: headline));
       case '/manager/personal/settings':
         return RouteSlide(
             manager_personal_settings.PersonalSettings(headline: headline));
       case '/manager/manager':
-        return RouteSlide(manager_manager.Manager(headline: headline));
+        return RouteSlide(manager.Manager(headline: headline));
       // ===================================================================
       case '/teacher/index':
-        return RouteSlide(const teacher_index.Index());
+        return RouteSlide(const teacher.Index());
       // ===================================================================
       default:
         return MaterialPageRoute(

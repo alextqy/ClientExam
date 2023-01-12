@@ -47,160 +47,161 @@ class ManagerState extends State<Manager> {
     }
 
     return Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.all(0),
-        margin: const EdgeInsets.all(0),
-        color: Colors.grey,
-        child: Container(
-          margin: const EdgeInsets.all(10),
-          color: Colors.white54,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(0),
-              child: SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  // child: SingleChildScrollView(
-                  //   scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        // height: double.infinity,
-                        child: PaginatedDataTable(
-                          rowsPerPage: contPageSize(), // 每页展示数据量
-                          headingRowHeight: 50, // 标题栏高度
-                          dataRowHeight: 50, // 数据栏高度
-                          horizontalMargin: 50, // 表格外边距
-                          // columnSpacing: 50, // 单元格间距
-                          showCheckboxColumn: true, // 是否展示复选框
-                          checkboxHorizontalMargin: 50, // 复选框边距
-                          sortAscending: sortAscending, // 升序降序
-                          sortColumnIndex: sortColumnIndex, // 表格索引
-                          // 每页展示数据量选项
-                          // availableRowsPerPage: const [10, 50, 100],
-                          // onRowsPerPageChanged: (value) =>
-                          //     setState(() => pageSize = value!), // 每页数据量变更回调
-                          // 全选
-                          onSelectAll: ((value) {
-                            isChecked = value!;
-                            managerSourceData.selectAll(value);
-                          }),
-                          // 表头
-                          header: const Text(
-                            '',
-                            style: TextStyle(fontStyle: FontStyle.italic),
-                          ),
-                          // 功能按钮
-                          actions: [
-                            SizedBox(
-                              width: 200,
-                              child: SearchTextField(
-                                fieldValue: (String value) {
-                                  setState(() {
-                                    searchText = value;
-                                  });
-                                },
-                              ),
-                            ),
-                            Tooltip(
-                              message: Lang().rowsPerPage,
-                              child: perPageDataDropdownButton,
-                            ),
-                            Tooltip(
-                              message: Lang().status,
-                              child: stateDataDropdownButton,
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.refresh),
-                              onPressed: () => print('refresh'),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add),
-                              onPressed: () => print('add'),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () => print('delete'),
-                            ),
-                          ],
-                          // 标题栏
-                          columns: [
-                            DataColumn(
-                              label: Row(
-                                children: const [
-                                  Text(
-                                    'ID',
-                                    style:
-                                        TextStyle(fontStyle: FontStyle.italic),
-                                  ),
-                                ],
-                              ),
-                              onSort: (columnIndex, ascending) {
-                                setState(
-                                  () {
-                                    sortColumnIndex = columnIndex;
-                                    sortAscending = ascending;
-                                    managerSourceData.sortData(
-                                      (obj) => obj.id,
-                                      ascending,
-                                    );
-                                  },
-                                );
+      width: double.infinity,
+      height: double.infinity,
+      padding: const EdgeInsets.all(0),
+      margin: const EdgeInsets.all(0),
+      color: Colors.grey,
+      child: Container(
+        margin: const EdgeInsets.all(10),
+        color: Colors.white54,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(0),
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                // child: SingleChildScrollView(
+                //   scrollDirection: Axis.horizontal,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      // height: double.infinity,
+                      child: PaginatedDataTable(
+                        rowsPerPage: contPageSize(), // 每页展示数据量
+                        headingRowHeight: 50, // 标题栏高度
+                        dataRowHeight: 50, // 数据栏高度
+                        horizontalMargin: 50, // 表格外边距
+                        // columnSpacing: 50, // 单元格间距
+                        showCheckboxColumn: true, // 是否展示复选框
+                        checkboxHorizontalMargin: 50, // 复选框边距
+                        sortAscending: sortAscending, // 升序降序
+                        sortColumnIndex: sortColumnIndex, // 表格索引
+                        // 每页展示数据量选项
+                        // availableRowsPerPage: const [10, 50, 100],
+                        // onRowsPerPageChanged: (value) =>
+                        //     setState(() => pageSize = value!), // 每页数据量变更回调
+                        // 全选
+                        onSelectAll: ((value) {
+                          isChecked = value!;
+                          managerSourceData.selectAll(value);
+                        }),
+                        // 表头
+                        header: const Text(
+                          '',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                        // 功能按钮
+                        actions: [
+                          SizedBox(
+                            width: 200,
+                            child: SearchTextField(
+                              fieldValue: (String value) {
+                                setState(() {
+                                  searchText = value;
+                                });
                               },
                             ),
-                            DataColumn(
-                              label: Text(
-                                Lang().account,
-                                style: const TextStyle(
-                                  fontStyle: FontStyle.italic,
+                          ),
+                          Tooltip(
+                            message: Lang().rowsPerPage,
+                            child: perPageDataDropdownButton,
+                          ),
+                          Tooltip(
+                            message: Lang().status,
+                            child: stateDataDropdownButton,
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.refresh),
+                            onPressed: () => print('refresh'),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: () => print('add'),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () => print('delete'),
+                          ),
+                        ],
+                        // 标题栏
+                        columns: [
+                          DataColumn(
+                            label: Row(
+                              children: const [
+                                Text(
+                                  'ID',
+                                  style: TextStyle(fontStyle: FontStyle.italic),
                                 ),
+                              ],
+                            ),
+                            // onSort: (columnIndex, ascending) {
+                            //   setState(
+                            //     () {
+                            //       sortColumnIndex = columnIndex;
+                            //       sortAscending = ascending;
+                            //       managerSourceData.sortData(
+                            //         (obj) => obj.id,
+                            //         ascending,
+                            //       );
+                            //     },
+                            //   );
+                            // },
+                          ),
+                          DataColumn(
+                            label: Text(
+                              Lang().account,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
-                            DataColumn(
-                              label: Text(
-                                Lang().name,
-                                style: const TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              Lang().name,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
-                            DataColumn(
-                              label: Text(
-                                Lang().createtime,
-                                style: const TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              Lang().createtime,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
-                            DataColumn(
-                              label: Text(
-                                Lang().updateTime,
-                                style: const TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              Lang().updateTime,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
-                          ],
-                          source: managerSourceData,
-                        ),
+                          ),
+                        ],
+                        source: managerSourceData,
                       ),
-                    ],
-                  ),
-                  // ),
+                    ),
+                  ],
                 ),
+                // ),
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Menu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().managers)),
       body: FutureBuilder(
         future: result,
@@ -223,7 +224,6 @@ class ManagerState extends State<Manager> {
           return Center(child: widget);
         },
       ),
-      drawer: Menu().drawer(context, headline: widget.headline),
     );
   }
 }
@@ -233,19 +233,16 @@ class ManagerSourceData extends DataTableSource {
 
   late final List<ManagerModel> _sourceData;
 
+  ManagerSourceData(this._sourceData);
+
   @override
   bool get isRowCountApproximate => false;
 
   @override
-  late int rowCount;
+  int get rowCount => _sourceData.length;
 
   @override
-  late int selectedRowCount;
-
-  ManagerSourceData(this._sourceData) {
-    rowCount = _sourceData.length;
-    selectedRowCount = _selectCount;
-  }
+  int get selectedRowCount => _selectCount;
 
   @override
   DataRow? getRow(int index) {

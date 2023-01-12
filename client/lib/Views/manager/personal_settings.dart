@@ -181,6 +181,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
     var result = ManagerApi().managerInfo();
 
     return Scaffold(
+      drawer: Menu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().personalSettings)),
       body: FutureBuilder(
         future: result,
@@ -203,7 +204,6 @@ class PersonalSettingsState extends State<PersonalSettings> {
           return Center(child: widget);
         },
       ),
-      drawer: Menu().drawer(context, headline: widget.headline),
     );
   }
 }

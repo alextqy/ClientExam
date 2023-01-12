@@ -14,6 +14,7 @@ class IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Menu().drawer(context, headline: widget.headline),
       appBar: AppBar(
         title: Text(Lang().menu),
       ),
@@ -24,7 +25,6 @@ class IndexState extends State<Index> {
         margin: const EdgeInsets.all(0),
         color: Colors.grey,
       ),
-      drawer: Menu().drawer(context, headline: widget.headline),
     );
   }
 }

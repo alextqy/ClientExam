@@ -37,6 +37,7 @@ class IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Menu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().menu)),
       body: FutureBuilder(
         future: futureTest,
@@ -57,7 +58,6 @@ class IndexState extends State<Index> {
           return Center(child: widget);
         },
       ),
-      drawer: Menu().drawer(context, headline: widget.headline),
     );
   }
 }
