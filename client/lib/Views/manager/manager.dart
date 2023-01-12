@@ -257,11 +257,38 @@ class ManagerSourceData extends DataTableSource {
         },
         onLongPress: () => print(_sourceData[index].id),
         cells: [
-          DataCell(Text(_sourceData[index].id.toString())),
-          DataCell(Text(_sourceData[index].account)),
-          DataCell(Text(_sourceData[index].name)),
-          DataCell(Text(Tools().timestampToStr(_sourceData[index].createTime))),
-          DataCell(Text(Tools().timestampToStr(_sourceData[index].updateTime))),
+          DataCell(
+            Tooltip(
+              message: Lang().longPress,
+              child: Text(_sourceData[index].id.toString()),
+            ),
+          ),
+          DataCell(
+            Tooltip(
+              message: Lang().longPress,
+              child: Text(_sourceData[index].account),
+            ),
+          ),
+          DataCell(
+            Tooltip(
+              message: Lang().longPress,
+              child: Text(_sourceData[index].name),
+            ),
+          ),
+          DataCell(
+            Tooltip(
+              message: Lang().longPress,
+              child:
+                  Text(Tools().timestampToStr(_sourceData[index].createTime)),
+            ),
+          ),
+          DataCell(
+            Tooltip(
+              message: Lang().longPress,
+              child:
+                  Text(Tools().timestampToStr(_sourceData[index].updateTime)),
+            ),
+          ),
         ],
       );
 

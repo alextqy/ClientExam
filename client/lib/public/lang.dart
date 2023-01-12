@@ -46,6 +46,7 @@ class Lang {
   String disable = '';
   String status = '';
   String search = '';
+  String longPress = '';
 
   // String systemFunctions = '';
   // String addData = '';
@@ -100,6 +101,7 @@ class Lang {
       this.disable = '禁用';
       this.status = '状态';
       this.search = '搜索';
+      this.longPress = '长按';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -144,6 +146,7 @@ class Lang {
       this.disable = 'disable';
       this.status = 'status';
       this.search = 'Search';
+      this.longPress = 'Long Press';
     }
   }
 }
