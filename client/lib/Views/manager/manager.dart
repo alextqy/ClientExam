@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:client/Views/common/error_page.dart';
 import 'package:client/Views/common/page_dropdown_button.dart';
+import 'package:client/Views/common/search.dart';
 import 'package:client/models/base_list.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/public/lang.dart';
@@ -30,6 +31,7 @@ class ManagerState extends State<Manager> {
   bool isChecked = false;
   bool sortAscending = false;
   int sortColumnIndex = 0;
+  String searchText = '';
   late ManagerSourceData managerSourceData;
 
   mainWidget(BuildContext context, {dynamic data}) {
@@ -94,6 +96,16 @@ class ManagerState extends State<Manager> {
                           ),
                           // 功能按钮
                           actions: [
+                            SizedBox(
+                              width: 200,
+                              child: SearchTextField(
+                                fieldValue: (String value) {
+                                  setState(() {
+                                    searchText = value;
+                                  });
+                                },
+                              ),
+                            ),
                             Tooltip(
                               message: Lang().rowsPerPage,
                               child: perPageDataDropdownButton,

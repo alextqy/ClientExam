@@ -45,6 +45,7 @@ class Lang {
   String normal = '';
   String disable = '';
   String status = '';
+  String search = '';
 
   // String systemFunctions = '';
   // String addData = '';
@@ -98,6 +99,7 @@ class Lang {
       this.normal = '正常';
       this.disable = '禁用';
       this.status = '状态';
+      this.search = '搜索';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -141,6 +143,7 @@ class Lang {
       this.normal = 'normal';
       this.disable = 'disable';
       this.status = 'status';
+      this.search = 'Search';
     }
   }
 }
