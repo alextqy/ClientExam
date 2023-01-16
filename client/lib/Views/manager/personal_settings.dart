@@ -77,7 +77,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                                 Toast().show(context,
                                     message: Lang().theOperationCompletes);
                               } else {
-                                showAlertDialog(context, value.memo);
+                                Toast().show(context, message: value.memo);
                               }
                             },
                           );
@@ -159,7 +159,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                                 Toast().show(context,
                                     message: Lang().theOperationCompletes);
                               } else {
-                                showAlertDialog(context, value.memo);
+                                Toast().show(context, message: value.memo);
                               }
                             },
                           );

@@ -1,9 +1,9 @@
-import 'package:client/Views/common/show_alert_dialog.dart';
-import 'package:client/models/manager_model.dart';
+import 'package:client/Views/common/toast.dart';
+import 'package:client/providers/base_notifier.dart';
+import 'package:client/providers/login_notifier.dart';
 import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
-import 'package:client/requests/manager_api.dart';
 import 'package:client/routes.dart';
 
 class Login extends StatefulWidget {
@@ -14,11 +14,50 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-  String account = '';
-  String password = '';
-  final accountController = TextEditingController();
-  final passwordController = TextEditingController();
+  late String account;
+  late String password;
+  late TextEditingController accountController, passwordController;
+  late LoginNotifier loginNotifier;
 
+  requestListener() async {
+    if (loginNotifier.state.value == OperationStatus.loading) {
+      Toast().show(context, message: Lang().loading);
+    } else if (loginNotifier.state.value == OperationStatus.success) {
+      var writeResult = FileHelper().writeFile(
+        FileHelper().tokenFileName,
+        loginNotifier.result.data as String,
+      );
+      if (writeResult) {
+        Navigator.of(context).push(
+          RouteHelper()
+              .generate('/manager/index', headline: accountController.text),
+        );
+      } else {
+        Toast().show(context, message: Lang().loginTokenGenerationFailed);
+      }
+    } else {
+      Toast().show(context, message: Lang().theRequestFailed);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    accountController = TextEditingController();
+    passwordController = TextEditingController();
+    loginNotifier = LoginNotifier();
+
+    loginNotifier.addListener(requestListener);
+  }
+
+  @override
+  void dispose() {
+    loginNotifier.removeListener(requestListener);
+    loginNotifier.dispose();
+    super.dispose();
+  }
+
+  ///表单
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   get accountInput {
@@ -113,40 +152,10 @@ class LoginState extends State<Login> {
             if (_formKey.currentState?.validate() != null &&
                 accountController.text.trim().isNotEmpty &&
                 passwordController.text.trim().isNotEmpty) {
-              var result = ManagerApi().managerSignIn(
+              loginNotifier.request(
                 accountController.text,
                 passwordController.text,
               );
-              result.then((value) {
-                if (value.state == true) {
-                  var writeResult = FileHelper().writeFile(
-                    FileHelper().tokenFileName,
-                    value.data,
-                  );
-                  if (writeResult) {
-                    var resultInfo = ManagerApi().managerInfo();
-                    resultInfo.then(
-                      (info) {
-                        if (info.state) {
-                          var data = ManagerModel.fromJson(info.data);
-                          Navigator.of(context).push(
-                            RouteHelper().generate('/manager/index',
-                                headline: data.account),
-                          );
-                        } else {
-                          showAlertDialog(context, Lang().theRequestFailed);
-                        }
-                      },
-                    );
-                  } else {
-                    showAlertDialog(context, Lang().loginTokenGenerationFailed);
-                  }
-                } else {
-                  showAlertDialog(context, value.memo);
-                }
-              }).catchError((e) {
-                showAlertDialog(context, Lang().theRequestFailed);
-              });
             }
           },
           child: Text(
@@ -160,32 +169,36 @@ class LoginState extends State<Login> {
     );
   }
 
+  get form {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      padding: const EdgeInsets.all(0),
+      margin: const EdgeInsets.all(0),
+      color: Colors.grey,
+      child: Center(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              accountInput,
+              passwordInput,
+              submitButton,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(Lang().login),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.all(0),
-        margin: const EdgeInsets.all(0),
-        color: Colors.grey,
-        child: Center(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                accountInput,
-                passwordInput,
-                submitButton,
-              ],
-            ),
-          ),
-        ),
-      ),
+      body: form,
     );
   }
 }

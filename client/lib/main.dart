@@ -1,3 +1,4 @@
+import 'package:client/Views/common/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:client/routes.dart';
 import 'package:client/public/lang.dart';
@@ -82,29 +83,29 @@ class Entrance extends StatelessWidget {
         ));
   }
 
-  void showAlertDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: const Text('Under development'),
-            title: Text(Lang().title),
-            actions: [
-              // TextButton(
-              //   onPressed: () {
-              //     Navigator.of(context).pop();
-              //   },
-              //   child: Text(Lang().confirm),
-              // ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(Lang().cancel),
-              ),
-            ],
-          );
-        });
-  }
+  // void showAlertDialog(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       barrierDismissible: true,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           content: const Text('Under development'),
+  //           title: Text(Lang().title),
+  //           actions: [
+  //             // TextButton(
+  //             //   onPressed: () {
+  //             //     Navigator.of(context).pop();
+  //             //   },
+  //             //   child: Text(Lang().confirm),
+  //             // ),
+  //             TextButton(
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: Text(Lang().cancel),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 }

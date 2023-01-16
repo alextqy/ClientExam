@@ -47,6 +47,7 @@ class Lang {
   String status = '';
   String search = '';
   String longPress = '';
+  String loading = '';
 
   // String systemFunctions = '';
   // String addData = '';
@@ -102,6 +103,7 @@ class Lang {
       this.status = '状态';
       this.search = '搜索';
       this.longPress = '长按';
+      this.loading = '加载中';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -147,6 +149,7 @@ class Lang {
       this.status = 'status';
       this.search = 'Search';
       this.longPress = 'Long Press';
+      this.loading = 'Loading';
     }
   }
 }

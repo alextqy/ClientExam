@@ -45,7 +45,7 @@ class Toast {
     Color textColor = Colors.white,
     double textSize = 14.0,
     int seconds = 2,
-    Position position = Position.CENTER, // 显示位置
+    Position position = Position.BOTTOM, // 显示位置
     Widget? child,
   }) async {
     _toastPosition = position;

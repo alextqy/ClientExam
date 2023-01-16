@@ -1,7 +1,7 @@
 import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
 
-showAlertDialog(BuildContext context, [String memo = '']) {
+showAlertDialog(BuildContext context, {String memo = ''}) {
   return showDialog(
     context: context,
     barrierDismissible: true,
