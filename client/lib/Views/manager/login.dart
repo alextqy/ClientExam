@@ -36,7 +36,7 @@ class LoginState extends State<Login> {
         Toast().show(context, message: Lang().loginTokenGenerationFailed);
       }
     } else {
-      Toast().show(context, message: Lang().theRequestFailed);
+      Toast().show(context, message: loginNotifier.memo);
     }
   }
 

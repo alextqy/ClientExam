@@ -13,15 +13,15 @@ class ManagerModel {
   bool selected = false;
 
   ManagerModel({
-    required this.createTime,
-    required this.password,
-    required this.state,
-    required this.updateTime,
-    required this.account,
-    required this.name,
-    required this.id,
-    required this.permission,
-    required this.token,
+    this.createTime = 0,
+    this.password = '',
+    this.state = 0,
+    this.updateTime = 0,
+    this.account = '',
+    this.name = '',
+    this.id = 0,
+    this.permission = 0,
+    this.token = '',
   });
 
   factory ManagerModel.fromJson(Map<String, dynamic> json) {

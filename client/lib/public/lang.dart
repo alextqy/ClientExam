@@ -142,7 +142,7 @@ class Lang {
       this.thisItemCannotBeModified = 'This Item Cannot Be Modified';
       this.createtime = 'Createtime';
       this.updateTime = 'UpdateTime';
-      this.theOperationCompletes = 'The Operation Completes';
+      this.theOperationCompletes = 'Completed';
       this.rowsPerPage = 'Rows Per Page';
       this.normal = 'normal';
       this.disable = 'disable';

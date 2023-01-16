@@ -1,8 +1,7 @@
-import 'package:client/Views/common/error_page.dart';
-import 'package:client/Views/common/show_alert_dialog.dart';
 import 'package:client/Views/common/toast.dart';
-import 'package:client/models/base.dart';
 import 'package:client/models/manager_model.dart';
+import 'package:client/providers/base_notifier.dart';
+import 'package:client/providers/personal_settings_notifier.dart';
 import 'package:client/public/tools.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +18,55 @@ class PersonalSettings extends StatefulWidget {
 }
 
 class PersonalSettingsState extends State<PersonalSettings> {
-  mainWidget(BuildContext context, {dynamic data}) {
-    data as ManagerModel;
-    var nameController = TextEditingController(text: data.name);
+  late PersonalSettingsNotifier personalSettingsNotifier;
+
+  updatePersonalDataListener() async {
+    if (personalSettingsNotifier.state.value == OperationStatus.loading) {
+      Toast().show(context, message: Lang().loading);
+    } else if (personalSettingsNotifier.state.value ==
+        OperationStatus.success) {
+      Toast().show(context, message: Lang().theOperationCompletes);
+    } else {
+      Toast().show(context, message: personalSettingsNotifier.memo);
+    }
+  }
+
+  updatePersonalPasswordListener() async {
+    if (personalSettingsNotifier.state.value == OperationStatus.loading) {
+      Toast().show(context, message: Lang().loading);
+    } else if (personalSettingsNotifier.state.value ==
+        OperationStatus.success) {
+      Toast().show(context, message: Lang().theOperationCompletes);
+    } else {
+      Toast().show((context), message: personalSettingsNotifier.memo);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    personalSettingsNotifier = PersonalSettingsNotifier();
+    personalSettingsNotifier.fetchmanagerModel().then((value) {
+      setState(() {
+        personalSettingsNotifier.managerModel =
+            ManagerModel.fromJson(value.data);
+      });
+    });
+    personalSettingsNotifier.addListener(updatePersonalDataListener);
+    personalSettingsNotifier.addListener(updatePersonalPasswordListener);
+  }
+
+  @override
+  void dispose() {
+    personalSettingsNotifier.removeListener(updatePersonalDataListener);
+    personalSettingsNotifier.removeListener(updatePersonalPasswordListener);
+    personalSettingsNotifier.dispose();
+    super.dispose();
+  }
+
+  mainWidget(BuildContext context) {
+    var nameController =
+        TextEditingController(text: personalSettingsNotifier.managerModel.name);
     var passwordController = TextEditingController();
 
     return Container(
@@ -67,19 +112,12 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       ),
                       onPressed: () {
                         if (nameController.text.isNotEmpty &&
-                            nameController.text.trim() != data.name) {
-                          var result = ManagerApi().updateManagerInfo(
-                              name: nameController.text,
-                              permission: data.permission);
-                          result.then(
-                            (value) {
-                              if (value.state == true) {
-                                Toast().show(context,
-                                    message: Lang().theOperationCompletes);
-                              } else {
-                                Toast().show(context, message: value.memo);
-                              }
-                            },
+                            nameController.text.trim() !=
+                                personalSettingsNotifier.managerModel.name) {
+                          personalSettingsNotifier.updatePersonalData(
+                            name: nameController.text,
+                            permission: personalSettingsNotifier
+                                .managerModel.permission,
                           );
                         }
                       },
@@ -97,7 +135,8 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       readOnly: true,
                       onTap: () => Toast().show(context,
                           message: Lang().thisItemCannotBeModified),
-                      controller: TextEditingController(text: data.account),
+                      controller: TextEditingController(
+                          text: personalSettingsNotifier.managerModel.account),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: Lang().account,
@@ -117,7 +156,9 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       onTap: () => Toast().show(context,
                           message: Lang().thisItemCannotBeModified),
                       controller: TextEditingController(
-                          text: Tools().timestampToStr(data.createTime)),
+                        text: Tools().timestampToStr(
+                            personalSettingsNotifier.managerModel.createTime),
+                      ),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: Lang().createtime,
@@ -178,32 +219,10 @@ class PersonalSettingsState extends State<PersonalSettings> {
 
   @override
   Widget build(BuildContext context) {
-    var result = ManagerApi().managerInfo();
-
     return Scaffold(
       drawer: Menu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().personalSettings)),
-      body: FutureBuilder(
-        future: result,
-        builder: (context, snapshot) {
-          Widget widget;
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError || snapshot.data?.state != true) {
-              widget = errorPage();
-            } else {
-              var basicData = snapshot.data as BaseModel;
-              var managerData = ManagerModel.fromJson(basicData.data);
-              widget = mainWidget(context, data: managerData);
-            }
-          } else {
-            widget = const Padding(
-              padding: EdgeInsets.all(20),
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Center(child: widget);
-        },
-      ),
+      body: mainWidget(context),
     );
   }
 }

@@ -5,10 +5,10 @@ class BaseModel {
   dynamic data;
 
   BaseModel({
-    required this.state,
-    required this.memo,
-    required this.code,
-    required this.data,
+    this.state = false,
+    this.memo = '',
+    this.code = 0,
+    this.data,
   });
 
   factory BaseModel.fromJson(Map<String, dynamic> json) {
