@@ -4,6 +4,7 @@ import 'package:client/Views/common/search.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/providers/manager_notifier.dart';
 import 'package:client/public/lang.dart';
+import 'package:client/public/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
 
@@ -17,42 +18,83 @@ class Manager extends StatefulWidget {
   Manager({super.key, required this.headline});
 
   @override
-  // ignore: no_logic_in_create_state
   State<Manager> createState() => ManagerState();
 }
 
 class ManagerState extends State<Manager> {
-  bool isChecked = false;
   bool sortAscending = false;
   int sortColumnIndex = 0;
+  int page = 1;
+  int pageSize = 10;
   String searchText = '';
-  int rowsPerPage = 10;
+  int state = 0;
+  List<bool> selected = [];
   ManagerNotifier managerNotifier = ManagerNotifier();
 
   @override
   void initState() {
     super.initState();
-    managerNotifier.fetchManagerList().then((value) {
+    managerNotifier
+        .fetchManagerList(
+      page: page,
+      pageSize: pageSize,
+      stext: searchText,
+      state: state,
+    )
+        .then((value) {
       setState(() {
         managerNotifier.managerListModel =
             ManagerModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(
+            managerNotifier.managerListModel.length, (int index) => false);
       });
     });
   }
 
-  int countPageSize() {
-    if (managerNotifier.managerListModel.isNotEmpty &&
-        rowsPerPage >= managerNotifier.managerListModel.length) {
-      return managerNotifier.managerListModel.length;
-    } else {
-      return rowsPerPage;
+  // 生成列表
+  List<DataRow> generateList() {
+    return List<DataRow>.generate(
+      managerNotifier.managerListModel.length,
+      (int index) => DataRow(
+        cells: <DataCell>[
+          DataCell(Text(managerNotifier.managerListModel[index].id.toString())),
+          DataCell(Text(managerNotifier.managerListModel[index].account)),
+          DataCell(Text(managerNotifier.managerListModel[index].name)),
+          DataCell(Text(Tools().timestampToStr(
+              managerNotifier.managerListModel[index].createTime))),
+          DataCell(Text(Tools().timestampToStr(
+              managerNotifier.managerListModel[index].updateTime))),
+        ],
+        selected: selected[index],
+        onSelectChanged: (bool? value) {
+          setState(() {
+            selected[index] = value!;
+          });
+        },
+      ),
+    );
+  }
+
+  // 数据排序
+  onSortColum(int columnIndex, bool ascending) {
+    if (columnIndex == 0) {
+      if (ascending) {
+        managerNotifier.managerListModel.sort((a, b) => a.id.compareTo(b.id));
+      } else {
+        managerNotifier.managerListModel.sort((a, b) => b.id.compareTo(a.id));
+      }
     }
+    // 重置全选
+    selected = List<bool>.generate(
+      managerNotifier.managerListModel.length,
+      (int index) {
+        managerNotifier.managerListModel[index].selected = false;
+        return false;
+      },
+    );
   }
 
   mainWidget(BuildContext context) {
-    ManagerSourceData managerSourceData =
-        ManagerSourceData(managerNotifier.managerListModel);
-
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -61,7 +103,7 @@ class ManagerState extends State<Manager> {
       color: Colors.grey,
       child: Container(
         margin: const EdgeInsets.all(10),
-        color: Colors.white54,
+        color: Colors.white70,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(0),
@@ -74,12 +116,60 @@ class ManagerState extends State<Manager> {
                 //   scrollDirection: Axis.horizontal,
                 child: Column(
                   children: [
+                    /// header
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            const Expanded(child: SizedBox()),
+                            SizedBox(
+                              width: 200,
+                              child: SearchTextField(
+                                fieldValue: (String value) {
+                                  setState(() {
+                                    searchText = value;
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Tooltip(
+                              message: Lang().rowsPerPage,
+                              child: perPageDataDropdownButton,
+                            ),
+                            const SizedBox(width: 10),
+                            Tooltip(
+                              message: Lang().status,
+                              child: stateDataDropdownButton,
+                            ),
+                            const SizedBox(width: 10),
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () => print('refresh'),
+                            ),
+                            const SizedBox(width: 10),
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              onPressed: () => print('add'),
+                            ),
+                            const SizedBox(width: 10),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () => print('delete'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    /// body
                     SizedBox(
                       width: double.infinity,
                       // height: double.infinity,
-                      child: PaginatedDataTable(
-                        rowsPerPage: countPageSize(), // 每页展示数据量
-                        // headingRowHeight: 50, // 标题栏高度
+                      child: DataTable(
+                        // headingRowHeight: 20, // 标题栏高度
                         // dataRowHeight: 50, // 数据栏高度
                         // horizontalMargin: 50, // 表格外边距
                         // columnSpacing: 50, // 单元格间距
@@ -87,55 +177,6 @@ class ManagerState extends State<Manager> {
                         checkboxHorizontalMargin: 50, // 复选框边距
                         sortAscending: sortAscending, // 升序降序
                         sortColumnIndex: sortColumnIndex, // 表格索引
-                        // 每页展示数据量选项
-                        // availableRowsPerPage: const [10, 50, 100],
-                        // onRowsPerPageChanged: (value) =>
-                        //     setState(() => pageSize = value!), // 每页数据量变更回调
-                        // 全选
-                        onSelectAll: ((value) {
-                          isChecked = value!;
-                          managerSourceData.selectAll(value);
-                        }),
-                        // 表头
-                        header: const Text(
-                          '',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                        // 功能按钮
-                        actions: [
-                          SizedBox(
-                            width: 200,
-                            child: SearchTextField(
-                              fieldValue: (String value) {
-                                setState(() {
-                                  searchText = value;
-                                });
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Tooltip(
-                            message: Lang().rowsPerPage,
-                            child: perPageDataDropdownButton,
-                          ),
-                          const SizedBox(width: 10),
-                          Tooltip(
-                            message: Lang().status,
-                            child: stateDataDropdownButton,
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.refresh),
-                            onPressed: () => print('refresh'),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.add),
-                            onPressed: () => print('add'),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () => print('delete'),
-                          ),
-                        ],
                         // 标题栏
                         columns: [
                           DataColumn(
@@ -148,16 +189,11 @@ class ManagerState extends State<Manager> {
                               ],
                             ),
                             onSort: (columnIndex, ascending) {
-                              setState(
-                                () {
-                                  sortColumnIndex = columnIndex;
-                                  sortAscending = ascending;
-                                  managerSourceData.sortData(
-                                    (obj) => obj.id,
-                                    ascending,
-                                  );
-                                },
-                              );
+                              setState(() {
+                                sortColumnIndex = columnIndex;
+                                sortAscending = ascending;
+                                onSortColum(columnIndex, ascending);
+                              });
                             },
                           ),
                           DataColumn(
@@ -193,7 +229,47 @@ class ManagerState extends State<Manager> {
                             ),
                           ),
                         ],
-                        source: managerSourceData,
+                        rows: generateList(),
+                      ),
+                    ),
+
+                    /// footer
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(50),
+                        child: Row(
+                          children: [
+                            const Expanded(child: SizedBox()),
+                            SizedBox(
+                              child: TextButton(
+                                  child: Text(
+                                    Lang().previous,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    print('previous');
+                                  }),
+                            ),
+                            const SizedBox(width: 20),
+                            SizedBox(
+                              child: TextButton(
+                                  child: Text(
+                                    Lang().next,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    print('next');
+                                  }),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

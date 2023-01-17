@@ -48,6 +48,8 @@ class Lang {
   String search = '';
   String longPress = '';
   String loading = '';
+  String previous = '';
+  String next = '';
 
   // String systemFunctions = '';
   // String addData = '';
@@ -104,6 +106,8 @@ class Lang {
       this.search = '搜索';
       this.longPress = '长按';
       this.loading = '加载中';
+      this.previous = '上一页';
+      this.next = '下一页';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -150,6 +154,8 @@ class Lang {
       this.search = 'Search';
       this.longPress = 'Long Press';
       this.loading = 'Loading';
+      this.previous = 'Previous';
+      this.next = 'Next';
     }
   }
 }

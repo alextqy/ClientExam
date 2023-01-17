@@ -80,7 +80,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
       color: Colors.grey,
       child: Container(
         margin: const EdgeInsets.all(10),
-        color: Colors.white54,
+        color: Colors.white70,
         child: Container(
           padding: const EdgeInsets.all(10),
           margin: const EdgeInsets.all(10),
