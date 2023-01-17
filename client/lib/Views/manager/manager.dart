@@ -61,7 +61,12 @@ class ManagerState extends State<Manager> {
         cells: <DataCell>[
           DataCell(Text(managerNotifier.managerListModel[index].id.toString())),
           DataCell(Text(managerNotifier.managerListModel[index].account)),
-          DataCell(Text(managerNotifier.managerListModel[index].name)),
+          DataCell(
+            Text(managerNotifier.managerListModel[index].name),
+            showEditIcon: true,
+            onTap: () => print(
+                'name is: ${managerNotifier.managerListModel[index].name}'),
+          ),
           DataCell(Text(Tools().timestampToStr(
               managerNotifier.managerListModel[index].createTime))),
           DataCell(Text(Tools().timestampToStr(
