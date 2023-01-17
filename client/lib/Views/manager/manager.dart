@@ -24,11 +24,13 @@ class Manager extends StatefulWidget {
 class ManagerState extends State<Manager> {
   bool sortAscending = false;
   int sortColumnIndex = 0;
+  int showSelected = 0;
+  List<bool> selected = [];
+
   int page = 1;
   int pageSize = 10;
   String searchText = '';
   int state = 0;
-  List<bool> selected = [];
   ManagerNotifier managerNotifier = ManagerNotifier();
 
   @override
@@ -68,7 +70,8 @@ class ManagerState extends State<Manager> {
         selected: selected[index],
         onSelectChanged: (bool? value) {
           setState(() {
-            selected[index] = value!;
+            showSelected += value! ? 1 : -1;
+            selected[index] = value;
           });
         },
       ),
@@ -89,6 +92,7 @@ class ManagerState extends State<Manager> {
       managerNotifier.managerListModel.length,
       (int index) {
         managerNotifier.managerListModel[index].selected = false;
+        showSelected = 0;
         return false;
       },
     );
@@ -123,6 +127,16 @@ class ManagerState extends State<Manager> {
                         padding: const EdgeInsets.all(10),
                         child: Row(
                           children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Text(
+                                '$showSelected items selected',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
                             const Expanded(child: SizedBox()),
                             SizedBox(
                               width: 200,
