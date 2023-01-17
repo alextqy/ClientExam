@@ -37,11 +37,11 @@ class ManagerModel {
       token: json['Token'],
     );
   }
-}
 
-List<ManagerModel> managerFromJsonList(String jsonString) {
-  List<ManagerModel> managerList = (json.decode(jsonString) as List)
-      .map((i) => ManagerModel.fromJson(i))
-      .toList();
-  return managerList;
+  List<ManagerModel> fromJsonList(String jsonString) {
+    List<ManagerModel> managerList = (jsonDecode(jsonString) as List)
+        .map((i) => ManagerModel.fromJson(i))
+        .toList();
+    return managerList;
+  }
 }

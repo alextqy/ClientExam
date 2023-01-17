@@ -1,4 +1,5 @@
 import 'package:client/models/base.dart';
+import 'package:client/models/base_list.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:flutter/widgets.dart';
@@ -21,12 +22,14 @@ enum OperationStatus {
 }
 
 class BaseNotifier extends ChangeNotifier {
-  var state = ValueNotifier(OperationStatus.loading);
-  var memo = '';
-  var code = 0;
+  ValueNotifier operationStatus = ValueNotifier(OperationStatus.loading);
+  String operationMemo = '';
+  int operationCode = 0;
 
   late BaseModel result;
-  var managerModel = ManagerModel();
+  late BaseListModel resultList;
+  ManagerModel managerModel = ManagerModel();
+  List<ManagerModel> managerListModel = [];
 
   ManagerApi managerApi = ManagerApi();
 }

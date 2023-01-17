@@ -11,7 +11,7 @@ class ManagerBak extends StatefulWidget {
 
 class _MyHomePageState extends State<ManagerBak> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-  late int _sortColumnIndex = 0;
+  int _sortColumnIndex = 0;
   bool _sortAscending = true;
   final DessertDataSource _dessertsDataSource = DessertDataSource();
 

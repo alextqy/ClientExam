@@ -1,4 +1,5 @@
 import 'package:client/Views/common/toast.dart';
+import 'package:client/models/base.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/personal_settings_notifier.dart';
@@ -18,35 +19,37 @@ class PersonalSettings extends StatefulWidget {
 }
 
 class PersonalSettingsState extends State<PersonalSettings> {
-  late PersonalSettingsNotifier personalSettingsNotifier;
+  PersonalSettingsNotifier personalSettingsNotifier =
+      PersonalSettingsNotifier();
 
   updatePersonalDataListener() async {
-    if (personalSettingsNotifier.state.value == OperationStatus.loading) {
+    if (personalSettingsNotifier.operationStatus.value ==
+        OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (personalSettingsNotifier.state.value ==
+    } else if (personalSettingsNotifier.operationStatus.value ==
         OperationStatus.success) {
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      Toast().show(context, message: personalSettingsNotifier.memo);
+      Toast().show(context, message: personalSettingsNotifier.operationMemo);
     }
   }
 
   updatePersonalPasswordListener() async {
-    if (personalSettingsNotifier.state.value == OperationStatus.loading) {
+    if (personalSettingsNotifier.operationStatus.value ==
+        OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (personalSettingsNotifier.state.value ==
+    } else if (personalSettingsNotifier.operationStatus.value ==
         OperationStatus.success) {
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      Toast().show((context), message: personalSettingsNotifier.memo);
+      Toast().show((context), message: personalSettingsNotifier.operationMemo);
     }
   }
 
   @override
   void initState() {
     super.initState();
-    personalSettingsNotifier = PersonalSettingsNotifier();
-    personalSettingsNotifier.fetchmanagerModel().then((value) {
+    personalSettingsNotifier.fetchManager().then((value) {
       setState(() {
         personalSettingsNotifier.managerModel =
             ManagerModel.fromJson(value.data);
@@ -65,9 +68,9 @@ class PersonalSettingsState extends State<PersonalSettings> {
   }
 
   mainWidget(BuildContext context) {
-    var nameController =
+    TextEditingController nameController =
         TextEditingController(text: personalSettingsNotifier.managerModel.name);
-    var passwordController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
     return Container(
       width: double.infinity,
@@ -191,8 +194,9 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       ),
                       onPressed: () {
                         if (passwordController.text.isNotEmpty) {
-                          var result = ManagerApi().managerChangePassword(
-                              newPassword: passwordController.text);
+                          Future<BaseModel> result = ManagerApi()
+                              .managerChangePassword(
+                                  newPassword: passwordController.text);
                           result.then(
                             (value) {
                               if (value.state == true) {

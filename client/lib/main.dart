@@ -23,7 +23,7 @@ class Entrance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var managerButton = Container(
+    Container managerButton = Container(
       margin: const EdgeInsets.all(10),
       child: Tooltip(
         message: Lang().administratorLoginEntry,
@@ -46,7 +46,7 @@ class Entrance extends StatelessWidget {
       ),
     );
 
-    var teacherButton = Container(
+    Container teacherButton = Container(
       margin: const EdgeInsets.all(10),
       child: Tooltip(
         message: Lang().teacherLoginPortal,

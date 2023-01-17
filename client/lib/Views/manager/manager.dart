@@ -1,21 +1,15 @@
 import 'dart:convert';
-import 'package:client/Views/common/error_page.dart';
 import 'package:client/Views/common/page_dropdown_button.dart';
 import 'package:client/Views/common/search.dart';
-import 'package:client/models/base_list.dart';
 import 'package:client/models/manager_model.dart';
+import 'package:client/providers/manager_notifier.dart';
 import 'package:client/public/lang.dart';
-import 'package:client/public/tools.dart';
-import 'package:client/requests/manager_api.dart';
 import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
 
-var perPageDataDropdownButton = PerPageDataDropdownButton();
-var stateDataDropdownButton = StateDataDropdownButton();
-
-int page = 1;
-int pageSize = 10;
-var result = ManagerApi().managerList(page: page, pageSize: pageSize);
+PerPageDataDropdownButton perPageDataDropdownButton =
+    PerPageDataDropdownButton();
+StateDataDropdownButton stateDataDropdownButton = StateDataDropdownButton();
 
 // ignore: must_be_immutable
 class Manager extends StatefulWidget {
@@ -32,19 +26,32 @@ class ManagerState extends State<Manager> {
   bool sortAscending = false;
   int sortColumnIndex = 0;
   String searchText = '';
-  late ManagerSourceData managerSourceData;
+  int rowsPerPage = 10;
+  ManagerNotifier managerNotifier = ManagerNotifier();
 
-  mainWidget(BuildContext context, {dynamic data}) {
-    data as List<ManagerModel>;
-    managerSourceData = ManagerSourceData(data);
+  @override
+  void initState() {
+    super.initState();
+    managerNotifier.fetchManagerList().then((value) {
+      setState(() {
+        managerNotifier.managerListModel =
+            ManagerModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
 
-    int contPageSize() {
-      if (pageSize >= data.length) {
-        return data.length;
-      } else {
-        return pageSize;
-      }
+  int countPageSize() {
+    if (managerNotifier.managerListModel.isNotEmpty &&
+        rowsPerPage >= managerNotifier.managerListModel.length) {
+      return managerNotifier.managerListModel.length;
+    } else {
+      return rowsPerPage;
     }
+  }
+
+  mainWidget(BuildContext context) {
+    ManagerSourceData managerSourceData =
+        ManagerSourceData(managerNotifier.managerListModel);
 
     return Container(
       width: double.infinity,
@@ -71,10 +78,10 @@ class ManagerState extends State<Manager> {
                       width: double.infinity,
                       // height: double.infinity,
                       child: PaginatedDataTable(
-                        rowsPerPage: contPageSize(), // 每页展示数据量
-                        headingRowHeight: 50, // 标题栏高度
-                        dataRowHeight: 50, // 数据栏高度
-                        horizontalMargin: 50, // 表格外边距
+                        rowsPerPage: countPageSize(), // 每页展示数据量
+                        // headingRowHeight: 50, // 标题栏高度
+                        // dataRowHeight: 50, // 数据栏高度
+                        // horizontalMargin: 50, // 表格外边距
                         // columnSpacing: 50, // 单元格间距
                         showCheckboxColumn: true, // 是否展示复选框
                         checkboxHorizontalMargin: 50, // 复选框边距
@@ -106,10 +113,12 @@ class ManagerState extends State<Manager> {
                               },
                             ),
                           ),
+                          const SizedBox(width: 10),
                           Tooltip(
                             message: Lang().rowsPerPage,
                             child: perPageDataDropdownButton,
                           ),
+                          const SizedBox(width: 10),
                           Tooltip(
                             message: Lang().status,
                             child: stateDataDropdownButton,
@@ -138,18 +147,18 @@ class ManagerState extends State<Manager> {
                                 ),
                               ],
                             ),
-                            // onSort: (columnIndex, ascending) {
-                            //   setState(
-                            //     () {
-                            //       sortColumnIndex = columnIndex;
-                            //       sortAscending = ascending;
-                            //       managerSourceData.sortData(
-                            //         (obj) => obj.id,
-                            //         ascending,
-                            //       );
-                            //     },
-                            //   );
-                            // },
+                            onSort: (columnIndex, ascending) {
+                              setState(
+                                () {
+                                  sortColumnIndex = columnIndex;
+                                  sortAscending = ascending;
+                                  managerSourceData.sortData(
+                                    (obj) => obj.id,
+                                    ascending,
+                                  );
+                                },
+                              );
+                            },
                           ),
                           DataColumn(
                             label: Text(
@@ -203,119 +212,7 @@ class ManagerState extends State<Manager> {
     return Scaffold(
       drawer: Menu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().managers)),
-      body: FutureBuilder(
-        future: result,
-        builder: (context, snapshot) {
-          Widget widget;
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              widget = errorPage();
-            } else {
-              BaseListModel basicData = snapshot.data as BaseListModel;
-              var managerList = managerFromJsonList(jsonEncode(basicData.data));
-              widget = mainWidget(context, data: managerList);
-            }
-          } else {
-            widget = const Padding(
-              padding: EdgeInsets.all(20),
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Center(child: widget);
-        },
-      ),
+      body: mainWidget(context),
     );
-  }
-}
-
-class ManagerSourceData extends DataTableSource {
-  int _selectCount = 0; // 当前选中的行数
-
-  late final List<ManagerModel> _sourceData;
-
-  ManagerSourceData(this._sourceData);
-
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get rowCount => _sourceData.length;
-
-  @override
-  int get selectedRowCount => _selectCount;
-
-  @override
-  DataRow? getRow(int index) {
-    assert(index >= 0);
-    if (index >= _sourceData.length) return null;
-    return DataRow.byIndex(
-      index: index,
-      selected: _sourceData[index].selected,
-      onSelectChanged: (bool? selected) {
-        if (_sourceData[index].selected != selected) {
-          _selectCount += selected! ? 1 : -1;
-          assert(_selectCount >= 0);
-          _sourceData[index].selected = selected;
-          notifyListeners();
-        }
-      },
-      onLongPress: () => print(_sourceData[index].id),
-      cells: [
-        DataCell(
-          Tooltip(
-            message: Lang().longPress,
-            child: Text(_sourceData[index].id.toString()),
-          ),
-        ),
-        DataCell(
-          Tooltip(
-            message: Lang().longPress,
-            child: Text(_sourceData[index].account),
-          ),
-        ),
-        DataCell(
-          Tooltip(
-            message: Lang().longPress,
-            child: Text(_sourceData[index].name),
-          ),
-        ),
-        DataCell(
-          Tooltip(
-            message: Lang().longPress,
-            child: Text(Tools().timestampToStr(_sourceData[index].createTime)),
-          ),
-        ),
-        DataCell(
-          Tooltip(
-            message: Lang().longPress,
-            child: Text(Tools().timestampToStr(_sourceData[index].updateTime)),
-          ),
-        ),
-      ],
-    );
-  }
-
-  void sortData<T>(
-      Comparable<T> Function(ManagerModel object) getField, bool b) {
-    _sourceData.sort((ManagerModel map1, ManagerModel map2) {
-      if (!b) {
-        // 两个项进行交换
-        final ManagerModel temp = map1;
-        map1 = map2;
-        map2 = temp;
-      }
-      final Comparable<T> s1Value = getField(map1);
-      final Comparable<T> s2Value = getField(map2);
-      return Comparable.compare(s1Value, s2Value);
-    });
-    notifyListeners();
-  }
-
-  dynamic selectAll(bool? checked) {
-    for (var data in _sourceData) {
-      data.selected = checked!;
-    }
-    _selectCount = checked! ? _sourceData.length : 0;
-    notifyListeners(); // 通知监听器去刷新
   }
 }

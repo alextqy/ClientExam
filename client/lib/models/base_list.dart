@@ -8,13 +8,13 @@ class BaseListModel {
   dynamic data;
 
   BaseListModel({
-    required this.state,
-    required this.memo,
-    required this.code,
-    required this.page,
-    required this.pageSize,
-    required this.totalPage,
-    required this.data,
+    this.state = false,
+    this.memo = '',
+    this.code = 0,
+    this.page = 0,
+    this.pageSize = 0,
+    this.totalPage = 1,
+    this.data = 0,
   });
 
   factory BaseListModel.fromJson(Map<String, dynamic> json) {

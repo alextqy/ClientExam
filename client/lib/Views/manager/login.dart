@@ -20,10 +20,10 @@ class LoginState extends State<Login> {
   late LoginNotifier loginNotifier;
 
   requestListener() async {
-    if (loginNotifier.state.value == OperationStatus.loading) {
+    if (loginNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (loginNotifier.state.value == OperationStatus.success) {
-      var writeResult = FileHelper().writeFile(
+    } else if (loginNotifier.operationStatus.value == OperationStatus.success) {
+      bool writeResult = FileHelper().writeFile(
         FileHelper().tokenFileName,
         loginNotifier.result.data as String,
       );
@@ -36,7 +36,7 @@ class LoginState extends State<Login> {
         Toast().show(context, message: Lang().loginTokenGenerationFailed);
       }
     } else {
-      Toast().show(context, message: loginNotifier.memo);
+      Toast().show(context, message: loginNotifier.operationMemo);
     }
   }
 

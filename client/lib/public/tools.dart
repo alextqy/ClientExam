@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:crypto/crypto.dart' as crypto;
 
 class Tools {
@@ -25,9 +26,9 @@ class Tools {
 
   // md5
   String genMD5(String content) {
-    var data = const Utf8Encoder().convert(content);
-    var md5 = crypto.md5;
-    var digest = md5.convert(data);
+    Uint8List data = const Utf8Encoder().convert(content);
+    crypto.Hash md5 = crypto.md5;
+    crypto.Digest digest = md5.convert(data);
     return digest.toString();
   }
 }
