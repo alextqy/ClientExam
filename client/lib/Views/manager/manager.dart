@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:client/Views/common/page_dropdown_button.dart';
-import 'package:client/Views/common/search.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/providers/manager_notifier.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/public/tools.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
+import 'package:flutter/services.dart';
 
 PerPageDataDropdownButton perPageDataDropdownButton =
     PerPageDataDropdownButton();
@@ -33,15 +34,13 @@ class ManagerState extends State<Manager> {
   int state = 0;
   int totalPage = 0;
 
-  late TextEditingController jumpToController;
+  TextEditingController jumpToController = TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController =
+      TextEditingController();
 
   ManagerNotifier managerNotifier = ManagerNotifier();
 
-  @override
-  void initState() {
-    super.initState();
-    jumpToController = TextEditingController();
-
+  void fetchData() {
     managerNotifier
         .fetchManagerList(
       page: page,
@@ -56,8 +55,16 @@ class ManagerState extends State<Manager> {
             ManagerModel().fromJsonList(jsonEncode(value.data));
         selected = List<bool>.generate(
             managerNotifier.managerListModel.length, (int index) => false);
+        showSelected = 0;
+        searchText = '';
       });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
   }
 
   @override
@@ -158,10 +165,12 @@ class ManagerState extends State<Manager> {
                             const Expanded(child: SizedBox()),
                             SizedBox(
                               width: 200,
-                              child: SearchTextField(
-                                fieldValue: (String value) {
+                              child: CupertinoSearchTextField(
+                                controller: cupertinoSearchTextFieldController,
+                                onSubmitted: (String value) {
                                   setState(() {
                                     searchText = value;
+                                    fetchData();
                                   });
                                 },
                               ),
@@ -179,7 +188,13 @@ class ManagerState extends State<Manager> {
                             const SizedBox(width: 10),
                             IconButton(
                               icon: const Icon(Icons.refresh),
-                              onPressed: () => print('refresh'),
+                              onPressed: () {
+                                setState(() {
+                                  cupertinoSearchTextFieldController.clear();
+                                  page = 1;
+                                  fetchData();
+                                });
+                              },
                             ),
                             const SizedBox(width: 10),
                             IconButton(
@@ -276,19 +291,47 @@ class ManagerState extends State<Manager> {
                             SizedBox(
                               width: 65,
                               child: TextField(
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(7),
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'[0-9]')),
+                                ],
                                 decoration: InputDecoration(
                                   hintText: Lang().jumpTo,
                                   border: InputBorder.none,
                                 ),
                                 controller: jumpToController,
-                                onSubmitted: (value) =>
-                                    print(jumpToController.text),
+                                onSubmitted: (value) {
+                                  setState(() {
+                                    int onSubmittedData =
+                                        int.parse(jumpToController.text);
+                                    if (onSubmittedData >= 1 &&
+                                        onSubmittedData <= pageSize &&
+                                        onSubmittedData != page) {
+                                      page = onSubmittedData;
+                                      jumpToController.clear();
+                                      fetchData();
+                                    }
+                                  });
+                                },
                               ),
                             ),
                             const SizedBox(width: 20),
                             Text(page.toString()),
                             const Text('/'),
                             Text(totalPage.toString()),
+                            const SizedBox(width: 20),
+                            IconButton(
+                              icon: const Icon(Icons.first_page),
+                              onPressed: () {
+                                setState(() {
+                                  if (page != 1) {
+                                    page = 1;
+                                    fetchData();
+                                  }
+                                });
+                              },
+                            ),
                             const SizedBox(width: 20),
                             SizedBox(
                               child: TextButton(
@@ -300,7 +343,12 @@ class ManagerState extends State<Manager> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    print('previous');
+                                    setState(() {
+                                      if (page > 1) {
+                                        page--;
+                                        fetchData();
+                                      }
+                                    });
                                   }),
                             ),
                             const SizedBox(width: 20),
@@ -314,7 +362,12 @@ class ManagerState extends State<Manager> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    print('next');
+                                    setState(() {
+                                      if (page < totalPage) {
+                                        page++;
+                                        fetchData();
+                                      }
+                                    });
                                   }),
                             ),
                           ],
