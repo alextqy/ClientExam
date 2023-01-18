@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:client/Views/common/page_dropdown_button.dart';
+import 'package:client/Views/common/toast.dart';
 import 'package:client/models/manager_model.dart';
+import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/manager_notifier.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/public/tools.dart';
@@ -29,7 +31,7 @@ class ManagerState extends State<Manager> {
   List<bool> selected = [];
 
   int page = 1;
-  int pageSize = 3;
+  int pageSize = 5;
   String searchText = '';
   int state = 0;
   int totalPage = 0;
@@ -37,8 +39,21 @@ class ManagerState extends State<Manager> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   ManagerNotifier managerNotifier = ManagerNotifier();
+
+  basicListener() async {
+    if (managerNotifier.operationStatus.value == OperationStatus.loading) {
+      Toast().show(context, message: Lang().loading);
+    } else if (managerNotifier.operationStatus.value ==
+        OperationStatus.success) {
+      fetchData();
+      Toast().show(context, message: Lang().theOperationCompletes);
+    } else {
+      Toast().show(context, message: managerNotifier.operationMemo);
+    }
+  }
 
   void fetchData() {
     managerNotifier
@@ -64,12 +79,14 @@ class ManagerState extends State<Manager> {
   @override
   void initState() {
     super.initState();
+    managerNotifier.addListener(basicListener);
     fetchData();
   }
 
   @override
   void dispose() {
     managerNotifier.dispose();
+    managerNotifier.removeListener(basicListener);
     super.dispose();
   }
 
@@ -85,8 +102,15 @@ class ManagerState extends State<Manager> {
             Text(managerNotifier.managerListModel[index].name),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
-            onTap: () => print(
-                'name is: ${managerNotifier.managerListModel[index].name}'),
+            onTap: () {
+              nameController.clear();
+              nameAlertDialog(
+                context,
+                id: managerNotifier.managerListModel[index].id,
+                name: managerNotifier.managerListModel[index].name,
+                permission: managerNotifier.managerListModel[index].permission,
+              );
+            },
           ),
           DataCell(Text(Tools().timestampToStr(
               managerNotifier.managerListModel[index].createTime))),
@@ -102,6 +126,60 @@ class ManagerState extends State<Manager> {
         },
         onLongPress: () => print(managerNotifier.managerListModel[index].id),
       ),
+    );
+  }
+
+  // 修改名称
+  void nameAlertDialog(
+    BuildContext context, {
+    required int id,
+    required String name,
+    required int permission,
+  }) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(Lang().title),
+          content: Stack(
+            children: [
+              SizedBox(
+                child: TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintText: name,
+                    suffixIcon: IconButton(
+                      iconSize: 20,
+                      onPressed: () => nameController.clear(),
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                managerNotifier.updateManagerData(
+                  id: id,
+                  name: nameController.text,
+                  permission: permission,
+                );
+                Navigator.of(context).pop();
+              },
+              child: Text(Lang().confirm),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(Lang().cancel),
+            ),
+          ],
+        );
+      },
     );
   }
 

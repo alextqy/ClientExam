@@ -17,4 +17,30 @@ class ManagerNotifier extends BaseNotifier {
       permission: permission,
     );
   }
+
+  void updateManagerData({
+    required int id,
+    required String name,
+    required int permission,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await managerApi.updateManagerInfo(
+        id: id,
+        name: name,
+        permission: permission,
+      );
+      if (result.state = true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }

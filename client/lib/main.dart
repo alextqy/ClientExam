@@ -62,7 +62,7 @@ class Entrance extends StatelessWidget {
             style: const TextStyle(fontSize: 18),
           ),
           onPressed: () => {
-            showAlertDialog(context),
+            showAlertDialog(context, memo: 'Loading...'),
           },
         ),
       ),

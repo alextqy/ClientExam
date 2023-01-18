@@ -7,8 +7,8 @@ showAlertDialog(BuildContext context, {String memo = ''}) {
     barrierDismissible: true,
     builder: (BuildContext context) {
       return AlertDialog(
-        content: Text(memo),
         title: Text(Lang().title),
+        content: Text(memo),
         actions: [
           TextButton(
             onPressed: () {
