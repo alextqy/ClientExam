@@ -147,14 +147,12 @@ class ManagerState extends State<Manager> {
                         padding: const EdgeInsets.all(10),
                         child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                '$showSelected items selected',
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontStyle: FontStyle.italic,
-                                ),
+                            const SizedBox(width: 25),
+                            Text(
+                              '$showSelected items selected',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
                             const Expanded(child: SizedBox()),
