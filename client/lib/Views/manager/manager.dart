@@ -64,6 +64,7 @@ class ManagerState extends State<Manager> {
           DataCell(
             Text(managerNotifier.managerListModel[index].name),
             showEditIcon: true,
+            // placeholder: true, // 内容浅色显示
             onTap: () => print(
                 'name is: ${managerNotifier.managerListModel[index].name}'),
           ),
@@ -79,6 +80,7 @@ class ManagerState extends State<Manager> {
             selected[index] = value;
           });
         },
+        onLongPress: () => print(managerNotifier.managerListModel[index].id),
       ),
     );
   }
