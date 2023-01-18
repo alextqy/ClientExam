@@ -28,14 +28,20 @@ class ManagerState extends State<Manager> {
   List<bool> selected = [];
 
   int page = 1;
-  int pageSize = 10;
+  int pageSize = 3;
   String searchText = '';
   int state = 0;
+  int totalPage = 0;
+
+  late TextEditingController jumpToController;
+
   ManagerNotifier managerNotifier = ManagerNotifier();
 
   @override
   void initState() {
     super.initState();
+    jumpToController = TextEditingController();
+
     managerNotifier
         .fetchManagerList(
       page: page,
@@ -45,6 +51,7 @@ class ManagerState extends State<Manager> {
     )
         .then((value) {
       setState(() {
+        totalPage = value.totalPage;
         managerNotifier.managerListModel =
             ManagerModel().fromJsonList(jsonEncode(value.data));
         selected = List<bool>.generate(
@@ -268,6 +275,23 @@ class ManagerState extends State<Manager> {
                         child: Row(
                           children: [
                             const Expanded(child: SizedBox()),
+                            SizedBox(
+                              width: 65,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: Lang().jumpTo,
+                                  border: InputBorder.none,
+                                ),
+                                controller: jumpToController,
+                                onSubmitted: (value) =>
+                                    print(jumpToController.text),
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Text(page.toString()),
+                            const Text('/'),
+                            Text(totalPage.toString()),
+                            const SizedBox(width: 20),
                             SizedBox(
                               child: TextButton(
                                   child: Text(
