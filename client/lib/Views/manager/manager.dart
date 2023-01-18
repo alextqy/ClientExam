@@ -53,6 +53,12 @@ class ManagerState extends State<Manager> {
     });
   }
 
+  @override
+  void dispose() {
+    managerNotifier.dispose();
+    super.dispose();
+  }
+
   // 生成列表
   List<DataRow> generateList() {
     return List<DataRow>.generate(
