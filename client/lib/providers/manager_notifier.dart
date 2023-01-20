@@ -87,4 +87,28 @@ class ManagerNotifier extends BaseNotifier {
       notifyListeners();
     }
   }
+
+  void managerChangePassword({
+    String newPassword = '',
+    int id = 0,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await managerApi.managerChangePassword(
+        newPassword: newPassword,
+        id: id,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }

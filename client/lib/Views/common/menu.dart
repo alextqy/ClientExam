@@ -110,7 +110,7 @@ class Menu {
   }
 
   Drawer drawer(BuildContext context, {String headline = ''}) {
-    if (headline != '') {
+    if (headline.isNotEmpty) {
       this.headline = headline.substring(0, 1).toUpperCase();
     }
     return Drawer(

@@ -43,6 +43,7 @@ class ManagerState extends State<Manager> {
   TextEditingController newAccountController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController newNameController = TextEditingController();
+  TextEditingController changePasswordController = TextEditingController();
 
   ManagerNotifier managerNotifier = ManagerNotifier();
 
@@ -140,7 +141,8 @@ class ManagerState extends State<Manager> {
             selected[index] = value;
           });
         },
-        onLongPress: () => print(managerNotifier.managerListModel[index].id),
+        onLongPress: () => passwordAlertDialog(context,
+            id: managerNotifier.managerListModel[index].id),
       ),
     );
   }
@@ -152,6 +154,7 @@ class ManagerState extends State<Manager> {
     required String name,
     required int permission,
   }) {
+    nameController.clear();
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -269,6 +272,57 @@ class ManagerState extends State<Manager> {
                     name: newNameController.text,
                   );
                   fetchData();
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(Lang().confirm),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(Lang().cancel),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void passwordAlertDialog(
+    BuildContext context, {
+    required int id,
+  }) {
+    changePasswordController.clear();
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(Lang().title),
+          content: SizedBox(
+            width: 100,
+            child: TextField(
+              controller: changePasswordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: Lang().password,
+                suffixIcon: IconButton(
+                  iconSize: 20,
+                  onPressed: () => changePasswordController.clear(),
+                  icon: const Icon(Icons.clear),
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (changePasswordController.text.isNotEmpty) {
+                  managerNotifier.managerChangePassword(
+                    id: id,
+                    newPassword: changePasswordController.text,
+                  );
                   Navigator.of(context).pop();
                 }
               },
