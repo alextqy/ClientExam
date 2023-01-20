@@ -116,6 +116,19 @@ class ManagerState extends State<Manager> {
               managerNotifier.managerListModel[index].createTime))),
           DataCell(Text(Tools().timestampToStr(
               managerNotifier.managerListModel[index].updateTime))),
+          DataCell(
+            CupertinoSwitch(
+              value: managerNotifier.managerListModel[index].state == 1
+                  ? true
+                  : false,
+              onChanged: (bool? value) {
+                setState(() {
+                  managerNotifier.managerDisabled(
+                      id: managerNotifier.managerListModel[index].id);
+                });
+              },
+            ),
+          ),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {
@@ -348,6 +361,14 @@ class ManagerState extends State<Manager> {
                           DataColumn(
                             label: Text(
                               Lang().updateTime,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              Lang().status,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
