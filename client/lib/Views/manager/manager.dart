@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:client/Views/common/page_dropdown_button.dart';
+import 'package:client/Views/common/basicInfo.dart';
 import 'package:client/Views/common/toast.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/providers/base_notifier.dart';
@@ -10,10 +10,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:client/Views/common/menu.dart';
 import 'package:flutter/services.dart';
-
-PerPageDataDropdownButton perPageDataDropdownButton =
-    PerPageDataDropdownButton();
-StateDataDropdownButton stateDataDropdownButton = StateDataDropdownButton();
 
 // ignore: must_be_immutable
 class Manager extends StatefulWidget {
@@ -31,9 +27,10 @@ class ManagerState extends State<Manager> {
   List<bool> selected = [];
 
   int page = 1;
-  int pageSize = 5;
+  int pageSize = perPageDropList.first;
   String searchText = '';
   int state = 0;
+  String stateMemo = stateDropList.first;
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
@@ -413,12 +410,68 @@ class ManagerState extends State<Manager> {
                             const SizedBox(width: 20),
                             Tooltip(
                               message: Lang().rowsPerPage,
-                              child: perPageDataDropdownButton,
+                              child: DropdownButton<int>(
+                                itemHeight: 50,
+                                value: pageSize,
+                                icon: const Icon(Icons.arrow_drop_down),
+                                style: const TextStyle(color: Colors.black),
+                                // elevation: 16,
+                                underline: Container(
+                                  height: 0,
+                                  // color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (int? value) {
+                                  setState(() {
+                                    pageSize = value!;
+                                    page = 1;
+                                    fetchData();
+                                  });
+                                },
+                                items: perPageDropList
+                                    .map<DropdownMenuItem<int>>((int value) {
+                                  return DropdownMenuItem<int>(
+                                    value: value,
+                                    child: Text(value.toString()),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                             const SizedBox(width: 10),
                             Tooltip(
                               message: Lang().status,
-                              child: stateDataDropdownButton,
+                              child: DropdownButton<String>(
+                                itemHeight: 50,
+                                value: stateMemo,
+                                icon: const Icon(Icons.arrow_drop_down),
+                                style: const TextStyle(color: Colors.black),
+                                // elevation: 16,
+                                underline: Container(
+                                  height: 0,
+                                  // color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    if (stateMemo != value!) {
+                                      stateMemo = value;
+                                      if (value == Lang().all) {
+                                        state = 0;
+                                      } else {
+                                        state = Lang().normal == value ? 1 : 2;
+                                      }
+                                      page = 1;
+                                      fetchData();
+                                    }
+                                  });
+                                },
+                                items: stateDropList
+                                    .map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                             const SizedBox(width: 10),
                             IconButton(

@@ -42,6 +42,7 @@ class Lang {
   String theOperationCompletes = '';
 
   String rowsPerPage = '';
+  String all = '';
   String normal = '';
   String disable = '';
   String status = '';
@@ -101,6 +102,7 @@ class Lang {
       this.updateTime = '更新时间';
       this.theOperationCompletes = '操作完成';
       this.rowsPerPage = '每页数据量';
+      this.all = '全部';
       this.normal = '正常';
       this.disable = '禁用';
       this.status = '状态';
@@ -150,6 +152,7 @@ class Lang {
       this.updateTime = 'UpdateTime';
       this.theOperationCompletes = 'Completed';
       this.rowsPerPage = 'Rows Per Page';
+      this.all = 'All';
       this.normal = 'normal';
       this.disable = 'disable';
       this.status = 'status';
