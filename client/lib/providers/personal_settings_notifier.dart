@@ -12,7 +12,7 @@ class PersonalSettingsNotifier extends BaseNotifier {
     try {
       result = await managerApi.updateManagerInfo(
           name: name, permission: permission);
-      if (result.state = true) {
+      if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
         operationStatus.value = OperationStatus.failure;
@@ -30,7 +30,7 @@ class PersonalSettingsNotifier extends BaseNotifier {
     operationStatus.value = OperationStatus.loading;
     try {
       result = await managerApi.managerChangePassword(newPassword: newPassword);
-      if (result.state = true) {
+      if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
         operationStatus.value = OperationStatus.failure;

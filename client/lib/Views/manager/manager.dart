@@ -40,6 +40,9 @@ class ManagerState extends State<Manager> {
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController newAccountController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController newNameController = TextEditingController();
 
   ManagerNotifier managerNotifier = ManagerNotifier();
 
@@ -155,32 +158,119 @@ class ManagerState extends State<Manager> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(Lang().title),
-          content: Stack(
-            children: [
-              SizedBox(
-                child: TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    hintText: name,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => nameController.clear(),
-                      icon: const Icon(Icons.clear),
-                    ),
-                  ),
+          content: SizedBox(
+            width: 100,
+            child: TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                hintText: name,
+                suffixIcon: IconButton(
+                  iconSize: 20,
+                  onPressed: () => nameController.clear(),
+                  icon: const Icon(Icons.clear),
                 ),
               ),
-            ],
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () {
-                managerNotifier.updateManagerData(
-                  id: id,
-                  name: nameController.text,
-                  permission: permission,
-                );
+                if (nameController.text.isNotEmpty) {
+                  managerNotifier.updateManagerData(
+                    id: id,
+                    name: nameController.text,
+                    permission: permission,
+                  );
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(Lang().confirm),
+            ),
+            TextButton(
+              onPressed: () {
                 Navigator.of(context).pop();
+              },
+              child: Text(Lang().cancel),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // 新建
+  void addAlertDialog(BuildContext context) {
+    newAccountController.clear();
+    newPasswordController.clear();
+    newNameController.clear();
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(Lang().title),
+          content: SizedBox(
+            width: 100,
+            height: 150,
+            child: Column(
+              children: [
+                SizedBox(
+                  child: TextField(
+                    controller: newAccountController,
+                    decoration: InputDecoration(
+                      hintText: Lang().account,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => newAccountController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  child: TextField(
+                    controller: newPasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: Lang().password,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => newPasswordController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  child: TextField(
+                    controller: newNameController,
+                    decoration: InputDecoration(
+                      hintText: Lang().name,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => newNameController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (newAccountController.text.isNotEmpty &&
+                    newPasswordController.text.isNotEmpty &&
+                    newNameController.text.isNotEmpty) {
+                  managerNotifier.newManager(
+                    account: newAccountController.text,
+                    password: newPasswordController.text,
+                    name: newNameController.text,
+                  );
+                  fetchData();
+                  Navigator.of(context).pop();
+                }
               },
               child: Text(Lang().confirm),
             ),
@@ -290,7 +380,7 @@ class ManagerState extends State<Manager> {
                             const SizedBox(width: 10),
                             IconButton(
                               icon: const Icon(Icons.add),
-                              onPressed: () => print('add'),
+                              onPressed: () => addAlertDialog(context),
                             ),
                             const SizedBox(width: 10),
                             IconButton(

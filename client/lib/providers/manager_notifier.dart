@@ -30,7 +30,7 @@ class ManagerNotifier extends BaseNotifier {
         name: name,
         permission: permission,
       );
-      if (result.state = true) {
+      if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
         operationStatus.value = OperationStatus.failure;
@@ -48,7 +48,33 @@ class ManagerNotifier extends BaseNotifier {
     operationStatus.value = OperationStatus.loading;
     try {
       result = await managerApi.managerDisabled(id: id);
-      if (result.state = true) {
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  void newManager({
+    required String account,
+    required String password,
+    required String name,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await managerApi.newManager(
+        account: account,
+        password: password,
+        name: name,
+      );
+      if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
         operationStatus.value = OperationStatus.failure;
