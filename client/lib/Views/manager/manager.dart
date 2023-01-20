@@ -382,11 +382,11 @@ class ManagerState extends State<Manager> {
                               icon: const Icon(Icons.add),
                               onPressed: () => addAlertDialog(context),
                             ),
-                            const SizedBox(width: 10),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () => print('delete'),
-                            ),
+                            // const SizedBox(width: 10),
+                            // IconButton(
+                            //   icon: const Icon(Icons.delete),
+                            //   onPressed: () => print('delete'),
+                            // ),
                           ],
                         ),
                       ),
