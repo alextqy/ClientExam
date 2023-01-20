@@ -22,7 +22,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
   PersonalSettingsNotifier personalSettingsNotifier =
       PersonalSettingsNotifier();
 
-  updatePersonalDataListener() async {
+  basicListener() async {
     if (personalSettingsNotifier.operationStatus.value ==
         OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
@@ -31,18 +31,6 @@ class PersonalSettingsState extends State<PersonalSettings> {
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
       Toast().show(context, message: personalSettingsNotifier.operationMemo);
-    }
-  }
-
-  updatePersonalPasswordListener() async {
-    if (personalSettingsNotifier.operationStatus.value ==
-        OperationStatus.loading) {
-      Toast().show(context, message: Lang().loading);
-    } else if (personalSettingsNotifier.operationStatus.value ==
-        OperationStatus.success) {
-      Toast().show(context, message: Lang().theOperationCompletes);
-    } else {
-      Toast().show((context), message: personalSettingsNotifier.operationMemo);
     }
   }
 
@@ -55,14 +43,12 @@ class PersonalSettingsState extends State<PersonalSettings> {
             ManagerModel.fromJson(value.data);
       });
     });
-    personalSettingsNotifier.addListener(updatePersonalDataListener);
-    personalSettingsNotifier.addListener(updatePersonalPasswordListener);
+    personalSettingsNotifier.addListener(basicListener);
   }
 
   @override
   void dispose() {
-    personalSettingsNotifier.removeListener(updatePersonalDataListener);
-    personalSettingsNotifier.removeListener(updatePersonalPasswordListener);
+    personalSettingsNotifier.removeListener(basicListener);
     personalSettingsNotifier.dispose();
     super.dispose();
   }
