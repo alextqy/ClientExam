@@ -7,17 +7,15 @@ import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
-class ClassApi extends ResponseHelper {
-  Future<BaseModel> newClass({
-    String className = '',
-    String description = '',
+class HeadlineApi extends ResponseHelper {
+  Future<BaseModel> newHeadline({
+    String content = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/New/Class'),
+      Uri.http(url, '/New/Headline'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'ClassName': className.trim(),
-        'Description': description.trim(),
+        'Content': content.trim(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -25,18 +23,16 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updateClassInfo({
+  Future<BaseModel> updateHeadlineInfo({
     int id = 0,
-    String className = '',
-    String description = '',
+    String content = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/Update/Class/Info'),
+      Uri.http(url, '/Update/Headline/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'id': id.toString(),
-        'ClassName': className.trim(),
-        'Description': description.trim(),
+        'ID': id.toString(),
+        'Content': content.trim(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -44,13 +40,13 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> classList({
-    int page = 0,
+  Future<BaseListModel> headlineList({
+    int page = 1,
     int pageSize = 10,
     String stext = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/Class/List'),
+      Uri.http(url, '/Headline/List'),
       body: {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
@@ -63,11 +59,11 @@ class ClassApi extends ResponseHelper {
     return BaseListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> classInfo({
+  Future<BaseModel> headlineInfo({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Class/Info'),
+      Uri.http(url, '/Headline/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
@@ -78,15 +74,15 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> classes() async {
+  Future<BaseModel> headlines() async {
     Response response = await post(
-      Uri.http(url, '/Classes'),
+      Uri.http(url, '/Headlines'),
       body: {
         'Token': FileHelper().readFile('token'),
       },
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return BaseModel.fromJson(jsonDecode(response.body));
   }
 }

@@ -1,0 +1,109 @@
+// ignore_for_file: file_names
+
+import 'dart:convert';
+import 'package:http/http.dart';
+import 'package:client/public/file.dart';
+import 'package:client/requests/base.dart';
+import 'package:client/models/base.dart';
+import 'package:client/models/base_list.dart';
+
+class PaperApi extends ResponseHelper {
+  Future<BaseModel> newPaper({
+    String paperName = '',
+    int subjectID = 0,
+    int totalScore = 0,
+    int passLine = 0,
+    int examDuration = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/New/Paper'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'PaperName': paperName.trim(),
+        'SubjectID': subjectID.toString(),
+        'TotalScore': totalScore.toString(),
+        'PassLine': passLine.toString(),
+        'ExamDuration': examDuration.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> paperDisabled({
+    int id = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Paper/Disabled'),
+      body: {
+        'Token': FileHelper().readFile('token').trim(),
+        'ID': id.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> updatePaperInfo({
+    int id = 0,
+    String paperName = '',
+    int totalScore = 0,
+    int passLine = 0,
+    int examDuration = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Update/Paper/Info'),
+      body: {
+        'Token': FileHelper().readFile('token').trim(),
+        'ID': id.toString(),
+        'PaperName': paperName.trim(),
+        'TotalScore': totalScore.toString(),
+        'PassLine': passLine.toString(),
+        'ExamDuration': examDuration.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseListModel> paperList({
+    int page = 1,
+    int pageSize = 10,
+    String stext = '',
+    int subjectID = 0,
+    int paperState = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Paper/List'),
+      body: {
+        'Token': FileHelper().readFile('token').trim(),
+        'Page': page.toString(),
+        'PageSize': pageSize.toString(),
+        'Stext': stext.trim(),
+        'SubjectID': subjectID.toString(),
+        'PaperState': paperState.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseListModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> paperInfo({
+    int id = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Paper/Info'),
+      body: {
+        'Token': FileHelper().readFile('token').trim(),
+        'ID': id.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+}

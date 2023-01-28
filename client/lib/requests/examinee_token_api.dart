@@ -7,17 +7,14 @@ import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
-class ClassApi extends ResponseHelper {
-  Future<BaseModel> newClass({
-    String className = '',
-    String description = '',
+class ExamineeTokenApi extends ResponseHelper {
+  Future<BaseModel> signInStudentID({
+    String account = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/New/Class'),
+      Uri.http(url, '/Sign/In/Student/ID'),
       body: {
-        'Token': FileHelper().readFile('token'),
-        'ClassName': className.trim(),
-        'Description': description.trim(),
+        'Account': account.trim(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -25,18 +22,13 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updateClassInfo({
-    int id = 0,
-    String className = '',
-    String description = '',
+  Future<BaseModel> signInAdmissionTicket({
+    String examNo = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/Update/Class/Info'),
+      Uri.http(url, '/Sign/In/Admission/Ticket'),
       body: {
-        'Token': FileHelper().readFile('token'),
-        'id': id.toString(),
-        'ClassName': className.trim(),
-        'Description': description.trim(),
+        'ExamNo': examNo.trim(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -44,18 +36,11 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> classList({
-    int page = 0,
-    int pageSize = 10,
-    String stext = '',
-  }) async {
+  Future<BaseListModel> examScantronList() async {
     Response response = await post(
-      Uri.http(url, '/Class/List'),
+      Uri.http(url, '/Exam/Scantron/List'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'Page': page.toString(),
-        'PageSize': pageSize.toString(),
-        'Stext': stext.trim(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -63,11 +48,11 @@ class ClassApi extends ResponseHelper {
     return BaseListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> classInfo({
+  Future<BaseModel> examScantronSolutionInfo({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Class/Info'),
+      Uri.http(url, '/Exam/Scantron/Solution/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
@@ -78,15 +63,34 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> classes() async {
+  Future<BaseModel> examAnswer({
+    int scantronID = 0,
+    int id = 0,
+    String answer = '',
+  }) async {
     Response response = await post(
-      Uri.http(url, '/Classes'),
+      Uri.http(url, '/Exam/Answer'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ScantronID': scantronID.toString(),
+        'ID': id.toString(),
+        'Answer': answer.trim(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> endTheExam() async {
+    Response response = await post(
+      Uri.http(url, '/End/The/Exam'),
       body: {
         'Token': FileHelper().readFile('token'),
       },
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return BaseModel.fromJson(jsonDecode(response.body));
   }
 }

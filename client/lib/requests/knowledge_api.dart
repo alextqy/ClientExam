@@ -7,17 +7,17 @@ import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
-class ClassApi extends ResponseHelper {
-  Future<BaseModel> newClass({
-    String className = '',
-    String description = '',
+class KnowledgeApi extends ResponseHelper {
+  Future<BaseModel> newKnowledge({
+    String knowledgeName = '',
+    int subjectID = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/New/Class'),
+      Uri.http(url, '/New/Knowledge'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'ClassName': className.trim(),
-        'Description': description.trim(),
+        'KnowledgeName': knowledgeName.trim(),
+        'SubjectID': subjectID.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -25,49 +25,11 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updateClassInfo({
-    int id = 0,
-    String className = '',
-    String description = '',
-  }) async {
-    Response response = await post(
-      Uri.http(url, '/Update/Class/Info'),
-      body: {
-        'Token': FileHelper().readFile('token'),
-        'id': id.toString(),
-        'ClassName': className.trim(),
-        'Description': description.trim(),
-      },
-      headers: postHeaders,
-      encoding: postEncoding,
-    );
-    return BaseModel.fromJson(jsonDecode(response.body));
-  }
-
-  Future<BaseListModel> classList({
-    int page = 0,
-    int pageSize = 10,
-    String stext = '',
-  }) async {
-    Response response = await post(
-      Uri.http(url, '/Class/List'),
-      body: {
-        'Token': FileHelper().readFile('token'),
-        'Page': page.toString(),
-        'PageSize': pageSize.toString(),
-        'Stext': stext.trim(),
-      },
-      headers: postHeaders,
-      encoding: postEncoding,
-    );
-    return BaseListModel.fromJson(jsonDecode(response.body));
-  }
-
-  Future<BaseModel> classInfo({
+  Future<BaseModel> knowledgeDisabled({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Class/Info'),
+      Uri.http(url, '/Knowledge/Disabled'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
@@ -78,15 +40,73 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> classes() async {
+  Future<BaseModel> updateKnowledgeInfo({
+    int id = 0,
+    String knowledgeName = '',
+  }) async {
     Response response = await post(
-      Uri.http(url, '/Classes'),
+      Uri.http(url, '/Update/Knowledge/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
+        'ID': id.toString(),
+        'KnowledgeName': knowledgeName.trim(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseListModel> knowledgeList({
+    int page = 1,
+    int pageSize = 10,
+    String stext = '',
+    int subjectID = 0,
+    int knowledgeState = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Knowledge/List'),
+      body: {
+        'Token': FileHelper().readFile('token').trim(),
+        'Page': page.toString(),
+        'PageSize': pageSize.toString(),
+        'Stext': stext.trim(),
+        'SubjectID': subjectID.toString(),
+        'KnowledgeState': knowledgeState.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
     );
     return BaseListModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> knowledgeInfo({
+    int id = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Knowledge/Info'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ID': id.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> knowledge({
+    int subjectID = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Knowledge'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'SubjectID': subjectID.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
   }
 }

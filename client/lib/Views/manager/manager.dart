@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:client/Views/common/basicInfo.dart';
+import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/providers/base_notifier.dart';
