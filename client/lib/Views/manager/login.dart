@@ -1,6 +1,6 @@
 import 'package:client/Views/common/toast.dart';
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/providers/login_notifier.dart';
+import 'package:client/providers/manager_notifier.dart';
 import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
@@ -17,15 +17,16 @@ class LoginState extends State<Login> {
   late String account;
   late String password;
   late TextEditingController accountController, passwordController;
-  late LoginNotifier loginNotifier;
+  late ManagerNotifier managerNotifier;
 
   requestListener() async {
-    if (loginNotifier.operationStatus.value == OperationStatus.loading) {
+    if (managerNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (loginNotifier.operationStatus.value == OperationStatus.success) {
+    } else if (managerNotifier.operationStatus.value ==
+        OperationStatus.success) {
       bool writeResult = FileHelper().writeFile(
         FileHelper().tokenFileName,
-        loginNotifier.result.data as String,
+        managerNotifier.result.data as String,
       );
       if (writeResult) {
         Navigator.of(context).push(
@@ -36,7 +37,7 @@ class LoginState extends State<Login> {
         Toast().show(context, message: Lang().loginTokenGenerationFailed);
       }
     } else {
-      Toast().show(context, message: loginNotifier.operationMemo);
+      Toast().show(context, message: managerNotifier.operationMemo);
     }
   }
 
@@ -45,15 +46,15 @@ class LoginState extends State<Login> {
     super.initState();
     accountController = TextEditingController();
     passwordController = TextEditingController();
-    loginNotifier = LoginNotifier();
+    managerNotifier = ManagerNotifier();
 
-    loginNotifier.addListener(requestListener);
+    managerNotifier.addListener(requestListener);
   }
 
   @override
   void dispose() {
-    loginNotifier.removeListener(requestListener);
-    loginNotifier.dispose();
+    managerNotifier.removeListener(requestListener);
+    managerNotifier.dispose();
     super.dispose();
   }
 
@@ -152,7 +153,7 @@ class LoginState extends State<Login> {
             if (_formKey.currentState?.validate() != null &&
                 accountController.text.isNotEmpty &&
                 passwordController.text.isNotEmpty) {
-              loginNotifier.request(
+              managerNotifier.managerSignIn(
                 accountController.text,
                 passwordController.text,
               );

@@ -2,7 +2,7 @@ import 'package:client/Views/common/toast.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/providers/personal_settings_notifier.dart';
+import 'package:client/providers/manager_notifier.dart';
 import 'package:client/public/tools.dart';
 import 'package:client/requests/manager_api.dart';
 import 'package:flutter/material.dart';
@@ -19,43 +19,40 @@ class PersonalSettings extends StatefulWidget {
 }
 
 class PersonalSettingsState extends State<PersonalSettings> {
-  PersonalSettingsNotifier personalSettingsNotifier =
-      PersonalSettingsNotifier();
+  ManagerNotifier managerNotifier = ManagerNotifier();
 
   basicListener() async {
-    if (personalSettingsNotifier.operationStatus.value ==
-        OperationStatus.loading) {
+    if (managerNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (personalSettingsNotifier.operationStatus.value ==
+    } else if (managerNotifier.operationStatus.value ==
         OperationStatus.success) {
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      Toast().show(context, message: personalSettingsNotifier.operationMemo);
+      Toast().show(context, message: managerNotifier.operationMemo);
     }
   }
 
   @override
   void initState() {
     super.initState();
-    personalSettingsNotifier.fetchManager().then((value) {
+    managerNotifier.managerInfo().then((value) {
       setState(() {
-        personalSettingsNotifier.managerModel =
-            ManagerModel.fromJson(value.data);
+        managerNotifier.managerModel = ManagerModel.fromJson(value.data);
       });
     });
-    personalSettingsNotifier.addListener(basicListener);
+    managerNotifier.addListener(basicListener);
   }
 
   @override
   void dispose() {
-    personalSettingsNotifier.removeListener(basicListener);
-    personalSettingsNotifier.dispose();
+    managerNotifier.removeListener(basicListener);
+    managerNotifier.dispose();
     super.dispose();
   }
 
   mainWidget(BuildContext context) {
     TextEditingController nameController =
-        TextEditingController(text: personalSettingsNotifier.managerModel.name);
+        TextEditingController(text: managerNotifier.managerModel.name);
     TextEditingController passwordController = TextEditingController();
 
     return Container(
@@ -102,11 +99,10 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       onPressed: () {
                         if (nameController.text.isNotEmpty &&
                             nameController.text !=
-                                personalSettingsNotifier.managerModel.name) {
-                          personalSettingsNotifier.updatePersonalData(
+                                managerNotifier.managerModel.name) {
+                          managerNotifier.updateManagerInfo(
                             name: nameController.text,
-                            permission: personalSettingsNotifier
-                                .managerModel.permission,
+                            permission: managerNotifier.managerModel.permission,
                           );
                         }
                       },
@@ -125,7 +121,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       onTap: () => Toast().show(context,
                           message: Lang().thisItemCannotBeModified),
                       controller: TextEditingController(
-                          text: personalSettingsNotifier.managerModel.account),
+                          text: managerNotifier.managerModel.account),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: Lang().account,
@@ -146,7 +142,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                           message: Lang().thisItemCannotBeModified),
                       controller: TextEditingController(
                         text: Tools().timestampToStr(
-                            personalSettingsNotifier.managerModel.createTime),
+                            managerNotifier.managerModel.createTime),
                       ),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),

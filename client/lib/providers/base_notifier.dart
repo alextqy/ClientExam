@@ -1,8 +1,33 @@
+import 'package:flutter/widgets.dart';
+
+import 'package:client/requests/class_api.dart';
+import 'package:client/requests/exam_log_api.dart';
+import 'package:client/requests/examinee_api.dart';
+import 'package:client/requests/examinee_token_api.dart';
+import 'package:client/requests/examinfo_api.dart';
+import 'package:client/requests/examinfo_history_api.dart';
+import 'package:client/requests/headline_api.dart';
+import 'package:client/requests/knowledge_api.dart';
+import 'package:client/requests/manager_api.dart';
+import 'package:client/requests/paper_api.dart';
+import 'package:client/requests/paper_rule_api.dart';
+import 'package:client/requests/practice_api.dart';
+import 'package:client/requests/question_api.dart';
+import 'package:client/requests/question_solution_api.dart';
+import 'package:client/requests/scantron_api.dart';
+import 'package:client/requests/scantron_history_api.dart';
+import 'package:client/requests/scantron_solution_api.dart';
+import 'package:client/requests/scantron_solution_history_api.dart';
+import 'package:client/requests/subject_api.dart';
+import 'package:client/requests/sysConf_api.dart';
+import 'package:client/requests/sysLog_api.dart';
+import 'package:client/requests/teacher_api.dart';
+import 'package:client/requests/teacher_class_api.dart';
+
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
+
 import 'package:client/models/manager_model.dart';
-import 'package:client/requests/manager_api.dart';
-import 'package:flutter/widgets.dart';
 
 enum OperationStatus {
   /// 加载中
@@ -50,8 +75,32 @@ class BaseNotifier extends ChangeNotifier {
 
   late BaseModel result;
   late BaseListModel resultList;
+
   ManagerModel managerModel = ManagerModel();
   List<ManagerModel> managerListModel = [];
 
+  ClassApi classApi = ClassApi();
+  ExamLogApi examLogApi = ExamLogApi();
+  ExamineeApi examineeApi = ExamineeApi();
+  ExamineeTokenApi examineeTokenApi = ExamineeTokenApi();
+  ExamInfoApi examInfoApi = ExamInfoApi();
+  ExamInfoHistoryApi examInfoHistoryApi = ExamInfoHistoryApi();
+  HeadlineApi headlineApi = HeadlineApi();
+  KnowledgeApi knowledgeApi = KnowledgeApi();
   ManagerApi managerApi = ManagerApi();
+  PaperApi paperApi = PaperApi();
+  PaperRuleApi paperRuleApi = PaperRuleApi();
+  PracticeApi practiceApi = PracticeApi();
+  QuestionApi questionApi = QuestionApi();
+  QuestionSolutionApi questionSolutionApi = QuestionSolutionApi();
+  ScantronApi scantronApi = ScantronApi();
+  ScantronHistoryApi scantronHistoryApi = ScantronHistoryApi();
+  ScantronSolutionApi scantronSolutionApi = ScantronSolutionApi();
+  ScantronSolutionHistoryApi scantronSolutionHistoryApi =
+      ScantronSolutionHistoryApi();
+  SubjectApi subjectApi = SubjectApi();
+  SysConfApi sysConfApi = SysConfApi();
+  SysLogApi sysLogApi = SysLogApi();
+  TeacherApi teacherApi = TeacherApi();
+  TeacherClassApi teacherClassApi = TeacherClassApi();
 }

@@ -1,60 +1,16 @@
-import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 import 'package:client/providers/base_notifier.dart';
 
-class ManagerNotifier extends BaseNotifier {
-  void managerSignIn(
-    String account,
-    String password,
-  ) async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await managerApi.managerSignIn(account, password);
-      if (result.state = true && result.data != null) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
-  }
-
-  Future<BaseListModel> managerList({
-    int page = 1,
-    int pageSize = 5,
-    String stext = '',
-    int state = 0,
-    int permission = 0,
-  }) async {
-    return await managerApi.managerList(
-      page: page,
-      pageSize: pageSize,
-      stext: stext,
-      state: state,
-      permission: permission,
-    );
-  }
-
-  Future<BaseModel> managerInfo() async {
-    return await managerApi.managerInfo();
-  }
-
-  void updateManagerInfo({
-    required String name,
-    required int permission,
-    int id = 0,
+class ClassNotifier extends BaseNotifier {
+  void newClass({
+    required String className,
+    required String description,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await managerApi.updateManagerInfo(
-        id: id,
-        name: name,
-        permission: permission,
+      result = await classApi.newClass(
+        className: className,
+        description: description,
       );
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
@@ -70,12 +26,50 @@ class ManagerNotifier extends BaseNotifier {
     }
   }
 
-  void managerDisabled({
+  void updateClassInfo({
+    required int id,
+    required String className,
+    required String description,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await classApi.updateClassInfo(
+        id: id,
+        className: className,
+        description: description,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<BaseListModel> classList({
+    required int page,
+    required int pageSize,
+    required String stext,
+  }) async {
+    return await classApi.classList(
+      page: page,
+      pageSize: pageSize,
+      stext: stext,
+    );
+  }
+
+  void classInfo({
     required int id,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await managerApi.managerDisabled(
+      result = await classApi.classInfo(
         id: id,
       );
       if (result.state == true) {
@@ -92,42 +86,10 @@ class ManagerNotifier extends BaseNotifier {
     }
   }
 
-  void newManager({
-    required String account,
-    required String password,
-    required String name,
-  }) async {
+  void classes() async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await managerApi.newManager(
-        account: account,
-        password: password,
-        name: name,
-      );
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
-  }
-
-  void managerChangePassword({
-    String newPassword = '',
-    int id = 0,
-  }) async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await managerApi.managerChangePassword(
-        newPassword: newPassword,
-        id: id,
-      );
+      result = await classApi.classes();
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {

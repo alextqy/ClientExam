@@ -1,60 +1,14 @@
-import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 import 'package:client/providers/base_notifier.dart';
 
-class ManagerNotifier extends BaseNotifier {
-  void managerSignIn(
-    String account,
-    String password,
-  ) async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await managerApi.managerSignIn(account, password);
-      if (result.state = true && result.data != null) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
-  }
-
-  Future<BaseListModel> managerList({
-    int page = 1,
-    int pageSize = 5,
-    String stext = '',
-    int state = 0,
-    int permission = 0,
-  }) async {
-    return await managerApi.managerList(
-      page: page,
-      pageSize: pageSize,
-      stext: stext,
-      state: state,
-      permission: permission,
-    );
-  }
-
-  Future<BaseModel> managerInfo() async {
-    return await managerApi.managerInfo();
-  }
-
-  void updateManagerInfo({
-    required String name,
-    required int permission,
-    int id = 0,
+class ExamineeTokenNotifier extends BaseNotifier {
+  void signInStudentID({
+    required String account,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await managerApi.updateManagerInfo(
-        id: id,
-        name: name,
-        permission: permission,
+      result = await examineeTokenApi.signInStudentID(
+        account: account,
       );
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
@@ -70,12 +24,38 @@ class ManagerNotifier extends BaseNotifier {
     }
   }
 
-  void managerDisabled({
+  void signInAdmissionTicket({
+    required String examNo,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await examineeTokenApi.signInAdmissionTicket(
+        examNo: examNo,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<BaseListModel> examScantronList() async {
+    return await examineeTokenApi.examScantronList();
+  }
+
+  void examScantronSolutionInfo({
     required int id,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await managerApi.managerDisabled(
+      result = await examineeTokenApi.examScantronSolutionInfo(
         id: id,
       );
       if (result.state == true) {
@@ -92,17 +72,17 @@ class ManagerNotifier extends BaseNotifier {
     }
   }
 
-  void newManager({
-    required String account,
-    required String password,
-    required String name,
+  void examAnswer({
+    required int scantronID,
+    required int id,
+    required String answer,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await managerApi.newManager(
-        account: account,
-        password: password,
-        name: name,
+      result = await examineeTokenApi.examAnswer(
+        scantronID: scantronID,
+        id: id,
+        answer: answer,
       );
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
@@ -118,16 +98,10 @@ class ManagerNotifier extends BaseNotifier {
     }
   }
 
-  void managerChangePassword({
-    String newPassword = '',
-    int id = 0,
-  }) async {
+  void endTheExam() async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await managerApi.managerChangePassword(
-        newPassword: newPassword,
-        id: id,
-      );
+      result = await examineeTokenApi.endTheExam();
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
