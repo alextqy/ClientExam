@@ -57,10 +57,10 @@ class ExamineeNotifier extends BaseNotifier {
   }
 
   Future<BaseListModel> examineeList({
-    required int page,
-    required int pageSize,
-    required String stext,
-    required int classID,
+    int page = 1,
+    int pageSize = 10,
+    String stext = '',
+    int classID = 0,
   }) async {
     return await examineeApi.examineeList(
       page: page,

@@ -53,9 +53,9 @@ class ClassNotifier extends BaseNotifier {
   }
 
   Future<BaseListModel> classList({
-    required int page,
-    required int pageSize,
-    required String stext,
+    int page = 1,
+    int pageSize = 10,
+    String stext = '',
   }) async {
     return await classApi.classList(
       page: page,
