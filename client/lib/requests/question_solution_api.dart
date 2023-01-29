@@ -7,27 +7,25 @@ import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
-class PaperRuleApi extends ResponseHelper {
-  Future<BaseModel> newPaperRule({
-    int headlineID = 0,
-    int questionType = 0,
-    int knowledgeID = 0,
-    int questionNum = 0,
-    double singleScore = 0,
-    int paperID = 0,
-    int serialNumber = 0,
+class QuestionSolutionApi extends ResponseHelper {
+  Future<BaseModel> newQuestionSolution({
+    int questionID = 0,
+    String option = '',
+    int correctAnswer = 0,
+    String correctItem = '',
+    int scoreRatio = 0,
+    int position = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/New/Paper/Rule'),
+      Uri.http(url, '/New/Question/Solution'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'headlineID': headlineID.toString(),
-        'QuestionType': questionType.toString(),
-        'KnowledgeID': knowledgeID.toString(),
-        'QuestionNum': questionNum.toString(),
-        'SingleScore': singleScore.toString(),
-        'PaperID': paperID.toString(),
-        'SerialNumber': serialNumber.toString(),
+        'QuestionID': questionID.toString(),
+        'Option': option,
+        'CorrectAnswer': correctAnswer.toString(),
+        'CorrectItem': correctItem,
+        'ScoreRatio': scoreRatio.toString(),
+        'Position': position.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -35,11 +33,28 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRuleDisabled({
+  Future<BaseModel> questionSolutionAttachment({
+    int id = 0,
+    String attachment = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Question/Solution/Attachment'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ID': id.toString(),
+        'Attachment': attachment,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> questionSolutionDelete({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rule/Disabled'),
+      Uri.http(url, '/Question/Solution/Delete'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
@@ -50,35 +65,18 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRuleDelete({
-    int id = 0,
-  }) async {
-    Response response = await post(
-      Uri.http(url, '/Paper/Rule/Delete'),
-      body: {
-        'Token': FileHelper().readFile('token'),
-        'ID': id.toString(),
-      },
-      headers: postHeaders,
-      encoding: postEncoding,
-    );
-    return BaseModel.fromJson(jsonDecode(response.body));
-  }
-
-  Future<BaseListModel> paperRuleList({
+  Future<BaseListModel> questionSolutionList({
     int page = 1,
     int pageSize = 10,
-    int paperID = 0,
-    int paperRuleState = 0,
+    int questionID = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rule/List'),
+      Uri.http(url, '/Question/Solution/List'),
       body: {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'PaperID': paperID.toString(),
-        'PaperRuleState': paperRuleState.toString(),
+        'QuestionID': questionID.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -86,14 +84,16 @@ class PaperRuleApi extends ResponseHelper {
     return BaseListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRules({
-    int paperID = 0,
+  Future<BaseModel> questionSolutions({
+    int questionID = 0,
+    int position = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rules'),
+      Uri.http(url, '/Question/Solutions'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'PaperID': paperID.toString(),
+        'QuestionID': questionID.toString(),
+        'Position': position.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -101,22 +101,14 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updatePaperRule({
-    int id = 0,
-    int questionType = 0,
-    int questionNum = 0,
-    double singleScore = 0,
-    int serialNumber = 0,
+  Future<BaseModel> questionSolutionViewAttachments({
+    String filePath = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/Update/Paper/Rule'),
+      Uri.http(url, '/Question/Solution/View/Attachments'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'ID': id.toString(),
-        'QuestionType': questionType.toString(),
-        'QuestionNum': questionNum.toString(),
-        'SingleScore': singleScore.toString(),
-        'serialNumber': serialNumber.toString(),
+        'FilePath': filePath,
       },
       headers: postHeaders,
       encoding: postEncoding,

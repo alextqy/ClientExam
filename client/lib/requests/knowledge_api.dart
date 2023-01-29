@@ -16,7 +16,7 @@ class KnowledgeApi extends ResponseHelper {
       Uri.http(url, '/New/Knowledge'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'KnowledgeName': knowledgeName.trim(),
+        'KnowledgeName': knowledgeName,
         'SubjectID': subjectID.toString(),
       },
       headers: postHeaders,
@@ -49,7 +49,7 @@ class KnowledgeApi extends ResponseHelper {
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
-        'KnowledgeName': knowledgeName.trim(),
+        'KnowledgeName': knowledgeName,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -67,10 +67,10 @@ class KnowledgeApi extends ResponseHelper {
     Response response = await post(
       Uri.http(url, '/Knowledge/List'),
       body: {
-        'Token': FileHelper().readFile('token').trim(),
+        'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'Stext': stext.trim(),
+        'Stext': stext,
         'SubjectID': subjectID.toString(),
         'KnowledgeState': knowledgeState.toString(),
       },

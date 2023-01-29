@@ -16,8 +16,8 @@ class ClassApi extends ResponseHelper {
       Uri.http(url, '/New/Class'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'ClassName': className.trim(),
-        'Description': description.trim(),
+        'ClassName': className,
+        'Description': description,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -35,8 +35,8 @@ class ClassApi extends ResponseHelper {
       body: {
         'Token': FileHelper().readFile('token'),
         'id': id.toString(),
-        'ClassName': className.trim(),
-        'Description': description.trim(),
+        'ClassName': className,
+        'Description': description,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -55,7 +55,7 @@ class ClassApi extends ResponseHelper {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'Stext': stext.trim(),
+        'Stext': stext,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -78,7 +78,7 @@ class ClassApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> classes() async {
+  Future<BaseModel> classes() async {
     Response response = await post(
       Uri.http(url, '/Classes'),
       body: {
@@ -87,6 +87,6 @@ class ClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return BaseModel.fromJson(jsonDecode(response.body));
   }
 }

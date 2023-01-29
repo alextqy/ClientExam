@@ -101,7 +101,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       ),
                       onPressed: () {
                         if (nameController.text.isNotEmpty &&
-                            nameController.text.trim() !=
+                            nameController.text !=
                                 personalSettingsNotifier.managerModel.name) {
                           personalSettingsNotifier.updatePersonalData(
                             name: nameController.text,

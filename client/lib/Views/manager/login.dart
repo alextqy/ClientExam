@@ -150,8 +150,8 @@ class LoginState extends State<Login> {
           ),
           onPressed: () {
             if (_formKey.currentState?.validate() != null &&
-                accountController.text.trim().isNotEmpty &&
-                passwordController.text.trim().isNotEmpty) {
+                accountController.text.isNotEmpty &&
+                passwordController.text.isNotEmpty) {
               loginNotifier.request(
                 accountController.text,
                 passwordController.text,

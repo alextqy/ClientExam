@@ -19,7 +19,7 @@ class PaperApi extends ResponseHelper {
       Uri.http(url, '/New/Paper'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'PaperName': paperName.trim(),
+        'PaperName': paperName,
         'SubjectID': subjectID.toString(),
         'TotalScore': totalScore.toString(),
         'PassLine': passLine.toString(),
@@ -37,7 +37,7 @@ class PaperApi extends ResponseHelper {
     Response response = await post(
       Uri.http(url, '/Paper/Disabled'),
       body: {
-        'Token': FileHelper().readFile('token').trim(),
+        'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
       },
       headers: postHeaders,
@@ -56,9 +56,9 @@ class PaperApi extends ResponseHelper {
     Response response = await post(
       Uri.http(url, '/Update/Paper/Info'),
       body: {
-        'Token': FileHelper().readFile('token').trim(),
+        'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
-        'PaperName': paperName.trim(),
+        'PaperName': paperName,
         'TotalScore': totalScore.toString(),
         'PassLine': passLine.toString(),
         'ExamDuration': examDuration.toString(),
@@ -79,10 +79,10 @@ class PaperApi extends ResponseHelper {
     Response response = await post(
       Uri.http(url, '/Paper/List'),
       body: {
-        'Token': FileHelper().readFile('token').trim(),
+        'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'Stext': stext.trim(),
+        'Stext': stext,
         'SubjectID': subjectID.toString(),
         'PaperState': paperState.toString(),
       },
@@ -98,7 +98,7 @@ class PaperApi extends ResponseHelper {
     Response response = await post(
       Uri.http(url, '/Paper/Info'),
       body: {
-        'Token': FileHelper().readFile('token').trim(),
+        'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
       },
       headers: postHeaders,

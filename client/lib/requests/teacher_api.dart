@@ -7,27 +7,19 @@ import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
-class PaperRuleApi extends ResponseHelper {
-  Future<BaseModel> newPaperRule({
-    int headlineID = 0,
-    int questionType = 0,
-    int knowledgeID = 0,
-    int questionNum = 0,
-    double singleScore = 0,
-    int paperID = 0,
-    int serialNumber = 0,
+class TeacherApi extends ResponseHelper {
+  Future<BaseModel> newTeacher({
+    String account = '',
+    String password = '',
+    String name = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/New/Paper/Rule'),
+      Uri.http(url, '/New/Teacher'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'headlineID': headlineID.toString(),
-        'QuestionType': questionType.toString(),
-        'KnowledgeID': knowledgeID.toString(),
-        'QuestionNum': questionNum.toString(),
-        'SingleScore': singleScore.toString(),
-        'PaperID': paperID.toString(),
-        'SerialNumber': serialNumber.toString(),
+        'Account': account,
+        'Password': password,
+        'Name': name,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -35,11 +27,11 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRuleDisabled({
+  Future<BaseModel> teacherDisabled({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rule/Disabled'),
+      Uri.http(url, '/Teacher/Disabled'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
@@ -50,13 +42,17 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRuleDelete({
+  Future<BaseModel> updateTeacherInfo({
+    String password = '',
+    String name = '',
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rule/Delete'),
+      Uri.http(url, '/Update/Teacher/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
+        'Password': password,
+        'Name': name,
         'ID': id.toString(),
       },
       headers: postHeaders,
@@ -65,20 +61,20 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> paperRuleList({
+  Future<BaseListModel> teacherList({
     int page = 1,
     int pageSize = 10,
-    int paperID = 0,
-    int paperRuleState = 0,
+    String stext = '',
+    int state = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rule/List'),
+      Uri.http(url, '/Teacher/List'),
       body: {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'PaperID': paperID.toString(),
-        'PaperRuleState': paperRuleState.toString(),
+        'Stext': stext,
+        'State': state.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -86,14 +82,14 @@ class PaperRuleApi extends ResponseHelper {
     return BaseListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRules({
-    int paperID = 0,
+  Future<BaseModel> teacherInfo({
+    int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rules'),
+      Uri.http(url, '/Teacher/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'PaperID': paperID.toString(),
+        'ID': id.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -101,22 +97,42 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updatePaperRule({
-    int id = 0,
-    int questionType = 0,
-    int questionNum = 0,
-    double singleScore = 0,
-    int serialNumber = 0,
+  Future<BaseModel> teacherSignIn({
+    String account = '',
+    String password = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/Update/Paper/Rule'),
+      Uri.http(url, '/Teacher/Sign/In'),
+      body: {
+        'Account': account,
+        'Password': password,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> teacherSignOut() async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/Sign/Out'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'ID': id.toString(),
-        'QuestionType': questionType.toString(),
-        'QuestionNum': questionNum.toString(),
-        'SingleScore': singleScore.toString(),
-        'serialNumber': serialNumber.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> teacherChangePassword({
+    String newPassword = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/Change/Password'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'NewPassword': newPassword,
       },
       headers: postHeaders,
       encoding: postEncoding,

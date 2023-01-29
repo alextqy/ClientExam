@@ -14,7 +14,7 @@ class ExamineeTokenApi extends ResponseHelper {
     Response response = await post(
       Uri.http(url, '/Sign/In/Student/ID'),
       body: {
-        'Account': account.trim(),
+        'Account': account,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -28,7 +28,7 @@ class ExamineeTokenApi extends ResponseHelper {
     Response response = await post(
       Uri.http(url, '/Sign/In/Admission/Ticket'),
       body: {
-        'ExamNo': examNo.trim(),
+        'ExamNo': examNo,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -74,7 +74,7 @@ class ExamineeTokenApi extends ResponseHelper {
         'Token': FileHelper().readFile('token'),
         'ScantronID': scantronID.toString(),
         'ID': id.toString(),
-        'Answer': answer.trim(),
+        'Answer': answer,
       },
       headers: postHeaders,
       encoding: postEncoding,

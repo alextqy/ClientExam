@@ -18,8 +18,8 @@ class ExamInfoApi extends ResponseHelper {
       Uri.http(url, '/New/ExamInfo'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'SubjectName': subjectName.trim(),
-        'ExamNo': examNo.trim(),
+        'SubjectName': subjectName,
+        'ExamNo': examNo,
         'ExamineeID': examineeID.toString(),
         'ExamType': examType.toString(),
       },
@@ -60,7 +60,7 @@ class ExamInfoApi extends ResponseHelper {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'Stext': stext.trim(),
+        'Stext': stext,
         'ExamState': examState.toString(),
         'ExamType': examType.toString(),
         'Pass': pass.toString(),
@@ -155,7 +155,7 @@ class ExamInfoApi extends ResponseHelper {
       Uri.http(url, '/Import/Exam/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'ExcelFile': excelFile.trim(),
+        'ExcelFile': excelFile,
       },
       headers: postHeaders,
       encoding: postEncoding,

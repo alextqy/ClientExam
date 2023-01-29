@@ -7,21 +7,19 @@ import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
-class ExamLogApi extends ResponseHelper {
-  Future<BaseListModel> examLogList({
+class ScantronHistoryApi extends ResponseHelper {
+  Future<BaseListModel> scantronHistoryList({
     int page = 1,
     int pageSize = 10,
-    String stext = '',
-    int type = 0,
+    int examID = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Exam/Log/List'),
+      Uri.http(url, '/Scantron/History/List'),
       body: {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'Stext': stext,
-        'Type': type.toString(),
+        'ExamID': examID.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -29,11 +27,11 @@ class ExamLogApi extends ResponseHelper {
     return BaseListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> examLogInfo({
+  Future<BaseModel> scantronHistoryInfo({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Exam/Log/Info'),
+      Uri.http(url, '/Scantron/History/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),

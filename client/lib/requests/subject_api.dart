@@ -7,27 +7,15 @@ import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
-class PaperRuleApi extends ResponseHelper {
-  Future<BaseModel> newPaperRule({
-    int headlineID = 0,
-    int questionType = 0,
-    int knowledgeID = 0,
-    int questionNum = 0,
-    double singleScore = 0,
-    int paperID = 0,
-    int serialNumber = 0,
+class SubjectApi extends ResponseHelper {
+  Future<BaseModel> newSubject({
+    String subjectName = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/New/Paper/Rule'),
+      Uri.http(url, '/New/Subject'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'headlineID': headlineID.toString(),
-        'QuestionType': questionType.toString(),
-        'KnowledgeID': knowledgeID.toString(),
-        'QuestionNum': questionNum.toString(),
-        'SingleScore': singleScore.toString(),
-        'PaperID': paperID.toString(),
-        'SerialNumber': serialNumber.toString(),
+        'SubjectName': subjectName,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -35,11 +23,11 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRuleDisabled({
+  Future<BaseModel> subjectDisabled({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rule/Disabled'),
+      Uri.http(url, '/Subject/Disabled'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
@@ -50,14 +38,16 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRuleDelete({
+  Future<BaseModel> updateSubjectInfo({
     int id = 0,
+    String subjectName = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rule/Delete'),
+      Uri.http(url, '/Update/Subject/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
+        'SubjectName': subjectName,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -65,20 +55,20 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> paperRuleList({
+  Future<BaseListModel> subjectList({
     int page = 1,
     int pageSize = 10,
-    int paperID = 0,
-    int paperRuleState = 0,
+    String stext = '',
+    int subjectState = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rule/List'),
+      Uri.http(url, '/Subject/List'),
       body: {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'PaperID': paperID.toString(),
-        'PaperRuleState': paperRuleState.toString(),
+        'Stext': stext,
+        'SubjectState': subjectState.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -86,14 +76,14 @@ class PaperRuleApi extends ResponseHelper {
     return BaseListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperRules({
-    int paperID = 0,
+  Future<BaseModel> subjectInfo({
+    int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Paper/Rules'),
+      Uri.http(url, '/Subject/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'PaperID': paperID.toString(),
+        'ID': id.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -101,22 +91,11 @@ class PaperRuleApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updatePaperRule({
-    int id = 0,
-    int questionType = 0,
-    int questionNum = 0,
-    double singleScore = 0,
-    int serialNumber = 0,
-  }) async {
+  Future<BaseModel> subjects() async {
     Response response = await post(
-      Uri.http(url, '/Update/Paper/Rule'),
+      Uri.http(url, '/Subjects'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'ID': id.toString(),
-        'QuestionType': questionType.toString(),
-        'QuestionNum': questionNum.toString(),
-        'SingleScore': singleScore.toString(),
-        'serialNumber': serialNumber.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,

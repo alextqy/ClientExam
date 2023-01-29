@@ -7,61 +7,25 @@ import 'package:client/requests/base.dart';
 import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
-class ManagerApi extends ResponseHelper {
-  Future<BaseModel> test([
-    String param1 = '123',
-    String param2 = '456',
-    String param3 = '789',
-  ]) async {
-    Map<String, String> data = {
-      'Param1': param1,
-      'Param2': param2,
-      'Param3': param3,
-    };
-    Response response = await get(Uri.http(url, '/Test', data));
-    return BaseModel.fromJson(jsonDecode(response.body));
-  }
-
-  Future<BaseModel> managerSignIn([
-    String account = '',
-    String password = '',
-  ]) async {
-    Response response = await post(
-      Uri.http(url, '/Manager/Sign/In'),
-      body: {
-        'Account': account,
-        'Password': password,
-      },
-      headers: postHeaders,
-      encoding: postEncoding,
-    );
-    return BaseModel.fromJson(jsonDecode(response.body));
-  }
-
-  Future<BaseModel> managerSignOut() async {
-    Response response = await post(
-      Uri.http(url, '/Manager/Sign/Out'),
-      body: {
-        'Token': FileHelper().readFile('token'),
-      },
-      headers: postHeaders,
-      encoding: postEncoding,
-    );
-    return BaseModel.fromJson(jsonDecode(response.body));
-  }
-
-  Future<BaseModel> newManager({
-    String account = '',
-    String password = '',
-    String name = '',
+class QuestionApi extends ResponseHelper {
+  Future<BaseModel> newQuestion({
+    String questionTitle = '',
+    int questionType = 0,
+    int knowledgeID = 0,
+    String description = '',
+    String language = '',
+    String languageVersion = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/New/Manager'),
+      Uri.http(url, '/New/Question'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'Account': account,
-        'Password': password,
-        'Name': name,
+        'QuestionTitle': questionTitle,
+        'QuestionType': questionType.toString(),
+        'KnowledgeID': knowledgeID.toString(),
+        'Description': description,
+        'Language': language,
+        'LanguageVersion': languageVersion,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -69,11 +33,43 @@ class ManagerApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerDisabled({
+  Future<BaseModel> questionAttachment({
+    int id = 0,
+    String attachment = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Question/Attachment'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ID': id.toString(),
+        'Attachment': attachment,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> questionViewAttachments({
+    String filePath = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Question/View/Attachments'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'FilePath': filePath,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return BaseModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<BaseModel> questionDisabled({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Manager/Disabled'),
+      Uri.http(url, '/Question/Disabled'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
@@ -84,16 +80,24 @@ class ManagerApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerChangePassword({
-    String newPassword = '',
+  Future<BaseModel> updateQuestionInfo({
     int id = 0,
+    String questionTitle = '',
+    int questionType = 0,
+    String description = '',
+    String language = '',
+    String languageVersion = '',
   }) async {
     Response response = await post(
-      Uri.http(url, '/Manager/Change/Password'),
+      Uri.http(url, '/Update/Question/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'NewPassword': newPassword,
         'ID': id.toString(),
+        'QuestionTitle': questionTitle,
+        'QuestionType': questionType.toString(),
+        'Description': description,
+        'Language': language,
+        'LanguageVersion': languageVersion,
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -101,41 +105,24 @@ class ManagerApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updateManagerInfo({
-    String name = '',
-    int permission = 0,
-    int id = 0,
-  }) async {
-    Response response = await post(
-      Uri.http(url, '/Update/Manager/Info'),
-      body: {
-        'Token': FileHelper().readFile('token'),
-        'Name': name,
-        'Permission': permission.toString(),
-        'ID': id.toString(),
-      },
-      headers: postHeaders,
-      encoding: postEncoding,
-    );
-    return BaseModel.fromJson(jsonDecode(response.body));
-  }
-
-  Future<BaseListModel> managerList({
+  Future<BaseListModel> questionList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
-    int state = 0,
-    int permission = 0,
+    int questionType = 0,
+    int questionState = 0,
+    int knowledgeID = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Manager/List'),
+      Uri.http(url, '/Question/List'),
       body: {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
         'Stext': stext,
-        'State': state.toString(),
-        'Permission': permission.toString(),
+        'QuestionType': questionType.toString(),
+        'QuestionState': questionState.toString(),
+        'knowledgeID': knowledgeID.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -143,11 +130,11 @@ class ManagerApi extends ResponseHelper {
     return BaseListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerInfo({
+  Future<BaseModel> questionInfo({
     int id = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Manager/Info'),
+      Uri.http(url, '/Question/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ID': id.toString(),
