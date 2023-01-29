@@ -1,4 +1,3 @@
-import 'package:client/Views/manager/manager_bak.dart' as manager;
 import 'package:flutter/material.dart';
 import 'Views/common/animation.dart';
 import 'package:client/main.dart';
