@@ -8,12 +8,12 @@ import 'package:client/models/base.dart';
 import 'package:client/models/base_list.dart';
 
 class TeacherClassApi extends ResponseHelper {
-  Future<BaseModel> newTeacher({
+  Future<BaseModel> newTeacherClass({
     int teacherID = 0,
     int classID = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/New/Teacher'),
+      Uri.http(url, '/New/Teacher/Class'),
       body: {
         'Token': FileHelper().readFile('token'),
         'TeacherID': teacherID.toString(),
