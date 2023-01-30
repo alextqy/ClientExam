@@ -1,5 +1,7 @@
-import 'package:client/models/base_list.dart';
+// ignore_for_file: file_names
+
 import 'package:client/providers/base_notifier.dart';
+import 'package:client/models/base_list.dart';
 
 class ExamInfoNotifier extends BaseNotifier {
   void newExamInfo({
@@ -185,18 +187,18 @@ class ExamInfoNotifier extends BaseNotifier {
   }
 
   void importExamInfo({
-    required String excelFile,
+    required String filePath,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await examInfoApi.importExamInfo(
-        excelFile: excelFile,
+      bool result = await examInfoApi.importExamInfo(
+        filePath: filePath,
       );
-      if (result.state == true) {
+      if (result == true) {
         operationStatus.value = OperationStatus.success;
       } else {
         operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
+        // operationMemo = result.memo;
       }
     } catch (e) {
       operationStatus.value = OperationStatus.failure;

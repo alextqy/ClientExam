@@ -3,27 +3,31 @@
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/base_list.dart';
 
-class ExamLogNotifier extends BaseNotifier {
-  Future<BaseListModel> examLogList({
+class ExamInfoHistoryNotifier extends BaseNotifier {
+  Future<BaseListModel> examInfoHistoryList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
-    int type = 0,
+    int examState = 0,
+    int examType = 0,
+    int pass = 0,
   }) async {
-    return await examLogApi.examLogList(
+    return await examInfoHistoryApi.examInfoHistoryList(
       page: page,
       pageSize: pageSize,
       stext: stext,
-      type: type,
+      examState: examState,
+      examType: examType,
+      pass: pass,
     );
   }
 
-  void examLogInfo({
-    int id = 0,
+  void examInfoHistory({
+    required int id,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await examLogApi.examLogInfo(
+      result = await examInfoHistoryApi.examInfoHistory(
         id: id,
       );
       if (result.state == true) {

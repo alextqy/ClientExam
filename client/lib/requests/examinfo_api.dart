@@ -148,19 +148,16 @@ class ExamInfoApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> importExamInfo({
-    String excelFile = '',
+  // multipart/form-data
+  Future<bool> importExamInfo({
+    String filePath = '',
   }) async {
-    Response response = await post(
-      Uri.http(url, '/Import/Exam/Info'),
-      body: {
-        'Token': FileHelper().readFile('token'),
-        'ExcelFile': excelFile,
-      },
-      headers: postHeaders,
-      encoding: postEncoding,
+    return upload(
+      url: url,
+      uri: '/Import/Exam/Info',
+      filePath: filePath,
+      excelFile: 'ExcelFile',
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
   }
 
   Future<BaseModel> downloadExamInfoDemo() async {

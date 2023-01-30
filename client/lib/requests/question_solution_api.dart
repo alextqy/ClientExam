@@ -33,21 +33,17 @@ class QuestionSolutionApi extends ResponseHelper {
     return BaseModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> questionSolutionAttachment({
+  // multipart/form-data
+  Future<bool> questionSolutionAttachment({
     int id = 0,
-    String attachment = '',
+    String filePath = '',
   }) async {
-    Response response = await post(
-      Uri.http(url, '/Question/Solution/Attachment'),
-      body: {
-        'Token': FileHelper().readFile('token'),
-        'ID': id.toString(),
-        'Attachment': attachment,
-      },
-      headers: postHeaders,
-      encoding: postEncoding,
+    return upload(
+      url: url,
+      uri: '/Question/Solution/Attachment',
+      filePath: filePath,
+      attachment: 'Attachment',
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
   }
 
   Future<BaseModel> questionSolutionDelete({

@@ -3,16 +3,14 @@
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/base_list.dart';
 
-class ClassNotifier extends BaseNotifier {
-  void newClass({
-    required String className,
-    required String description,
+class HeadlineNotifier extends BaseNotifier {
+  void newHeadline({
+    required String content,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await classApi.newClass(
-        className: className,
-        description: description,
+      result = await headlineApi.newHeadline(
+        content: content,
       );
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
@@ -28,17 +26,15 @@ class ClassNotifier extends BaseNotifier {
     }
   }
 
-  void updateClassInfo({
+  void updateHeadlineInfo({
     required int id,
-    required String className,
-    required String description,
+    required String content,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await classApi.updateClassInfo(
+      result = await headlineApi.updateHeadlineInfo(
         id: id,
-        className: className,
-        description: description,
+        content: content,
       );
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
@@ -54,24 +50,24 @@ class ClassNotifier extends BaseNotifier {
     }
   }
 
-  Future<BaseListModel> classList({
+  Future<BaseListModel> headlineList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
   }) async {
-    return await classApi.classList(
+    return await headlineApi.headlineList(
       page: page,
       pageSize: pageSize,
       stext: stext,
     );
   }
 
-  void classInfo({
-    required int id,
+  void headlineInfo({
+    required id,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await classApi.classInfo(
+      result = await headlineApi.headlineInfo(
         id: id,
       );
       if (result.state == true) {
@@ -88,10 +84,10 @@ class ClassNotifier extends BaseNotifier {
     }
   }
 
-  void classes() async {
+  void headlines() async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await classApi.classes();
+      result = await headlineApi.headlines();
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
