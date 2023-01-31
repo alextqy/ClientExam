@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class ExamineeTokenApi extends ResponseHelper {
-  Future<BaseModel> signInStudentID({
+  Future<DataModel> signInStudentID({
     String account = '',
   }) async {
     Response response = await post(
@@ -19,10 +19,10 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> signInAdmissionTicket({
+  Future<DataModel> signInAdmissionTicket({
     String examNo = '',
   }) async {
     Response response = await post(
@@ -33,10 +33,10 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> examScantronList() async {
+  Future<DataListModel> examScantronList() async {
     Response response = await post(
       Uri.http(url, '/Exam/Scantron/List'),
       body: {
@@ -45,10 +45,10 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> examScantronSolutionInfo({
+  Future<DataModel> examScantronSolutionInfo({
     int id = 0,
   }) async {
     Response response = await post(
@@ -60,10 +60,10 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> examAnswer({
+  Future<DataModel> examAnswer({
     int scantronID = 0,
     int id = 0,
     String answer = '',
@@ -79,10 +79,10 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> endTheExam() async {
+  Future<DataModel> endTheExam() async {
     Response response = await post(
       Uri.http(url, '/End/The/Exam'),
       body: {
@@ -91,6 +91,6 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

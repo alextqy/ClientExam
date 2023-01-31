@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class ExamInfoHistoryApi extends ResponseHelper {
-  Future<BaseListModel> examInfoHistoryList({
+  Future<DataListModel> examInfoHistoryList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
@@ -30,10 +30,10 @@ class ExamInfoHistoryApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> examInfoHistory({
+  Future<DataModel> examInfoHistory({
     int id = 0,
   }) async {
     Response response = await post(
@@ -45,6 +45,6 @@ class ExamInfoHistoryApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

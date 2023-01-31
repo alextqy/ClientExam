@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class ManagerApi extends ResponseHelper {
-  Future<BaseModel> test([
+  Future<DataModel> test([
     String param1 = '123',
     String param2 = '456',
     String param3 = '789',
@@ -19,10 +19,10 @@ class ManagerApi extends ResponseHelper {
       'Param3': param3,
     };
     Response response = await get(Uri.http(url, '/Test', data));
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerSignIn([
+  Future<DataModel> managerSignIn([
     String account = '',
     String password = '',
   ]) async {
@@ -35,10 +35,10 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerSignOut() async {
+  Future<DataModel> managerSignOut() async {
     Response response = await post(
       Uri.http(url, '/Manager/Sign/Out'),
       body: {
@@ -47,10 +47,10 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> newManager({
+  Future<DataModel> newManager({
     String account = '',
     String password = '',
     String name = '',
@@ -66,10 +66,10 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerDisabled({
+  Future<DataModel> managerDisabled({
     int id = 0,
   }) async {
     Response response = await post(
@@ -81,10 +81,10 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerChangePassword({
+  Future<DataModel> managerChangePassword({
     String newPassword = '',
     int id = 0,
   }) async {
@@ -98,10 +98,10 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updateManagerInfo({
+  Future<DataModel> updateManagerInfo({
     String name = '',
     int permission = 0,
     int id = 0,
@@ -117,10 +117,10 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> managerList({
+  Future<DataListModel> managerList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
@@ -140,10 +140,10 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> managerInfo({
+  Future<DataModel> managerInfo({
     int id = 0,
   }) async {
     Response response = await post(
@@ -155,6 +155,6 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

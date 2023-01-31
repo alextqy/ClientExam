@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class ManagerNotifier extends BaseNotifier {
   void managerSignIn(
@@ -26,7 +26,7 @@ class ManagerNotifier extends BaseNotifier {
     }
   }
 
-  Future<BaseListModel> managerList({
+  Future<DataListModel> managerList({
     int page = 1,
     int pageSize = 5,
     String stext = '',
@@ -42,7 +42,7 @@ class ManagerNotifier extends BaseNotifier {
     );
   }
 
-  Future<BaseModel> managerInfo() async {
+  Future<DataModel> managerInfo() async {
     return await managerApi.managerInfo();
   }
 

@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class QuestionApi extends ResponseHelper {
-  Future<BaseModel> newQuestion({
+  Future<DataModel> newQuestion({
     String questionTitle = '',
     int questionType = 0,
     int knowledgeID = 0,
@@ -30,7 +30,7 @@ class QuestionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
   // multipart/form-data
@@ -46,7 +46,7 @@ class QuestionApi extends ResponseHelper {
     );
   }
 
-  Future<BaseModel> questionViewAttachments({
+  Future<DataModel> questionViewAttachments({
     String filePath = '',
   }) async {
     Response response = await post(
@@ -58,10 +58,10 @@ class QuestionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> questionDisabled({
+  Future<DataModel> questionDisabled({
     int id = 0,
   }) async {
     Response response = await post(
@@ -73,10 +73,10 @@ class QuestionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updateQuestionInfo({
+  Future<DataModel> updateQuestionInfo({
     int id = 0,
     String questionTitle = '',
     int questionType = 0,
@@ -98,10 +98,10 @@ class QuestionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> questionList({
+  Future<DataListModel> questionList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
@@ -123,10 +123,10 @@ class QuestionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> questionInfo({
+  Future<DataModel> questionInfo({
     int id = 0,
   }) async {
     Response response = await post(
@@ -138,6 +138,6 @@ class QuestionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

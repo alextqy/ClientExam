@@ -1,4 +1,4 @@
-class BaseListModel {
+class DataListModel {
   bool state = false;
   String memo = '';
   int code = 0;
@@ -7,7 +7,7 @@ class BaseListModel {
   int totalPage = 1;
   dynamic data;
 
-  BaseListModel({
+  DataListModel({
     this.state = false,
     this.memo = '',
     this.code = 0,
@@ -17,8 +17,8 @@ class BaseListModel {
     this.data = 0,
   });
 
-  factory BaseListModel.fromJson(Map<String, dynamic> json) {
-    return BaseListModel(
+  factory DataListModel.fromJson(Map<String, dynamic> json) {
+    return DataListModel(
       state: json['State'],
       memo: json['Memo'],
       code: json['Code'],

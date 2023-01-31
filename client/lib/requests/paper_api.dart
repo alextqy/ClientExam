@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class PaperApi extends ResponseHelper {
-  Future<BaseModel> newPaper({
+  Future<DataModel> newPaper({
     String paperName = '',
     int subjectID = 0,
     int totalScore = 0,
@@ -28,10 +28,10 @@ class PaperApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperDisabled({
+  Future<DataModel> paperDisabled({
     int id = 0,
   }) async {
     Response response = await post(
@@ -43,10 +43,10 @@ class PaperApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updatePaperInfo({
+  Future<DataModel> updatePaperInfo({
     int id = 0,
     String paperName = '',
     int totalScore = 0,
@@ -66,10 +66,10 @@ class PaperApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> paperList({
+  Future<DataListModel> paperList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
@@ -89,10 +89,10 @@ class PaperApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> paperInfo({
+  Future<DataModel> paperInfo({
     int id = 0,
   }) async {
     Response response = await post(
@@ -104,6 +104,6 @@ class PaperApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

@@ -1,5 +1,5 @@
 import 'package:client/Views/common/toast.dart';
-import 'package:client/models/base.dart';
+import 'package:client/models/data.dart';
 import 'package:client/models/manager_model.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/manager_notifier.dart';
@@ -176,7 +176,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       ),
                       onPressed: () {
                         if (passwordController.text.isNotEmpty) {
-                          Future<BaseModel> result = ManagerApi()
+                          Future<DataModel> result = ManagerApi()
                               .managerChangePassword(
                                   newPassword: passwordController.text);
                           result.then(

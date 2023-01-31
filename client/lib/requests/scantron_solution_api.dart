@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class ScantronSolutionApi extends ResponseHelper {
-  Future<BaseListModel> scantronSolutionList({
+  Future<DataListModel> scantronSolutionList({
     int page = 1,
     int pageSize = 10,
     int scantronID = 0,
@@ -26,10 +26,10 @@ class ScantronSolutionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> scantronSolutionInfo({
+  Future<DataModel> scantronSolutionInfo({
     int id = 0,
   }) async {
     Response response = await post(
@@ -41,6 +41,6 @@ class ScantronSolutionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

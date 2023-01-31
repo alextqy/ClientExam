@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data_list.dart';
 
 class QuestionSolutionNotifier extends BaseNotifier {
   void newQuestionSolution({
@@ -82,7 +82,7 @@ class QuestionSolutionNotifier extends BaseNotifier {
     }
   }
 
-  Future<BaseListModel> questionSolutionList({
+  Future<DataListModel> questionSolutionList({
     int page = 1,
     int pageSize = 10,
     int questionID = 0,

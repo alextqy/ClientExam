@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data_list.dart';
 
 class ExamInfoNotifier extends BaseNotifier {
   void newExamInfo({
@@ -54,7 +54,7 @@ class ExamInfoNotifier extends BaseNotifier {
     }
   }
 
-  Future<BaseListModel> examInfoList({
+  Future<DataListModel> examInfoList({
     int page = 1,
     int pageSize = 10,
     String stext = '',

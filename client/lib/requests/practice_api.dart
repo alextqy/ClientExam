@@ -4,11 +4,10 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-// import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
 
 class PracticeApi extends ResponseHelper {
-  Future<BaseModel> signInPractice({
+  Future<DataModel> signInPractice({
     String examineeNo = '',
   }) async {
     Response response = await post(
@@ -19,10 +18,10 @@ class PracticeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> newPractice({
+  Future<DataModel> newPractice({
     int questionType = 0,
   }) async {
     Response response = await post(
@@ -34,10 +33,10 @@ class PracticeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> practiceInfo({
+  Future<DataModel> practiceInfo({
     int id = 0,
   }) async {
     Response response = await post(
@@ -49,10 +48,10 @@ class PracticeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> practiceAnswer({
+  Future<DataModel> practiceAnswer({
     int practiceID = 0,
     int id = 0,
     String answer = '',
@@ -68,10 +67,10 @@ class PracticeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> gradeThePractice({
+  Future<DataModel> gradeThePractice({
     int id = 0,
   }) async {
     Response response = await post(
@@ -83,10 +82,10 @@ class PracticeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> practiceDelete({
+  Future<DataModel> practiceDelete({
     int id = 0,
   }) async {
     Response response = await post(
@@ -98,6 +97,6 @@ class PracticeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

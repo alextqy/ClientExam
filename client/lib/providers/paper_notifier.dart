@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data_list.dart';
 
 class PaperNotifier extends BaseNotifier {
   void newPaper({
@@ -86,7 +86,7 @@ class PaperNotifier extends BaseNotifier {
     }
   }
 
-  Future<BaseListModel> paperList({
+  Future<DataListModel> paperList({
     int page = 1,
     int pageSize = 10,
     String stext = '',

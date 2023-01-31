@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class QuestionSolutionApi extends ResponseHelper {
-  Future<BaseModel> newQuestionSolution({
+  Future<DataModel> newQuestionSolution({
     int questionID = 0,
     String option = '',
     int correctAnswer = 0,
@@ -30,7 +30,7 @@ class QuestionSolutionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
   // multipart/form-data
@@ -46,7 +46,7 @@ class QuestionSolutionApi extends ResponseHelper {
     );
   }
 
-  Future<BaseModel> questionSolutionDelete({
+  Future<DataModel> questionSolutionDelete({
     int id = 0,
   }) async {
     Response response = await post(
@@ -58,10 +58,10 @@ class QuestionSolutionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> questionSolutionList({
+  Future<DataListModel> questionSolutionList({
     int page = 1,
     int pageSize = 10,
     int questionID = 0,
@@ -77,10 +77,10 @@ class QuestionSolutionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> questionSolutions({
+  Future<DataModel> questionSolutions({
     int questionID = 0,
     int position = 0,
   }) async {
@@ -94,10 +94,10 @@ class QuestionSolutionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> questionSolutionViewAttachments({
+  Future<DataModel> questionSolutionViewAttachments({
     String filePath = '',
   }) async {
     Response response = await post(
@@ -109,6 +109,6 @@ class QuestionSolutionApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

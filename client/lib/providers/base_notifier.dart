@@ -26,8 +26,8 @@ import 'package:client/requests/sysLog_api.dart';
 import 'package:client/requests/teacher_api.dart';
 import 'package:client/requests/teacher_class_api.dart';
 
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 import 'package:client/models/manager_model.dart';
 
@@ -75,8 +75,8 @@ class BaseNotifier extends ChangeNotifier {
   String operationMemo = '';
   int operationCode = 0;
 
-  late BaseModel result;
-  late BaseListModel resultList;
+  late DataModel result;
+  late DataListModel resultList;
 
   ManagerModel managerModel = ManagerModel();
   List<ManagerModel> managerListModel = [];

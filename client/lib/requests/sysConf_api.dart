@@ -4,11 +4,10 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-// import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
 
 class SysConfApi extends ResponseHelper {
-  Future<BaseModel> configInfo({
+  Future<DataModel> configInfo({
     String key = '',
   }) async {
     Response response = await post(
@@ -20,6 +19,6 @@ class SysConfApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

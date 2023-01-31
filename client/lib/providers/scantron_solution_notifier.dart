@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data_list.dart';
 
 class ScantronSolutionNotifier extends BaseNotifier {
-  Future<BaseListModel> scantronSolutionList({
+  Future<DataListModel> scantronSolutionList({
     int page = 1,
     int pageSize = 10,
     int scantronID = 0,

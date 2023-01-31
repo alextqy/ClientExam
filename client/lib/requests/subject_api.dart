@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class SubjectApi extends ResponseHelper {
-  Future<BaseModel> newSubject({
+  Future<DataModel> newSubject({
     String subjectName = '',
   }) async {
     Response response = await post(
@@ -20,10 +20,10 @@ class SubjectApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> subjectDisabled({
+  Future<DataModel> subjectDisabled({
     int id = 0,
   }) async {
     Response response = await post(
@@ -35,10 +35,10 @@ class SubjectApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updateSubjectInfo({
+  Future<DataModel> updateSubjectInfo({
     int id = 0,
     String subjectName = '',
   }) async {
@@ -52,10 +52,10 @@ class SubjectApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> subjectList({
+  Future<DataListModel> subjectList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
@@ -73,10 +73,10 @@ class SubjectApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> subjectInfo({
+  Future<DataModel> subjectInfo({
     int id = 0,
   }) async {
     Response response = await post(
@@ -88,10 +88,10 @@ class SubjectApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> subjects() async {
+  Future<DataModel> subjects() async {
     Response response = await post(
       Uri.http(url, '/Subjects'),
       body: {
@@ -100,6 +100,6 @@ class SubjectApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }

@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data_list.dart';
 
 class ExamineeTokenNotifier extends BaseNotifier {
   void signInStudentID({
@@ -48,7 +48,7 @@ class ExamineeTokenNotifier extends BaseNotifier {
     }
   }
 
-  Future<BaseListModel> examScantronList() async {
+  Future<DataListModel> examScantronList() async {
     return await examineeTokenApi.examScantronList();
   }
 

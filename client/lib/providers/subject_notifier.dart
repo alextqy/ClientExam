@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data_list.dart';
 
 class SubjectNotifier extends BaseNotifier {
   void newSubject({
@@ -72,7 +72,7 @@ class SubjectNotifier extends BaseNotifier {
     }
   }
 
-  Future<BaseListModel> subjectList({
+  Future<DataListModel> subjectList({
     int page = 1,
     int pageSize = 10,
     String stext = '',

@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
-import 'package:client/models/base.dart';
-import 'package:client/models/base_list.dart';
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
 
 class TeacherApi extends ResponseHelper {
-  Future<BaseModel> newTeacher({
+  Future<DataModel> newTeacher({
     String account = '',
     String password = '',
     String name = '',
@@ -24,10 +24,10 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> teacherDisabled({
+  Future<DataModel> teacherDisabled({
     int id = 0,
   }) async {
     Response response = await post(
@@ -39,10 +39,10 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> updateTeacherInfo({
+  Future<DataModel> updateTeacherInfo({
     String password = '',
     String name = '',
     int id = 0,
@@ -58,10 +58,10 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseListModel> teacherList({
+  Future<DataListModel> teacherList({
     int page = 1,
     int pageSize = 10,
     String stext = '',
@@ -79,10 +79,10 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> teacherInfo({
+  Future<DataModel> teacherInfo({
     int id = 0,
   }) async {
     Response response = await post(
@@ -94,10 +94,10 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> teacherSignIn({
+  Future<DataModel> teacherSignIn({
     String account = '',
     String password = '',
   }) async {
@@ -110,10 +110,10 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> teacherSignOut() async {
+  Future<DataModel> teacherSignOut() async {
     Response response = await post(
       Uri.http(url, '/Teacher/Sign/Out'),
       body: {
@@ -122,10 +122,10 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 
-  Future<BaseModel> teacherChangePassword({
+  Future<DataModel> teacherChangePassword({
     String newPassword = '',
   }) async {
     Response response = await post(
@@ -137,6 +137,6 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return BaseModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(response.body));
   }
 }
