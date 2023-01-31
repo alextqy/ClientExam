@@ -23,6 +23,7 @@ class ManagerModel extends BaseModel {
     this.name = '',
     this.permission = 0,
     this.token = '',
+    this.selected = false,
   }) : super(id, createTime);
 
   factory ManagerModel.fromJson(Map<String, dynamic> json) {

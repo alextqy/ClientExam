@@ -6,12 +6,14 @@ import 'package:client/models/base.dart';
 class ExamineeTokenModel extends BaseModel {
   late String token;
   late int examID;
+  late bool selected;
 
   ExamineeTokenModel({
     int id = 0,
     int createTime = 0,
-    String token = '',
-    String examID = '',
+    this.token = '',
+    this.examID = 0,
+    this.selected = false,
   }) : super(id, createTime);
 
   factory ExamineeTokenModel.fromJson(Map<String, dynamic> json) {

@@ -7,6 +7,7 @@ class ClassModel extends BaseModel {
   late String className;
   late String classCode;
   late String description;
+  late bool selected;
 
   ClassModel({
     int id = 0,
@@ -14,6 +15,7 @@ class ClassModel extends BaseModel {
     this.className = '',
     this.classCode = '',
     this.description = '',
+    this.selected = false,
   }) : super(id, createTime);
 
   factory ClassModel.fromJson(Map<String, dynamic> json) {

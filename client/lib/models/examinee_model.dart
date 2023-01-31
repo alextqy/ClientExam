@@ -8,14 +8,16 @@ class ExamineeModel extends BaseModel {
   late String name;
   late int classID;
   late int contact;
+  late bool selected;
 
   ExamineeModel({
     int id = 0,
     int createTime = 0,
-    String examineeNo = '',
-    String name = '',
+    this.examineeNo = '',
+    this.name = '',
     this.classID = 0,
     this.contact = 0,
+    this.selected = false,
   }) : super(id, createTime);
 
   factory ExamineeModel.fromJson(Map<String, dynamic> json) {
