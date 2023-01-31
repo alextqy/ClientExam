@@ -144,7 +144,12 @@ class Menu {
                     Lang().teachers,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().teachers),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper()
+                          .generate('/manager/teacher', headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,

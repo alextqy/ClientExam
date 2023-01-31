@@ -1,6 +1,32 @@
 // ignore_for_file: file_names
-
 import 'package:flutter/widgets.dart';
+
+import 'package:client/models/data.dart';
+import 'package:client/models/data_list.dart';
+import 'package:client/models/class_model.dart';
+import 'package:client/models/examInfo_history_model.dart';
+import 'package:client/models/examInfo_model.dart';
+import 'package:client/models/exam_log_model.dart';
+import 'package:client/models/examinee_model.dart';
+import 'package:client/models/examinee_token_model.dart';
+import 'package:client/models/headline_model.dart';
+import 'package:client/models/knowledge_model.dart';
+import 'package:client/models/manager_model.dart';
+import 'package:client/models/paper_model.dart';
+import 'package:client/models/paper_rule_model.dart';
+import 'package:client/models/practice_model.dart';
+import 'package:client/models/practice_solution_model.dart';
+import 'package:client/models/question_model.dart';
+import 'package:client/models/question_solution_model.dart';
+import 'package:client/models/scantron_history_model.dart';
+import 'package:client/models/scantron_model.dart';
+import 'package:client/models/scantron_solution_history_model.dart';
+import 'package:client/models/scantron_solution_model.dart';
+import 'package:client/models/subject_model.dart';
+import 'package:client/models/sys_conf_model.dart';
+import 'package:client/models/sys_log_model.dart';
+import 'package:client/models/teacher_class_model.dart';
+import 'package:client/models/teacher_model.dart';
 
 import 'package:client/requests/class_api.dart';
 import 'package:client/requests/exam_log_api.dart';
@@ -25,11 +51,6 @@ import 'package:client/requests/sysConf_api.dart';
 import 'package:client/requests/sysLog_api.dart';
 import 'package:client/requests/teacher_api.dart';
 import 'package:client/requests/teacher_class_api.dart';
-
-import 'package:client/models/data.dart';
-import 'package:client/models/data_list.dart';
-
-import 'package:client/models/manager_model.dart';
 
 enum OperationStatus {
   /// 加载中
@@ -78,9 +99,60 @@ class BaseNotifier extends ChangeNotifier {
   late DataModel result;
   late DataListModel resultList;
 
+  /// model ===================================================================
+  ClassModel classModel = ClassModel();
+  ExamLogModel examLogModel = ExamLogModel();
+  ExamineeModel examineeModel = ExamineeModel();
+  ExamineeTokenModel examineeTokenModel = ExamineeTokenModel();
+  ExamInfoHistoryModel examInfoHistoryModel = ExamInfoHistoryModel();
+  ExamInfoModel examInfoModel = ExamInfoModel();
+  HeadlineModel headlineModel = HeadlineModel();
+  KnowledgeModel knowledgeModel = KnowledgeModel();
   ManagerModel managerModel = ManagerModel();
-  List<ManagerModel> managerListModel = [];
+  PaperModel paperModel = PaperModel();
+  PaperRuleModel paperRuleModel = PaperRuleModel();
+  PracticeModel practiceModel = PracticeModel();
+  PracticeSolutionModel practiceSolutionModel = PracticeSolutionModel();
+  QuestionModel questionModel = QuestionModel();
+  QuestionSolutionModel questionSolutionModel = QuestionSolutionModel();
+  ScantronHistoryModel scantronHistoryModel = ScantronHistoryModel();
+  ScantronModel scantronModel = ScantronModel();
+  ScantronSolutionHistoryModel scantronSolutionHistoryModel =
+      ScantronSolutionHistoryModel();
+  ScantronSolutionModel scantronSolutionModel = ScantronSolutionModel();
+  SubjectModel subjectModel = SubjectModel();
+  SysConfModel sysConfModel = SysConfModel();
+  SysLogModel sysLogModel = SysLogModel();
+  TeacherClassModel teacherClassModel = TeacherClassModel();
+  TeacherModel teacherModel = TeacherModel();
 
+  /// model list ===================================================================
+  List<ClassModel> classListModel = [];
+  List<ExamLogModel> examLogListModel = [];
+  List<ExamineeModel> examineeListModel = [];
+  List<ExamineeTokenModel> examineeTokenListModel = [];
+  List<ExamInfoHistoryModel> examInfoHistoryListModel = [];
+  List<ExamInfoModel> examInfoListModel = [];
+  List<HeadlineModel> headlineListModel = [];
+  List<KnowledgeModel> knowledgeListModel = [];
+  List<ManagerModel> managerListModel = [];
+  List<PaperModel> paperListModel = [];
+  List<PaperRuleModel> paperRuleListModel = [];
+  List<PracticeModel> practiceListModel = [];
+  List<PracticeSolutionModel> practiceSolutionListModel = [];
+  List<QuestionModel> questionListModel = [];
+  List<QuestionSolutionModel> questionSolutionListModel = [];
+  List<ScantronHistoryModel> scantronHistoryListModel = [];
+  List<ScantronModel> scantronListModel = [];
+  List<ScantronSolutionHistoryModel> scantronSolutionHistoryListModel = [];
+  List<ScantronSolutionModel> scantronSolutionListModel = [];
+  List<SubjectModel> subjectListModel = [];
+  List<SysConfModel> sysConfListModel = [];
+  List<SysLogModel> sysLogListModel = [];
+  List<TeacherClassModel> teacherClassListModel = [];
+  List<TeacherModel> teacherListModel = [];
+
+  /// api ===================================================================
   ClassApi classApi = ClassApi();
   ExamLogApi examLogApi = ExamLogApi();
   ExamineeApi examineeApi = ExamineeApi();

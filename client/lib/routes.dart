@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'Views/common/animation.dart';
 import 'package:client/main.dart';
-import 'package:client/Views/manager/login.dart' as manager;
-import 'package:client/Views/manager/index.dart' as manager;
-import 'package:client/Views/manager/personal_settings.dart'
-    as manager_personal_settings;
-import 'package:client/Views/manager/manager.dart' as manager;
-import 'package:client/Views/teacher/index.dart' as teacher;
+import 'package:client/Views/manager/login.dart' as manager_site;
+import 'package:client/Views/manager/index.dart' as manager_site;
+import 'package:client/Views/manager/personal_settings.dart' as manager_site;
+import 'package:client/Views/manager/manager.dart' as manager_site;
+import 'package:client/Views/manager/teacher.dart' as manager_site;
+import 'package:client/Views/teacher/index.dart' as teacher_site;
 
 // 注册命名路由
 // Map<String, WidgetBuilder> routerMap = {
@@ -21,19 +21,20 @@ class RouteHelper {
       case '/':
         // return MaterialPageRoute(builder: (_) => Entrance());
         return const Entrance();
-      // ===================================================================
+      // 管理员 ===================================================================
       case '/manager/login':
-        return RouteSlide(const manager.Login());
+        return RouteSlide(const manager_site.Login());
       case '/manager/index':
-        return RouteSlide(manager.Index(headline: headline));
+        return RouteSlide(manager_site.Index(headline: headline));
       case '/manager/personal/settings':
-        return RouteSlide(
-            manager_personal_settings.PersonalSettings(headline: headline));
+        return RouteSlide(manager_site.PersonalSettings(headline: headline));
       case '/manager/manager':
-        return RouteSlide(manager.Manager(headline: headline));
-      // ===================================================================
+        return RouteSlide(manager_site.Manager(headline: headline));
+      case '/manager/teacher':
+        return RouteSlide(manager_site.Teacher(headline: headline));
+      // 教师 ===================================================================
       case '/teacher/index':
-        return RouteSlide(const teacher.Index());
+        return RouteSlide(const teacher_site.Index());
       // ===================================================================
       default:
         return MaterialPageRoute(
