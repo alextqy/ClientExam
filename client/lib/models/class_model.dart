@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'package:client/models/base.dart';
 
 class ClassModel extends BaseModel {
-  String className = '';
-  String classCode = '';
-  String description = '';
+  late String className;
+  late String classCode;
+  late String description;
 
   ClassModel({
     int id = 0,
@@ -20,9 +20,9 @@ class ClassModel extends BaseModel {
     return ClassModel(
       id: json['ID'],
       createTime: json['CreateTime'],
-      className: json['className'],
-      classCode: json['classCode'],
-      description: json['description'],
+      className: json['ClassName'],
+      classCode: json['ClassCode'],
+      description: json['Description'],
     );
   }
 

@@ -4,14 +4,14 @@ import 'dart:convert';
 import 'package:client/models/base.dart';
 
 class ManagerModel extends BaseModel {
-  String password = '';
-  int state = 0;
-  int updateTime = 0;
-  String account = '';
-  String name = '';
-  int permission = 0;
-  String token = '';
-  bool selected = false;
+  late String password;
+  late int state;
+  late int updateTime;
+  late String account;
+  late String name;
+  late int permission;
+  late String token;
+  late bool selected;
 
   ManagerModel({
     int id = 0,
