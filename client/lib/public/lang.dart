@@ -53,13 +53,9 @@ class Lang {
   String next = '';
   String jumpTo = '';
 
-  // String systemFunctions = '';
-  // String addData = '';
-
-  // String creationTime = '';
-  // String details = '';
-  // String previousPage = '';
-  // String nextPage = '';
+  String className = '';
+  String classCode = '';
+  String description = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -112,6 +108,10 @@ class Lang {
       this.previous = '上一页';
       this.next = '下一页';
       this.jumpTo = '跳转';
+
+      this.className = '班级名称';
+      this.classCode = '班级编码';
+      this.description = '描述';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -162,6 +162,10 @@ class Lang {
       this.previous = 'Previous';
       this.next = 'Next';
       this.jumpTo = 'Jump to';
+
+      this.className = 'Class Name';
+      this.classCode = 'Class Code';
+      this.description = 'description';
     }
   }
 }

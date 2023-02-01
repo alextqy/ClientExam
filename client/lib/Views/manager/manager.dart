@@ -75,6 +75,7 @@ class ManagerState extends State<Manager> {
             managerNotifier.managerListModel.length, (int index) => false);
         showSelected = 0;
         searchText = '';
+        sortAscending = false;
       });
     });
   }

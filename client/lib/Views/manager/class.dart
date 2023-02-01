@@ -10,19 +10,19 @@ import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/providers/teacher_notifier.dart';
-import 'package:client/models/teacher_model.dart';
+import 'package:client/providers/class_notifier.dart';
+import 'package:client/models/class_model.dart';
 
 // ignore: must_be_immutable
-class Teacher extends StatefulWidget {
+class Class extends StatefulWidget {
   late String headline;
-  Teacher({super.key, required this.headline});
+  Class({super.key, required this.headline});
 
   @override
-  State<Teacher> createState() => TeacherState();
+  State<Class> createState() => ClassState();
 }
 
-class TeacherState extends State<Teacher> {
+class ClassState extends State<Class> {
   bool sortAscending = false;
   int sortColumnIndex = 0;
   int showSelected = 0;
@@ -31,48 +31,44 @@ class TeacherState extends State<Teacher> {
   int page = 1;
   int pageSize = perPageDropList.first;
   String searchText = '';
-  int state = 0;
   String stateMemo = stateDropList.first;
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passworController = TextEditingController();
-  TextEditingController newAccountController = TextEditingController();
-  TextEditingController newPasswordController = TextEditingController();
-  TextEditingController newNameController = TextEditingController();
+  TextEditingController classNameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController newClassNameController = TextEditingController();
+  TextEditingController newDescriptionController = TextEditingController();
 
-  TeacherNotifier teacherNotifier = TeacherNotifier();
+  ClassNotifier classNotifier = ClassNotifier();
 
   basicListener() async {
-    if (teacherNotifier.operationStatus.value == OperationStatus.loading) {
+    if (classNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (teacherNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (classNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      Toast().show(context, message: teacherNotifier.operationMemo);
+      Toast().show(context, message: classNotifier.operationMemo);
     }
   }
 
   void fetchData() {
-    teacherNotifier
-        .teacherList(
+    classNotifier
+        .classList(
       page: page,
       pageSize: pageSize,
       stext: searchText,
-      state: state,
     )
         .then((value) {
       setState(() {
         totalPage = value.totalPage;
-        teacherNotifier.teacherListModel =
-            TeacherModel().fromJsonList(jsonEncode(value.data));
+        classNotifier.classListModel =
+            ClassModel().fromJsonList(jsonEncode(value.data));
         selected = List<bool>.generate(
-            teacherNotifier.teacherListModel.length, (int index) => false);
+            classNotifier.classListModel.length, (int index) => false);
         showSelected = 0;
         searchText = '';
         sortAscending = false;
@@ -83,56 +79,44 @@ class TeacherState extends State<Teacher> {
   @override
   void initState() {
     super.initState();
-    teacherNotifier.addListener(basicListener);
+    classNotifier.addListener(basicListener);
     fetchData();
   }
 
   @override
   void dispose() {
-    teacherNotifier.dispose();
-    teacherNotifier.removeListener(basicListener);
+    classNotifier.dispose();
+    classNotifier.removeListener(basicListener);
     super.dispose();
   }
 
   // 生成列表
   List<DataRow> generateList() {
     return List<DataRow>.generate(
-      teacherNotifier.teacherListModel.length,
+      classNotifier.classListModel.length,
       (int index) => DataRow(
         cells: <DataCell>[
-          DataCell(Text(teacherNotifier.teacherListModel[index].id.toString())),
-          DataCell(Text(teacherNotifier.teacherListModel[index].account)),
+          DataCell(Text(classNotifier.classListModel[index].id.toString())),
           DataCell(
-            Text(teacherNotifier.teacherListModel[index].name),
+            Tooltip(
+              message: classNotifier.classListModel[index].description,
+              child: Text(classNotifier.classListModel[index].className),
+            ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              nameController.clear();
+              classNameController.clear();
               nameAlertDialog(
                 context,
-                id: teacherNotifier.teacherListModel[index].id,
-                name: teacherNotifier.teacherListModel[index].name,
-                password: '',
+                id: classNotifier.classListModel[index].id,
+                className: classNotifier.classListModel[index].className,
+                description: classNotifier.classListModel[index].description,
               );
             },
           ),
-          DataCell(Text(Tools().timestampToStr(
-              teacherNotifier.teacherListModel[index].createTime))),
-          DataCell(Text(Tools().timestampToStr(
-              teacherNotifier.teacherListModel[index].updateTime))),
-          DataCell(
-            CupertinoSwitch(
-              value: teacherNotifier.teacherListModel[index].state == 1
-                  ? true
-                  : false,
-              onChanged: (bool? value) {
-                setState(() {
-                  teacherNotifier.teacherDisabled(
-                      id: teacherNotifier.teacherListModel[index].id);
-                });
-              },
-            ),
-          ),
+          DataCell(Text(classNotifier.classListModel[index].classCode)),
+          DataCell(Text(Tools()
+              .timestampToStr(classNotifier.classListModel[index].createTime))),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {
@@ -149,13 +133,15 @@ class TeacherState extends State<Teacher> {
   void nameAlertDialog(
     BuildContext context, {
     required int id,
-    required String name,
-    required String password,
+    required String className,
+    required String description,
   }) {
-    nameController.clear();
-    passworController.clear();
+    classNameController.clear();
+    descriptionController.clear();
 
-    nameController.text = name;
+    descriptionController.text = description;
+    classNameController.text = className;
+
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -168,24 +154,21 @@ class TeacherState extends State<Teacher> {
             child: Column(
               children: [
                 TextField(
-                  controller: nameController,
+                  controller: classNameController,
                   decoration: InputDecoration(
-                    hintText: Lang().name,
                     suffixIcon: IconButton(
                       iconSize: 20,
-                      onPressed: () => nameController.clear(),
+                      onPressed: () => classNameController.clear(),
                       icon: const Icon(Icons.clear),
                     ),
                   ),
                 ),
                 TextField(
-                  controller: passworController,
-                  obscureText: true,
+                  controller: descriptionController,
                   decoration: InputDecoration(
-                    hintText: Lang().password,
                     suffixIcon: IconButton(
                       iconSize: 20,
-                      onPressed: () => passworController.clear(),
+                      onPressed: () => classNameController.clear(),
                       icon: const Icon(Icons.clear),
                     ),
                   ),
@@ -196,12 +179,14 @@ class TeacherState extends State<Teacher> {
           actions: [
             TextButton(
               onPressed: () {
-                teacherNotifier.updateTeacherInfo(
-                  id: id,
-                  name: nameController.text,
-                  password: password,
-                );
-                Navigator.of(context).pop();
+                if (classNameController.text.isNotEmpty) {
+                  classNotifier.updateClassInfo(
+                    id: id,
+                    className: classNameController.text,
+                    description: descriptionController.text,
+                  );
+                  Navigator.of(context).pop();
+                }
               },
               child: Text(Lang().confirm),
             ),
@@ -217,10 +202,10 @@ class TeacherState extends State<Teacher> {
     );
   }
 
+  // 新建
   void addAlertDialog(BuildContext context) {
-    newAccountController.clear();
-    newPasswordController.clear();
-    newNameController.clear();
+    newClassNameController.clear();
+    newDescriptionController.clear();
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -229,17 +214,17 @@ class TeacherState extends State<Teacher> {
           title: Text(Lang().title),
           content: SizedBox(
             width: 100,
-            height: 150,
+            height: 100,
             child: Column(
               children: [
                 SizedBox(
                   child: TextField(
-                    controller: newAccountController,
+                    controller: newClassNameController,
                     decoration: InputDecoration(
-                      hintText: Lang().account,
+                      hintText: Lang().className,
                       suffixIcon: IconButton(
                         iconSize: 20,
-                        onPressed: () => newAccountController.clear(),
+                        onPressed: () => newClassNameController.clear(),
                         icon: const Icon(Icons.clear),
                       ),
                     ),
@@ -247,26 +232,12 @@ class TeacherState extends State<Teacher> {
                 ),
                 SizedBox(
                   child: TextField(
-                    controller: newPasswordController,
-                    obscureText: true,
+                    controller: newDescriptionController,
                     decoration: InputDecoration(
-                      hintText: Lang().password,
+                      hintText: Lang().description,
                       suffixIcon: IconButton(
                         iconSize: 20,
-                        onPressed: () => newPasswordController.clear(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  child: TextField(
-                    controller: newNameController,
-                    decoration: InputDecoration(
-                      hintText: Lang().name,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newNameController.clear(),
+                        onPressed: () => newDescriptionController.clear(),
                         icon: const Icon(Icons.clear),
                       ),
                     ),
@@ -278,13 +249,10 @@ class TeacherState extends State<Teacher> {
           actions: [
             TextButton(
               onPressed: () {
-                if (newAccountController.text.isNotEmpty &&
-                    newPasswordController.text.isNotEmpty &&
-                    newNameController.text.isNotEmpty) {
-                  teacherNotifier.newTeacher(
-                    account: newAccountController.text,
-                    password: newPasswordController.text,
-                    name: newNameController.text,
+                if (newClassNameController.text.isNotEmpty) {
+                  classNotifier.newClass(
+                    className: newClassNameController.text,
+                    description: newDescriptionController.text,
                   );
                   fetchData();
                   Navigator.of(context).pop();
@@ -308,16 +276,16 @@ class TeacherState extends State<Teacher> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        teacherNotifier.teacherListModel.sort((a, b) => a.id.compareTo(b.id));
+        classNotifier.classListModel.sort((a, b) => a.id.compareTo(b.id));
       } else {
-        teacherNotifier.teacherListModel.sort((a, b) => b.id.compareTo(a.id));
+        classNotifier.classListModel.sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
     selected = List<bool>.generate(
-      teacherNotifier.teacherListModel.length,
+      classNotifier.classListModel.length,
       (int index) {
-        teacherNotifier.teacherListModel[index].selected = false;
+        classNotifier.classListModel[index].selected = false;
         showSelected = 0;
         return false;
       },
@@ -404,43 +372,6 @@ class TeacherState extends State<Teacher> {
                               ),
                             ),
                             const SizedBox(width: 10),
-                            Tooltip(
-                              message: Lang().status,
-                              child: DropdownButton<String>(
-                                itemHeight: 50,
-                                value: stateMemo,
-                                icon: const Icon(Icons.arrow_drop_down),
-                                style: const TextStyle(color: Colors.black),
-                                // elevation: 16,
-                                underline: Container(
-                                  height: 0,
-                                  // color: Colors.deepPurpleAccent,
-                                ),
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    if (stateMemo != value!) {
-                                      stateMemo = value;
-                                      if (value == Lang().all) {
-                                        state = 0;
-                                      } else {
-                                        state = Lang().normal == value ? 1 : 2;
-                                      }
-                                      page = 1;
-                                      fetchData();
-                                    }
-                                  });
-                                },
-                                items: stateDropList
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
                             IconButton(
                               icon: const Icon(Icons.refresh),
                               onPressed: () {
@@ -500,7 +431,7 @@ class TeacherState extends State<Teacher> {
                           ),
                           DataColumn(
                             label: Text(
-                              Lang().account,
+                              Lang().className,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -508,7 +439,7 @@ class TeacherState extends State<Teacher> {
                           ),
                           DataColumn(
                             label: Text(
-                              Lang().name,
+                              Lang().classCode,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -517,22 +448,6 @@ class TeacherState extends State<Teacher> {
                           DataColumn(
                             label: Text(
                               Lang().createtime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              Lang().updateTime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              Lang().status,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -572,9 +487,9 @@ class TeacherState extends State<Teacher> {
                                         onSubmittedData <= totalPage &&
                                         onSubmittedData != page) {
                                       page = onSubmittedData;
-                                      jumpToController.clear();
                                       fetchData();
                                     }
+                                    jumpToController.clear();
                                   });
                                 },
                               ),
@@ -652,7 +567,7 @@ class TeacherState extends State<Teacher> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Menu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().teachers)),
+      appBar: AppBar(title: Text(Lang().classes)),
       body: mainWidget(context),
     );
   }

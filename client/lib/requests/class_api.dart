@@ -34,7 +34,7 @@ class ClassApi extends ResponseHelper {
       Uri.http(url, '/Update/Class/Info'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'id': id.toString(),
+        'ID': id.toString(),
         'ClassName': className,
         'Description': description,
       },
