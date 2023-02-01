@@ -138,10 +138,8 @@ class ClassState extends State<Class> {
   }) {
     classNameController.clear();
     descriptionController.clear();
-
     descriptionController.text = description;
     classNameController.text = className;
-
     showDialog(
       context: context,
       barrierDismissible: true,
