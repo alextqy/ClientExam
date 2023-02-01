@@ -40,6 +40,9 @@ class TeacherState extends State<Teacher> {
       TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passworController = TextEditingController();
+  TextEditingController newAccountController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController newNameController = TextEditingController();
 
   TeacherNotifier teacherNotifier = TeacherNotifier();
 
@@ -213,6 +216,93 @@ class TeacherState extends State<Teacher> {
     );
   }
 
+  void addAlertDialog(BuildContext context) {
+    newAccountController.clear();
+    newPasswordController.clear();
+    newNameController.clear();
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(Lang().title),
+          content: SizedBox(
+            width: 100,
+            height: 150,
+            child: Column(
+              children: [
+                SizedBox(
+                  child: TextField(
+                    controller: newAccountController,
+                    decoration: InputDecoration(
+                      hintText: Lang().account,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => newAccountController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  child: TextField(
+                    controller: newPasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: Lang().password,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => newPasswordController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  child: TextField(
+                    controller: newNameController,
+                    decoration: InputDecoration(
+                      hintText: Lang().name,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => newNameController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (newAccountController.text.isNotEmpty &&
+                    newPasswordController.text.isNotEmpty &&
+                    newNameController.text.isNotEmpty) {
+                  teacherNotifier.newTeacher(
+                    account: newAccountController.text,
+                    password: newPasswordController.text,
+                    name: newNameController.text,
+                  );
+                  fetchData();
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(Lang().confirm),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(Lang().cancel),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   // 数据排序
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
@@ -363,8 +453,7 @@ class TeacherState extends State<Teacher> {
                             const SizedBox(width: 10),
                             IconButton(
                               icon: const Icon(Icons.add),
-                              onPressed: () => print('fuck'),
-                              // onPressed: () => addAlertDialog(context),
+                              onPressed: () => addAlertDialog(context),
                             ),
                             // const SizedBox(width: 10),
                             // IconButton(
