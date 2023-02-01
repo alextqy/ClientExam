@@ -604,12 +604,12 @@ class ManagerState extends State<Manager> {
                                     int onSubmittedData =
                                         int.parse(jumpToController.text);
                                     if (onSubmittedData >= 1 &&
-                                        onSubmittedData <= pageSize &&
+                                        onSubmittedData <= totalPage &&
                                         onSubmittedData != page) {
                                       page = onSubmittedData;
-                                      jumpToController.clear();
                                       fetchData();
                                     }
+                                    jumpToController.clear();
                                   });
                                 },
                               ),

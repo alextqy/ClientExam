@@ -149,6 +149,9 @@ class TeacherState extends State<Teacher> {
     required String password,
   }) {
     nameController.clear();
+    passworController.clear();
+
+    nameController.text = name;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -163,7 +166,7 @@ class TeacherState extends State<Teacher> {
                 TextField(
                   controller: nameController,
                   decoration: InputDecoration(
-                    hintText: name,
+                    hintText: Lang().name,
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => nameController.clear(),
@@ -189,14 +192,12 @@ class TeacherState extends State<Teacher> {
           actions: [
             TextButton(
               onPressed: () {
-                if (nameController.text.isNotEmpty) {
-                  teacherNotifier.updateTeacherInfo(
-                    id: id,
-                    name: nameController.text,
-                    password: password,
-                  );
-                  Navigator.of(context).pop();
-                }
+                teacherNotifier.updateTeacherInfo(
+                  id: id,
+                  name: nameController.text,
+                  password: password,
+                );
+                Navigator.of(context).pop();
               },
               child: Text(Lang().confirm),
             ),
@@ -478,7 +479,7 @@ class TeacherState extends State<Teacher> {
                                     int onSubmittedData =
                                         int.parse(jumpToController.text);
                                     if (onSubmittedData >= 1 &&
-                                        onSubmittedData <= pageSize &&
+                                        onSubmittedData <= totalPage &&
                                         onSubmittedData != page) {
                                       page = onSubmittedData;
                                       jumpToController.clear();
