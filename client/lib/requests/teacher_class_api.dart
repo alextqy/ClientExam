@@ -60,4 +60,19 @@ class TeacherClassApi extends ResponseHelper {
     );
     return DataListModel.fromJson(jsonDecode(response.body));
   }
+
+  Future<DataModel> teachers({
+    int classID = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teachers'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ClassID': classID.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(response.body));
+  }
 }
