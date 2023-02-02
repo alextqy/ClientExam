@@ -24,7 +24,7 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> teacherDisabled({
@@ -39,7 +39,7 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> updateTeacherInfo({
@@ -58,7 +58,7 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataListModel> teacherList({
@@ -94,7 +94,7 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> teacherSignIn({
@@ -110,7 +110,7 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> teacherSignOut() async {
@@ -122,7 +122,7 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> teacherChangePassword({
@@ -137,6 +137,6 @@ class TeacherApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 }

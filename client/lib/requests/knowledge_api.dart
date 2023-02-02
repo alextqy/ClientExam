@@ -22,7 +22,7 @@ class KnowledgeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> knowledgeDisabled({
@@ -37,7 +37,7 @@ class KnowledgeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> updateKnowledgeInfo({
@@ -54,7 +54,7 @@ class KnowledgeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataListModel> knowledgeList({
@@ -92,7 +92,7 @@ class KnowledgeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> knowledge({
@@ -107,6 +107,6 @@ class KnowledgeApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 }

@@ -2,6 +2,7 @@
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
+import 'package:client/models/data.dart';
 
 class ClassNotifier extends BaseNotifier {
   void newClass({
@@ -88,21 +89,7 @@ class ClassNotifier extends BaseNotifier {
     }
   }
 
-  void classes() async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await classApi.classes();
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
+  Future<DataModel> classes() async {
+    return await classApi.classes();
   }
 }

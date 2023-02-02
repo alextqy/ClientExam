@@ -19,7 +19,7 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> signInAdmissionTicket({
@@ -33,7 +33,7 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataListModel> examScantronList() async {
@@ -60,7 +60,7 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> examAnswer({
@@ -79,7 +79,7 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> endTheExam() async {
@@ -91,6 +91,6 @@ class ExamineeTokenApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 }

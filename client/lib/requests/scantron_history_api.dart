@@ -39,6 +39,6 @@ class ScantronHistoryApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 }

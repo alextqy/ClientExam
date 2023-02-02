@@ -22,7 +22,7 @@ class ClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> updateClassInfo({
@@ -41,7 +41,7 @@ class ClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataListModel> classList({
@@ -75,7 +75,7 @@ class ClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> classes() async {
@@ -87,6 +87,6 @@ class ClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 }

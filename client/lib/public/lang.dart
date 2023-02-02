@@ -53,6 +53,8 @@ class Lang {
   String next = '';
   String jumpTo = '';
 
+  String setUp = '';
+
   String className = '';
   String classCode = '';
   String description = '';
@@ -108,6 +110,7 @@ class Lang {
       this.previous = '上一页';
       this.next = '下一页';
       this.jumpTo = '跳转';
+      this.setUp = '设置';
 
       this.className = '班级名称';
       this.classCode = '班级编码';
@@ -162,6 +165,7 @@ class Lang {
       this.previous = 'Previous';
       this.next = 'Next';
       this.jumpTo = 'Jump to';
+      this.setUp = 'Set up';
 
       this.className = 'Class Name';
       this.classCode = 'Class Code';

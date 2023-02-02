@@ -38,6 +38,8 @@ class RouteHelper {
         return RouteSlide(manager_site.Teacher(headline: headline));
       case '/manager/class':
         return RouteSlide(manager_site.Class(headline: headline));
+      case '/manager/choose/class':
+      // return RouteSlide(manager_site.ChooseClass(headline: headline));
       // 教师 ===================================================================
       case '/teacher/index':
         return RouteSlide(const teacher_site.Index());

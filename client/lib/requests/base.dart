@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 
 class ResponseHelper {
+  Utf8Decoder decoder = const Utf8Decoder();
   String url = '127.0.0.1:6001';
   // String token = '';
   // header('sAccess-Control-Allow-Origin:*');

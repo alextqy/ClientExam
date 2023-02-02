@@ -22,7 +22,7 @@ class TeacherClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> deleteTeacherClass({
@@ -37,7 +37,7 @@ class TeacherClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataListModel> teacherClassList({
@@ -73,6 +73,21 @@ class TeacherClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataModel.fromJson(jsonDecode(response.body));
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataModel> teacherclasses({
+    int teacherID = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/Classes'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'TeacherID': teacherID.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 }
