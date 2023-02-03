@@ -103,7 +103,14 @@ class ManagerState extends State<Manager> {
           DataCell(Text(managerNotifier.managerListModel[index].id.toString())),
           DataCell(Text(managerNotifier.managerListModel[index].account)),
           DataCell(
-            Text(managerNotifier.managerListModel[index].name),
+            SizedBox(
+              width: 150,
+              child: Text(
+                managerNotifier.managerListModel[index].name,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {

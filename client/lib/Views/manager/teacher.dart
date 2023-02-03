@@ -120,7 +120,14 @@ class TeacherState extends State<Teacher> {
           DataCell(Text(teacherNotifier.teacherListModel[index].id.toString())),
           DataCell(Text(teacherNotifier.teacherListModel[index].account)),
           DataCell(
-            Text(teacherNotifier.teacherListModel[index].name),
+            SizedBox(
+              width: 150,
+              child: Text(
+                teacherNotifier.teacherListModel[index].name,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {

@@ -100,7 +100,14 @@ class ClassState extends State<Class> {
           DataCell(
             Tooltip(
               message: classNotifier.classListModel[index].description,
-              child: Text(classNotifier.classListModel[index].className),
+              child: SizedBox(
+                width: 150,
+                child: Text(
+                  classNotifier.classListModel[index].className,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
