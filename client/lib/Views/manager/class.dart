@@ -172,8 +172,8 @@ class ClassState extends State<Class> {
   }) {
     classNameController.clear();
     descriptionController.clear();
-    descriptionController.text = description;
     classNameController.text = className;
+    descriptionController.text = description;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -188,6 +188,7 @@ class ClassState extends State<Class> {
                 TextField(
                   controller: classNameController,
                   decoration: InputDecoration(
+                    hintText: Lang().className,
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => classNameController.clear(),
@@ -198,9 +199,10 @@ class ClassState extends State<Class> {
                 TextField(
                   controller: descriptionController,
                   decoration: InputDecoration(
+                    hintText: Lang().description,
                     suffixIcon: IconButton(
                       iconSize: 20,
-                      onPressed: () => classNameController.clear(),
+                      onPressed: () => descriptionController.clear(),
                       icon: const Icon(Icons.clear),
                     ),
                   ),
