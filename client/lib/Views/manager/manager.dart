@@ -68,11 +68,11 @@ class ManagerState extends State<Manager> {
     )
         .then((value) {
       setState(() {
-        totalPage = value.totalPage;
         managerNotifier.managerListModel =
             ManagerModel().fromJsonList(jsonEncode(value.data));
         selected = List<bool>.generate(
             managerNotifier.managerListModel.length, (int index) => false);
+        totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
         sortAscending = false;

@@ -75,11 +75,11 @@ class TeacherState extends State<Teacher> {
     )
         .then((value) {
       setState(() {
-        totalPage = value.totalPage;
         teacherNotifier.teacherListModel =
             TeacherModel().fromJsonList(jsonEncode(value.data));
         selected = List<bool>.generate(
             teacherNotifier.teacherListModel.length, (int index) => false);
+        totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
         sortAscending = false;
@@ -141,10 +141,10 @@ class TeacherState extends State<Teacher> {
             Text(Lang().setUp),
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              // classAlertDialog(
-              //   context,
-              //   teacherID: teacherNotifier.teacherListModel[index].id,
-              // );
+              classAlertDialog(
+                context,
+                teacherID: teacherNotifier.teacherListModel[index].id,
+              );
             },
           ),
           DataCell(
@@ -243,62 +243,65 @@ class TeacherState extends State<Teacher> {
     );
   }
 
-  // void classAlertDialog(
-  //   BuildContext context, {
-  //   required int teacherID,
-  // }) {
-  //   List<ClassModel> classListData = classNotifier.classListModel;
-  //   classSelected = List<bool>.generate(
-  //       classNotifier.classListModel.length, (int index) => false);
-  //   teacherClassNotifier.teacherclasses(teacherID: teacherID).then((value) {
-  //     setState(() {
-  //       List<ClassModel> teacherClassListData =
-  //           ClassModel().fromJsonList(jsonEncode(value.data));
-  //       showDialog(
-  //         context: context,
-  //         barrierDismissible: true,
-  //         builder: (BuildContext context) {
-  //           return AlertDialog(
-  //             title: Text(Lang().title),
-  //             content: SizedBox(
-  //               width: 100,
-  //               height: 400,
-  //               child: ListView.separated(
-  //                 padding: const EdgeInsets.all(0),
-  //                 itemCount: classListData.length,
-  //                 itemBuilder: (BuildContext context, int index) {
-  //                   return Padding(
-  //                     padding: const EdgeInsets.all(8),
-  //                     child: Row(
-  //                       children: [
-  //                         SizedBox(
-  //                           child: Text(classListData[index].className),
-  //                         ),
-  //                         const Expanded(child: SizedBox()),
-  //                         Checkbox(
-  //                           checkColor: Colors.white,
-  //                           value: classSelected[index],
-  //                           onChanged: (bool? value) {
-  //                             setState(() {
-  //                               classSelected[index] = !classSelected[index];
-  //                               print(classSelected[index]);
-  //                             });
-  //                           },
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   );
-  //                 },
-  //                 separatorBuilder: (BuildContext context, int index) =>
-  //                     const Divider(height: 0.5, color: Colors.black12),
-  //               ),
-  //             ),
-  //           );
-  //         },
-  //       );
-  //     });
-  //   });
-  // }
+  void classAlertDialog(
+    BuildContext context, {
+    required int teacherID,
+  }) {
+    teacherClassNotifier.teacherclasses(teacherID: teacherID).then((value) {
+      List<ClassModel> teacherClassListData =
+          ClassModel().fromJsonList(jsonEncode(value.data));
+      setState(() {
+        classSelected = List<bool>.generate(
+            classNotifier.classListModel.length, (int index) => false);
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return StatefulBuilder(
+              builder: (BuildContext context, Function state) {
+                return AlertDialog(
+                  title: Text(Lang().title),
+                  content: SizedBox(
+                    width: 100,
+                    height: 400,
+                    child: ListView.separated(
+                      padding: const EdgeInsets.all(0),
+                      itemCount: classNotifier.classListModel.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                child: Text(classNotifier
+                                    .classListModel[index].className),
+                              ),
+                              const Expanded(child: SizedBox()),
+                              Checkbox(
+                                value: classSelected[index],
+                                onChanged: (bool? value) => {
+                                  state(() {
+                                    classSelected[index] =
+                                        !classSelected[index];
+                                  }),
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(height: 0.5, color: Colors.black12),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        );
+      });
+    });
+  }
 
   void addAlertDialog(BuildContext context) {
     newAccountController.clear();

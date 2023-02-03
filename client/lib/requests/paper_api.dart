@@ -89,7 +89,8 @@ class PaperApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataListModel.fromJson(jsonDecode(response.body));
+    return DataListModel.fromJson(
+        jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> paperInfo({

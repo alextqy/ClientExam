@@ -64,11 +64,11 @@ class ClassState extends State<Class> {
     )
         .then((value) {
       setState(() {
-        totalPage = value.totalPage;
         classNotifier.classListModel =
             ClassModel().fromJsonList(jsonEncode(value.data));
         selected = List<bool>.generate(
             classNotifier.classListModel.length, (int index) => false);
+        totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
         sortAscending = false;

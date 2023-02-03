@@ -31,4 +31,20 @@ class Tools {
     crypto.Digest digest = md5.convert(data);
     return digest.toString();
   }
+
+  // string -> bytes
+  Uint8List encodeU8L(String s) {
+    List<int> encodedString = utf8.encode(s);
+    int encodedLength = encodedString.length;
+    ByteData data = ByteData(encodedLength + 4);
+    data.setUint32(0, encodedLength, Endian.big);
+    Uint8List bytes = data.buffer.asUint8List();
+    bytes.setRange(4, encodedLength + 4, encodedString);
+    return bytes;
+  }
+
+  String utf8Encode(String u) {
+    Utf8Decoder decoder = const Utf8Decoder();
+    return decoder.convert(encodeU8L(u));
+  }
 }
