@@ -140,4 +140,16 @@ class TeacherApi extends ResponseHelper {
     );
     return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
+
+  Future<DataModel> teachers() async {
+    Response response = await post(
+      Uri.http(url, '/Teachers'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
 }

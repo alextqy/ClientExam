@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/providers/teacher_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,9 @@ import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/class_notifier.dart';
+import 'package:client/providers/teacher_class_notifier.dart';
+
+import 'package:client/models/teacher_model.dart';
 import 'package:client/models/class_model.dart';
 
 // ignore: must_be_immutable
@@ -27,6 +31,7 @@ class ClassState extends State<Class> {
   int sortColumnIndex = 0;
   int showSelected = 0;
   List<bool> selected = [];
+  List<bool> teacherSelected = [];
 
   int page = 1;
   int pageSize = perPageDropList.first;
@@ -43,6 +48,8 @@ class ClassState extends State<Class> {
   TextEditingController newDescriptionController = TextEditingController();
 
   ClassNotifier classNotifier = ClassNotifier();
+  TeacherNotifier teacherNotifier = TeacherNotifier();
+  TeacherClassNotifier teacherClassNotifier = TeacherClassNotifier();
 
   basicListener() async {
     if (classNotifier.operationStatus.value == OperationStatus.loading) {
@@ -76,11 +83,21 @@ class ClassState extends State<Class> {
     });
   }
 
+  void teacherData() {
+    teacherNotifier.teachers().then((value) {
+      setState(() {
+        teacherNotifier.teacherListModel =
+            TeacherModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     classNotifier.addListener(basicListener);
     fetchData();
+    teacherData();
   }
 
   @override
@@ -124,6 +141,16 @@ class ClassState extends State<Class> {
           DataCell(Text(classNotifier.classListModel[index].classCode)),
           DataCell(Text(Tools()
               .timestampToStr(classNotifier.classListModel[index].createTime))),
+          DataCell(
+            Text(Lang().setUp),
+            // placeholder: true, // 内容浅色显示
+            onTap: () {
+              teacherAlertDialog(
+                context,
+                classID: classNotifier.classListModel[index].id,
+              );
+            },
+          ),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {
@@ -205,6 +232,96 @@ class ClassState extends State<Class> {
         );
       },
     );
+  }
+
+  void teacherAlertDialog(
+    BuildContext context, {
+    required int classID,
+  }) {
+    teacherClassNotifier.classTeachers(classID: classID).then((value) {
+      List<TeacherModel> classTeacherListData =
+          TeacherModel().fromJsonList(jsonEncode(value.data)); // 当前归属教师列表
+      teacherSelected = List<bool>.generate(
+          teacherNotifier.teacherListModel.length, (int index) => false);
+
+      for (int i = 0; i < teacherSelected.length; i++) {
+        for (int j = 0; j < classTeacherListData.length; j++) {
+          if (classTeacherListData[j].id ==
+              teacherNotifier.teacherListModel[i].id) {
+            teacherSelected[i] = true;
+            break;
+          }
+        }
+      }
+
+      setState(() {
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return StatefulBuilder(
+              builder: (BuildContext context, Function state) {
+                return AlertDialog(
+                  title: Text(Lang().title),
+                  content: SizedBox(
+                    width: 100,
+                    height: 400,
+                    child: ListView.separated(
+                      padding: const EdgeInsets.all(0),
+                      itemCount: teacherNotifier.teacherListModel.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 180,
+                                child: Text(
+                                  teacherNotifier.teacherListModel[index].name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              const Expanded(child: SizedBox()),
+                              Checkbox(
+                                value: teacherSelected[index],
+                                onChanged: (bool? value) => {
+                                  state(() {
+                                    int teacherID = teacherNotifier
+                                        .teacherListModel[index].id;
+                                    if (teacherSelected[index]) {
+                                      // 删除数据
+                                      teacherClassNotifier.deleteByTeacherClass(
+                                        classID: classID,
+                                        teacherID: teacherID,
+                                      );
+                                    } else {
+                                      // 添加数据
+                                      teacherClassNotifier.newTeacherClass(
+                                        teacherID: teacherID,
+                                        classID: classID,
+                                      );
+                                    }
+                                    teacherSelected[index] =
+                                        !teacherSelected[index];
+                                  }),
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(height: 0.5, color: Colors.black12),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        );
+      });
+    });
   }
 
   // 新建
@@ -453,6 +570,14 @@ class ClassState extends State<Class> {
                           DataColumn(
                             label: Text(
                               Lang().createtime,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              Lang().teachers,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),

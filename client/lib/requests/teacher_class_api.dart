@@ -63,11 +63,11 @@ class TeacherClassApi extends ResponseHelper {
         jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
-  Future<DataModel> teachers({
+  Future<DataModel> classTeachers({
     int classID = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Teachers'),
+      Uri.http(url, '/Class/Teachers'),
       body: {
         'Token': FileHelper().readFile('token'),
         'ClassID': classID.toString(),

@@ -66,10 +66,10 @@ class TeacherClassNotifier extends BaseNotifier {
   }
 
   // 获取当前班级下教师列表
-  Future<DataModel> teachers({
+  Future<DataModel> classTeachers({
     int classID = 0,
   }) async {
-    return await teacherClassApi.teachers(
+    return await teacherClassApi.classTeachers(
       classID: classID,
     );
   }

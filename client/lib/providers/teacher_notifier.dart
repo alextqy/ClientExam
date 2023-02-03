@@ -2,6 +2,7 @@
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
+import 'package:client/models/data.dart';
 
 class TeacherNotifier extends BaseNotifier {
   void newTeacher({
@@ -176,5 +177,9 @@ class TeacherNotifier extends BaseNotifier {
     } finally {
       notifyListeners();
     }
+  }
+
+  Future<DataModel> teachers() async {
+    return await teacherApi.teachers();
   }
 }
