@@ -29,15 +29,21 @@ class RouteHelper {
       case '/manager/login':
         return RouteSlide(const manager_site.Login());
       case '/manager/index':
-        return RouteSlide(manager_site.Index(headline: headline));
+        return MaterialPageRoute(
+            builder: (_) => manager_site.Index(headline: headline));
+      // return RouteSlide(manager_site.Index(headline: headline));
       case '/manager/personal/settings':
-        return RouteSlide(manager_site.PersonalSettings(headline: headline));
+        return MaterialPageRoute(
+            builder: (_) => manager_site.PersonalSettings(headline: headline));
       case '/manager/manager':
-        return RouteSlide(manager_site.Manager(headline: headline));
+        return MaterialPageRoute(
+            builder: (_) => manager_site.Manager(headline: headline));
       case '/manager/teacher':
-        return RouteSlide(manager_site.Teacher(headline: headline));
+        return MaterialPageRoute(
+            builder: (_) => manager_site.Teacher(headline: headline));
       case '/manager/class':
-        return RouteSlide(manager_site.Class(headline: headline));
+        return MaterialPageRoute(
+            builder: (_) => manager_site.Class(headline: headline));
       // 教师 ===================================================================
       case '/teacher/index':
         return RouteSlide(const teacher_site.Index());

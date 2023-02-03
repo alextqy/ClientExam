@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
@@ -85,6 +86,23 @@ class TeacherClassApi extends ResponseHelper {
       body: {
         'Token': FileHelper().readFile('token'),
         'TeacherID': teacherID.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataModel> deleteByTeacherClass({
+    int teacherID = 0,
+    int classID = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Delete/By/Teacher/Class'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'TeacherID': teacherID.toString(),
+        'ClassID': classID.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,

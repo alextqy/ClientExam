@@ -256,10 +256,21 @@ class TeacherState extends State<Teacher> {
   }) {
     teacherClassNotifier.teacherclasses(teacherID: teacherID).then((value) {
       List<ClassModel> teacherClassListData =
-          ClassModel().fromJsonList(jsonEncode(value.data));
+          ClassModel().fromJsonList(jsonEncode(value.data)); // 当前归属班级列表
+      classSelected = List<bool>.generate(
+          classNotifier.classListModel.length, (int index) => false);
+
+      for (int i = 0; i < classSelected.length; i++) {
+        for (int j = 0; j < teacherClassListData.length; j++) {
+          if (teacherClassListData[j].id ==
+              classNotifier.classListModel[i].id) {
+            classSelected[i] = true;
+            break;
+          }
+        }
+      }
+
       setState(() {
-        classSelected = List<bool>.generate(
-            classNotifier.classListModel.length, (int index) => false);
         showDialog(
           context: context,
           barrierDismissible: true,
@@ -280,14 +291,33 @@ class TeacherState extends State<Teacher> {
                           child: Row(
                             children: [
                               SizedBox(
-                                child: Text(classNotifier
-                                    .classListModel[index].className),
+                                width: 180,
+                                child: Text(
+                                  classNotifier.classListModel[index].className,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
                               ),
                               const Expanded(child: SizedBox()),
                               Checkbox(
                                 value: classSelected[index],
                                 onChanged: (bool? value) => {
                                   state(() {
+                                    int classID =
+                                        classNotifier.classListModel[index].id;
+                                    if (classSelected[index]) {
+                                      // 删除数据
+                                      teacherClassNotifier.deleteByTeacherClass(
+                                        classID: classID,
+                                        teacherID: teacherID,
+                                      );
+                                    } else {
+                                      // 添加数据
+                                      teacherClassNotifier.newTeacherClass(
+                                        teacherID: teacherID,
+                                        classID: classID,
+                                      );
+                                    }
                                     classSelected[index] =
                                         !classSelected[index];
                                   }),

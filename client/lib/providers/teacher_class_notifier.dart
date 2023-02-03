@@ -82,4 +82,28 @@ class TeacherClassNotifier extends BaseNotifier {
       teacherID: teacherID,
     );
   }
+
+  void deleteByTeacherClass({
+    int teacherID = 0,
+    int classID = 0,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await teacherClassApi.deleteByTeacherClass(
+        teacherID: teacherID,
+        classID: classID,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }
