@@ -287,7 +287,7 @@ class TeacherState extends State<Teacher> {
                       itemCount: classNotifier.classListModel.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
                               SizedBox(
