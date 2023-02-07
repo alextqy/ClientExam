@@ -42,7 +42,7 @@ class ExamineeApi extends ResponseHelper {
         'ID': id.toString(),
         'Name': name,
         'Contact': contact,
-        'ClassID': classID,
+        'ClassID': classID.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,

@@ -137,24 +137,28 @@ class ExamineeState extends State<Examinee> {
           DataCell(
               Text(examineeNotifier.examineeListModel[index].id.toString())),
           DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(
-                examineeNotifier.examineeListModel[index].name,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+            Tooltip(
+              message: examineeNotifier.examineeListModel[index].contact,
+              child: SizedBox(
+                width: 150,
+                child: Text(
+                  examineeNotifier.examineeListModel[index].name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
               nameController.clear();
-              // nameAlertDialog(
-              //   context,
-              //   id: examineeNotifier.examineeListModel[index].id,
-              //   name: examineeNotifier.examineeListModel[index].name,
-              //   classID: examineeNotifier.examineeListModel[index].classID,
-              // );
+              nameAlertDialog(
+                context,
+                id: examineeNotifier.examineeListModel[index].id,
+                name: examineeNotifier.examineeListModel[index].name,
+                contact: examineeNotifier.examineeListModel[index].contact,
+                classID: examineeNotifier.examineeListModel[index].classID,
+              );
             },
           ),
           DataCell(Text(examineeNotifier.examineeListModel[index].examineeNo)),
@@ -181,6 +185,81 @@ class ExamineeState extends State<Examinee> {
           });
         },
       ),
+    );
+  }
+
+  // 修改名称
+  void nameAlertDialog(
+    BuildContext context, {
+    required int id,
+    required String name,
+    required String contact,
+    required int classID,
+  }) {
+    nameController.clear();
+    contactController.clear();
+    nameController.text = name;
+    contactController.text = contact;
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(Lang().title),
+          content: SizedBox(
+            width: 100,
+            height: 100,
+            child: Column(
+              children: [
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintText: Lang().name,
+                    suffixIcon: IconButton(
+                      iconSize: 20,
+                      onPressed: () => nameController.clear(),
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ),
+                ),
+                TextField(
+                  controller: contactController,
+                  decoration: InputDecoration(
+                    hintText: Lang().contact,
+                    suffixIcon: IconButton(
+                      iconSize: 20,
+                      onPressed: () => contactController.clear(),
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (nameController.text.isNotEmpty && classID > 0) {
+                  examineeNotifier.updateExaminee(
+                    id: id,
+                    name: nameController.text,
+                    contact: contactController.text,
+                    classID: classID,
+                  );
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(Lang().confirm),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(Lang().cancel),
+            ),
+          ],
+        );
+      },
     );
   }
 
