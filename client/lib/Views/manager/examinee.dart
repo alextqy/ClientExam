@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/Views/manager/class.dart';
 import 'package:client/providers/class_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -168,12 +169,13 @@ class ExamineeState extends State<Examinee> {
             Text(Lang().setUp),
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              print(examineeNotifier.examineeListModel[index].classID);
-              // print(examineeNotifier.examineeListModel[index].id);
-              // classAlertDialog(
-              //   context,
-              //   id: examineeNotifier.examineeListModel[index].id,
-              // );
+              classAlertDialog(
+                context,
+                id: examineeNotifier.examineeListModel[index].id,
+                name: examineeNotifier.examineeListModel[index].name,
+                contact: examineeNotifier.examineeListModel[index].contact,
+                classID: examineeNotifier.examineeListModel[index].classID,
+              );
             },
           ),
         ],
@@ -261,6 +263,70 @@ class ExamineeState extends State<Examinee> {
         );
       },
     );
+  }
+
+  void classAlertDialog(
+    BuildContext context, {
+    required int id,
+    required String name,
+    required String contact,
+    required int classID,
+  }) {
+    setState(() {
+      int groupValue = classID;
+      ListTile classListTile(ClassModel classData, Function state) {
+        return ListTile(
+          title: Text(classData.className),
+          leading: Radio(
+            value: classData.id,
+            groupValue: groupValue,
+            onChanged: (int? value) {
+              state(() {
+                groupValue = value!;
+                examineeNotifier.updateExaminee(
+                  id: id,
+                  name: name,
+                  contact: contact,
+                  classID: groupValue,
+                );
+              });
+            },
+          ),
+        );
+      }
+
+      List<ListTile> showClassList(Function state) {
+        List<ListTile> radioList = [];
+        for (int i = 0; i < classNotifier.classListModel.length; i++) {
+          radioList.add(classListTile(classNotifier.classListModel[i], state));
+        }
+        return radioList;
+      }
+
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (BuildContext context, Function state) {
+              return AlertDialog(
+                title: Text(Lang().title),
+                content: SizedBox(
+                  width: 100,
+                  height: 400,
+                  child: Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: ListView(
+                      children: showClassList(state),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      );
+    });
   }
 
   // 新建
