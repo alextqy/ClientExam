@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:client/Views/manager/class.dart';
-import 'package:client/providers/class_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +10,7 @@ import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
+import 'package:client/providers/class_notifier.dart';
 import 'package:client/providers/examinee_notifier.dart';
 
 import 'package:client/models/examinee_model.dart';

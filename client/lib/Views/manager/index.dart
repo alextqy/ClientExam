@@ -1,7 +1,8 @@
-import 'package:client/Views/common/error_page.dart';
-import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
+
+import 'package:client/public/lang.dart';
 import 'package:client/Views/common/menu.dart';
+import 'package:client/Views/common/error_page.dart';
 
 // ignore: must_be_immutable
 class Index extends StatefulWidget {
