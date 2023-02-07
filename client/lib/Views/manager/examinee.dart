@@ -186,113 +186,117 @@ class ExamineeState extends State<Examinee> {
 
   // 新建
   void addAlertDialog(BuildContext context) {
+    newExamineeNoController.clear();
     newNameController.clear();
     newContactController.clear();
     showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            height: 200,
-            child: Column(
-              children: [
-                SizedBox(
-                  child: TextField(
-                    controller: newNameController,
-                    decoration: InputDecoration(
-                      hintText: Lang().name,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newNameController.clear(),
-                        icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 200,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        controller: newNameController,
+                        decoration: InputDecoration(
+                          hintText: Lang().name,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newNameController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  child: TextField(
-                    controller: newExamineeNoController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: Lang().examineeNo,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newExamineeNoController.clear(),
-                        icon: const Icon(Icons.clear),
+                    SizedBox(
+                      child: TextField(
+                        controller: newExamineeNoController,
+                        decoration: InputDecoration(
+                          hintText: Lang().examineeNo,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newExamineeNoController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  child: TextField(
-                    controller: newContactController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: Lang().contact,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newContactController.clear(),
-                        icon: const Icon(Icons.clear),
+                    SizedBox(
+                      child: TextField(
+                        controller: newContactController,
+                        decoration: InputDecoration(
+                          hintText: Lang().contact,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newContactController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  child: DropdownButton(
-                    itemHeight: 50,
-                    hint: Text(Lang().classes),
-                    icon: const Icon(Icons.arrow_drop_down),
-                    style: const TextStyle(color: Colors.black),
-                    // elevation: 16,
-                    underline: Container(
-                      height: 0,
-                      // color: Colors.deepPurpleAccent,
+                    SizedBox(
+                      child: DropdownButton(
+                        itemHeight: 50,
+                        hint: Text(classSelectedName),
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (ClassModel? value) {
+                          state(() {
+                            if (value!.id > 0) {
+                              classSelectedName = value.className;
+                              classID = value.id;
+                            }
+                          });
+                        },
+                        items: classDropdownMenuItemList(),
+                      ),
                     ),
-                    onChanged: (ClassModel? value) {
-                      setState(() {
-                        if (value!.id > 0) {
-                          classID = value.id;
-                          page = 1;
-                          fetchData();
-                        }
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (newExamineeNoController.text.isNotEmpty &&
+                        newNameController.text.isNotEmpty &&
+                        classID > 0) {
+                      examineeNotifier.newExaminee(
+                        examineeNo: newExamineeNoController.text,
+                        name: newNameController.text,
+                        classID: classID,
+                        contact: newContactController.text,
+                      );
+                      state(() {
+                        classSelectedName = Lang().notSelected;
                         classID = 0;
                       });
-                    },
-                    items: classDropdownMenuItemList(),
-                  ),
+                      fetchData();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
                 ),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (newExamineeNoController.text.isNotEmpty &&
-                    newNameController.text.isNotEmpty &&
-                    newContactController.text.isNotEmpty &&
-                    classID > 0) {
-                  examineeNotifier.newExaminee(
-                    examineeNo: newExamineeNoController.text,
-                    name: newNameController.text,
-                    classID: 0,
-                    contact: newContactController.text,
-                  );
-                  fetchData();
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+            );
+          },
         );
       },
     );
