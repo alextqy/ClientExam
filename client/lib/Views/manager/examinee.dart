@@ -320,27 +320,33 @@ class ExamineeState extends State<Examinee> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      child: DropdownButton(
-                        itemHeight: 50,
-                        hint: Text(classSelectedName),
-                        icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
-                        // elevation: 16,
-                        underline: Container(
-                          height: 0,
-                          // color: Colors.deepPurpleAccent,
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 45,
+                          child: DropdownButton(
+                            itemHeight: 50,
+                            hint: Text(classSelectedName),
+                            icon: const Icon(Icons.arrow_drop_down),
+                            style: const TextStyle(color: Colors.black),
+                            // elevation: 16,
+                            underline: Container(
+                              height: 0,
+                              // color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (ClassModel? value) {
+                              state(() {
+                                if (value!.id > 0) {
+                                  classSelectedName = value.className;
+                                  classID = value.id;
+                                }
+                              });
+                            },
+                            items: classDropdownMenuItemList(),
+                          ),
                         ),
-                        onChanged: (ClassModel? value) {
-                          state(() {
-                            if (value!.id > 0) {
-                              classSelectedName = value.className;
-                              classID = value.id;
-                            }
-                          });
-                        },
-                        items: classDropdownMenuItemList(),
-                      ),
+                      ],
                     ),
                   ],
                 ),
