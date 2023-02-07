@@ -52,12 +52,15 @@ class Lang {
   String previous = '';
   String next = '';
   String jumpTo = '';
-
   String setUp = '';
 
   String className = '';
   String classCode = '';
   String description = '';
+
+  String examineeNo = '';
+  String contact = '';
+  String notSelected = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -115,6 +118,10 @@ class Lang {
       this.className = '班级名称';
       this.classCode = '班级编码';
       this.description = '描述';
+
+      this.examineeNo = '学生编号';
+      this.contact = '联系方式';
+      this.notSelected = '未选择';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -169,7 +176,11 @@ class Lang {
 
       this.className = 'Class Name';
       this.classCode = 'Class Code';
-      this.description = 'description';
+      this.description = 'Description';
+
+      this.examineeNo = 'Examinee No';
+      this.contact = 'Contact';
+      this.notSelected = 'Not Selected';
     }
   }
 }

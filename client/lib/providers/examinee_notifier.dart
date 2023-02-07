@@ -36,6 +36,7 @@ class ExamineeNotifier extends BaseNotifier {
     required int id,
     required String name,
     required String contact,
+    required int classID,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
@@ -43,6 +44,7 @@ class ExamineeNotifier extends BaseNotifier {
         id: id,
         name: name,
         contact: contact,
+        classID: classID,
       );
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;

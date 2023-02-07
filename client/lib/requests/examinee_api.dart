@@ -33,6 +33,7 @@ class ExamineeApi extends ResponseHelper {
     int id = 0,
     String name = '',
     String contact = '',
+    int classID = 0,
   }) async {
     Response response = await post(
       Uri.http(url, '/Update/Examinee'),
@@ -41,6 +42,7 @@ class ExamineeApi extends ResponseHelper {
         'ID': id.toString(),
         'Name': name,
         'Contact': contact,
+        'ClassID': classID,
       },
       headers: postHeaders,
       encoding: postEncoding,

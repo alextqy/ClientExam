@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/providers/class_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,69 +11,72 @@ import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/providers/manager_notifier.dart';
+import 'package:client/providers/examinee_notifier.dart';
 
-import 'package:client/models/manager_model.dart';
+import 'package:client/models/examinee_model.dart';
+import 'package:client/models/class_model.dart';
 
 // ignore: must_be_immutable
-class Manager extends StatefulWidget {
+class Examinee extends StatefulWidget {
   late String headline;
-  Manager({super.key, required this.headline});
+  Examinee({super.key, required this.headline});
 
   @override
-  State<Manager> createState() => ManagerState();
+  State<Examinee> createState() => ExamineeState();
 }
 
-class ManagerState extends State<Manager> {
+class ExamineeState extends State<Examinee> {
   bool sortAscending = false;
   int sortColumnIndex = 0;
   int showSelected = 0;
   List<bool> selected = [];
+  String classSelectedName = Lang().notSelected;
 
   int page = 1;
   int pageSize = perPageDropList.first;
   String searchText = '';
-  int state = 0;
-  String stateMemo = stateDropList.first;
+  int classID = 0;
+  String classMemo = '';
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController newAccountController = TextEditingController();
-  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController contactController = TextEditingController();
   TextEditingController newNameController = TextEditingController();
-  TextEditingController changePasswordController = TextEditingController();
+  TextEditingController newContactController = TextEditingController();
+  TextEditingController newExamineeNoController = TextEditingController();
 
-  ManagerNotifier managerNotifier = ManagerNotifier();
+  ExamineeNotifier examineeNotifier = ExamineeNotifier();
+  ClassNotifier classNotifier = ClassNotifier();
 
   basicListener() async {
-    if (managerNotifier.operationStatus.value == OperationStatus.loading) {
+    if (examineeNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (managerNotifier.operationStatus.value ==
+    } else if (examineeNotifier.operationStatus.value ==
         OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      Toast().show(context, message: managerNotifier.operationMemo);
+      Toast().show(context, message: examineeNotifier.operationMemo);
     }
   }
 
   void fetchData() {
-    managerNotifier
-        .managerList(
+    examineeNotifier
+        .examineeList(
       page: page,
       pageSize: pageSize,
       stext: searchText,
-      state: state,
+      classID: classID,
     )
         .then((value) {
       setState(() {
-        managerNotifier.managerListModel =
-            ManagerModel().fromJsonList(jsonEncode(value.data));
+        examineeNotifier.examineeListModel =
+            ExamineeModel().fromJsonList(jsonEncode(value.data));
         selected = List<bool>.generate(
-            managerNotifier.managerListModel.length, (int index) => false);
+            examineeNotifier.examineeListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -81,33 +85,62 @@ class ManagerState extends State<Manager> {
     });
   }
 
+  void classesData() {
+    classNotifier.classes().then((value) {
+      setState(() {
+        classNotifier.classListModel =
+            ClassModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
+
+  List<DropdownMenuItem<ClassModel>> classDropdownMenuItemList() {
+    List<DropdownMenuItem<ClassModel>> classDataDropdownMenuItemList = [];
+    for (var element in classNotifier.classListModel) {
+      DropdownMenuItem<ClassModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.className,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      classDataDropdownMenuItemList.add(data);
+    }
+    return classDataDropdownMenuItemList;
+  }
+
   @override
   void initState() {
     super.initState();
-    managerNotifier.addListener(basicListener);
+    examineeNotifier.addListener(basicListener);
     fetchData();
+    classesData();
   }
 
   @override
   void dispose() {
-    managerNotifier.dispose();
-    managerNotifier.removeListener(basicListener);
+    examineeNotifier.dispose();
+    examineeNotifier.removeListener(basicListener);
     super.dispose();
   }
 
   // 生成列表
   List<DataRow> generateList() {
     return List<DataRow>.generate(
-      managerNotifier.managerListModel.length,
+      examineeNotifier.examineeListModel.length,
       (int index) => DataRow(
         cells: <DataCell>[
-          DataCell(Text(managerNotifier.managerListModel[index].id.toString())),
-          DataCell(Text(managerNotifier.managerListModel[index].account)),
+          DataCell(
+              Text(examineeNotifier.examineeListModel[index].id.toString())),
           DataCell(
             SizedBox(
               width: 150,
               child: Text(
-                managerNotifier.managerListModel[index].name,
+                examineeNotifier.examineeListModel[index].name,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -116,30 +149,28 @@ class ManagerState extends State<Manager> {
             // placeholder: true, // 内容浅色显示
             onTap: () {
               nameController.clear();
-              nameAlertDialog(
-                context,
-                id: managerNotifier.managerListModel[index].id,
-                name: managerNotifier.managerListModel[index].name,
-                permission: managerNotifier.managerListModel[index].permission,
-              );
+              // nameAlertDialog(
+              //   context,
+              //   id: examineeNotifier.examineeListModel[index].id,
+              //   name: examineeNotifier.examineeListModel[index].name,
+              //   classID: examineeNotifier.examineeListModel[index].classID,
+              // );
             },
           ),
+          DataCell(Text(examineeNotifier.examineeListModel[index].examineeNo)),
           DataCell(Text(Tools().timestampToStr(
-              managerNotifier.managerListModel[index].createTime))),
-          DataCell(Text(Tools().timestampToStr(
-              managerNotifier.managerListModel[index].updateTime))),
+              examineeNotifier.examineeListModel[index].createTime))),
           DataCell(
-            CupertinoSwitch(
-              value: managerNotifier.managerListModel[index].state == 1
-                  ? true
-                  : false,
-              onChanged: (bool? value) {
-                setState(() {
-                  managerNotifier.managerDisabled(
-                      id: managerNotifier.managerListModel[index].id);
-                });
-              },
-            ),
+            Text(Lang().setUp),
+            // placeholder: true, // 内容浅色显示
+            onTap: () {
+              print(examineeNotifier.examineeListModel[index].classID);
+              // print(examineeNotifier.examineeListModel[index].id);
+              // classAlertDialog(
+              //   context,
+              //   id: examineeNotifier.examineeListModel[index].id,
+              // );
+            },
           ),
         ],
         selected: selected[index],
@@ -149,71 +180,14 @@ class ManagerState extends State<Manager> {
             selected[index] = value;
           });
         },
-        onLongPress: () => passwordAlertDialog(context,
-            id: managerNotifier.managerListModel[index].id),
       ),
-    );
-  }
-
-  // 修改名称
-  void nameAlertDialog(
-    BuildContext context, {
-    required int id,
-    required String name,
-    required int permission,
-  }) {
-    nameController.clear();
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                hintText: name,
-                suffixIcon: IconButton(
-                  iconSize: 20,
-                  onPressed: () => nameController.clear(),
-                  icon: const Icon(Icons.clear),
-                ),
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (nameController.text.isNotEmpty) {
-                  managerNotifier.updateManagerInfo(
-                    id: id,
-                    name: nameController.text,
-                    permission: permission,
-                  );
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
-        );
-      },
     );
   }
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    newAccountController.clear();
-    newPasswordController.clear();
     newNameController.clear();
+    newContactController.clear();
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -222,36 +196,9 @@ class ManagerState extends State<Manager> {
           title: Text(Lang().title),
           content: SizedBox(
             width: 100,
-            height: 150,
+            height: 200,
             child: Column(
               children: [
-                SizedBox(
-                  child: TextField(
-                    controller: newAccountController,
-                    decoration: InputDecoration(
-                      hintText: Lang().account,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newAccountController.clear(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  child: TextField(
-                    controller: newPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: Lang().password,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newPasswordController.clear(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ),
-                  ),
-                ),
                 SizedBox(
                   child: TextField(
                     controller: newNameController,
@@ -265,72 +212,75 @@ class ManagerState extends State<Manager> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  child: TextField(
+                    controller: newExamineeNoController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: Lang().examineeNo,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => newExamineeNoController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  child: TextField(
+                    controller: newContactController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: Lang().contact,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => newContactController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  child: DropdownButton(
+                    itemHeight: 50,
+                    hint: Text(Lang().classes),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    style: const TextStyle(color: Colors.black),
+                    // elevation: 16,
+                    underline: Container(
+                      height: 0,
+                      // color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (ClassModel? value) {
+                      setState(() {
+                        if (value!.id > 0) {
+                          classID = value.id;
+                          page = 1;
+                          fetchData();
+                        }
+                        classID = 0;
+                      });
+                    },
+                    items: classDropdownMenuItemList(),
+                  ),
+                ),
               ],
             ),
           ),
           actions: [
             TextButton(
               onPressed: () {
-                if (newAccountController.text.isNotEmpty &&
-                    newPasswordController.text.isNotEmpty &&
-                    newNameController.text.isNotEmpty) {
-                  managerNotifier.newManager(
-                    account: newAccountController.text,
-                    password: newPasswordController.text,
+                if (newExamineeNoController.text.isNotEmpty &&
+                    newNameController.text.isNotEmpty &&
+                    newContactController.text.isNotEmpty &&
+                    classID > 0) {
+                  examineeNotifier.newExaminee(
+                    examineeNo: newExamineeNoController.text,
                     name: newNameController.text,
+                    classID: 0,
+                    contact: newContactController.text,
                   );
                   fetchData();
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void passwordAlertDialog(
-    BuildContext context, {
-    required int id,
-  }) {
-    changePasswordController.clear();
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: changePasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: Lang().password,
-                suffixIcon: IconButton(
-                  iconSize: 20,
-                  onPressed: () => changePasswordController.clear(),
-                  icon: const Icon(Icons.clear),
-                ),
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (changePasswordController.text.isNotEmpty) {
-                  managerNotifier.managerChangePassword(
-                    id: id,
-                    newPassword: changePasswordController.text,
-                  );
                   Navigator.of(context).pop();
                 }
               },
@@ -352,16 +302,16 @@ class ManagerState extends State<Manager> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        managerNotifier.managerListModel.sort((a, b) => a.id.compareTo(b.id));
+        examineeNotifier.examineeListModel.sort((a, b) => a.id.compareTo(b.id));
       } else {
-        managerNotifier.managerListModel.sort((a, b) => b.id.compareTo(a.id));
+        examineeNotifier.examineeListModel.sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
     selected = List<bool>.generate(
-      managerNotifier.managerListModel.length,
+      examineeNotifier.examineeListModel.length,
       (int index) {
-        managerNotifier.managerListModel[index].selected = false;
+        examineeNotifier.examineeListModel[index].selected = false;
         showSelected = 0;
         return false;
       },
@@ -449,10 +399,10 @@ class ManagerState extends State<Manager> {
                             ),
                             const SizedBox(width: 10),
                             Tooltip(
-                              message: Lang().status,
-                              child: DropdownButton<String>(
+                              message: Lang().classes,
+                              child: DropdownButton<ClassModel>(
                                 itemHeight: 50,
-                                value: stateMemo,
+                                hint: Text(classSelectedName),
                                 icon: const Icon(Icons.arrow_drop_down),
                                 style: const TextStyle(color: Colors.black),
                                 // elevation: 16,
@@ -460,28 +410,17 @@ class ManagerState extends State<Manager> {
                                   height: 0,
                                   // color: Colors.deepPurpleAccent,
                                 ),
-                                onChanged: (String? value) {
+                                onChanged: (ClassModel? value) {
                                   setState(() {
-                                    if (stateMemo != value!) {
-                                      stateMemo = value;
-                                      if (value == Lang().all) {
-                                        state = 0;
-                                      } else {
-                                        state = Lang().normal == value ? 1 : 2;
-                                      }
+                                    if (value!.id > 0) {
+                                      classID = value.id;
                                       page = 1;
                                       fetchData();
+                                      classSelectedName = value.className;
                                     }
                                   });
                                 },
-                                items: stateDropList
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
+                                items: classDropdownMenuItemList(),
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -490,6 +429,8 @@ class ManagerState extends State<Manager> {
                               onPressed: () {
                                 setState(() {
                                   cupertinoSearchTextFieldController.clear();
+                                  classSelectedName = Lang().notSelected;
+                                  classID = 0;
                                   page = 1;
                                   fetchData();
                                 });
@@ -498,7 +439,13 @@ class ManagerState extends State<Manager> {
                             const SizedBox(width: 10),
                             IconButton(
                               icon: const Icon(Icons.add),
-                              onPressed: () => addAlertDialog(context),
+                              onPressed: () {
+                                setState(() {
+                                  classSelectedName = Lang().notSelected;
+                                  classID = 0;
+                                  addAlertDialog(context);
+                                });
+                              },
                             ),
                             // const SizedBox(width: 10),
                             // IconButton(
@@ -544,7 +491,7 @@ class ManagerState extends State<Manager> {
                           ),
                           DataColumn(
                             label: Text(
-                              Lang().account,
+                              Lang().name,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -552,7 +499,7 @@ class ManagerState extends State<Manager> {
                           ),
                           DataColumn(
                             label: Text(
-                              Lang().name,
+                              Lang().examineeNo,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -568,15 +515,7 @@ class ManagerState extends State<Manager> {
                           ),
                           DataColumn(
                             label: Text(
-                              Lang().updateTime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              Lang().status,
+                              Lang().classes,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -696,7 +635,7 @@ class ManagerState extends State<Manager> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Menu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().managers)),
+      appBar: AppBar(title: Text(Lang().examinee)),
       body: mainWidget(context),
     );
   }

@@ -7,7 +7,7 @@ class ExamineeModel extends BaseModel {
   late String examineeNo;
   late String name;
   late int classID;
-  late int contact;
+  late String contact;
   late bool selected;
 
   ExamineeModel({
@@ -16,7 +16,7 @@ class ExamineeModel extends BaseModel {
     this.examineeNo = '',
     this.name = '',
     this.classID = 0,
-    this.contact = 0,
+    this.contact = '',
     this.selected = false,
   }) : super(id, createTime);
 
