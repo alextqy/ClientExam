@@ -1,5 +1,5 @@
-import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
+import 'package:client/public/lang.dart';
 
 Future<String> futureTest = Future.delayed(const Duration(seconds: 1), () {
   return 'Bit Exam';

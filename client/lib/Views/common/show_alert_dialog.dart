@@ -1,5 +1,5 @@
-import 'package:client/public/lang.dart';
 import 'package:flutter/material.dart';
+import 'package:client/public/lang.dart';
 
 showAlertDialog(BuildContext context, {String memo = ''}) {
   return showDialog(
