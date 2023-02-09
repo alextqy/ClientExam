@@ -73,8 +73,18 @@ class Lang {
   String examType = '';
   String examStatus = '';
   String passedOrNot = '';
-  String pausedStatus = '';
+  String SuspendStatus = '';
   String startState = '';
+  String yes = '';
+  String no = '';
+  String noAnswerCards = '';
+  String notExamined = '';
+  String examined = '';
+  String examVoided = '';
+  String dailyPractice = '';
+  String officialExams = '';
+  String started = '';
+  String notStarted = '';
 
   String subjectName = '';
 
@@ -150,8 +160,18 @@ class Lang {
       this.examType = '考试类型';
       this.examStatus = '考试状态';
       this.passedOrNot = '通过状态';
-      this.pausedStatus = '暂停状态';
+      this.SuspendStatus = '暂停状态';
       this.startState = '开始状态';
+      this.yes = '是';
+      this.no = '否';
+      this.noAnswerCards = '无答题卡';
+      this.notExamined = '未考试';
+      this.examined = '已考试';
+      this.examVoided = '考试作废';
+      this.dailyPractice = '日常练习';
+      this.officialExams = '正式考试';
+      this.started = '已开始';
+      this.notStarted = '未开始';
 
       this.subjectName = '科目名称';
     } else {
@@ -225,8 +245,18 @@ class Lang {
       this.examType = 'Exam Type';
       this.examStatus = 'Exam Status';
       this.passedOrNot = 'Passed Or Not';
-      this.pausedStatus = 'Paused Status';
+      this.SuspendStatus = 'Suspend Status';
       this.startState = 'Start State';
+      this.yes = 'Yes';
+      this.no = 'No';
+      this.noAnswerCards = 'No Answer Cards';
+      this.notExamined = 'Not Examined';
+      this.examined = 'Examined';
+      this.examVoided = 'Exam Voided';
+      this.dailyPractice = 'Daily Practice';
+      this.officialExams = 'Official Exams';
+      this.started = 'Started';
+      this.notStarted = 'Not Started';
 
       this.subjectName = 'Subject Name';
     }

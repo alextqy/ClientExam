@@ -225,4 +225,26 @@ class ExamInfoNotifier extends BaseNotifier {
       notifyListeners();
     }
   }
+
+  void examInfoSuspend({
+    required int id,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await examInfoApi.examInfoSuspend(
+        id: id,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }

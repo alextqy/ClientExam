@@ -100,6 +100,50 @@ class ExamInfoState extends State<ExamInfo> {
     super.dispose();
   }
 
+  String checkPass(int pass) {
+    if (pass == 1) {
+      return Lang().no;
+    } else if (pass == 2) {
+      return Lang().yes;
+    } else {
+      return '';
+    }
+  }
+
+  String checkExamState(int examState) {
+    if (examState == 1) {
+      return Lang().noAnswerCards;
+    } else if (examState == 2) {
+      return Lang().notExamined;
+    } else if (examState == 3) {
+      return Lang().examined;
+    } else if (examState == 4) {
+      return Lang().examVoided;
+    } else {
+      return '';
+    }
+  }
+
+  String checkExamType(int examType) {
+    if (examType == 1) {
+      return Lang().officialExams;
+    } else if (examType == 2) {
+      return Lang().dailyPractice;
+    } else {
+      return '';
+    }
+  }
+
+  String checkStartState(int startState) {
+    if (startState == 1) {
+      return Lang().notStarted;
+    } else if (startState == 2) {
+      return Lang().started;
+    } else {
+      return '';
+    }
+  }
+
   // 生成列表
   List<DataRow> generateList() {
     return List<DataRow>.generate(
@@ -174,9 +218,10 @@ class ExamInfoState extends State<ExamInfo> {
           ),
           DataCell(
             Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].pass.toString()),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              checkPass(examInfoNotifier.examInfoListModel[index].pass),
+            ),
           ),
           DataCell(
             Text(
@@ -189,13 +234,15 @@ class ExamInfoState extends State<ExamInfo> {
             Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].examState.toString()),
+                checkExamState(
+                    examInfoNotifier.examInfoListModel[index].examState)),
           ),
           DataCell(
             Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].examType.toString()),
+                checkExamType(
+                    examInfoNotifier.examInfoListModel[index].examType)),
           ),
           DataCell(
             Text(
@@ -215,31 +262,30 @@ class ExamInfoState extends State<ExamInfo> {
             Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].startState
-                    .toString()),
+                checkStartState(
+                    examInfoNotifier.examInfoListModel[index].startState)),
           ),
-          DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].suspendedState
-                    .toString()),
-          ),
-          /*
+          // DataCell(
+          //   Text(
+          //       overflow: TextOverflow.ellipsis,
+          //       maxLines: 1,
+          //       examInfoNotifier.examInfoListModel[index].suspendedState
+          //           .toString()),
+          // ),
           DataCell(
             CupertinoSwitch(
-              value: examInfoNotifier.examInfoListModel[index].state == 1
-                  ? true
-                  : false,
+              value:
+                  examInfoNotifier.examInfoListModel[index].suspendedState == 1
+                      ? false
+                      : true,
               onChanged: (bool? value) {
                 setState(() {
-                  examInfoNotifier.examInfoDisabled(
+                  examInfoNotifier.examInfoSuspend(
                       id: examInfoNotifier.examInfoListModel[index].id);
                 });
               },
             ),
           ),
-          */
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {
@@ -667,7 +713,7 @@ class ExamInfoState extends State<ExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().pausedStatus,
+                              Lang().SuspendStatus,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
