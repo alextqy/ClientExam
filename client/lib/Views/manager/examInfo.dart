@@ -274,6 +274,7 @@ class ExamInfoState extends State<ExamInfo> {
 
   mainWidget(BuildContext context) {
     double widgetWidth = MediaQuery.of(context).size.width;
+    double percentage = .15;
     ScrollController controllerOutside = ScrollController();
     ScrollController controllerInside = ScrollController();
     return Container(
@@ -454,7 +455,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -467,7 +468,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -480,7 +481,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -493,7 +494,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -506,7 +507,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -519,7 +520,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -532,7 +533,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -545,7 +546,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -558,7 +559,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -571,7 +572,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -584,7 +585,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -597,7 +598,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -610,7 +611,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -623,7 +624,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -636,7 +637,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -649,7 +650,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -662,7 +663,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         DataColumn(
                           label: SizedBox(
-                            width: widgetWidth * .1,
+                            width: widgetWidth * percentage,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
