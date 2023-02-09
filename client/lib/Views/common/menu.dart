@@ -186,7 +186,12 @@ class Menu {
                     Lang().examRegistrations,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().examRegistrations),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper()
+                          .generate('/manager/examInfo', headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,

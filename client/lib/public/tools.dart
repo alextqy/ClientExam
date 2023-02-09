@@ -10,6 +10,7 @@ class Tools {
 
   // 时间戳转时间
   String timestampToStr(int timestamp) {
+    if (timestamp == 0) return '';
     if (timestamp.toString().length == 10) {
       timestamp *= 1000;
     }

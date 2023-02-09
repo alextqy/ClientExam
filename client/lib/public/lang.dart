@@ -62,6 +62,22 @@ class Lang {
   String contact = '';
   String notSelected = '';
 
+  String examNumber = '';
+  String totalScore = '';
+  String passingLine = '';
+  String examDuration = '';
+  String startTime = '';
+  String endTime = '';
+  String actualScore = '';
+  String actualDuration = '';
+  String examType = '';
+  String examStatus = '';
+  String passedOrNot = '';
+  String pausedStatus = '';
+  String startState = '';
+
+  String subjectName = '';
+
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
@@ -122,6 +138,22 @@ class Lang {
       this.examineeNo = '学生编号';
       this.contact = '联系方式';
       this.notSelected = '未选择';
+
+      this.examNumber = '准考证号';
+      this.totalScore = '总分';
+      this.passingLine = '及格线';
+      this.examDuration = '考试时长';
+      this.startTime = '开始时间';
+      this.endTime = '结束时间';
+      this.actualScore = '实际得分';
+      this.actualDuration = '实际时长';
+      this.examType = '考试类型';
+      this.examStatus = '考试状态';
+      this.passedOrNot = '通过状态';
+      this.pausedStatus = '暂停状态';
+      this.startState = '开始状态';
+
+      this.subjectName = '科目名称';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -181,6 +213,22 @@ class Lang {
       this.examineeNo = 'Examinee No';
       this.contact = 'Contact';
       this.notSelected = 'Not Selected';
+
+      this.examNumber = 'Exam Number';
+      this.totalScore = 'Total Score';
+      this.passingLine = 'Passing Line';
+      this.examDuration = 'Exam Duration';
+      this.startTime = 'Start Time';
+      this.endTime = 'End Time';
+      this.actualScore = 'Actual Score';
+      this.actualDuration = 'Actual Duration';
+      this.examType = 'Exam Type';
+      this.examStatus = 'Exam Status';
+      this.passedOrNot = 'Passed Or Not';
+      this.pausedStatus = 'Paused Status';
+      this.startState = 'Start State';
+
+      this.subjectName = 'Subject Name';
     }
   }
 }
