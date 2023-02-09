@@ -137,16 +137,20 @@ class ExamineeState extends State<Examinee> {
       (int index) => DataRow(
         cells: <DataCell>[
           DataCell(
-              Text(examineeNotifier.examineeListModel[index].id.toString())),
+            Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                examineeNotifier.examineeListModel[index].id.toString()),
+          ),
           DataCell(
             Tooltip(
               message: examineeNotifier.examineeListModel[index].contact,
               child: SizedBox(
                 width: 150,
                 child: Text(
-                  examineeNotifier.examineeListModel[index].name,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
+                  examineeNotifier.examineeListModel[index].name,
                 ),
               ),
             ),
@@ -163,11 +167,25 @@ class ExamineeState extends State<Examinee> {
               );
             },
           ),
-          DataCell(Text(examineeNotifier.examineeListModel[index].examineeNo)),
-          DataCell(Text(Tools().timestampToStr(
-              examineeNotifier.examineeListModel[index].createTime))),
           DataCell(
-            Text(Lang().setUp),
+            Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                examineeNotifier.examineeListModel[index].examineeNo),
+          ),
+          DataCell(
+            Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                Tools().timestampToStr(
+                    examineeNotifier.examineeListModel[index].createTime)),
+          ),
+          DataCell(
+            Text(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              Lang().setUp,
+            ),
             // placeholder: true, // 内容浅色显示
             onTap: () {
               classAlertDialog(
@@ -475,6 +493,10 @@ class ExamineeState extends State<Examinee> {
   }
 
   mainWidget(BuildContext context) {
+    double widgetWidth = MediaQuery.of(context).size.width;
+    double percentage = 0.2;
+    ScrollController controllerOutside = ScrollController();
+    ScrollController controllerInside = ScrollController();
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -482,306 +504,330 @@ class ExamineeState extends State<Examinee> {
       margin: const EdgeInsets.all(0),
       color: Colors.grey,
       child: Container(
+        padding: const EdgeInsets.all(0),
         margin: const EdgeInsets.all(10),
         color: Colors.white70,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: SizedBox(
+        child: Column(
+          children: [
+            /// header
+            SizedBox(
               width: double.infinity,
-              height: double.infinity,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                // child: SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                child: Column(
+              height: 50,
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                padding: const EdgeInsets.all(0),
+                margin: const EdgeInsets.all(0),
+                child: Row(
                   children: [
-                    /// header
-                    SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 25),
-                            Text(
-                              '$showSelected items selected',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                            const Expanded(child: SizedBox()),
-                            SizedBox(
-                              width: 200,
-                              child: CupertinoSearchTextField(
-                                controller: cupertinoSearchTextFieldController,
-                                onSubmitted: (String value) {
-                                  setState(() {
-                                    searchText = value;
-                                    fetchData();
-                                  });
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Tooltip(
-                              message: Lang().rowsPerPage,
-                              child: DropdownButton<int>(
-                                itemHeight: 50,
-                                value: pageSize,
-                                icon: const Icon(Icons.arrow_drop_down),
-                                style: const TextStyle(color: Colors.black),
-                                // elevation: 16,
-                                underline: Container(
-                                  height: 0,
-                                  // color: Colors.deepPurpleAccent,
-                                ),
-                                onChanged: (int? value) {
-                                  setState(() {
-                                    pageSize = value!;
-                                    page = 1;
-                                    fetchData();
-                                  });
-                                },
-                                items: perPageDropList
-                                    .map<DropdownMenuItem<int>>((int value) {
-                                  return DropdownMenuItem<int>(
-                                    value: value,
-                                    child: Text(value.toString()),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Tooltip(
-                              message: Lang().classes,
-                              child: DropdownButton<ClassModel>(
-                                itemHeight: 50,
-                                hint: Text(classSelectedName),
-                                icon: const Icon(Icons.arrow_drop_down),
-                                style: const TextStyle(color: Colors.black),
-                                // elevation: 16,
-                                underline: Container(
-                                  height: 0,
-                                  // color: Colors.deepPurpleAccent,
-                                ),
-                                onChanged: (ClassModel? value) {
-                                  setState(() {
-                                    if (value!.id > 0) {
-                                      classID = value.id;
-                                      page = 1;
-                                      fetchData();
-                                      classSelectedName = value.className;
-                                    }
-                                  });
-                                },
-                                items: classDropdownMenuItemList(),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            IconButton(
-                              icon: const Icon(Icons.refresh),
-                              onPressed: () {
-                                setState(() {
-                                  cupertinoSearchTextFieldController.clear();
-                                  classSelectedName = Lang().notSelected;
-                                  classID = 0;
-                                  page = 1;
-                                  fetchData();
-                                });
-                              },
-                            ),
-                            const SizedBox(width: 10),
-                            IconButton(
-                              icon: const Icon(Icons.add),
-                              onPressed: () {
-                                setState(() {
-                                  classSelectedName = Lang().notSelected;
-                                  classID = 0;
-                                  addAlertDialog(context);
-                                });
-                              },
-                            ),
-                            // const SizedBox(width: 10),
-                            // IconButton(
-                            //   icon: const Icon(Icons.delete),
-                            //   onPressed: () => print('delete'),
-                            // ),
-                          ],
-                        ),
+                    const SizedBox(width: 25),
+                    Text(
+                      '$showSelected items selected',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontStyle: FontStyle.italic,
                       ),
                     ),
-
-                    /// body
+                    const Expanded(child: SizedBox()),
                     SizedBox(
-                      width: double.infinity,
-                      // height: double.infinity,
-                      child: DataTable(
-                        // headingRowHeight: 20, // 标题栏高度
-                        // dataRowHeight: 50, // 数据栏高度
-                        // horizontalMargin: 50, // 表格外边距
-                        // columnSpacing: 50, // 单元格间距
-                        showCheckboxColumn: true, // 是否展示复选框
-                        checkboxHorizontalMargin: 50, // 复选框边距
-                        sortAscending: sortAscending, // 升序降序
-                        sortColumnIndex: sortColumnIndex, // 表格索引
-                        // 标题栏
-                        columns: [
-                          DataColumn(
-                            label: Row(
-                              children: const [
-                                Text(
-                                  'ID',
-                                  style: TextStyle(fontStyle: FontStyle.italic),
-                                ),
-                              ],
-                            ),
-                            onSort: (columnIndex, ascending) {
-                              setState(() {
-                                sortColumnIndex = columnIndex;
-                                sortAscending = ascending;
-                                onSortColum(columnIndex, ascending);
-                              });
-                            },
+                      width: 200,
+                      child: CupertinoSearchTextField(
+                        controller: cupertinoSearchTextFieldController,
+                        onSubmitted: (String value) {
+                          setState(() {
+                            searchText = value;
+                            fetchData();
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Tooltip(
+                      message: Lang().rowsPerPage,
+                      child: DropdownButton<int>(
+                        itemHeight: 50,
+                        value: pageSize,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (int? value) {
+                          setState(() {
+                            pageSize = value!;
+                            page = 1;
+                            fetchData();
+                          });
+                        },
+                        items: perPageDropList
+                            .map<DropdownMenuItem<int>>((int value) {
+                          return DropdownMenuItem<int>(
+                            value: value,
+                            child: Text(value.toString()),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Tooltip(
+                      message: Lang().classes,
+                      child: DropdownButton<ClassModel>(
+                        itemHeight: 50,
+                        hint: Text(classSelectedName),
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (ClassModel? value) {
+                          setState(() {
+                            if (value!.id > 0) {
+                              classID = value.id;
+                              page = 1;
+                              fetchData();
+                              classSelectedName = value.className;
+                            }
+                          });
+                        },
+                        items: classDropdownMenuItemList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    IconButton(
+                      icon: const Icon(Icons.refresh),
+                      onPressed: () {
+                        setState(() {
+                          cupertinoSearchTextFieldController.clear();
+                          classSelectedName = Lang().notSelected;
+                          classID = 0;
+                          page = 1;
+                          fetchData();
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () {
+                        setState(() {
+                          classSelectedName = Lang().notSelected;
+                          classID = 0;
+                          addAlertDialog(context);
+                        });
+                      },
+                    ),
+                    // const SizedBox(width: 10),
+                    // IconButton(
+                    //   icon: const Icon(Icons.delete),
+                    //   onPressed: () => print('delete'),
+                    // ),
+                  ],
+                ),
+              ),
+            ),
+
+            /// body
+            Expanded(
+              child: Scrollbar(
+                controller: controllerOutside,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  controller: controllerOutside,
+                  child: SingleChildScrollView(
+                    controller: controllerInside,
+                    scrollDirection: Axis.vertical,
+                    child: DataTable(
+                      // headingRowHeight: 20, // 标题栏高度
+                      // dataRowHeight: 50, // 数据栏高度
+                      // horizontalMargin: 50, // 表格外边距
+                      // columnSpacing: 50, // 单元格间距
+                      showCheckboxColumn: true, // 是否展示复选框
+                      checkboxHorizontalMargin: 50, // 复选框边距
+                      sortAscending: sortAscending, // 升序降序
+                      sortColumnIndex: sortColumnIndex, // 表格索引
+                      // 标题栏
+                      columns: [
+                        DataColumn(
+                          label: Row(
+                            children: const [
+                              Text(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                'ID',
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                            ],
                           ),
-                          DataColumn(
-                            label: Text(
+                          onSort: (columnIndex, ascending) {
+                            setState(() {
+                              sortColumnIndex = columnIndex;
+                              sortAscending = ascending;
+                              onSortColum(columnIndex, ascending);
+                            });
+                          },
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               Lang().name,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),
-                          DataColumn(
-                            label: Text(
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               Lang().examineeNo,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),
-                          DataColumn(
-                            label: Text(
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               Lang().createtime,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),
-                          DataColumn(
-                            label: Text(
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               Lang().classes,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),
+                        ),
+                      ],
+                      rows: generateList(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            /// footer
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                padding: const EdgeInsets.all(0),
+                margin: const EdgeInsets.all(0),
+                child: Row(
+                  children: [
+                    const Expanded(child: SizedBox()),
+                    SizedBox(
+                      width: 65,
+                      child: TextField(
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(7),
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                         ],
-                        rows: generateList(),
+                        decoration: InputDecoration(
+                          hintText: Lang().jumpTo,
+                          border: InputBorder.none,
+                        ),
+                        controller: jumpToController,
+                        onSubmitted: (value) {
+                          setState(() {
+                            int onSubmittedData =
+                                int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 &&
+                                onSubmittedData <= totalPage &&
+                                onSubmittedData != page) {
+                              page = onSubmittedData;
+                              fetchData();
+                            }
+                            jumpToController.clear();
+                          });
+                        },
                       ),
                     ),
-
-                    /// footer
+                    const SizedBox(width: 20),
+                    Text(page.toString()),
+                    const Text('/'),
+                    Text(totalPage.toString()),
+                    const SizedBox(width: 20),
+                    IconButton(
+                      icon: const Icon(Icons.first_page),
+                      onPressed: () {
+                        setState(() {
+                          if (page != 1) {
+                            page = 1;
+                            fetchData();
+                          }
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 20),
                     SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(50),
-                        child: Row(
-                          children: [
-                            const Expanded(child: SizedBox()),
-                            SizedBox(
-                              width: 65,
-                              child: TextField(
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(7),
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'[0-9]')),
-                                ],
-                                decoration: InputDecoration(
-                                  hintText: Lang().jumpTo,
-                                  border: InputBorder.none,
-                                ),
-                                controller: jumpToController,
-                                onSubmitted: (value) {
-                                  setState(() {
-                                    int onSubmittedData =
-                                        int.parse(jumpToController.text);
-                                    if (onSubmittedData >= 1 &&
-                                        onSubmittedData <= totalPage &&
-                                        onSubmittedData != page) {
-                                      page = onSubmittedData;
-                                      fetchData();
-                                    }
-                                    jumpToController.clear();
-                                  });
-                                },
-                              ),
+                      child: TextButton(
+                          child: Text(
+                            Lang().previous,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
                             ),
-                            const SizedBox(width: 20),
-                            Text(page.toString()),
-                            const Text('/'),
-                            Text(totalPage.toString()),
-                            const SizedBox(width: 20),
-                            IconButton(
-                              icon: const Icon(Icons.first_page),
-                              onPressed: () {
-                                setState(() {
-                                  if (page != 1) {
-                                    page = 1;
-                                    fetchData();
-                                  }
-                                });
-                              },
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              if (page > 1) {
+                                page--;
+                                fetchData();
+                              }
+                            });
+                          }),
+                    ),
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      child: TextButton(
+                          child: Text(
+                            Lang().next,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
                             ),
-                            const SizedBox(width: 20),
-                            SizedBox(
-                              child: TextButton(
-                                  child: Text(
-                                    Lang().previous,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (page > 1) {
-                                        page--;
-                                        fetchData();
-                                      }
-                                    });
-                                  }),
-                            ),
-                            const SizedBox(width: 20),
-                            SizedBox(
-                              child: TextButton(
-                                  child: Text(
-                                    Lang().next,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (page < totalPage) {
-                                        page++;
-                                        fetchData();
-                                      }
-                                    });
-                                  }),
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              if (page < totalPage) {
+                                page++;
+                                fetchData();
+                              }
+                            });
+                          }),
                     ),
                   ],
                 ),
-                // ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
