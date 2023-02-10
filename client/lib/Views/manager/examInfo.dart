@@ -39,8 +39,10 @@ class ExamInfoState extends State<ExamInfo> {
   int pass = 0;
   int startState = 0;
   int suspendedState = 0;
-  String examStatusMemo = examStatusList.first;
   int totalPage = 0;
+
+  String examStatusMemo = examStatusList.first;
+  String examTypeMemo = examTypeList.first;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
@@ -431,6 +433,45 @@ class ExamInfoState extends State<ExamInfo> {
                           });
                         },
                         items: examStatusList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Tooltip(
+                      message: Lang().examType,
+                      child: DropdownButton<String>(
+                        itemHeight: 50,
+                        value: examTypeMemo,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            if (examTypeMemo != value!) {
+                              examTypeMemo = value;
+                              if (value == Lang().officialExams) {
+                                examType = 1;
+                              } else if (value == Lang().dailyPractice) {
+                                examType = 2;
+                              } else {
+                                examType = 0;
+                                examTypeMemo = Lang().notSelected;
+                              }
+                              page = 1;
+                              fetchData();
+                            }
+                          });
+                        },
+                        items: examTypeList
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,

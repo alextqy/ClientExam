@@ -7,11 +7,17 @@ List<String> stateDropList = <String>[
   Lang().disable
 ];
 
-// exam-info
+/// exam-info
 List<String> examStatusList = <String>[
   Lang().notSelected,
   Lang().noAnswerCards,
   Lang().notExamined,
   Lang().examined,
   Lang().examVoided,
+];
+
+List<String> examTypeList = <String>[
+  Lang().notSelected,
+  Lang().officialExams,
+  Lang().dailyPractice,
 ];
