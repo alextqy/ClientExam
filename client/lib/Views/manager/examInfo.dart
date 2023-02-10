@@ -39,7 +39,7 @@ class ExamInfoState extends State<ExamInfo> {
   int pass = 0;
   int startState = 0;
   int suspendedState = 0;
-  String stateMemo = stateDropList.first;
+  String examStatusMemo = examStatusList.first;
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
@@ -396,43 +396,49 @@ class ExamInfoState extends State<ExamInfo> {
                         }).toList(),
                       ),
                     ),
-                    // const SizedBox(width: 10),
-                    // Tooltip(
-                    //   message: Lang().status,
-                    //   child: DropdownButton<String>(
-                    //     itemHeight: 50,
-                    //     value: stateMemo,
-                    //     icon: const Icon(Icons.arrow_drop_down),
-                    //     style: const TextStyle(color: Colors.black),
-                    //     // elevation: 16,
-                    //     underline: Container(
-                    //       height: 0,
-                    //       // color: Colors.deepPurpleAccent,
-                    //     ),
-                    //     onChanged: (String? value) {
-                    //       setState(() {
-                    //         if (stateMemo != value!) {
-                    //           stateMemo = value;
-                    //           if (value == Lang().all) {
-                    //             state = 0;
-                    //           } else {
-                    //             state = Lang().normal == value ? 1 : 2;
-                    //           }
-                    //           page = 1;
-                    //           fetchData();
-                    //         }
-                    //       });
-                    //     },
-                    //     items: stateDropList
-                    //         .map<DropdownMenuItem<String>>(
-                    //             (String value) {
-                    //       return DropdownMenuItem<String>(
-                    //         value: value,
-                    //         child: Text(value),
-                    //       );
-                    //     }).toList(),
-                    //   ),
-                    // ),
+                    const SizedBox(width: 10),
+                    Tooltip(
+                      message: Lang().examStatus,
+                      child: DropdownButton<String>(
+                        itemHeight: 50,
+                        value: examStatusMemo,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            if (examStatusMemo != value!) {
+                              examStatusMemo = value;
+                              if (value == Lang().noAnswerCards) {
+                                examState = 1;
+                              } else if (value == Lang().notExamined) {
+                                examState = 2;
+                              } else if (value == Lang().examined) {
+                                examState = 3;
+                              } else if (value == Lang().examVoided) {
+                                examState = 4;
+                              } else {
+                                examState = 0;
+                                examStatusMemo = Lang().notSelected;
+                              }
+                              page = 1;
+                              fetchData();
+                            }
+                          });
+                        },
+                        items: examStatusList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.refresh),
@@ -444,11 +450,12 @@ class ExamInfoState extends State<ExamInfo> {
                         });
                       },
                     ),
-                    // const SizedBox(width: 10),
-                    // IconButton(
-                    //   icon: const Icon(Icons.add),
-                    //   onPressed: () => addAlertDialog(context),
-                    // ),
+                    const SizedBox(width: 10),
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () => print('fuck'),
+                      // onPressed: () => addAlertDialog(context),
+                    ),
                     // const SizedBox(width: 10),
                     // IconButton(
                     //   icon: const Icon(Icons.delete),
