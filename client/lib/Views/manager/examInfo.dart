@@ -347,41 +347,6 @@ class ExamInfoState extends State<ExamInfo> {
                           ),
                         ),
                       ),
-                      /*
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              SelectableText('ID: ${examineeData.id}'),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SelectableText(
-                                  '${Lang().name}: ${examineeData.name}'),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SelectableText(
-                                  '${Lang().examineeNo}: ${examineeData.examineeNo}'),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SelectableText(
-                                  '${Lang().createtime}: ${Tools().timestampToStr(examineeData.createTime)}'),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SelectableText(
-                                  '${Lang().contact}: ${examineeData.contact}'),
-                            ],
-                          ),
-                        ],
-                      ),
-                      */
                     ),
                   );
                 },
