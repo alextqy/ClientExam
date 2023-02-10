@@ -15,9 +15,23 @@ List<String> examStatusList = <String>[
   Lang().examined,
   Lang().examVoided,
 ];
-
 List<String> examTypeList = <String>[
   Lang().notSelected,
   Lang().officialExams,
   Lang().dailyPractice,
+];
+List<String> passList = <String>[
+  Lang().notSelected,
+  Lang().yes,
+  Lang().no,
+];
+List<String> startStateList = <String>[
+  Lang().notSelected,
+  Lang().notStarted,
+  Lang().started,
+];
+List<String> suspendedStateLIst = <String>[
+  Lang().notSelected,
+  Lang().yes,
+  Lang().no,
 ];

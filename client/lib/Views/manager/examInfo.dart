@@ -43,6 +43,9 @@ class ExamInfoState extends State<ExamInfo> {
 
   String examStatusMemo = examStatusList.first;
   String examTypeMemo = examTypeList.first;
+  String passMemo = passList.first;
+  String startStateMemo = startStateList.first;
+  String suspendedStateMemo = suspendedStateLIst.first;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
@@ -481,10 +484,139 @@ class ExamInfoState extends State<ExamInfo> {
                       ),
                     ),
                     const SizedBox(width: 10),
+                    Tooltip(
+                      message: Lang().passedOrNot,
+                      child: DropdownButton<String>(
+                        itemHeight: 50,
+                        value: passMemo,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            if (passMemo != value!) {
+                              passMemo = value;
+                              if (value == Lang().yes) {
+                                pass = 2;
+                              } else if (value == Lang().no) {
+                                pass = 1;
+                              } else {
+                                pass = 0;
+                                passMemo = Lang().notSelected;
+                              }
+                              page = 1;
+                              fetchData();
+                            }
+                          });
+                        },
+                        items: passList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Tooltip(
+                      message: Lang().startState,
+                      child: DropdownButton<String>(
+                        itemHeight: 50,
+                        value: startStateMemo,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            if (startStateMemo != value!) {
+                              startStateMemo = value;
+                              if (value == Lang().notStarted) {
+                                startState = 1;
+                              } else if (value == Lang().started) {
+                                startState = 2;
+                              } else {
+                                startState = 0;
+                                startStateMemo = Lang().notSelected;
+                              }
+                              page = 1;
+                              fetchData();
+                            }
+                          });
+                        },
+                        items: startStateList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Tooltip(
+                      message: Lang().SuspendStatus,
+                      child: DropdownButton<String>(
+                        itemHeight: 50,
+                        value: suspendedStateMemo,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            if (suspendedStateMemo != value!) {
+                              suspendedStateMemo = value;
+                              if (value == Lang().no) {
+                                startState = 1;
+                              } else if (value == Lang().yes) {
+                                startState = 2;
+                              } else {
+                                suspendedState = 0;
+                                suspendedStateMemo = Lang().notSelected;
+                              }
+                              page = 1;
+                              fetchData();
+                            }
+                          });
+                        },
+                        items: suspendedStateLIst
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.refresh),
                       onPressed: () {
                         setState(() {
+                          examState = 0;
+                          examType = 0;
+                          pass = 0;
+                          startState = 0;
+                          suspendedState = 0;
+
+                          examStatusMemo = examStatusList.first;
+                          examTypeMemo = examTypeList.first;
+                          passMemo = passList.first;
+                          startStateMemo = startStateList.first;
+                          suspendedStateMemo = suspendedStateLIst.first;
+
                           cupertinoSearchTextFieldController.clear();
                           page = 1;
                           fetchData();
