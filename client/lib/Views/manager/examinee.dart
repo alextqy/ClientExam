@@ -225,60 +225,64 @@ class ExamineeState extends State<Examinee> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            height: 100,
-            child: Column(
-              children: [
-                TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    hintText: Lang().name,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => nameController.clear(),
-                      icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 100,
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        hintText: Lang().name,
+                        suffixIcon: IconButton(
+                          iconSize: 20,
+                          onPressed: () => nameController.clear(),
+                          icon: const Icon(Icons.clear),
+                        ),
+                      ),
                     ),
-                  ),
+                    TextField(
+                      controller: contactController,
+                      decoration: InputDecoration(
+                        hintText: Lang().contact,
+                        suffixIcon: IconButton(
+                          iconSize: 20,
+                          onPressed: () => contactController.clear(),
+                          icon: const Icon(Icons.clear),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                TextField(
-                  controller: contactController,
-                  decoration: InputDecoration(
-                    hintText: Lang().contact,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => contactController.clear(),
-                      icon: const Icon(Icons.clear),
-                    ),
-                  ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (nameController.text.isNotEmpty && classID > 0) {
+                      examineeNotifier.updateExaminee(
+                        id: id,
+                        name: nameController.text,
+                        contact: contactController.text,
+                        classID: classID,
+                      );
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
                 ),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (nameController.text.isNotEmpty && classID > 0) {
-                  examineeNotifier.updateExaminee(
-                    id: id,
-                    name: nameController.text,
-                    contact: contactController.text,
-                    classID: classID,
-                  );
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+            );
+          },
         );
       },
     );

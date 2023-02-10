@@ -219,58 +219,62 @@ class TeacherState extends State<Teacher> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            height: 100,
-            child: Column(
-              children: [
-                TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    hintText: Lang().name,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => nameController.clear(),
-                      icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 100,
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        hintText: Lang().name,
+                        suffixIcon: IconButton(
+                          iconSize: 20,
+                          onPressed: () => nameController.clear(),
+                          icon: const Icon(Icons.clear),
+                        ),
+                      ),
                     ),
-                  ),
+                    TextField(
+                      controller: passworController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: Lang().password,
+                        suffixIcon: IconButton(
+                          iconSize: 20,
+                          onPressed: () => passworController.clear(),
+                          icon: const Icon(Icons.clear),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                TextField(
-                  controller: passworController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: Lang().password,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => passworController.clear(),
-                      icon: const Icon(Icons.clear),
-                    ),
-                  ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    teacherNotifier.updateTeacherInfo(
+                      id: id,
+                      name: nameController.text,
+                      password: password,
+                    );
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
                 ),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                teacherNotifier.updateTeacherInfo(
-                  id: id,
-                  name: nameController.text,
-                  password: password,
-                );
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+            );
+          },
         );
       },
     );
@@ -374,80 +378,84 @@ class TeacherState extends State<Teacher> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            height: 150,
-            child: Column(
-              children: [
-                SizedBox(
-                  child: TextField(
-                    controller: newAccountController,
-                    decoration: InputDecoration(
-                      hintText: Lang().account,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newAccountController.clear(),
-                        icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 150,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        controller: newAccountController,
+                        decoration: InputDecoration(
+                          hintText: Lang().account,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newAccountController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      child: TextField(
+                        controller: newPasswordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: Lang().password,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newPasswordController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: TextField(
+                        controller: newNameController,
+                        decoration: InputDecoration(
+                          hintText: Lang().name,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newNameController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  child: TextField(
-                    controller: newPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: Lang().password,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newPasswordController.clear(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ),
-                  ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (newAccountController.text.isNotEmpty &&
+                        newPasswordController.text.isNotEmpty &&
+                        newNameController.text.isNotEmpty) {
+                      teacherNotifier.newTeacher(
+                        account: newAccountController.text,
+                        password: newPasswordController.text,
+                        name: newNameController.text,
+                      );
+                      fetchData();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
                 ),
-                SizedBox(
-                  child: TextField(
-                    controller: newNameController,
-                    decoration: InputDecoration(
-                      hintText: Lang().name,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newNameController.clear(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ),
-                  ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
                 ),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (newAccountController.text.isNotEmpty &&
-                    newPasswordController.text.isNotEmpty &&
-                    newNameController.text.isNotEmpty) {
-                  teacherNotifier.newTeacher(
-                    account: newAccountController.text,
-                    password: newPasswordController.text,
-                    name: newNameController.text,
-                  );
-                  fetchData();
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+            );
+          },
         );
       },
     );

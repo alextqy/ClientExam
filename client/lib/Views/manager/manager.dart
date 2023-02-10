@@ -188,43 +188,47 @@ class ManagerState extends State<Manager> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                hintText: name,
-                suffixIcon: IconButton(
-                  iconSize: 20,
-                  onPressed: () => nameController.clear(),
-                  icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintText: name,
+                    suffixIcon: IconButton(
+                      iconSize: 20,
+                      onPressed: () => nameController.clear(),
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (nameController.text.isNotEmpty) {
-                  managerNotifier.updateManagerInfo(
-                    id: id,
-                    name: nameController.text,
-                    permission: permission,
-                  );
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (nameController.text.isNotEmpty) {
+                      managerNotifier.updateManagerInfo(
+                        id: id,
+                        name: nameController.text,
+                        permission: permission,
+                      );
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -239,80 +243,84 @@ class ManagerState extends State<Manager> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            height: 150,
-            child: Column(
-              children: [
-                SizedBox(
-                  child: TextField(
-                    controller: newAccountController,
-                    decoration: InputDecoration(
-                      hintText: Lang().account,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newAccountController.clear(),
-                        icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 150,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        controller: newAccountController,
+                        decoration: InputDecoration(
+                          hintText: Lang().account,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newAccountController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      child: TextField(
+                        controller: newPasswordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: Lang().password,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newPasswordController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: TextField(
+                        controller: newNameController,
+                        decoration: InputDecoration(
+                          hintText: Lang().name,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newNameController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  child: TextField(
-                    controller: newPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: Lang().password,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newPasswordController.clear(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ),
-                  ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (newAccountController.text.isNotEmpty &&
+                        newPasswordController.text.isNotEmpty &&
+                        newNameController.text.isNotEmpty) {
+                      managerNotifier.newManager(
+                        account: newAccountController.text,
+                        password: newPasswordController.text,
+                        name: newNameController.text,
+                      );
+                      fetchData();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
                 ),
-                SizedBox(
-                  child: TextField(
-                    controller: newNameController,
-                    decoration: InputDecoration(
-                      hintText: Lang().name,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newNameController.clear(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ),
-                  ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
                 ),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (newAccountController.text.isNotEmpty &&
-                    newPasswordController.text.isNotEmpty &&
-                    newNameController.text.isNotEmpty) {
-                  managerNotifier.newManager(
-                    account: newAccountController.text,
-                    password: newPasswordController.text,
-                    name: newNameController.text,
-                  );
-                  fetchData();
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+            );
+          },
         );
       },
     );
@@ -327,43 +335,47 @@ class ManagerState extends State<Manager> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: changePasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: Lang().password,
-                suffixIcon: IconButton(
-                  iconSize: 20,
-                  onPressed: () => changePasswordController.clear(),
-                  icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: changePasswordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: Lang().password,
+                    suffixIcon: IconButton(
+                      iconSize: 20,
+                      onPressed: () => changePasswordController.clear(),
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (changePasswordController.text.isNotEmpty) {
-                  managerNotifier.managerChangePassword(
-                    id: id,
-                    newPassword: changePasswordController.text,
-                  );
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (changePasswordController.text.isNotEmpty) {
+                      managerNotifier.managerChangePassword(
+                        id: id,
+                        newPassword: changePasswordController.text,
+                      );
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
         );
       },
     );

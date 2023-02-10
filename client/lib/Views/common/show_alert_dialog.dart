@@ -6,17 +6,21 @@ showAlertDialog(BuildContext context, {String memo = ''}) {
     context: context,
     barrierDismissible: true,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(Lang().title),
-        content: Text(memo),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(Lang().cancel),
-          ),
-        ],
+      return StatefulBuilder(
+        builder: (BuildContext context, Function state) {
+          return AlertDialog(
+            title: Text(Lang().title),
+            content: Text(memo),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(Lang().cancel),
+              ),
+            ],
+          );
+        },
       );
     },
   );

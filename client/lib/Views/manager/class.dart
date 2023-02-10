@@ -199,59 +199,63 @@ class ClassState extends State<Class> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            height: 100,
-            child: Column(
-              children: [
-                TextField(
-                  controller: classNameController,
-                  decoration: InputDecoration(
-                    hintText: Lang().className,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => classNameController.clear(),
-                      icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 100,
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: classNameController,
+                      decoration: InputDecoration(
+                        hintText: Lang().className,
+                        suffixIcon: IconButton(
+                          iconSize: 20,
+                          onPressed: () => classNameController.clear(),
+                          icon: const Icon(Icons.clear),
+                        ),
+                      ),
                     ),
-                  ),
+                    TextField(
+                      controller: descriptionController,
+                      decoration: InputDecoration(
+                        hintText: Lang().description,
+                        suffixIcon: IconButton(
+                          iconSize: 20,
+                          onPressed: () => descriptionController.clear(),
+                          icon: const Icon(Icons.clear),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                TextField(
-                  controller: descriptionController,
-                  decoration: InputDecoration(
-                    hintText: Lang().description,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => descriptionController.clear(),
-                      icon: const Icon(Icons.clear),
-                    ),
-                  ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (classNameController.text.isNotEmpty) {
+                      classNotifier.updateClassInfo(
+                        id: id,
+                        className: classNameController.text,
+                        description: descriptionController.text,
+                      );
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
                 ),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (classNameController.text.isNotEmpty) {
-                  classNotifier.updateClassInfo(
-                    id: id,
-                    className: classNameController.text,
-                    description: descriptionController.text,
-                  );
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+            );
+          },
         );
       },
     );
@@ -355,63 +359,67 @@ class ClassState extends State<Class> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(Lang().title),
-          content: SizedBox(
-            width: 100,
-            height: 100,
-            child: Column(
-              children: [
-                SizedBox(
-                  child: TextField(
-                    controller: newClassNameController,
-                    decoration: InputDecoration(
-                      hintText: Lang().className,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newClassNameController.clear(),
-                        icon: const Icon(Icons.clear),
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 100,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        controller: newClassNameController,
+                        decoration: InputDecoration(
+                          hintText: Lang().className,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newClassNameController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      child: TextField(
+                        controller: newDescriptionController,
+                        decoration: InputDecoration(
+                          hintText: Lang().description,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newDescriptionController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  child: TextField(
-                    controller: newDescriptionController,
-                    decoration: InputDecoration(
-                      hintText: Lang().description,
-                      suffixIcon: IconButton(
-                        iconSize: 20,
-                        onPressed: () => newDescriptionController.clear(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ),
-                  ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (newClassNameController.text.isNotEmpty) {
+                      classNotifier.newClass(
+                        className: newClassNameController.text,
+                        description: newDescriptionController.text,
+                      );
+                      fetchData();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
                 ),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (newClassNameController.text.isNotEmpty) {
-                  classNotifier.newClass(
-                    className: newClassNameController.text,
-                    description: newDescriptionController.text,
-                  );
-                  fetchData();
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(Lang().confirm),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(Lang().cancel),
-            ),
-          ],
+            );
+          },
         );
       },
     );
