@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:client/providers/examinee_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,7 @@ import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/examinfo_notifier.dart';
 
 import 'package:client/models/examinfo_model.dart';
+import 'package:client/models/examinee_model.dart';
 
 // ignore: must_be_immutable
 class ExamInfo extends StatefulWidget {
@@ -52,6 +54,7 @@ class ExamInfoState extends State<ExamInfo> {
       TextEditingController();
 
   ExamInfoNotifier examInfoNotifier = ExamInfoNotifier();
+  ExamineeNotifier examineeNotifier = ExamineeNotifier();
 
   basicListener() async {
     if (examInfoNotifier.operationStatus.value == OperationStatus.loading) {
@@ -229,11 +232,13 @@ class ExamInfoState extends State<ExamInfo> {
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].examineeID
-                    .toString()),
+            IconButton(
+              iconSize: 20,
+              onPressed: () => examineeInfo(context,
+                  examineeID:
+                      examInfoNotifier.examInfoListModel[index].examineeID),
+              icon: const Icon(Icons.people),
+            ),
           ),
           DataCell(
             Text(
@@ -270,13 +275,6 @@ class ExamInfoState extends State<ExamInfo> {
                 checkStartState(
                     examInfoNotifier.examInfoListModel[index].startState)),
           ),
-          // DataCell(
-          //   Text(
-          //       overflow: TextOverflow.ellipsis,
-          //       maxLines: 1,
-          //       examInfoNotifier.examInfoListModel[index].suspendedState
-          //           .toString()),
-          // ),
           DataCell(
             CupertinoSwitch(
               value:
@@ -301,6 +299,98 @@ class ExamInfoState extends State<ExamInfo> {
         },
       ),
     );
+  }
+
+  // 考生详情
+  void examineeInfo(
+    BuildContext context, {
+    required int examineeID,
+  }) {
+    if (examineeID == 0) {
+      Toast().show(context, message: Lang().noData);
+    } else {
+      examineeNotifier.examineeInfo(id: examineeID).then((value) {
+        ExamineeModel examineeData =
+            ExamineeModel.fromJson(value.data); // 当前归属班级列表
+        setState(() {
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                builder: (BuildContext context, Function state) {
+                  return AlertDialog(
+                    title: Text(Lang().title),
+                    content: SizedBox(
+                      width: 280,
+                      height: 130,
+                      child: Container(
+                        padding: const EdgeInsets.all(0),
+                        margin: const EdgeInsets.all(0),
+                        child: SelectableText.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(text: 'ID: ${examineeData.id}\n'),
+                              TextSpan(
+                                  text:
+                                      '${Lang().name}: ${examineeData.name}\n'),
+                              TextSpan(
+                                  text:
+                                      '${Lang().examineeNo}: ${examineeData.examineeNo}\n'),
+                              TextSpan(
+                                  text:
+                                      '${Lang().createtime}: ${Tools().timestampToStr(examineeData.createTime)}\n'),
+                              TextSpan(
+                                  text:
+                                      '${Lang().contact}: ${examineeData.contact}\n'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      /*
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              SelectableText('ID: ${examineeData.id}'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SelectableText(
+                                  '${Lang().name}: ${examineeData.name}'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SelectableText(
+                                  '${Lang().examineeNo}: ${examineeData.examineeNo}'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SelectableText(
+                                  '${Lang().createtime}: ${Tools().timestampToStr(examineeData.createTime)}'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SelectableText(
+                                  '${Lang().contact}: ${examineeData.contact}'),
+                            ],
+                          ),
+                        ],
+                      ),
+                      */
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        });
+      });
+    }
   }
 
   // 数据排序

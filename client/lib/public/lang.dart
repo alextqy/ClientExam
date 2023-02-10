@@ -85,6 +85,7 @@ class Lang {
   String officialExams = '';
   String started = '';
   String notStarted = '';
+  String noData = '';
 
   String subjectName = '';
 
@@ -172,6 +173,7 @@ class Lang {
       this.officialExams = '正式考试';
       this.started = '已开始';
       this.notStarted = '未开始';
+      this.noData = '无数据';
 
       this.subjectName = '科目名称';
     } else {
@@ -257,6 +259,7 @@ class Lang {
       this.officialExams = 'Official Exams';
       this.started = 'Started';
       this.notStarted = 'Not Started';
+      this.noData = 'No Data';
 
       this.subjectName = 'Subject Name';
     }
