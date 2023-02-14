@@ -116,6 +116,18 @@ class ExamineeState extends State<Examinee> {
     return List<DataRow>.generate(
       examineeNotifier.examineeListModel.length,
       (int index) => DataRow(
+        color: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          // All rows will have the same selected color.
+          if (states.contains(MaterialState.selected)) {
+            return Theme.of(context).colorScheme.primary.withOpacity(0.2);
+          }
+          // Even rows will have a grey color.
+          // if (index.isEven) {
+          //   return Colors.grey.withOpacity(0.3);
+          // }
+          return null; // Use default value for other states and odd rows.
+        }),
         cells: <DataCell>[
           DataCell(
             Text(
