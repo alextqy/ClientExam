@@ -1256,6 +1256,26 @@ class ExamInfoState extends State<ExamInfo> {
                             }
                           }),
                     ),
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      child: TextButton(
+                          child: Text(
+                            Lang().grade,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onPressed: () {
+                            for (var i = 0; i < selected.length; i++) {
+                              if (selected[i]) {
+                                examInfoNotifier.gradeTheExam(
+                                    id: examInfoNotifier
+                                        .examInfoListModel[i].id);
+                              }
+                            }
+                          }),
+                    ),
                     const Expanded(child: SizedBox()),
                     SizedBox(
                       width: 65,

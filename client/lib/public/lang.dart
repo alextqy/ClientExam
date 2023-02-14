@@ -90,6 +90,7 @@ class Lang {
   String clearData = '';
   String voidTheData = '';
   String generateTheEncoding = '';
+  String grade = '';
 
   String subjectName = '';
 
@@ -182,6 +183,7 @@ class Lang {
       this.clearData = '清除数据';
       this.voidTheData = '数据作废';
       this.generateTheEncoding = '生成编码';
+      this.grade = '打分';
 
       this.subjectName = '科目名称';
     } else {
@@ -272,6 +274,7 @@ class Lang {
       this.clearData = 'Clear Data';
       this.voidTheData = 'Void The Data';
       this.generateTheEncoding = 'Generate The Encoding';
+      this.grade = 'Grade';
 
       this.subjectName = 'Subject Name';
     }
