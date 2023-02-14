@@ -94,6 +94,7 @@ class Lang {
   String sendToOldData = '';
 
   String subjectName = '';
+  String subjectCode = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -188,6 +189,7 @@ class Lang {
       this.sendToOldData = '设置为历史数据';
 
       this.subjectName = '科目名称';
+      this.subjectCode = '科目代码';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -280,6 +282,7 @@ class Lang {
       this.sendToOldData = 'Send To Old Data';
 
       this.subjectName = 'Subject Name';
+      this.subjectCode = 'Subject Code';
     }
   }
 }

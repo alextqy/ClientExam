@@ -214,7 +214,12 @@ class Menu {
                     Lang().examSubjects,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().examSubjects),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper()
+                          .generate('/manager/subject', headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
