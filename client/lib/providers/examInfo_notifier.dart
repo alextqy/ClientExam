@@ -7,7 +7,7 @@ class ExamInfoNotifier extends BaseNotifier {
   void newExamInfo({
     required String subjectName,
     required String examNo,
-    required int examineeID,
+    required String examineeNo,
     required int examType,
   }) async {
     operationStatus.value = OperationStatus.loading;
@@ -15,7 +15,7 @@ class ExamInfoNotifier extends BaseNotifier {
       result = await examInfoApi.newExamInfo(
         subjectName: subjectName,
         examNo: examNo,
-        examineeID: examineeID,
+        examineeNo: examineeNo,
         examType: examType,
       );
       if (result.state == true) {
@@ -125,7 +125,7 @@ class ExamInfoNotifier extends BaseNotifier {
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await examInfoApi.generateTestPaper(
+      result = await examInfoApi.resetExamQuestionData(
         id: id,
       );
       if (result.state == true) {

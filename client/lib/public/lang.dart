@@ -73,7 +73,7 @@ class Lang {
   String examType = '';
   String examStatus = '';
   String passedOrNot = '';
-  String SuspendStatus = '';
+  String suspendStatus = '';
   String startState = '';
   String yes = '';
   String no = '';
@@ -86,6 +86,10 @@ class Lang {
   String started = '';
   String notStarted = '';
   String noData = '';
+  String generateQuizPaperData = '';
+  String clearData = '';
+  String voidTheData = '';
+  String generateTheEncoding = '';
 
   String subjectName = '';
 
@@ -161,7 +165,7 @@ class Lang {
       this.examType = '考试类型';
       this.examStatus = '考试状态';
       this.passedOrNot = '通过状态';
-      this.SuspendStatus = '暂停状态';
+      this.suspendStatus = '暂停状态';
       this.startState = '开始状态';
       this.yes = '是';
       this.no = '否';
@@ -174,6 +178,10 @@ class Lang {
       this.started = '已开始';
       this.notStarted = '未开始';
       this.noData = '无数据';
+      this.generateQuizPaperData = '生成试卷数据';
+      this.clearData = '清除数据';
+      this.voidTheData = '数据作废';
+      this.generateTheEncoding = '生成编码';
 
       this.subjectName = '科目名称';
     } else {
@@ -247,7 +255,7 @@ class Lang {
       this.examType = 'Exam Type';
       this.examStatus = 'Exam Status';
       this.passedOrNot = 'Passed Or Not';
-      this.SuspendStatus = 'Suspend Status';
+      this.suspendStatus = 'Suspend Status';
       this.startState = 'Start State';
       this.yes = 'Yes';
       this.no = 'No';
@@ -260,6 +268,10 @@ class Lang {
       this.started = 'Started';
       this.notStarted = 'Not Started';
       this.noData = 'No Data';
+      this.generateQuizPaperData = 'Generate Quiz Paper Data';
+      this.clearData = 'Clear Data';
+      this.voidTheData = 'Void The Data';
+      this.generateTheEncoding = 'Generate The Encoding';
 
       this.subjectName = 'Subject Name';
     }

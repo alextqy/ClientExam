@@ -96,25 +96,6 @@ class ExamineeState extends State<Examinee> {
     });
   }
 
-  List<DropdownMenuItem<ClassModel>> classDropdownMenuItemList() {
-    List<DropdownMenuItem<ClassModel>> classDataDropdownMenuItemList = [];
-    for (var element in classNotifier.classListModel) {
-      DropdownMenuItem<ClassModel> data = DropdownMenuItem(
-        value: element,
-        child: SizedBox(
-          width: 100,
-          child: Text(
-            element.className,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-        ),
-      );
-      classDataDropdownMenuItemList.add(data);
-    }
-    return classDataDropdownMenuItemList;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -207,6 +188,25 @@ class ExamineeState extends State<Examinee> {
         },
       ),
     );
+  }
+
+  List<DropdownMenuItem<ClassModel>> classDropdownMenuItemList() {
+    List<DropdownMenuItem<ClassModel>> classDataDropdownMenuItemList = [];
+    for (var element in classNotifier.classListModel) {
+      DropdownMenuItem<ClassModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.className,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      classDataDropdownMenuItemList.add(data);
+    }
+    return classDataDropdownMenuItemList;
   }
 
   // 修改名称
@@ -410,33 +410,39 @@ class ExamineeState extends State<Examinee> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 45,
-                          child: DropdownButton(
-                            itemHeight: 50,
-                            hint: Text(classSelectedName),
-                            icon: const Icon(Icons.arrow_drop_down),
-                            style: const TextStyle(color: Colors.black),
-                            // elevation: 16,
-                            underline: Container(
-                              height: 0,
-                              // color: Colors.deepPurpleAccent,
+                    Tooltip(
+                      message: Lang().classes,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 45,
+                            child: DropdownButton(
+                              itemHeight: 50,
+                              hint: Text(
+                                classSelectedName,
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(Icons.arrow_drop_down),
+                              style: const TextStyle(color: Colors.black),
+                              // elevation: 16,
+                              underline: Container(
+                                height: 0,
+                                // color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (ClassModel? value) {
+                                state(() {
+                                  if (value!.id > 0) {
+                                    classSelectedName = value.className;
+                                    classID = value.id;
+                                  }
+                                });
+                              },
+                              items: classDropdownMenuItemList(),
                             ),
-                            onChanged: (ClassModel? value) {
-                              state(() {
-                                if (value!.id > 0) {
-                                  classSelectedName = value.className;
-                                  classID = value.id;
-                                }
-                              });
-                            },
-                            items: classDropdownMenuItemList(),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -579,7 +585,10 @@ class ExamineeState extends State<Examinee> {
                       message: Lang().classes,
                       child: DropdownButton<ClassModel>(
                         itemHeight: 50,
-                        hint: Text(classSelectedName),
+                        hint: Text(
+                          classSelectedName,
+                          style: const TextStyle(color: Colors.black),
+                        ),
                         icon: const Icon(Icons.arrow_drop_down),
                         style: const TextStyle(color: Colors.black),
                         // elevation: 16,

@@ -2,6 +2,7 @@
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
+import 'package:client/models/data.dart';
 
 class SubjectNotifier extends BaseNotifier {
   void newSubject({
@@ -108,21 +109,7 @@ class SubjectNotifier extends BaseNotifier {
     }
   }
 
-  void subjects() async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await subjectApi.subjects();
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
+  Future<DataModel> subjects() async {
+    return await subjectApi.subjects();
   }
 }

@@ -14,9 +14,11 @@ import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/examinfo_notifier.dart';
+import 'package:client/providers/subject_notifier.dart';
 
 import 'package:client/models/examinfo_model.dart';
 import 'package:client/models/examinee_model.dart';
+import 'package:client/models/subject_model.dart';
 
 // ignore: must_be_immutable
 class ExamInfo extends StatefulWidget {
@@ -32,6 +34,8 @@ class ExamInfoState extends State<ExamInfo> {
   int sortColumnIndex = 0;
   int showSelected = 0;
   List<bool> selected = [];
+  int subjectID = 0;
+  String subjectSelectedName = Lang().notSelected;
 
   int page = 1;
   int pageSize = perPageDropList.first;
@@ -52,9 +56,12 @@ class ExamInfoState extends State<ExamInfo> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
+  TextEditingController examNoController = TextEditingController();
+  TextEditingController examineeNoController = TextEditingController();
 
   ExamInfoNotifier examInfoNotifier = ExamInfoNotifier();
   ExamineeNotifier examineeNotifier = ExamineeNotifier();
+  SubjectNotifier subjectNotifier = SubjectNotifier();
 
   basicListener() async {
     if (examInfoNotifier.operationStatus.value == OperationStatus.loading) {
@@ -94,11 +101,21 @@ class ExamInfoState extends State<ExamInfo> {
     });
   }
 
+  void subjectsData() {
+    subjectNotifier.subjects().then((value) {
+      setState(() {
+        subjectNotifier.subjectListModel =
+            SubjectModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     examInfoNotifier.addListener(basicListener);
     fetchData();
+    subjectsData();
   }
 
   @override
@@ -106,50 +123,6 @@ class ExamInfoState extends State<ExamInfo> {
     examInfoNotifier.dispose();
     examInfoNotifier.removeListener(basicListener);
     super.dispose();
-  }
-
-  String checkPass(int pass) {
-    if (pass == 1) {
-      return Lang().no;
-    } else if (pass == 2) {
-      return Lang().yes;
-    } else {
-      return '';
-    }
-  }
-
-  String checkExamState(int examState) {
-    if (examState == 1) {
-      return Lang().noAnswerCards;
-    } else if (examState == 2) {
-      return Lang().notExamined;
-    } else if (examState == 3) {
-      return Lang().examined;
-    } else if (examState == 4) {
-      return Lang().examVoided;
-    } else {
-      return '';
-    }
-  }
-
-  String checkExamType(int examType) {
-    if (examType == 1) {
-      return Lang().officialExams;
-    } else if (examType == 2) {
-      return Lang().dailyPractice;
-    } else {
-      return '';
-    }
-  }
-
-  String checkStartState(int startState) {
-    if (startState == 1) {
-      return Lang().notStarted;
-    } else if (startState == 2) {
-      return Lang().started;
-    } else {
-      return '';
-    }
   }
 
   // 生成列表
@@ -301,6 +274,69 @@ class ExamInfoState extends State<ExamInfo> {
     );
   }
 
+  String checkPass(int pass) {
+    if (pass == 1) {
+      return Lang().no;
+    } else if (pass == 2) {
+      return Lang().yes;
+    } else {
+      return '';
+    }
+  }
+
+  String checkExamState(int examState) {
+    if (examState == 1) {
+      return Lang().noAnswerCards;
+    } else if (examState == 2) {
+      return Lang().notExamined;
+    } else if (examState == 3) {
+      return Lang().examined;
+    } else if (examState == 4) {
+      return Lang().examVoided;
+    } else {
+      return '';
+    }
+  }
+
+  String checkExamType(int examType) {
+    if (examType == 1) {
+      return Lang().officialExams;
+    } else if (examType == 2) {
+      return Lang().dailyPractice;
+    } else {
+      return '';
+    }
+  }
+
+  String checkStartState(int startState) {
+    if (startState == 1) {
+      return Lang().notStarted;
+    } else if (startState == 2) {
+      return Lang().started;
+    } else {
+      return '';
+    }
+  }
+
+  List<DropdownMenuItem<SubjectModel>> subjectDropdownMenuItemList() {
+    List<DropdownMenuItem<SubjectModel>> subjectDataDropdownMenuItemList = [];
+    for (var element in subjectNotifier.subjectListModel) {
+      DropdownMenuItem<SubjectModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.subjectName,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      subjectDataDropdownMenuItemList.add(data);
+    }
+    return subjectDataDropdownMenuItemList;
+  }
+
   // 考生详情
   void examineeInfo(
     BuildContext context, {
@@ -356,6 +392,181 @@ class ExamInfoState extends State<ExamInfo> {
         });
       });
     }
+  }
+
+  // 新建
+  void addAlertDialog(BuildContext context) {
+    examNoController.clear();
+    examineeNoController.clear();
+    examType = 0;
+    examTypeMemo = Lang().notSelected;
+    subjectSelectedName = Lang().notSelected;
+    subjectID = 0;
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 360,
+                height: 250,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        controller: examNoController,
+                        decoration: InputDecoration(
+                          hintText: Lang().examNumber,
+                          prefixIcon: Tooltip(
+                            message: Lang().generateTheEncoding,
+                            child: IconButton(
+                              iconSize: 20,
+                              onPressed: () {
+                                examNoController.text = Tools()
+                                    .genMD5(Tools().timestamp().toString());
+                              },
+                              icon: const Icon(Icons.credit_card),
+                            ),
+                          ),
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => examNoController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: TextField(
+                        controller: examineeNoController,
+                        decoration: InputDecoration(
+                          hintText: Lang().examineeNo,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => examineeNoController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Tooltip(
+                      message: Lang().examType,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 45,
+                            child: DropdownButton<String>(
+                              itemHeight: 50,
+                              value: examTypeMemo,
+                              icon: const Icon(Icons.arrow_drop_down),
+                              style: const TextStyle(color: Colors.black),
+                              // elevation: 16,
+                              underline: Container(
+                                height: 0,
+                                // color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String? value) {
+                                state(() {
+                                  examTypeMemo = value!;
+                                  if (value == Lang().officialExams) {
+                                    examType = 1;
+                                  } else if (value == Lang().dailyPractice) {
+                                    examType = 2;
+                                  } else {
+                                    examType = 0;
+                                    examTypeMemo = Lang().notSelected;
+                                  }
+                                });
+                              },
+                              items: examTypeList.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Tooltip(
+                      message: Lang().examSubjects,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 45,
+                            child: DropdownButton<SubjectModel>(
+                              itemHeight: 50,
+                              hint: Text(
+                                subjectSelectedName,
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(Icons.arrow_drop_down),
+                              style: const TextStyle(color: Colors.black),
+                              // elevation: 16,
+                              underline: Container(
+                                height: 0,
+                                // color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (SubjectModel? value) {
+                                state(() {
+                                  if (value!.id > 0) {
+                                    subjectSelectedName = value.subjectName;
+                                    subjectID = value.id;
+                                  }
+                                });
+                              },
+                              items: subjectDropdownMenuItemList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (examNoController.text.isNotEmpty &&
+                        examType > 0 &&
+                        subjectID > 0) {
+                      examInfoNotifier.newExamInfo(
+                        subjectName: subjectSelectedName,
+                        examNo: examNoController.text,
+                        examineeNo: examineeNoController.text,
+                        examType: examType,
+                      );
+                      examNoController.clear();
+                      examineeNoController.clear();
+                      examTypeMemo = Lang().notSelected;
+                      subjectSelectedName = Lang().notSelected;
+                      examType = 0;
+                      subjectID = 0;
+                      fetchData();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   // 数据排序
@@ -618,7 +829,7 @@ class ExamInfoState extends State<ExamInfo> {
                     ),
                     const SizedBox(width: 10),
                     Tooltip(
-                      message: Lang().SuspendStatus,
+                      message: Lang().suspendStatus,
                       child: DropdownButton<String>(
                         itemHeight: 50,
                         value: suspendedStateMemo,
@@ -681,8 +892,7 @@ class ExamInfoState extends State<ExamInfo> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.add),
-                      onPressed: () => print('fuck'),
-                      // onPressed: () => addAlertDialog(context),
+                      onPressed: () => addAlertDialog(context),
                     ),
                     // const SizedBox(width: 10),
                     // IconButton(
@@ -948,7 +1158,7 @@ class ExamInfoState extends State<ExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().SuspendStatus,
+                              Lang().suspendStatus,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -974,6 +1184,66 @@ class ExamInfoState extends State<ExamInfo> {
                 margin: const EdgeInsets.all(0),
                 child: Row(
                   children: [
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      child: TextButton(
+                          child: Text(
+                            Lang().generateQuizPaperData,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onPressed: () {
+                            for (var i = 0; i < selected.length; i++) {
+                              if (selected[i]) {
+                                examInfoNotifier.generateTestPaper(
+                                    id: examInfoNotifier
+                                        .examInfoListModel[i].id);
+                              }
+                            }
+                          }),
+                    ),
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      child: TextButton(
+                          child: Text(
+                            Lang().clearData,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onPressed: () {
+                            for (var i = 0; i < selected.length; i++) {
+                              if (selected[i]) {
+                                examInfoNotifier.resetExamQuestionData(
+                                    id: examInfoNotifier
+                                        .examInfoListModel[i].id);
+                              }
+                            }
+                          }),
+                    ),
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      child: TextButton(
+                          child: Text(
+                            Lang().voidTheData,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onPressed: () {
+                            for (var i = 0; i < selected.length; i++) {
+                              if (selected[i]) {
+                                examInfoNotifier.examInfoDisabled(
+                                    id: examInfoNotifier
+                                        .examInfoListModel[i].id);
+                              }
+                            }
+                          }),
+                    ),
                     const Expanded(child: SizedBox()),
                     SizedBox(
                       width: 65,

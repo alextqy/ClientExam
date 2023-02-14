@@ -11,7 +11,7 @@ class ExamInfoApi extends ResponseHelper {
   Future<DataModel> newExamInfo({
     String subjectName = '',
     String examNo = '',
-    int examineeID = 0,
+    String examineeNo = '',
     int examType = 0,
   }) async {
     Response response = await post(
@@ -20,7 +20,7 @@ class ExamInfoApi extends ResponseHelper {
         'Token': FileHelper().readFile('token'),
         'SubjectName': subjectName,
         'ExamNo': examNo,
-        'ExamineeID': examineeID.toString(),
+        'ExamineeNo': examineeNo.toString(),
         'ExamType': examType.toString(),
       },
       headers: postHeaders,
