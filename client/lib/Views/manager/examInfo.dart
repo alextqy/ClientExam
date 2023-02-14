@@ -1276,6 +1276,24 @@ class ExamInfoState extends State<ExamInfo> {
                             }
                           }),
                     ),
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      child: Tooltip(
+                        message: Lang().sendToOldData,
+                        child: IconButton(
+                          icon: const Icon(Icons.history),
+                          onPressed: () {
+                            for (var i = 0; i < selected.length; i++) {
+                              if (selected[i]) {
+                                examInfoNotifier.examIntoHistory(
+                                    id: examInfoNotifier
+                                        .examInfoListModel[i].id);
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    ),
                     const Expanded(child: SizedBox()),
                     SizedBox(
                       width: 65,

@@ -91,6 +91,7 @@ class Lang {
   String voidTheData = '';
   String generateTheEncoding = '';
   String grade = '';
+  String sendToOldData = '';
 
   String subjectName = '';
 
@@ -184,6 +185,7 @@ class Lang {
       this.voidTheData = '数据作废';
       this.generateTheEncoding = '生成编码';
       this.grade = '打分';
+      this.sendToOldData = '设置为历史数据';
 
       this.subjectName = '科目名称';
     } else {
@@ -275,6 +277,7 @@ class Lang {
       this.voidTheData = 'Void The Data';
       this.generateTheEncoding = 'Generate The Encoding';
       this.grade = 'Grade';
+      this.sendToOldData = 'Send To Old Data';
 
       this.subjectName = 'Subject Name';
     }
