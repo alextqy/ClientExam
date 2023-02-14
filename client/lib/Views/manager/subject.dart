@@ -42,6 +42,7 @@ class SubjectState extends State<Subject> {
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController newNameController = TextEditingController();
 
   SubjectNotifier subjectNotifier = SubjectNotifier();
 
@@ -237,6 +238,65 @@ class SubjectState extends State<Subject> {
     );
   }
 
+  // 新建
+  void addAlertDialog(BuildContext context) {
+    newNameController.clear();
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 50,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        controller: newNameController,
+                        decoration: InputDecoration(
+                          hintText: Lang().subjectName,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newNameController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (newNameController.text.isNotEmpty) {
+                      subjectNotifier.newSubject(
+                        subjectName: newNameController.text,
+                      );
+                      fetchData();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   // 数据排序
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
@@ -385,8 +445,7 @@ class SubjectState extends State<Subject> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.add),
-                      onPressed: () => print('fuck'),
-                      // onPressed: () => addAlertDialog(context),
+                      onPressed: () => addAlertDialog(context),
                     ),
                     // const SizedBox(width: 10),
                     // IconButton(
