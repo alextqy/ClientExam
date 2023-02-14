@@ -200,7 +200,12 @@ class Menu {
                     Lang().oldExamRegistrations,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().oldExamRegistrations),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper().generate('/manager/old/examInfo',
+                          headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
