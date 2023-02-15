@@ -321,12 +321,10 @@ class KnowledgePointState extends State<KnowledgePoint> {
                             // color: Colors.deepPurpleAccent,
                           ),
                           onChanged: (SubjectModel? value) {
-                            setState(() {
+                            state(() {
                               if (value!.id > 0) {
                                 subjectSelectedName = value.subjectName;
                                 subjectID = value.id;
-                                page = 1;
-                                fetchData();
                               }
                             });
                           },
@@ -340,7 +338,8 @@ class KnowledgePointState extends State<KnowledgePoint> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (newKnowledgeNameController.text.isNotEmpty) {
+                    if (newKnowledgeNameController.text.isNotEmpty &&
+                        subjectID > 0) {
                       knowledgeNotifier.newKnowledge(
                         knowledgeName: newKnowledgeNameController.text,
                         subjectID: subjectID,
@@ -536,7 +535,9 @@ class KnowledgePointState extends State<KnowledgePoint> {
                       icon: const Icon(Icons.refresh),
                       onPressed: () {
                         setState(() {
+                          state = 0;
                           subjectID = 0;
+                          stateMemo = stateDropList.first;
                           subjectSelectedName = Lang().notSelected;
                           cupertinoSearchTextFieldController.clear();
                           page = 1;
@@ -547,8 +548,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.add),
-                      // onPressed: () => addAlertDialog(context),
-                      onPressed: () => print('fuck'),
+                      onPressed: () => addAlertDialog(context),
                     ),
                     // const SizedBox(width: 10),
                     // IconButton(

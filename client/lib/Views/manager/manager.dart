@@ -530,6 +530,8 @@ class ManagerState extends State<Manager> {
                       icon: const Icon(Icons.refresh),
                       onPressed: () {
                         setState(() {
+                          stateMemo = stateDropList.first;
+                          state = 0;
                           cupertinoSearchTextFieldController.clear();
                           page = 1;
                           fetchData();
