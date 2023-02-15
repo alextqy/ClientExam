@@ -278,6 +278,8 @@ class KnowledgePointState extends State<KnowledgePoint> {
   // 新建
   void addAlertDialog(BuildContext context) {
     newKnowledgeNameController.clear();
+    subjectSelectedName = Lang().notSelected;
+    subjectID = 0;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -304,32 +306,37 @@ class KnowledgePointState extends State<KnowledgePoint> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10),
                     Tooltip(
                       message: Lang().examSubjects,
-                      child: SizedBox(
-                        height: 45,
-                        child: DropdownButton<SubjectModel>(
-                          hint: Text(
-                            subjectSelectedName,
-                            style: const TextStyle(color: Colors.black),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 45,
+                            child: DropdownButton<SubjectModel>(
+                              hint: Text(
+                                subjectSelectedName,
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              icon: const Icon(Icons.arrow_drop_down),
+                              style: const TextStyle(color: Colors.black),
+                              // elevation: 16,
+                              underline: Container(
+                                height: 0,
+                                // color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (SubjectModel? value) {
+                                state(() {
+                                  if (value!.id > 0) {
+                                    subjectSelectedName = value.subjectName;
+                                    subjectID = value.id;
+                                  }
+                                });
+                              },
+                              items: subjectDropdownMenuItemList(),
+                            ),
                           ),
-                          icon: const Icon(Icons.arrow_drop_down),
-                          style: const TextStyle(color: Colors.black),
-                          // elevation: 16,
-                          underline: Container(
-                            height: 0,
-                            // color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (SubjectModel? value) {
-                            state(() {
-                              if (value!.id > 0) {
-                                subjectSelectedName = value.subjectName;
-                                subjectID = value.id;
-                              }
-                            });
-                          },
-                          items: subjectDropdownMenuItemList(),
-                        ),
+                        ],
                       ),
                     ),
                   ],
