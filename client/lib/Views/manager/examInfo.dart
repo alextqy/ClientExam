@@ -472,7 +472,6 @@ class ExamInfoState extends State<ExamInfo> {
                           SizedBox(
                             height: 45,
                             child: DropdownButton<String>(
-                              itemHeight: 50,
                               value: examTypeMemo,
                               icon: const Icon(Icons.arrow_drop_down),
                               style: const TextStyle(color: Colors.black),
@@ -514,7 +513,6 @@ class ExamInfoState extends State<ExamInfo> {
                           SizedBox(
                             height: 45,
                             child: DropdownButton<SubjectModel>(
-                              itemHeight: 50,
                               hint: Text(
                                 subjectSelectedName,
                                 style: const TextStyle(color: Colors.black),
@@ -638,52 +636,9 @@ class ExamInfoState extends State<ExamInfo> {
                       ),
                     ),
                     const Expanded(child: SizedBox()),
-                    SizedBox(
-                      width: 200,
-                      child: CupertinoSearchTextField(
-                        controller: cupertinoSearchTextFieldController,
-                        onSubmitted: (String value) {
-                          setState(() {
-                            searchText = value;
-                            fetchData();
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Tooltip(
-                      message: Lang().rowsPerPage,
-                      child: DropdownButton<int>(
-                        itemHeight: 50,
-                        value: pageSize,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
-                        // elevation: 16,
-                        underline: Container(
-                          height: 0,
-                          // color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (int? value) {
-                          setState(() {
-                            pageSize = value!;
-                            page = 1;
-                            fetchData();
-                          });
-                        },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
-                          return DropdownMenuItem<int>(
-                            value: value,
-                            child: Text(value.toString()),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
                     Tooltip(
                       message: Lang().examStatus,
                       child: DropdownButton<String>(
-                        itemHeight: 50,
                         value: examStatusMemo,
                         icon: const Icon(Icons.arrow_drop_down),
                         style: const TextStyle(color: Colors.black),
@@ -726,7 +681,6 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().examType,
                       child: DropdownButton<String>(
-                        itemHeight: 50,
                         value: examTypeMemo,
                         icon: const Icon(Icons.arrow_drop_down),
                         style: const TextStyle(color: Colors.black),
@@ -765,7 +719,6 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().passedOrNot,
                       child: DropdownButton<String>(
-                        itemHeight: 50,
                         value: passMemo,
                         icon: const Icon(Icons.arrow_drop_down),
                         style: const TextStyle(color: Colors.black),
@@ -804,7 +757,6 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().startState,
                       child: DropdownButton<String>(
-                        itemHeight: 50,
                         value: startStateMemo,
                         icon: const Icon(Icons.arrow_drop_down),
                         style: const TextStyle(color: Colors.black),
@@ -843,7 +795,6 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().suspendStatus,
                       child: DropdownButton<String>(
-                        itemHeight: 50,
                         value: suspendedStateMemo,
                         icon: const Icon(Icons.arrow_drop_down),
                         style: const TextStyle(color: Colors.black),
@@ -874,6 +825,47 @@ class ExamInfoState extends State<ExamInfo> {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    SizedBox(
+                      width: 200,
+                      child: CupertinoSearchTextField(
+                        controller: cupertinoSearchTextFieldController,
+                        onSubmitted: (String value) {
+                          setState(() {
+                            searchText = value;
+                            fetchData();
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Tooltip(
+                      message: Lang().rowsPerPage,
+                      child: DropdownButton<int>(
+                        value: pageSize,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (int? value) {
+                          setState(() {
+                            pageSize = value!;
+                            page = 1;
+                            fetchData();
+                          });
+                        },
+                        items: perPageDropList
+                            .map<DropdownMenuItem<int>>((int value) {
+                          return DropdownMenuItem<int>(
+                            value: value,
+                            child: Text(value.toString()),
                           );
                         }).toList(),
                       ),

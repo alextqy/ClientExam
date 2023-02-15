@@ -506,11 +506,10 @@ class ClassState extends State<Class> {
                         },
                       ),
                     ),
-                    const SizedBox(width: 20),
+                    const SizedBox(width: 10),
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
-                        itemHeight: 50,
                         value: pageSize,
                         icon: const Icon(Icons.arrow_drop_down),
                         style: const TextStyle(color: Colors.black),
