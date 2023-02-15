@@ -13,8 +13,10 @@ import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/knowledge_notifier.dart';
+import 'package:client/providers/subject_notifier.dart';
 
 import 'package:client/models/knowledge_model.dart';
+import 'package:client/models/subject_model.dart';
 
 // ignore: must_be_immutable
 class KnowledgePoint extends StatefulWidget {
@@ -38,13 +40,16 @@ class KnowledgePointState extends State<KnowledgePoint> {
   String stateMemo = stateDropList.first;
   int totalPage = 0;
   int subjectID = 0;
+  String subjectSelectedName = Lang().notSelected;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController newKnowledgeNameController = TextEditingController();
 
   KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
+  SubjectNotifier subjectNotifier = SubjectNotifier();
 
   basicListener() async {
     if (knowledgeNotifier.operationStatus.value == OperationStatus.loading) {
@@ -81,11 +86,21 @@ class KnowledgePointState extends State<KnowledgePoint> {
     });
   }
 
+  void subjectsData() {
+    subjectNotifier.subjects().then((value) {
+      setState(() {
+        subjectNotifier.subjectListModel =
+            SubjectModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     knowledgeNotifier.addListener(basicListener);
     fetchData();
+    subjectsData();
   }
 
   @override
@@ -185,6 +200,25 @@ class KnowledgePointState extends State<KnowledgePoint> {
     );
   }
 
+  List<DropdownMenuItem<SubjectModel>> subjectDropdownMenuItemList() {
+    List<DropdownMenuItem<SubjectModel>> subjectDataDropdownMenuItemList = [];
+    for (var element in subjectNotifier.subjectListModel) {
+      DropdownMenuItem<SubjectModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.subjectName,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      subjectDataDropdownMenuItemList.add(data);
+    }
+    return subjectDataDropdownMenuItemList;
+  }
+
   // 修改名称
   void nameAlertDialog(
     BuildContext context, {
@@ -222,6 +256,99 @@ class KnowledgePointState extends State<KnowledgePoint> {
                         id: id,
                         knowledgeName: nameController.text,
                       );
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  // 新建
+  void addAlertDialog(BuildContext context) {
+    newKnowledgeNameController.clear();
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 150,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        controller: newKnowledgeNameController,
+                        decoration: InputDecoration(
+                          hintText: Lang().knowledgePointName,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newKnowledgeNameController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Tooltip(
+                      message: Lang().examSubjects,
+                      child: SizedBox(
+                        height: 45,
+                        child: DropdownButton<SubjectModel>(
+                          itemHeight: 50,
+                          hint: Text(
+                            subjectSelectedName,
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          icon: const Icon(Icons.arrow_drop_down),
+                          style: const TextStyle(color: Colors.black),
+                          // elevation: 16,
+                          underline: Container(
+                            height: 0,
+                            // color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (SubjectModel? value) {
+                            setState(() {
+                              if (value!.id > 0) {
+                                subjectSelectedName = value.subjectName;
+                                subjectID = value.id;
+                                page = 1;
+                                fetchData();
+                              }
+                            });
+                          },
+                          items: subjectDropdownMenuItemList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (newKnowledgeNameController.text.isNotEmpty) {
+                      knowledgeNotifier.newKnowledge(
+                        knowledgeName: newKnowledgeNameController.text,
+                        subjectID: subjectID,
+                      );
+                      subjectSelectedName = Lang().notSelected;
+                      subjectID = 0;
+                      fetchData();
                       Navigator.of(context).pop();
                     }
                   },
@@ -300,6 +427,37 @@ class KnowledgePointState extends State<KnowledgePoint> {
                       ),
                     ),
                     const Expanded(child: SizedBox()),
+                    Tooltip(
+                      message: Lang().examSubjects,
+                      child: SizedBox(
+                        height: 45,
+                        child: DropdownButton<SubjectModel>(
+                          itemHeight: 50,
+                          hint: Text(
+                            subjectSelectedName,
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          icon: const Icon(Icons.arrow_drop_down),
+                          style: const TextStyle(color: Colors.black),
+                          // elevation: 16,
+                          underline: Container(
+                            height: 0,
+                            // color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (SubjectModel? value) {
+                            setState(() {
+                              if (value!.id > 0) {
+                                subjectSelectedName = value.subjectName;
+                                subjectID = value.id;
+                                page = 1;
+                                fetchData();
+                              }
+                            });
+                          },
+                          items: subjectDropdownMenuItemList(),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       width: 200,
                       child: CupertinoSearchTextField(
@@ -312,7 +470,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                         },
                       ),
                     ),
-                    const SizedBox(width: 20),
+                    const SizedBox(width: 10),
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
@@ -382,6 +540,8 @@ class KnowledgePointState extends State<KnowledgePoint> {
                       icon: const Icon(Icons.refresh),
                       onPressed: () {
                         setState(() {
+                          subjectID = 0;
+                          subjectSelectedName = Lang().notSelected;
                           cupertinoSearchTextFieldController.clear();
                           page = 1;
                           fetchData();
