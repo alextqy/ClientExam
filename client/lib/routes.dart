@@ -13,6 +13,7 @@ import 'package:client/Views/manager/examinee.dart' as manager_site;
 import 'package:client/Views/manager/examinfo.dart' as manager_site;
 import 'package:client/Views/manager/old_examInfo.dart' as manager_site;
 import 'package:client/Views/manager/subject.dart' as manager_site;
+import 'package:client/Views/manager/knowledge_point.dart' as manager_site;
 
 import 'package:client/Views/teacher/index.dart' as teacher_site;
 
@@ -60,6 +61,9 @@ class RouteHelper {
       case '/manager/subject':
         return MaterialPageRoute(
             builder: (_) => manager_site.Subject(headline: headline));
+      case '/manager/knowledge/point':
+        return MaterialPageRoute(
+            builder: (_) => manager_site.KnowledgePoint(headline: headline));
       // 教师 ===================================================================
       case '/teacher/index':
         return RouteSlide(const teacher_site.Index());

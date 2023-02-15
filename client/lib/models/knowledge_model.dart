@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:client/models/base.dart';
 
 class KnowledgeModel extends BaseModel {
-  late int knowledgeName;
-  late int knowledgeCode;
+  late String knowledgeName;
+  late String knowledgeCode;
   late int subjectID;
   late int knowledgeState;
   late int updateTime;
@@ -14,8 +14,8 @@ class KnowledgeModel extends BaseModel {
   KnowledgeModel({
     int id = 0,
     int createTime = 0,
-    this.knowledgeName = 0,
-    this.knowledgeCode = 0,
+    this.knowledgeName = '',
+    this.knowledgeCode = '',
     this.subjectID = 0,
     this.knowledgeState = 0,
     this.updateTime = 0,

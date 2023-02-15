@@ -228,7 +228,12 @@ class Menu {
                     Lang().knowledgePoints,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().knowledgePoints),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper().generate('/manager/knowledge/point',
+                          headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,

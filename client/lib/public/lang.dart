@@ -96,6 +96,9 @@ class Lang {
   String subjectName = '';
   String subjectCode = '';
 
+  String knowledgePointName = '';
+  String knowledgePointcode = '';
+
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
@@ -190,6 +193,9 @@ class Lang {
 
       this.subjectName = '科目名称';
       this.subjectCode = '科目代码';
+
+      this.knowledgePointName = '知识点名称';
+      this.knowledgePointcode = '知识点编码';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -283,6 +289,9 @@ class Lang {
 
       this.subjectName = 'Subject Name';
       this.subjectCode = 'Subject Code';
+
+      this.knowledgePointName = 'Knowledge Point Name';
+      this.knowledgePointcode = 'Knowledge Point Code';
     }
   }
 }

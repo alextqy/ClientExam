@@ -12,20 +12,20 @@ import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/providers/manager_notifier.dart';
+import 'package:client/providers/knowledge_notifier.dart';
 
-import 'package:client/models/manager_model.dart';
+import 'package:client/models/knowledge_model.dart';
 
 // ignore: must_be_immutable
-class Manager extends StatefulWidget {
+class KnowledgePoint extends StatefulWidget {
   late String headline;
-  Manager({super.key, required this.headline});
+  KnowledgePoint({super.key, required this.headline});
 
   @override
-  State<Manager> createState() => ManagerState();
+  State<KnowledgePoint> createState() => KnowledgePointState();
 }
 
-class ManagerState extends State<Manager> {
+class KnowledgePointState extends State<KnowledgePoint> {
   bool sortAscending = false;
   int sortColumnIndex = 0;
   int showSelected = 0;
@@ -37,44 +37,42 @@ class ManagerState extends State<Manager> {
   int state = 0;
   String stateMemo = stateDropList.first;
   int totalPage = 0;
+  int subjectID = 0;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController newAccountController = TextEditingController();
-  TextEditingController newPasswordController = TextEditingController();
-  TextEditingController newNameController = TextEditingController();
-  TextEditingController changePasswordController = TextEditingController();
 
-  ManagerNotifier managerNotifier = ManagerNotifier();
+  KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
 
   basicListener() async {
-    if (managerNotifier.operationStatus.value == OperationStatus.loading) {
+    if (knowledgeNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (managerNotifier.operationStatus.value ==
+    } else if (knowledgeNotifier.operationStatus.value ==
         OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      Toast().show(context, message: managerNotifier.operationMemo);
+      Toast().show(context, message: knowledgeNotifier.operationMemo);
     }
   }
 
   void fetchData() {
-    managerNotifier
-        .managerList(
+    knowledgeNotifier
+        .knowledgeList(
       page: page,
       pageSize: pageSize,
       stext: searchText,
-      state: state,
+      subjectID: subjectID,
+      knowledgeState: state,
     )
         .then((value) {
       setState(() {
-        managerNotifier.managerListModel =
-            ManagerModel().fromJsonList(jsonEncode(value.data));
+        knowledgeNotifier.knowledgeListModel =
+            KnowledgeModel().fromJsonList(jsonEncode(value.data));
         selected = List<bool>.generate(
-            managerNotifier.managerListModel.length, (int index) => false);
+            knowledgeNotifier.knowledgeListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -86,21 +84,21 @@ class ManagerState extends State<Manager> {
   @override
   void initState() {
     super.initState();
-    managerNotifier.addListener(basicListener);
+    knowledgeNotifier.addListener(basicListener);
     fetchData();
   }
 
   @override
   void dispose() {
-    managerNotifier.dispose();
-    managerNotifier.removeListener(basicListener);
+    knowledgeNotifier.dispose();
+    knowledgeNotifier.removeListener(basicListener);
     super.dispose();
   }
 
   // 生成列表
   List<DataRow> generateList() {
     return List<DataRow>.generate(
-      managerNotifier.managerListModel.length,
+      knowledgeNotifier.knowledgeListModel.length,
       (int index) => DataRow(
         color: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
@@ -119,13 +117,7 @@ class ManagerState extends State<Manager> {
             Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                managerNotifier.managerListModel[index].id.toString()),
-          ),
-          DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                managerNotifier.managerListModel[index].account),
+                knowledgeNotifier.knowledgeListModel[index].id.toString()),
           ),
           DataCell(
             SizedBox(
@@ -133,7 +125,7 @@ class ManagerState extends State<Manager> {
               child: Text(
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  managerNotifier.managerListModel[index].name),
+                  knowledgeNotifier.knowledgeListModel[index].knowledgeName),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
@@ -141,9 +133,8 @@ class ManagerState extends State<Manager> {
               nameController.clear();
               nameAlertDialog(
                 context,
-                id: managerNotifier.managerListModel[index].id,
-                name: managerNotifier.managerListModel[index].name,
-                permission: managerNotifier.managerListModel[index].permission,
+                id: knowledgeNotifier.knowledgeListModel[index].id,
+                name: knowledgeNotifier.knowledgeListModel[index].knowledgeName,
               );
             },
           ),
@@ -151,25 +142,33 @@ class ManagerState extends State<Manager> {
             Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                Tools().timestampToStr(
-                    managerNotifier.managerListModel[index].createTime)),
+                knowledgeNotifier.knowledgeListModel[index].knowledgeCode),
           ),
           DataCell(
             Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 Tools().timestampToStr(
-                    managerNotifier.managerListModel[index].updateTime)),
+                    knowledgeNotifier.knowledgeListModel[index].createTime)),
+          ),
+          DataCell(
+            Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                Tools().timestampToStr(
+                    knowledgeNotifier.knowledgeListModel[index].updateTime)),
           ),
           DataCell(
             CupertinoSwitch(
-              value: managerNotifier.managerListModel[index].state == 1
-                  ? true
-                  : false,
+              value:
+                  knowledgeNotifier.knowledgeListModel[index].knowledgeState ==
+                          1
+                      ? true
+                      : false,
               onChanged: (bool? value) {
                 setState(() {
-                  managerNotifier.managerDisabled(
-                      id: managerNotifier.managerListModel[index].id);
+                  knowledgeNotifier.knowledgeDisabled(
+                      id: knowledgeNotifier.knowledgeListModel[index].id);
                 });
               },
             ),
@@ -182,8 +181,6 @@ class ManagerState extends State<Manager> {
             selected[index] = value;
           });
         },
-        onLongPress: () => passwordAlertDialog(context,
-            id: managerNotifier.managerListModel[index].id),
       ),
     );
   }
@@ -193,7 +190,6 @@ class ManagerState extends State<Manager> {
     BuildContext context, {
     required int id,
     required String name,
-    required int permission,
   }) {
     nameController.clear();
     nameController.text = name;
@@ -222,157 +218,9 @@ class ManagerState extends State<Manager> {
                 TextButton(
                   onPressed: () {
                     if (nameController.text.isNotEmpty) {
-                      managerNotifier.updateManagerInfo(
+                      knowledgeNotifier.updateKnowledgeInfo(
                         id: id,
-                        name: nameController.text,
-                        permission: permission,
-                      );
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: Text(Lang().confirm),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(Lang().cancel),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
-  // 新建
-  void addAlertDialog(BuildContext context) {
-    newAccountController.clear();
-    newPasswordController.clear();
-    newNameController.clear();
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, Function state) {
-            return AlertDialog(
-              title: Text(Lang().title),
-              content: SizedBox(
-                width: 100,
-                height: 150,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      child: TextField(
-                        controller: newAccountController,
-                        decoration: InputDecoration(
-                          hintText: Lang().account,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () => newAccountController.clear(),
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      child: TextField(
-                        controller: newPasswordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: Lang().password,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () => newPasswordController.clear(),
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      child: TextField(
-                        controller: newNameController,
-                        decoration: InputDecoration(
-                          hintText: Lang().name,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () => newNameController.clear(),
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    if (newAccountController.text.isNotEmpty &&
-                        newPasswordController.text.isNotEmpty &&
-                        newNameController.text.isNotEmpty) {
-                      managerNotifier.newManager(
-                        account: newAccountController.text,
-                        password: newPasswordController.text,
-                        name: newNameController.text,
-                      );
-                      fetchData();
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: Text(Lang().confirm),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(Lang().cancel),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
-  void passwordAlertDialog(
-    BuildContext context, {
-    required int id,
-  }) {
-    changePasswordController.clear();
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, Function state) {
-            return AlertDialog(
-              title: Text(Lang().title),
-              content: SizedBox(
-                width: 100,
-                child: TextField(
-                  controller: changePasswordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: Lang().password,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => changePasswordController.clear(),
-                      icon: const Icon(Icons.clear),
-                    ),
-                  ),
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    if (changePasswordController.text.isNotEmpty) {
-                      managerNotifier.managerChangePassword(
-                        id: id,
-                        newPassword: changePasswordController.text,
+                        knowledgeName: nameController.text,
                       );
                       Navigator.of(context).pop();
                     }
@@ -397,16 +245,18 @@ class ManagerState extends State<Manager> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        managerNotifier.managerListModel.sort((a, b) => a.id.compareTo(b.id));
+        knowledgeNotifier.knowledgeListModel
+            .sort((a, b) => a.id.compareTo(b.id));
       } else {
-        managerNotifier.managerListModel.sort((a, b) => b.id.compareTo(a.id));
+        knowledgeNotifier.knowledgeListModel
+            .sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
     selected = List<bool>.generate(
-      managerNotifier.managerListModel.length,
+      knowledgeNotifier.knowledgeListModel.length,
       (int index) {
-        managerNotifier.managerListModel[index].selected = false;
+        knowledgeNotifier.knowledgeListModel[index].selected = false;
         showSelected = 0;
         return false;
       },
@@ -541,7 +391,8 @@ class ManagerState extends State<Manager> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.add),
-                      onPressed: () => addAlertDialog(context),
+                      // onPressed: () => addAlertDialog(context),
+                      onPressed: () => print('fuck'),
                     ),
                     // const SizedBox(width: 10),
                     // IconButton(
@@ -599,7 +450,7 @@ class ManagerState extends State<Manager> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().account,
+                              Lang().knowledgePointName,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -612,7 +463,7 @@ class ManagerState extends State<Manager> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().name,
+                              Lang().knowledgePointcode,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -773,7 +624,7 @@ class ManagerState extends State<Manager> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Menu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().managers)),
+      appBar: AppBar(title: Text(Lang().knowledgePoints)),
       body: mainWidget(context),
     );
   }
