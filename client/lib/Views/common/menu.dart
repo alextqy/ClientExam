@@ -242,7 +242,12 @@ class Menu {
                     Lang().topTitle,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().topTitle),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper()
+                          .generate('/manager/top/title', headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
