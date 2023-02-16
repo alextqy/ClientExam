@@ -17,7 +17,7 @@ class ExamInfoHistoryApi extends ResponseHelper {
     int pass = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/ExamInfo/List'),
+      Uri.http(url, '/ExamInfo/History/List'),
       body: {
         'Token': FileHelper().readFile('token'),
         'Page': page.toString(),

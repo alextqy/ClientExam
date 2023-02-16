@@ -1271,10 +1271,14 @@ class ExamInfoState extends State<ExamInfo> {
                     ),
                     const SizedBox(width: 20),
                     SizedBox(
-                      child: Tooltip(
-                        message: Lang().sendToOldData,
-                        child: IconButton(
-                          icon: const Icon(Icons.history),
+                      child: TextButton(
+                          child: Text(
+                            Lang().sendToOldData,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
                           onPressed: () {
                             for (var i = 0; i < selected.length; i++) {
                               if (selected[i]) {
@@ -1283,9 +1287,7 @@ class ExamInfoState extends State<ExamInfo> {
                                         .examInfoListModel[i].id);
                               }
                             }
-                          },
-                        ),
-                      ),
+                          }),
                     ),
                     const Expanded(child: SizedBox()),
                     SizedBox(
