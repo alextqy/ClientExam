@@ -259,7 +259,7 @@ class TopTitleState extends State<TopTitle> {
               title: Text(Lang().title),
               content: SizedBox(
                 width: 100,
-                height: 150,
+                height: 50,
                 child: Column(
                   children: [
                     SizedBox(
