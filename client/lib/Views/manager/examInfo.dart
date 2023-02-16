@@ -559,6 +559,7 @@ class ExamInfoState extends State<ExamInfo> {
                       subjectSelectedName = Lang().notSelected;
                       examType = 0;
                       subjectID = 0;
+                      page = 1;
                       fetchData();
                       Navigator.of(context).pop();
                     }

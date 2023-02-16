@@ -473,6 +473,7 @@ class ExamineeState extends State<Examinee> {
                         classSelectedName = Lang().notSelected;
                         classID = 0;
                       });
+                      page = 1;
                       fetchData();
                       Navigator.of(context).pop();
                     }

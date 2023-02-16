@@ -240,6 +240,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                 child: TextField(
                   controller: nameController,
                   decoration: InputDecoration(
+                    hintText: Lang().knowledgePointName,
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => nameController.clear(),
@@ -353,6 +354,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                       );
                       subjectSelectedName = Lang().notSelected;
                       subjectID = 0;
+                      page = 1;
                       fetchData();
                       Navigator.of(context).pop();
                     }

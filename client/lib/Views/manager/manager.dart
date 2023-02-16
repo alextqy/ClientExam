@@ -210,6 +210,7 @@ class ManagerState extends State<Manager> {
                 child: TextField(
                   controller: nameController,
                   decoration: InputDecoration(
+                    hintText: Lang().name,
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => nameController.clear(),
@@ -318,6 +319,7 @@ class ManagerState extends State<Manager> {
                         password: newPasswordController.text,
                         name: newNameController.text,
                       );
+                      page = 1;
                       fetchData();
                       Navigator.of(context).pop();
                     }

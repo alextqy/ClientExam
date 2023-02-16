@@ -203,6 +203,7 @@ class SubjectState extends State<Subject> {
                 child: TextField(
                   controller: nameController,
                   decoration: InputDecoration(
+                    hintText: Lang().subjectName,
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => nameController.clear(),
@@ -277,6 +278,7 @@ class SubjectState extends State<Subject> {
                       subjectNotifier.newSubject(
                         subjectName: newNameController.text,
                       );
+                      page = 1;
                       fetchData();
                       Navigator.of(context).pop();
                     }

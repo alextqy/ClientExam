@@ -417,6 +417,7 @@ class ClassState extends State<Class> {
                         className: newClassNameController.text,
                         description: newDescriptionController.text,
                       );
+                      page = 1;
                       fetchData();
                       Navigator.of(context).pop();
                     }

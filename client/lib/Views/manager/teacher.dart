@@ -453,6 +453,7 @@ class TeacherState extends State<Teacher> {
                         password: newPasswordController.text,
                         name: newNameController.text,
                       );
+                      page = 1;
                       fetchData();
                       Navigator.of(context).pop();
                     }
