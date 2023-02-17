@@ -128,7 +128,7 @@ class FileHelper {
     String fileName = '*',
   }) async {
     XTypeGroup xType = XTypeGroup(label: fileName, extensions: type);
-    var tempPath = await openFile(
+    await openFile(
       acceptedTypeGroups: [xType],
       initialDirectory: dirPath,
       confirmButtonText: '',
