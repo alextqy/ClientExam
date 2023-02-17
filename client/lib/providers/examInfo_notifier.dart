@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:client/models/data.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
 
@@ -208,22 +209,8 @@ class ExamInfoNotifier extends BaseNotifier {
     }
   }
 
-  void downloadExamInfoDemo() async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await examInfoApi.downloadExamInfoDemo();
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
+  Future<DataModel> downloadExamInfoDemo() async {
+    return await examInfoApi.downloadExamInfoDemo();
   }
 
   void examInfoSuspend({

@@ -204,7 +204,7 @@ class ExamineeState extends State<Examinee> {
 
   List<DropdownMenuItem<ClassModel>> classDropdownMenuItemList() {
     List<DropdownMenuItem<ClassModel>> classDataDropdownMenuItemList = [];
-    for (var element in classNotifier.classListModel) {
+    for (ClassModel element in classNotifier.classListModel) {
       DropdownMenuItem<ClassModel> data = DropdownMenuItem(
         value: element,
         child: SizedBox(

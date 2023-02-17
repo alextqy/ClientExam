@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_selector/file_selector.dart';
 
 // ignore_for_file: unnecessary_this
 class FileHelper {
@@ -9,6 +10,16 @@ class FileHelper {
     File file = File(fileName);
     try {
       file.writeAsStringSync(content);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  bool writeFileB(String fileName, List<int> content) {
+    File file = File(fileName);
+    try {
+      file.writeAsBytes(content);
     } catch (e) {
       return false;
     }
@@ -108,5 +119,19 @@ class FileHelper {
   List<FileSystemEntity> listDir(String dirPath) {
     Directory dir = Directory(dirPath);
     return dir.listSync();
+  }
+
+  // 打开文件夹
+  Future<void> openDir({
+    required String dirPath,
+    required List<String> type,
+    String fileName = '*',
+  }) async {
+    XTypeGroup xType = XTypeGroup(label: fileName, extensions: type);
+    await openFile(
+      acceptedTypeGroups: [xType],
+      initialDirectory: dirPath,
+      confirmButtonText: '',
+    );
   }
 }

@@ -202,7 +202,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
 
   List<DropdownMenuItem<SubjectModel>> subjectDropdownMenuItemList() {
     List<DropdownMenuItem<SubjectModel>> subjectDataDropdownMenuItemList = [];
-    for (var element in subjectNotifier.subjectListModel) {
+    for (SubjectModel element in subjectNotifier.subjectListModel) {
       DropdownMenuItem<SubjectModel> data = DropdownMenuItem(
         value: element,
         child: SizedBox(

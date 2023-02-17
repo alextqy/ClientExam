@@ -103,6 +103,8 @@ class Lang {
   String content = '';
   String contentCode = '';
 
+  String bulkImport = '';
+
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
@@ -204,6 +206,8 @@ class Lang {
       this.headlines = '大标题';
       this.content = '内容';
       this.contentCode = '内容编码';
+
+      this.bulkImport = '批量导入';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -304,6 +308,8 @@ class Lang {
       this.headlines = 'Headlines';
       this.content = 'Content';
       this.contentCode = 'Content Code';
+
+      this.bulkImport = 'Bulk Import';
     }
   }
 }

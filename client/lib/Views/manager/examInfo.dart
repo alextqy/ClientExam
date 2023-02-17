@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:client/providers/examinee_notifier.dart';
+import 'package:client/public/file.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,6 +63,9 @@ class ExamInfoState extends State<ExamInfo> {
   ExamInfoNotifier examInfoNotifier = ExamInfoNotifier();
   ExamineeNotifier examineeNotifier = ExamineeNotifier();
   SubjectNotifier subjectNotifier = SubjectNotifier();
+
+  double _globlePositionX = 0;
+  double _globlePositionY = 0;
 
   basicListener() async {
     if (examInfoNotifier.operationStatus.value == OperationStatus.loading) {
@@ -332,7 +336,7 @@ class ExamInfoState extends State<ExamInfo> {
 
   List<DropdownMenuItem<SubjectModel>> subjectDropdownMenuItemList() {
     List<DropdownMenuItem<SubjectModel>> subjectDataDropdownMenuItemList = [];
-    for (var element in subjectNotifier.subjectListModel) {
+    for (SubjectModel element in subjectNotifier.subjectListModel) {
       DropdownMenuItem<SubjectModel> data = DropdownMenuItem(
         value: element,
         child: SizedBox(
@@ -1200,7 +1204,7 @@ class ExamInfoState extends State<ExamInfo> {
                             ),
                           ),
                           onPressed: () {
-                            for (var i = 0; i < selected.length; i++) {
+                            for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.generateTestPaper(
                                     id: examInfoNotifier
@@ -1220,7 +1224,7 @@ class ExamInfoState extends State<ExamInfo> {
                             ),
                           ),
                           onPressed: () {
-                            for (var i = 0; i < selected.length; i++) {
+                            for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.resetExamQuestionData(
                                     id: examInfoNotifier
@@ -1240,7 +1244,7 @@ class ExamInfoState extends State<ExamInfo> {
                             ),
                           ),
                           onPressed: () {
-                            for (var i = 0; i < selected.length; i++) {
+                            for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.examInfoDisabled(
                                     id: examInfoNotifier
@@ -1260,7 +1264,7 @@ class ExamInfoState extends State<ExamInfo> {
                             ),
                           ),
                           onPressed: () {
-                            for (var i = 0; i < selected.length; i++) {
+                            for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.gradeTheExam(
                                     id: examInfoNotifier
@@ -1280,7 +1284,7 @@ class ExamInfoState extends State<ExamInfo> {
                             ),
                           ),
                           onPressed: () {
-                            for (var i = 0; i < selected.length; i++) {
+                            for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.examIntoHistory(
                                     id: examInfoNotifier
@@ -1381,12 +1385,70 @@ class ExamInfoState extends State<ExamInfo> {
     );
   }
 
+  void showPopupMenu(BuildContext context, double x, double y) {
+    RenderBox overlay =
+        Overlay.of(context)?.context.findRenderObject() as RenderBox;
+    RelativeRect position = RelativeRect.fromRect(
+        Rect.fromLTRB(x, y - 100, x, y), Offset.zero & overlay.size);
+
+    PopupMenuItem bulkImportItem = PopupMenuItem(
+      value: 1,
+      child: Text(Lang().bulkImport),
+    );
+    PopupMenuItem demoItem = const PopupMenuItem(
+      value: 2,
+      child: Text('Demo'),
+    );
+    List<PopupMenuEntry<dynamic>> itemList = [bulkImportItem, demoItem];
+
+    showMenu(context: context, position: position, items: itemList)
+        .then((value) {
+      if (value == 1) {
+        print(1);
+      }
+      if (value == 2) {
+        examInfoNotifier.downloadExamInfoDemo().then((value) {
+          List<dynamic> data = value.data;
+          List<int> dataBit = [];
+          for (var element in data) {
+            dataBit.add(element as int);
+          }
+          bool result = FileHelper().writeFileB('demo.${value.memo}', dataBit);
+          if (result) {
+            FileHelper().openDir(dirPath: './', type: ['xls', value.memo]);
+          } else {
+            Toast().show(context, message: Lang().theRequestFailed);
+          }
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Menu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().examRegistrations)),
       body: mainWidget(context),
+      floatingActionButton: Container(
+        // padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.fromLTRB(0, 0, 15, 75),
+        child: GestureDetector(
+          onPanDown: (DragDownDetails details) {
+            _globlePositionX = details.globalPosition.dx;
+            _globlePositionY = details.globalPosition.dy;
+          },
+          // onLongPress: () {
+          //   _showPromptBox();
+          // },
+          child: FloatingActionButton(
+            backgroundColor: Colors.green,
+            child: const Icon(Icons.add_box),
+            onPressed: () =>
+                showPopupMenu(context, _globlePositionX, _globlePositionY),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -44,8 +44,21 @@ class Tools {
     return bytes;
   }
 
-  String utf8Encode(String u) {
+  // bytes -> string
+  String decodeU8L(Uint8List s) {
+    return utf8.decode(s);
+  }
+
+  String utf8Encode(String s) {
     Utf8Decoder decoder = const Utf8Decoder();
-    return decoder.convert(encodeU8L(u));
+    return decoder.convert(encodeU8L(s));
+  }
+
+  String base64En(String s) {
+    return base64Encode(utf8.encode(s));
+  }
+
+  String base64De(String s) {
+    return String.fromCharCodes(base64Decode(s));
   }
 }
