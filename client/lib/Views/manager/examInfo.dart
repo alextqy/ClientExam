@@ -1404,7 +1404,10 @@ class ExamInfoState extends State<ExamInfo> {
     showMenu(context: context, position: position, items: itemList)
         .then((value) {
       if (value == 1) {
-        print(1);
+        var filePath = FileHelper().checkFile(dirPath: './', type: []);
+        filePath.then((value) {
+          print(value);
+        });
       }
       if (value == 2) {
         examInfoNotifier.downloadExamInfoDemo().then((value) {

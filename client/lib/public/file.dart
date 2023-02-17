@@ -122,16 +122,31 @@ class FileHelper {
   }
 
   // 打开文件夹
-  Future<void> openDir({
+  void openDir({
     required String dirPath,
     required List<String> type,
     String fileName = '*',
   }) async {
     XTypeGroup xType = XTypeGroup(label: fileName, extensions: type);
-    await openFile(
+    var tempPath = await openFile(
       acceptedTypeGroups: [xType],
       initialDirectory: dirPath,
       confirmButtonText: '',
     );
+  }
+
+  // 选择文件
+  Future<String?> checkFile({
+    required String dirPath,
+    required List<String> type,
+    String fileName = '*',
+  }) async {
+    XTypeGroup xType = XTypeGroup(label: fileName, extensions: type);
+    var tempPath = await openFile(
+      acceptedTypeGroups: [xType],
+      initialDirectory: dirPath,
+      confirmButtonText: '',
+    );
+    return tempPath?.path;
   }
 }
