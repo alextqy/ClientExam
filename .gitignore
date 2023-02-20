@@ -48,3 +48,6 @@ client/android/app/release
 
 # cache file
 client/token
+
+demo.*
+.~*
