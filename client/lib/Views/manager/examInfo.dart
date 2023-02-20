@@ -1404,7 +1404,8 @@ class ExamInfoState extends State<ExamInfo> {
     showMenu(context: context, position: position, items: itemList)
         .then((value) {
       if (value == 1) {
-        var filePath = FileHelper().checkFile(dirPath: './', type: []);
+        Future<String?> filePath =
+            FileHelper().checkFile(dirPath: './', type: []);
         filePath.then((value) {
           print(value);
         });
@@ -1413,7 +1414,7 @@ class ExamInfoState extends State<ExamInfo> {
         examInfoNotifier.downloadExamInfoDemo().then((value) {
           List<dynamic> data = value.data;
           List<int> dataBit = [];
-          for (var element in data) {
+          for (dynamic element in data) {
             dataBit.add(element as int);
           }
           bool result = FileHelper().writeFileB('demo.${value.memo}', dataBit);
