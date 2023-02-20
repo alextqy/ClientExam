@@ -3,6 +3,8 @@
 import 'package:client/models/data.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
+import 'package:client/public/file.dart';
+import 'package:client/public/lang.dart';
 
 class ExamInfoNotifier extends BaseNotifier {
   void newExamInfo({
@@ -190,17 +192,25 @@ class ExamInfoNotifier extends BaseNotifier {
   void importExamInfo({
     required String filePath,
   }) async {
+    DataModel result = DataModel();
     operationStatus.value = OperationStatus.loading;
     try {
-      DataModel result = await examInfoApi.importExamInfo(
-        filePath: filePath,
-      );
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
+      var fileType = FileHelper().type(filePath);
+      if (fileType != 'application/vnd.ms-excel' &&
+          fileType !=
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
         operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-        print(operationMemo);
+        operationMemo = Lang().wrongFileType;
+      } else {
+        result = await examInfoApi.importExamInfo(
+          filePath: filePath,
+        );
+        if (result.state == true) {
+          operationStatus.value = OperationStatus.success;
+        } else {
+          operationStatus.value = OperationStatus.failure;
+          operationMemo = result.memo;
+        }
       }
     } catch (e) {
       operationStatus.value = OperationStatus.failure;

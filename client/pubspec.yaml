@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.5
   crypto: ^3.0.2
   file_selector: ^0.9.2+2
+  mime: ^1.0.4
 
 dev_dependencies:
   flutter_test:

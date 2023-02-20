@@ -104,6 +104,7 @@ class Lang {
   String contentCode = '';
 
   String bulkImport = '';
+  String wrongFileType = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -208,6 +209,7 @@ class Lang {
       this.contentCode = '内容编码';
 
       this.bulkImport = '批量导入';
+      this.wrongFileType = '文件类型错误';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -310,6 +312,7 @@ class Lang {
       this.contentCode = 'Content Code';
 
       this.bulkImport = 'Bulk Import';
+      this.wrongFileType = 'Wrong File Type';
     }
   }
 }

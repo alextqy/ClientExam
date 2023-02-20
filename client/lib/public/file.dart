@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:file_selector/file_selector.dart';
+import 'package:mime/mime.dart';
 
 // ignore_for_file: unnecessary_this
 class FileHelper {
@@ -80,6 +81,11 @@ class FileHelper {
   int size(String filePath) {
     File file = File(filePath);
     return file.lengthSync();
+  }
+
+  // 文件类型
+  String? type(String filePath) {
+    return lookupMimeType(filePath);
   }
 
   // 文件夹创建
