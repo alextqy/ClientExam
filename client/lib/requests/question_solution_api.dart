@@ -34,7 +34,7 @@ class QuestionSolutionApi extends ResponseHelper {
   }
 
   // multipart/form-data
-  Future<bool> questionSolutionAttachment({
+  Future<DataModel> questionSolutionAttachment({
     int id = 0,
     String filePath = '',
   }) async {

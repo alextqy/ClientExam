@@ -2,6 +2,7 @@
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
+import 'package:client/models/data.dart';
 
 class QuestionSolutionNotifier extends BaseNotifier {
   void newQuestionSolution({
@@ -42,15 +43,15 @@ class QuestionSolutionNotifier extends BaseNotifier {
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      bool result = await questionSolutionApi.questionSolutionAttachment(
+      DataModel result = await questionSolutionApi.questionSolutionAttachment(
         id: id,
         filePath: filePath,
       );
-      if (result == true) {
+      if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
         operationStatus.value = OperationStatus.failure;
-        // operationMemo = result.memo;
+        operationMemo = result.memo;
       }
     } catch (e) {
       operationStatus.value = OperationStatus.failure;

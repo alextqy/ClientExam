@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:client/models/data.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
 
@@ -42,15 +43,15 @@ class QuestionNotifier extends BaseNotifier {
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      bool result = await questionApi.questionAttachment(
+      DataModel result = await questionApi.questionAttachment(
         id: id,
         filePath: filePath,
       );
-      if (result == true) {
+      if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
         operationStatus.value = OperationStatus.failure;
-        // operationMemo = result.memo;
+        operationMemo = result.memo;
       }
     } catch (e) {
       operationStatus.value = OperationStatus.failure;

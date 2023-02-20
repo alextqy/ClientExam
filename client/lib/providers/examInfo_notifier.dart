@@ -192,14 +192,15 @@ class ExamInfoNotifier extends BaseNotifier {
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      bool result = await examInfoApi.importExamInfo(
+      DataModel result = await examInfoApi.importExamInfo(
         filePath: filePath,
       );
-      if (result == true) {
+      if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
         operationStatus.value = OperationStatus.failure;
-        // operationMemo = result.memo;
+        operationMemo = result.memo;
+        print(operationMemo);
       }
     } catch (e) {
       operationStatus.value = OperationStatus.failure;
