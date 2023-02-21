@@ -201,6 +201,9 @@ class ExamInfoNotifier extends BaseNotifier {
               'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
         operationStatus.value = OperationStatus.failure;
         operationMemo = Lang().wrongFileType;
+      } else if (FileHelper().size(filePath) > 1024 * 1024 * 30) {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = Lang().theFileIsTooLarge;
       } else {
         result = await examInfoApi.importExamInfo(
           filePath: filePath,

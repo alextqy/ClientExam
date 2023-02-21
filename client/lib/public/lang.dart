@@ -105,6 +105,7 @@ class Lang {
 
   String bulkImport = '';
   String wrongFileType = '';
+  String theFileIsTooLarge = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -210,6 +211,7 @@ class Lang {
 
       this.bulkImport = '批量导入';
       this.wrongFileType = '文件类型错误';
+      this.theFileIsTooLarge = '文件过大';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -313,6 +315,7 @@ class Lang {
 
       this.bulkImport = 'Bulk Import';
       this.wrongFileType = 'Wrong File Type';
+      this.theFileIsTooLarge = 'The File Is Too Large';
     }
   }
 }
