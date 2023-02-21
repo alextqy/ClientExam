@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:client/providers/knowledge_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,7 @@ import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/question_notifier.dart';
 
 import 'package:client/models/question_model.dart';
+import 'package:client/models/knowledge_model.dart';
 
 // ignore: must_be_immutable
 class Question extends StatefulWidget {
@@ -41,7 +43,7 @@ class QuestionState extends State<Question> {
 
   String questionTypeMemo = questionTypeList.first;
   String stateMemo = stateDropList.first;
-  String knowledgeMemo = '';
+  String knowledgeMemo = Lang().notSelected;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
@@ -50,6 +52,7 @@ class QuestionState extends State<Question> {
   TextEditingController newQuestionTitleController = TextEditingController();
 
   QuestionNotifier questionNotifier = QuestionNotifier();
+  KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
 
   basicListener() async {
     if (questionNotifier.operationStatus.value == OperationStatus.loading) {
@@ -87,11 +90,21 @@ class QuestionState extends State<Question> {
     });
   }
 
+  void knowledgeData() {
+    knowledgeNotifier.knowledge(subjectID: 0).then((value) {
+      setState(() {
+        knowledgeNotifier.knowledgeListModel =
+            KnowledgeModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     questionNotifier.addListener(basicListener);
     fetchData();
+    knowledgeData();
   }
 
   @override
@@ -223,6 +236,26 @@ class QuestionState extends State<Question> {
     );
   }
 
+  List<DropdownMenuItem<KnowledgeModel>> knowledgeDropdownMenuItemList() {
+    List<DropdownMenuItem<KnowledgeModel>> knowledgeDataDropdownMenuItemList =
+        [];
+    for (KnowledgeModel element in knowledgeNotifier.knowledgeListModel) {
+      DropdownMenuItem<KnowledgeModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.knowledgeName,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      knowledgeDataDropdownMenuItemList.add(data);
+    }
+    return knowledgeDataDropdownMenuItemList;
+  }
+
   String checkQuestionType(int questionType) {
     if (questionType == 1) {
       return Lang().multipleChoiceQuestions;
@@ -302,6 +335,36 @@ class QuestionState extends State<Question> {
                       ),
                     ),
                     const Expanded(child: SizedBox()),
+                    Tooltip(
+                      message: Lang().knowledgePoints,
+                      child: SizedBox(
+                        child: DropdownButton<KnowledgeModel>(
+                          hint: Text(
+                            knowledgeMemo,
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          icon: const Icon(Icons.arrow_drop_down),
+                          style: const TextStyle(color: Colors.black),
+                          // elevation: 16,
+                          underline: Container(
+                            height: 0,
+                            // color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (KnowledgeModel? value) {
+                            setState(() {
+                              if (value!.id > 0) {
+                                knowledgeMemo = value.knowledgeName;
+                                knowledgeID = value.id;
+                                page = 1;
+                                fetchData();
+                              }
+                            });
+                          },
+                          items: knowledgeDropdownMenuItemList(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
                     Tooltip(
                       message: Lang().questionType,
                       child: DropdownButton<String>(
@@ -433,8 +496,10 @@ class QuestionState extends State<Question> {
                         setState(() {
                           questionType = 0;
                           questionState = 0;
+                          knowledgeID = 0;
                           questionTypeMemo = questionTypeList.first;
                           stateMemo = stateDropList.first;
+                          knowledgeMemo = Lang().notSelected;
                           cupertinoSearchTextFieldController.clear();
                           page = 1;
                           fetchData();

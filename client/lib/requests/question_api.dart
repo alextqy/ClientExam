@@ -118,7 +118,7 @@ class QuestionApi extends ResponseHelper {
         'Stext': stext,
         'QuestionType': questionType.toString(),
         'QuestionState': questionState.toString(),
-        'knowledgeID': knowledgeID.toString(),
+        'KnowledgeID': knowledgeID.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
