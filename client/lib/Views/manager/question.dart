@@ -34,12 +34,14 @@ class QuestionState extends State<Question> {
   int page = 1;
   int pageSize = perPageDropList.first;
   String searchText = '';
-  int state = 0;
-  String stateMemo = stateDropList.first;
   int totalPage = 0;
   int questionType = 0;
   int questionState = 0;
   int knowledgeID = 0;
+
+  String questionTypeMemo = questionTypeList.first;
+  String stateMemo = stateDropList.first;
+  String knowledgeMemo = '';
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
@@ -301,6 +303,55 @@ class QuestionState extends State<Question> {
                     ),
                     const Expanded(child: SizedBox()),
                     Tooltip(
+                      message: Lang().questionType,
+                      child: DropdownButton<String>(
+                        value: questionTypeMemo,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            if (questionTypeMemo != value!) {
+                              questionTypeMemo = value;
+                              if (value == Lang().multipleChoiceQuestions) {
+                                questionType = 1;
+                              } else if (value == Lang().judgmentQuestions) {
+                                questionType = 2;
+                              } else if (value == Lang().multipleSelection) {
+                                questionType = 3;
+                              } else if (value == Lang().fillInTheBlanks) {
+                                questionType = 4;
+                              } else if (value == Lang().quizQuestions) {
+                                questionType = 5;
+                              } else if (value == Lang().codeTesting) {
+                                questionType = 6;
+                              } else if (value == Lang().drag) {
+                                questionType = 7;
+                              } else if (value == Lang().connection) {
+                                questionType = 8;
+                              } else {
+                                questionType = 0;
+                              }
+                              page = 1;
+                              fetchData();
+                            }
+                          });
+                        },
+                        items: questionTypeList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Tooltip(
                       message: Lang().status,
                       child: DropdownButton<String>(
                         value: stateMemo,
@@ -316,9 +367,9 @@ class QuestionState extends State<Question> {
                             if (stateMemo != value!) {
                               stateMemo = value;
                               if (value == Lang().all) {
-                                state = 0;
+                                questionState = 0;
                               } else {
-                                state = Lang().normal == value ? 1 : 2;
+                                questionState = Lang().normal == value ? 1 : 2;
                               }
                               page = 1;
                               fetchData();
@@ -380,8 +431,10 @@ class QuestionState extends State<Question> {
                       icon: const Icon(Icons.refresh),
                       onPressed: () {
                         setState(() {
+                          questionType = 0;
+                          questionState = 0;
+                          questionTypeMemo = questionTypeList.first;
                           stateMemo = stateDropList.first;
-                          state = 0;
                           cupertinoSearchTextFieldController.clear();
                           page = 1;
                           fetchData();

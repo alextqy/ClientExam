@@ -52,7 +52,7 @@ class ExamInfoState extends State<ExamInfo> {
   String examTypeMemo = examTypeList.first;
   String passMemo = passList.first;
   String startStateMemo = startStateList.first;
-  String suspendedStateMemo = suspendedStateLIst.first;
+  String suspendedStateMemo = suspendedStateList.first;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
@@ -825,7 +825,7 @@ class ExamInfoState extends State<ExamInfo> {
                             }
                           });
                         },
-                        items: suspendedStateLIst
+                        items: suspendedStateList
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -890,7 +890,7 @@ class ExamInfoState extends State<ExamInfo> {
                           examTypeMemo = examTypeList.first;
                           passMemo = passList.first;
                           startStateMemo = startStateList.first;
-                          suspendedStateMemo = suspendedStateLIst.first;
+                          suspendedStateMemo = suspendedStateList.first;
 
                           cupertinoSearchTextFieldController.clear();
                           page = 1;

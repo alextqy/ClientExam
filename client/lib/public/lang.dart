@@ -230,6 +230,9 @@ class Lang {
 
       this.questionTitle = '试题题目';
       this.questionCode = '试题编码';
+      this.language = '语言';
+      this.languageVersion = '语言版本';
+      this.attachmentFile = '附件';
       this.questionType = '试题类型';
       this.multipleChoiceQuestions = '单选题';
       this.judgmentQuestions = '判断题';
@@ -239,9 +242,6 @@ class Lang {
       this.codeTesting = '代码测试';
       this.drag = '拖拽';
       this.connection = '连线';
-      this.language = '语言';
-      this.languageVersion = '语言版本';
-      this.attachmentFile = '附件';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -349,6 +349,9 @@ class Lang {
 
       this.questionTitle = 'Question Title';
       this.questionCode = 'Question Code';
+      this.language = 'Language';
+      this.languageVersion = 'Language Version';
+      this.attachmentFile = 'Attachment File';
       this.questionType = 'Question Type';
       this.multipleChoiceQuestions = 'Multiple Choice Questions';
       this.judgmentQuestions = 'Judgment Questions';
@@ -358,9 +361,6 @@ class Lang {
       this.codeTesting = 'Code Testing';
       this.drag = 'Drag';
       this.connection = 'Connection';
-      this.language = 'Language';
-      this.languageVersion = 'Language Version';
-      this.attachmentFile = 'Attachment File';
     }
   }
 }
