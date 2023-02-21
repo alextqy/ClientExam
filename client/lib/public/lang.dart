@@ -107,6 +107,21 @@ class Lang {
   String wrongFileType = '';
   String theFileIsTooLarge = '';
 
+  String questionTitle = '';
+  String questionCode = '';
+  String questionType = '';
+  String multipleChoiceQuestions = '';
+  String judgmentQuestions = '';
+  String multipleSelection = '';
+  String fillInTheBlanks = '';
+  String quizQuestions = '';
+  String codeTesting = '';
+  String drag = '';
+  String connection = '';
+  String language = '';
+  String languageVersion = '';
+  String attachmentFile = '';
+
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
@@ -212,6 +227,21 @@ class Lang {
       this.bulkImport = '批量导入';
       this.wrongFileType = '文件类型错误';
       this.theFileIsTooLarge = '文件过大';
+
+      this.questionTitle = '试题题目';
+      this.questionCode = '试题编码';
+      this.questionType = '试题类型';
+      this.multipleChoiceQuestions = '单选题';
+      this.judgmentQuestions = '判断题';
+      this.multipleSelection = '多选题';
+      this.fillInTheBlanks = '填空题';
+      this.quizQuestions = '问答题';
+      this.codeTesting = '代码测试';
+      this.drag = '拖拽';
+      this.connection = '连线';
+      this.language = '语言';
+      this.languageVersion = '语言版本';
+      this.attachmentFile = '附件';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -316,6 +346,21 @@ class Lang {
       this.bulkImport = 'Bulk Import';
       this.wrongFileType = 'Wrong File Type';
       this.theFileIsTooLarge = 'The File Is Too Large';
+
+      this.questionTitle = 'Question Title';
+      this.questionCode = 'Question Code';
+      this.questionType = 'Question Type';
+      this.multipleChoiceQuestions = 'Multiple Choice Questions';
+      this.judgmentQuestions = 'Judgment Questions';
+      this.multipleSelection = 'Multiple Selection';
+      this.fillInTheBlanks = 'Fill In The Blanks';
+      this.quizQuestions = 'Quiz Questions';
+      this.codeTesting = 'Code Testing';
+      this.drag = 'Drag';
+      this.connection = 'Connection';
+      this.language = 'Language';
+      this.languageVersion = 'Language Version';
+      this.attachmentFile = 'Attachment File';
     }
   }
 }

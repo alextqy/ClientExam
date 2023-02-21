@@ -256,7 +256,12 @@ class Menu {
                     Lang().questions,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().questions),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper()
+                          .generate('/manager/question', headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,

@@ -15,6 +15,7 @@ import 'package:client/Views/manager/old_examInfo.dart' as manager_site;
 import 'package:client/Views/manager/subject.dart' as manager_site;
 import 'package:client/Views/manager/knowledge_point.dart' as manager_site;
 import 'package:client/Views/manager/top_title.dart' as manager_site;
+import 'package:client/Views/manager/question.dart' as manager_site;
 
 import 'package:client/Views/teacher/index.dart' as teacher_site;
 
@@ -68,6 +69,9 @@ class RouteHelper {
       case '/manager/top/title':
         return MaterialPageRoute(
             builder: (_) => manager_site.TopTitle(headline: headline));
+      case '/manager/question':
+        return MaterialPageRoute(
+            builder: (_) => manager_site.Question(headline: headline));
       // 教师 ===================================================================
       case '/teacher/index':
         return RouteSlide(const teacher_site.Index());

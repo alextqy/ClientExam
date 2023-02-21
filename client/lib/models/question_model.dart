@@ -46,8 +46,8 @@ class QuestionModel extends BaseModel {
       knowledgeID: json['KnowledgeID'],
       description: json['Description'],
       attachment: json['Attachment'],
-      language: json['Language'],
-      languageVersion: json['LanguageVersion'],
+      language: json['Language'] ?? '',
+      languageVersion: json['LanguageVersion'] ?? '',
       updateTime: json['UpdateTime'],
     );
   }
