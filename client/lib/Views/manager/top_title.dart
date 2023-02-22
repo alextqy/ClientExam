@@ -205,8 +205,7 @@ class TopTitleState extends State<TopTitle> {
               content: SizedBox(
                 width: 1000,
                 child: TextField(
-                  maxLines: 30,
-                  minLines: 1,
+                  maxLines: null,
                   controller: updateContentController,
                   decoration: InputDecoration(
                     hintText: Lang().content,
@@ -257,25 +256,18 @@ class TopTitleState extends State<TopTitle> {
             return AlertDialog(
               title: Text(Lang().title),
               content: SizedBox(
-                width: 100,
-                height: 50,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      child: TextField(
-                        controller: newContentAccountController,
-                        decoration: InputDecoration(
-                          hintText: Lang().content,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () =>
-                                newContentAccountController.clear(),
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ),
-                      ),
+                width: 1000,
+                child: TextField(
+                  maxLines: null,
+                  controller: newContentAccountController,
+                  decoration: InputDecoration(
+                    hintText: Lang().content,
+                    suffixIcon: IconButton(
+                      iconSize: 20,
+                      onPressed: () => newContentAccountController.clear(),
+                      icon: const Icon(Icons.clear),
                     ),
-                  ],
+                  ),
                 ),
               ),
               actions: [
@@ -544,6 +536,7 @@ class TopTitleState extends State<TopTitle> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

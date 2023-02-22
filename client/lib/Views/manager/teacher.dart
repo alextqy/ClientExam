@@ -239,6 +239,7 @@ class TeacherState extends State<Teacher> {
                 child: Column(
                   children: [
                     TextField(
+                      maxLines: 1,
                       controller: updateNameController,
                       decoration: InputDecoration(
                         hintText: Lang().name,
@@ -250,6 +251,7 @@ class TeacherState extends State<Teacher> {
                       ),
                     ),
                     TextField(
+                      maxLines: 1,
                       controller: updatePassworController,
                       obscureText: true,
                       decoration: InputDecoration(
@@ -399,6 +401,7 @@ class TeacherState extends State<Teacher> {
                   children: [
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newAccountController,
                         decoration: InputDecoration(
                           hintText: Lang().account,
@@ -412,6 +415,7 @@ class TeacherState extends State<Teacher> {
                     ),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newPasswordController,
                         obscureText: true,
                         decoration: InputDecoration(
@@ -426,6 +430,7 @@ class TeacherState extends State<Teacher> {
                     ),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newNameController,
                         decoration: InputDecoration(
                           hintText: Lang().name,
@@ -773,6 +778,7 @@ class TeacherState extends State<Teacher> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

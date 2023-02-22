@@ -432,6 +432,7 @@ class ExamInfoState extends State<ExamInfo> {
                   children: [
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newExamNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examNumber,
@@ -456,6 +457,7 @@ class ExamInfoState extends State<ExamInfo> {
                     ),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newExamineeNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examineeNo,
@@ -1290,6 +1292,7 @@ class ExamInfoState extends State<ExamInfo> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

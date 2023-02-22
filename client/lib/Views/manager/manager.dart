@@ -204,6 +204,7 @@ class ManagerState extends State<Manager> {
               content: SizedBox(
                 width: 100,
                 child: TextField(
+                  maxLines: 1,
                   controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().name,
@@ -263,6 +264,7 @@ class ManagerState extends State<Manager> {
                   children: [
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newAccountController,
                         decoration: InputDecoration(
                           hintText: Lang().account,
@@ -276,6 +278,7 @@ class ManagerState extends State<Manager> {
                     ),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newPasswordController,
                         obscureText: true,
                         decoration: InputDecoration(
@@ -290,6 +293,7 @@ class ManagerState extends State<Manager> {
                     ),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newNameController,
                         decoration: InputDecoration(
                           hintText: Lang().name,
@@ -352,6 +356,7 @@ class ManagerState extends State<Manager> {
               content: SizedBox(
                 width: 100,
                 child: TextField(
+                  maxLines: 1,
                   controller: changePasswordController,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -679,6 +684,7 @@ class ManagerState extends State<Manager> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

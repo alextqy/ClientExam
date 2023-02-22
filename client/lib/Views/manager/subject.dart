@@ -200,6 +200,7 @@ class SubjectState extends State<Subject> {
               content: SizedBox(
                 width: 100,
                 child: TextField(
+                  maxLines: 1,
                   controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().subjectName,
@@ -256,6 +257,7 @@ class SubjectState extends State<Subject> {
                   children: [
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newNameController,
                         decoration: InputDecoration(
                           hintText: Lang().subjectName,
@@ -586,6 +588,7 @@ class SubjectState extends State<Subject> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

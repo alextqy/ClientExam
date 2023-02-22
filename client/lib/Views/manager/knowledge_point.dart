@@ -237,6 +237,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
               content: SizedBox(
                 width: 100,
                 child: TextField(
+                  maxLines: 1,
                   controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().knowledgePointName,
@@ -295,6 +296,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                   children: [
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newKnowledgeNameController,
                         decoration: InputDecoration(
                           hintText: Lang().knowledgePointName,
@@ -694,6 +696,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

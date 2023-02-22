@@ -244,6 +244,7 @@ class ExamineeState extends State<Examinee> {
                 child: Column(
                   children: [
                     TextField(
+                      maxLines: 1,
                       controller: updateNameController,
                       decoration: InputDecoration(
                         hintText: Lang().name,
@@ -255,6 +256,7 @@ class ExamineeState extends State<Examinee> {
                       ),
                     ),
                     TextField(
+                      maxLines: 1,
                       controller: updateContactController,
                       decoration: InputDecoration(
                         hintText: Lang().contact,
@@ -383,6 +385,7 @@ class ExamineeState extends State<Examinee> {
                   children: [
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newNameController,
                         decoration: InputDecoration(
                           hintText: Lang().name,
@@ -396,6 +399,7 @@ class ExamineeState extends State<Examinee> {
                     ),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newExamineeNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examineeNo,
@@ -409,6 +413,7 @@ class ExamineeState extends State<Examinee> {
                     ),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newContactController,
                         decoration: InputDecoration(
                           hintText: Lang().contact,
@@ -764,6 +769,7 @@ class ExamineeState extends State<Examinee> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

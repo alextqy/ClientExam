@@ -219,6 +219,7 @@ class ClassState extends State<Class> {
                 child: Column(
                   children: [
                     TextField(
+                      maxLines: 1,
                       controller: updateClassNameController,
                       decoration: InputDecoration(
                         hintText: Lang().className,
@@ -230,6 +231,7 @@ class ClassState extends State<Class> {
                       ),
                     ),
                     TextField(
+                      maxLines: 1,
                       controller: updateDescriptionController,
                       decoration: InputDecoration(
                         hintText: Lang().description,
@@ -380,6 +382,7 @@ class ClassState extends State<Class> {
                   children: [
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newClassNameController,
                         decoration: InputDecoration(
                           hintText: Lang().className,
@@ -393,6 +396,7 @@ class ClassState extends State<Class> {
                     ),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newDescriptionController,
                         decoration: InputDecoration(
                           hintText: Lang().description,
@@ -674,6 +678,7 @@ class ClassState extends State<Class> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

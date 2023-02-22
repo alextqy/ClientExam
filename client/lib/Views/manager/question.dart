@@ -280,15 +280,13 @@ class QuestionState extends State<Question> {
   // 新建
   void addAlertDialog(BuildContext context) {
     TextEditingController newQuestionTitleController = TextEditingController();
-    TextEditingController newDescription = TextEditingController();
-    TextEditingController newLanguage = TextEditingController();
+    TextEditingController newDescriptionController = TextEditingController();
     TextEditingController newLanguageVersion = TextEditingController();
+    String newLanguageMemo = languageList.first;
     String newQuestionTypeMemo = questionTypeList.first;
     String newKnowledgeMemo = Lang().notSelected;
     int newQuestionType = 0;
     int newKnowledgeID = 0;
-    String languageMemo = languageList.first;
-    newDescription.clear();
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -298,12 +296,12 @@ class QuestionState extends State<Question> {
             return AlertDialog(
               title: Text(Lang().title),
               content: SizedBox(
-                width: 100,
-                height: 350,
+                width: 1000,
                 child: Column(
                   children: [
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newQuestionTitleController,
                         decoration: InputDecoration(
                           hintText: Lang().questionTitle,
@@ -315,16 +313,19 @@ class QuestionState extends State<Question> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      child: TextField(
-                        maxLines: null,
-                        controller: newDescription,
-                        decoration: InputDecoration(
-                          hintText: Lang().description,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () => newDescription.clear(),
-                            icon: const Icon(Icons.clear),
+                    Expanded(
+                      child: SizedBox(
+                        child: TextField(
+                          maxLines: null,
+                          minLines: 10,
+                          controller: newDescriptionController,
+                          decoration: InputDecoration(
+                            hintText: Lang().description,
+                            suffixIcon: IconButton(
+                              iconSize: 20,
+                              onPressed: () => newDescriptionController.clear(),
+                              icon: const Icon(Icons.clear),
+                            ),
                           ),
                         ),
                       ),
@@ -425,7 +426,7 @@ class QuestionState extends State<Question> {
                       child: Row(
                         children: [
                           DropdownButton<String>(
-                            value: languageMemo,
+                            value: newLanguageMemo,
                             icon: const Icon(Icons.arrow_drop_down),
                             style: const TextStyle(color: Colors.black),
                             // elevation: 16,
@@ -435,9 +436,8 @@ class QuestionState extends State<Question> {
                             ),
                             onChanged: (String? value) {
                               state(() {
-                                if (languageMemo != value!) {
-                                  languageMemo = value;
-                                  print(languageMemo);
+                                if (newLanguageMemo != value!) {
+                                  newLanguageMemo = value;
                                 }
                               });
                             },
@@ -455,6 +455,7 @@ class QuestionState extends State<Question> {
                     const SizedBox(height: 10),
                     SizedBox(
                       child: TextField(
+                        maxLines: 1,
                         controller: newLanguageVersion,
                         decoration: InputDecoration(
                           hintText: Lang().languageVersion,
@@ -472,10 +473,13 @@ class QuestionState extends State<Question> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    print('fuck');
-                    questionType = 0;
-                    languageMemo = languageList.first;
-                    newKnowledgeMemo = Lang().notSelected;
+                    print('================');
+                    print('title ' + newQuestionTitleController.text);
+                    print('description ' + newDescriptionController.text);
+                    print('Version ' + newLanguageVersion.text);
+                    print('Language ' + newLanguageMemo);
+                    print('Type ' + newQuestionType.toString());
+                    print('Knowledge ' + newKnowledgeID.toString());
                     /*
                     if (newAccountController.text.isNotEmpty &&
                         newPasswordController.text.isNotEmpty &&
@@ -943,6 +947,7 @@ class QuestionState extends State<Question> {
                     SizedBox(
                       width: 65,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(7),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
