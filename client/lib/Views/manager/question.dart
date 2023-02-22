@@ -317,7 +317,7 @@ class QuestionState extends State<Question> {
                       child: SizedBox(
                         child: TextField(
                           maxLines: null,
-                          minLines: 10,
+                          minLines: 20,
                           controller: newDescriptionController,
                           decoration: InputDecoration(
                             hintText: Lang().description,
@@ -388,34 +388,29 @@ class QuestionState extends State<Question> {
                       message: Lang().knowledgePoints,
                       child: Row(
                         children: [
-                          Tooltip(
-                            message: Lang().knowledgePoints,
-                            child: SizedBox(
-                              child: DropdownButton<KnowledgeModel>(
-                                hint: Text(
-                                  newKnowledgeMemo,
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                                icon: const Icon(Icons.arrow_drop_down),
-                                style: const TextStyle(color: Colors.black),
-                                // elevation: 16,
-                                underline: Container(
-                                  height: 0,
-                                  // color: Colors.deepPurpleAccent,
-                                ),
-                                onChanged: (KnowledgeModel? value) {
-                                  state(() {
-                                    if (value!.id > 0) {
-                                      newKnowledgeMemo = value.knowledgeName;
-                                      newKnowledgeID = value.id;
-                                      page = 1;
-                                      fetchData();
-                                    }
-                                  });
-                                },
-                                items: knowledgeDropdownMenuItemList(),
-                              ),
+                          DropdownButton<KnowledgeModel>(
+                            hint: Text(
+                              newKnowledgeMemo,
+                              style: const TextStyle(color: Colors.black),
                             ),
+                            icon: const Icon(Icons.arrow_drop_down),
+                            style: const TextStyle(color: Colors.black),
+                            // elevation: 16,
+                            underline: Container(
+                              height: 0,
+                              // color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (KnowledgeModel? value) {
+                              state(() {
+                                if (value!.id > 0) {
+                                  newKnowledgeMemo = value.knowledgeName;
+                                  newKnowledgeID = value.id;
+                                  page = 1;
+                                  fetchData();
+                                }
+                              });
+                            },
+                            items: knowledgeDropdownMenuItemList(),
                           ),
                         ],
                       ),
