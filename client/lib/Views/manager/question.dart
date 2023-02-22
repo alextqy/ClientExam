@@ -287,6 +287,7 @@ class QuestionState extends State<Question> {
     String newKnowledgeMemo = Lang().notSelected;
     int newQuestionType = 0;
     int newKnowledgeID = 0;
+    bool showLanguageItem = false;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -369,6 +370,11 @@ class QuestionState extends State<Question> {
                                   } else {
                                     newQuestionType = 0;
                                   }
+                                  if (newQuestionType == 6) {
+                                    showLanguageItem = true;
+                                  } else {
+                                    showLanguageItem = false;
+                                  }
                                 }
                               });
                             },
@@ -416,48 +422,54 @@ class QuestionState extends State<Question> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Tooltip(
-                      message: Lang().language,
-                      child: Row(
-                        children: [
-                          DropdownButton<String>(
-                            value: newLanguageMemo,
-                            icon: const Icon(Icons.arrow_drop_down),
-                            style: const TextStyle(color: Colors.black),
-                            // elevation: 16,
-                            underline: Container(
-                              height: 0,
-                              // color: Colors.deepPurpleAccent,
+                    Visibility(
+                      visible: showLanguageItem,
+                      child: Tooltip(
+                        message: Lang().language,
+                        child: Row(
+                          children: [
+                            DropdownButton<String>(
+                              value: newLanguageMemo,
+                              icon: const Icon(Icons.arrow_drop_down),
+                              style: const TextStyle(color: Colors.black),
+                              // elevation: 16,
+                              underline: Container(
+                                height: 0,
+                                // color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String? value) {
+                                state(() {
+                                  if (newLanguageMemo != value!) {
+                                    newLanguageMemo = value;
+                                  }
+                                });
+                              },
+                              items: languageList.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
                             ),
-                            onChanged: (String? value) {
-                              state(() {
-                                if (newLanguageMemo != value!) {
-                                  newLanguageMemo = value;
-                                }
-                              });
-                            },
-                            items: languageList
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    SizedBox(
-                      child: TextField(
-                        maxLines: 1,
-                        controller: newLanguageVersion,
-                        decoration: InputDecoration(
-                          hintText: Lang().languageVersion,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () => newLanguageVersion.clear(),
-                            icon: const Icon(Icons.clear),
+                    Visibility(
+                      visible: showLanguageItem,
+                      child: SizedBox(
+                        child: TextField(
+                          maxLines: 1,
+                          controller: newLanguageVersion,
+                          decoration: InputDecoration(
+                            hintText: Lang().languageVersion,
+                            suffixIcon: IconButton(
+                              iconSize: 20,
+                              onPressed: () => newLanguageVersion.clear(),
+                              icon: const Icon(Icons.clear),
+                            ),
                           ),
                         ),
                       ),
