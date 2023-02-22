@@ -316,8 +316,8 @@ class QuestionState extends State<Question> {
                     Expanded(
                       child: SizedBox(
                         child: TextField(
-                          maxLines: null,
                           minLines: 20,
+                          maxLines: null,
                           controller: newDescriptionController,
                           decoration: InputDecoration(
                             hintText: Lang().description,
