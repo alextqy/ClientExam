@@ -36,7 +36,6 @@ class ExamInfoState extends State<ExamInfo> {
   int showSelected = 0;
   List<bool> selected = [];
   int subjectID = 0;
-  String subjectSelectedName = Lang().notSelected;
 
   int page = 1;
   int pageSize = perPageDropList.first;
@@ -412,12 +411,12 @@ class ExamInfoState extends State<ExamInfo> {
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    examNoController.clear();
-    examineeNoController.clear();
-    examType = 0;
-    examTypeMemo = Lang().notSelected;
-    subjectSelectedName = Lang().notSelected;
-    subjectID = 0;
+    String subjectSelectedName = Lang().notSelected;
+    String newExamTypeMemo = Lang().notSelected;
+    TextEditingController newExamNoController = TextEditingController();
+    TextEditingController newExamineeNoController = TextEditingController();
+    int newExamType = 0;
+    int newSubjectID = 0;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -433,7 +432,7 @@ class ExamInfoState extends State<ExamInfo> {
                   children: [
                     SizedBox(
                       child: TextField(
-                        controller: examNoController,
+                        controller: newExamNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examNumber,
                           prefixIcon: Tooltip(
@@ -441,7 +440,7 @@ class ExamInfoState extends State<ExamInfo> {
                             child: IconButton(
                               iconSize: 20,
                               onPressed: () {
-                                examNoController.text = Tools()
+                                newExamNoController.text = Tools()
                                     .genMD5(Tools().timestamp().toString());
                               },
                               icon: const Icon(Icons.credit_card),
@@ -449,7 +448,7 @@ class ExamInfoState extends State<ExamInfo> {
                           ),
                           suffixIcon: IconButton(
                             iconSize: 20,
-                            onPressed: () => examNoController.clear(),
+                            onPressed: () => newExamNoController.clear(),
                             icon: const Icon(Icons.clear),
                           ),
                         ),
@@ -457,12 +456,12 @@ class ExamInfoState extends State<ExamInfo> {
                     ),
                     SizedBox(
                       child: TextField(
-                        controller: examineeNoController,
+                        controller: newExamineeNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examineeNo,
                           suffixIcon: IconButton(
                             iconSize: 20,
-                            onPressed: () => examineeNoController.clear(),
+                            onPressed: () => newExamineeNoController.clear(),
                             icon: const Icon(Icons.clear),
                           ),
                         ),
@@ -476,7 +475,7 @@ class ExamInfoState extends State<ExamInfo> {
                           SizedBox(
                             height: 45,
                             child: DropdownButton<String>(
-                              value: examTypeMemo,
+                              value: newExamTypeMemo,
                               icon: const Icon(Icons.arrow_drop_down),
                               style: const TextStyle(color: Colors.black),
                               // elevation: 16,
@@ -486,14 +485,14 @@ class ExamInfoState extends State<ExamInfo> {
                               ),
                               onChanged: (String? value) {
                                 state(() {
-                                  examTypeMemo = value!;
+                                  newExamTypeMemo = value!;
                                   if (value == Lang().officialExams) {
-                                    examType = 1;
+                                    newExamType = 1;
                                   } else if (value == Lang().dailyPractice) {
-                                    examType = 2;
+                                    newExamType = 2;
                                   } else {
-                                    examType = 0;
-                                    examTypeMemo = Lang().notSelected;
+                                    newExamType = 0;
+                                    newExamTypeMemo = Lang().notSelected;
                                   }
                                 });
                               },
@@ -532,7 +531,7 @@ class ExamInfoState extends State<ExamInfo> {
                                 state(() {
                                   if (value!.id > 0) {
                                     subjectSelectedName = value.subjectName;
-                                    subjectID = value.id;
+                                    newSubjectID = value.id;
                                   }
                                 });
                               },
@@ -548,21 +547,15 @@ class ExamInfoState extends State<ExamInfo> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (examNoController.text.isNotEmpty &&
-                        examType > 0 &&
-                        subjectID > 0) {
+                    if (newExamNoController.text.isNotEmpty &&
+                        newExamType > 0 &&
+                        newSubjectID > 0) {
                       examInfoNotifier.newExamInfo(
                         subjectName: subjectSelectedName,
-                        examNo: examNoController.text,
-                        examineeNo: examineeNoController.text,
-                        examType: examType,
+                        examNo: newExamNoController.text,
+                        examineeNo: newExamineeNoController.text,
+                        examType: newExamType,
                       );
-                      examNoController.clear();
-                      examineeNoController.clear();
-                      examTypeMemo = Lang().notSelected;
-                      subjectSelectedName = Lang().notSelected;
-                      examType = 0;
-                      subjectID = 0;
                       page = 1;
                       fetchData();
                       Navigator.of(context).pop();

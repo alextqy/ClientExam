@@ -42,10 +42,6 @@ class ManagerState extends State<Manager> {
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController newAccountController = TextEditingController();
-  TextEditingController newPasswordController = TextEditingController();
-  TextEditingController newNameController = TextEditingController();
-  TextEditingController changePasswordController = TextEditingController();
 
   ManagerNotifier managerNotifier = ManagerNotifier();
 
@@ -195,8 +191,8 @@ class ManagerState extends State<Manager> {
     required String name,
     required int permission,
   }) {
-    nameController.clear();
-    nameController.text = name;
+    TextEditingController updateNameController = TextEditingController();
+    updateNameController.text = name;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -208,12 +204,12 @@ class ManagerState extends State<Manager> {
               content: SizedBox(
                 width: 100,
                 child: TextField(
-                  controller: nameController,
+                  controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().name,
                     suffixIcon: IconButton(
                       iconSize: 20,
-                      onPressed: () => nameController.clear(),
+                      onPressed: () => updateNameController.clear(),
                       icon: const Icon(Icons.clear),
                     ),
                   ),
@@ -222,10 +218,10 @@ class ManagerState extends State<Manager> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (nameController.text.isNotEmpty) {
+                    if (updateNameController.text.isNotEmpty) {
                       managerNotifier.updateManagerInfo(
                         id: id,
-                        name: nameController.text,
+                        name: updateNameController.text,
                         permission: permission,
                       );
                       Navigator.of(context).pop();
@@ -249,9 +245,9 @@ class ManagerState extends State<Manager> {
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    newAccountController.clear();
-    newPasswordController.clear();
-    newNameController.clear();
+    TextEditingController newNameController = TextEditingController();
+    TextEditingController newAccountController = TextEditingController();
+    TextEditingController newPasswordController = TextEditingController();
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -344,7 +340,7 @@ class ManagerState extends State<Manager> {
     BuildContext context, {
     required int id,
   }) {
-    changePasswordController.clear();
+    TextEditingController changePasswordController = TextEditingController();
     showDialog(
       context: context,
       barrierDismissible: true,

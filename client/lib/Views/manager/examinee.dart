@@ -46,9 +46,6 @@ class ExamineeState extends State<Examinee> {
       TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController contactController = TextEditingController();
-  TextEditingController newNameController = TextEditingController();
-  TextEditingController newContactController = TextEditingController();
-  TextEditingController newExamineeNoController = TextEditingController();
 
   ExamineeNotifier examineeNotifier = ExamineeNotifier();
   ClassNotifier classNotifier = ClassNotifier();
@@ -229,10 +226,10 @@ class ExamineeState extends State<Examinee> {
     required String contact,
     required int classID,
   }) {
-    nameController.clear();
-    contactController.clear();
-    nameController.text = name;
-    contactController.text = contact;
+    TextEditingController updateNameController = TextEditingController();
+    TextEditingController updateContactController = TextEditingController();
+    updateNameController.text = name;
+    updateContactController.text = contact;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -247,23 +244,23 @@ class ExamineeState extends State<Examinee> {
                 child: Column(
                   children: [
                     TextField(
-                      controller: nameController,
+                      controller: updateNameController,
                       decoration: InputDecoration(
                         hintText: Lang().name,
                         suffixIcon: IconButton(
                           iconSize: 20,
-                          onPressed: () => nameController.clear(),
+                          onPressed: () => updateNameController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
                     ),
                     TextField(
-                      controller: contactController,
+                      controller: updateContactController,
                       decoration: InputDecoration(
                         hintText: Lang().contact,
                         suffixIcon: IconButton(
                           iconSize: 20,
-                          onPressed: () => contactController.clear(),
+                          onPressed: () => updateContactController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
@@ -274,11 +271,11 @@ class ExamineeState extends State<Examinee> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (nameController.text.isNotEmpty && classID > 0) {
+                    if (updateNameController.text.isNotEmpty && classID > 0) {
                       examineeNotifier.updateExaminee(
                         id: id,
-                        name: nameController.text,
-                        contact: contactController.text,
+                        name: updateNameController.text,
+                        contact: updateContactController.text,
                         classID: classID,
                       );
                       Navigator.of(context).pop();
@@ -366,9 +363,11 @@ class ExamineeState extends State<Examinee> {
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    newExamineeNoController.clear();
-    newNameController.clear();
-    newContactController.clear();
+    int newClassID = 0;
+    String newClassSelectedName = Lang().notSelected;
+    TextEditingController newNameController = TextEditingController();
+    TextEditingController newContactController = TextEditingController();
+    TextEditingController newExamineeNoController = TextEditingController();
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -430,7 +429,7 @@ class ExamineeState extends State<Examinee> {
                             height: 45,
                             child: DropdownButton(
                               hint: Text(
-                                classSelectedName,
+                                newClassSelectedName,
                                 style: const TextStyle(color: Colors.black),
                               ),
                               icon: const Icon(Icons.arrow_drop_down),
@@ -443,8 +442,8 @@ class ExamineeState extends State<Examinee> {
                               onChanged: (ClassModel? value) {
                                 state(() {
                                   if (value!.id > 0) {
-                                    classSelectedName = value.className;
-                                    classID = value.id;
+                                    newClassSelectedName = value.className;
+                                    newClassID = value.id;
                                   }
                                 });
                               },
@@ -462,17 +461,14 @@ class ExamineeState extends State<Examinee> {
                   onPressed: () {
                     if (newExamineeNoController.text.isNotEmpty &&
                         newNameController.text.isNotEmpty &&
-                        classID > 0) {
+                        newClassID > 0) {
                       examineeNotifier.newExaminee(
                         examineeNo: newExamineeNoController.text,
                         name: newNameController.text,
-                        classID: classID,
+                        classID: newClassID,
                         contact: newContactController.text,
                       );
-                      state(() {
-                        classSelectedName = Lang().notSelected;
-                        classID = 0;
-                      });
+                      state(() {});
                       page = 1;
                       fetchData();
                       Navigator.of(context).pop();

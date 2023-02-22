@@ -40,7 +40,6 @@ class TopTitleState extends State<TopTitle> {
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController contentController = TextEditingController();
-  TextEditingController newContentAccountController = TextEditingController();
 
   HeadlineNotifier headlineNotifier = HeadlineNotifier();
 
@@ -193,8 +192,8 @@ class TopTitleState extends State<TopTitle> {
     required int id,
     required String content,
   }) {
-    contentController.clear();
-    contentController.text = content;
+    TextEditingController updateContentController = TextEditingController();
+    updateContentController.text = content;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -208,12 +207,12 @@ class TopTitleState extends State<TopTitle> {
                 child: TextField(
                   maxLines: 30,
                   minLines: 1,
-                  controller: contentController,
+                  controller: updateContentController,
                   decoration: InputDecoration(
                     hintText: Lang().content,
                     suffixIcon: IconButton(
                       iconSize: 20,
-                      onPressed: () => contentController.clear(),
+                      onPressed: () => updateContentController.clear(),
                       icon: const Icon(Icons.clear),
                     ),
                   ),
@@ -222,10 +221,10 @@ class TopTitleState extends State<TopTitle> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (contentController.text.isNotEmpty) {
+                    if (updateContentController.text.isNotEmpty) {
                       headlineNotifier.updateHeadlineInfo(
                         id: id,
-                        content: contentController.text,
+                        content: updateContentController.text,
                       );
                       Navigator.of(context).pop();
                     }
@@ -248,7 +247,7 @@ class TopTitleState extends State<TopTitle> {
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    newContentAccountController.clear();
+    TextEditingController newContentAccountController = TextEditingController();
     showDialog(
       context: context,
       barrierDismissible: true,

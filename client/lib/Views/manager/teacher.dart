@@ -47,9 +47,6 @@ class TeacherState extends State<Teacher> {
       TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passworController = TextEditingController();
-  TextEditingController newAccountController = TextEditingController();
-  TextEditingController newPasswordController = TextEditingController();
-  TextEditingController newNameController = TextEditingController();
 
   TeacherNotifier teacherNotifier = TeacherNotifier();
   ClassNotifier classNotifier = ClassNotifier();
@@ -224,9 +221,10 @@ class TeacherState extends State<Teacher> {
     required String name,
     required String password,
   }) {
-    nameController.clear();
-    passworController.clear();
-    nameController.text = name;
+    TextEditingController updateNameController = TextEditingController();
+    TextEditingController updatePassworController = TextEditingController();
+    updateNameController.text = name;
+    updatePassworController.text = password;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -241,24 +239,24 @@ class TeacherState extends State<Teacher> {
                 child: Column(
                   children: [
                     TextField(
-                      controller: nameController,
+                      controller: updateNameController,
                       decoration: InputDecoration(
                         hintText: Lang().name,
                         suffixIcon: IconButton(
                           iconSize: 20,
-                          onPressed: () => nameController.clear(),
+                          onPressed: () => updateNameController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
                     ),
                     TextField(
-                      controller: passworController,
+                      controller: updatePassworController,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: Lang().password,
                         suffixIcon: IconButton(
                           iconSize: 20,
-                          onPressed: () => passworController.clear(),
+                          onPressed: () => updatePassworController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
@@ -271,8 +269,8 @@ class TeacherState extends State<Teacher> {
                   onPressed: () {
                     teacherNotifier.updateTeacherInfo(
                       id: id,
-                      name: nameController.text,
-                      password: password,
+                      name: updateNameController.text,
+                      password: updatePassworController.text,
                     );
                     Navigator.of(context).pop();
                   },
@@ -383,9 +381,9 @@ class TeacherState extends State<Teacher> {
   }
 
   void addAlertDialog(BuildContext context) {
-    newAccountController.clear();
-    newPasswordController.clear();
-    newNameController.clear();
+    TextEditingController newAccountController = TextEditingController();
+    TextEditingController newPasswordController = TextEditingController();
+    TextEditingController newNameController = TextEditingController();
     showDialog(
       context: context,
       barrierDismissible: true,

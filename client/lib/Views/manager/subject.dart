@@ -42,7 +42,6 @@ class SubjectState extends State<Subject> {
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController newNameController = TextEditingController();
 
   SubjectNotifier subjectNotifier = SubjectNotifier();
 
@@ -188,8 +187,8 @@ class SubjectState extends State<Subject> {
     required int id,
     required String name,
   }) {
-    nameController.clear();
-    nameController.text = name;
+    TextEditingController updateNameController = TextEditingController();
+    updateNameController.text = name;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -201,12 +200,12 @@ class SubjectState extends State<Subject> {
               content: SizedBox(
                 width: 100,
                 child: TextField(
-                  controller: nameController,
+                  controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().subjectName,
                     suffixIcon: IconButton(
                       iconSize: 20,
-                      onPressed: () => nameController.clear(),
+                      onPressed: () => updateNameController.clear(),
                       icon: const Icon(Icons.clear),
                     ),
                   ),
@@ -215,10 +214,10 @@ class SubjectState extends State<Subject> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (nameController.text.isNotEmpty) {
+                    if (updateNameController.text.isNotEmpty) {
                       subjectNotifier.updateSubjectInfo(
                         id: id,
-                        subjectName: nameController.text,
+                        subjectName: updateNameController.text,
                       );
                       Navigator.of(context).pop();
                     }
@@ -241,7 +240,7 @@ class SubjectState extends State<Subject> {
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    newNameController.clear();
+    TextEditingController newNameController = TextEditingController();
     showDialog(
       context: context,
       barrierDismissible: true,

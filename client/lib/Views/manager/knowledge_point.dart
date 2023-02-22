@@ -46,7 +46,6 @@ class KnowledgePointState extends State<KnowledgePoint> {
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController newKnowledgeNameController = TextEditingController();
 
   KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
   SubjectNotifier subjectNotifier = SubjectNotifier();
@@ -225,8 +224,8 @@ class KnowledgePointState extends State<KnowledgePoint> {
     required int id,
     required String name,
   }) {
-    nameController.clear();
-    nameController.text = name;
+    TextEditingController updateNameController = TextEditingController();
+    updateNameController.text = name;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -238,12 +237,12 @@ class KnowledgePointState extends State<KnowledgePoint> {
               content: SizedBox(
                 width: 100,
                 child: TextField(
-                  controller: nameController,
+                  controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().knowledgePointName,
                     suffixIcon: IconButton(
                       iconSize: 20,
-                      onPressed: () => nameController.clear(),
+                      onPressed: () => updateNameController.clear(),
                       icon: const Icon(Icons.clear),
                     ),
                   ),
@@ -252,10 +251,10 @@ class KnowledgePointState extends State<KnowledgePoint> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (nameController.text.isNotEmpty) {
+                    if (updateNameController.text.isNotEmpty) {
                       knowledgeNotifier.updateKnowledgeInfo(
                         id: id,
-                        knowledgeName: nameController.text,
+                        knowledgeName: updateNameController.text,
                       );
                       Navigator.of(context).pop();
                     }
@@ -278,9 +277,9 @@ class KnowledgePointState extends State<KnowledgePoint> {
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    newKnowledgeNameController.clear();
-    subjectSelectedName = Lang().notSelected;
-    subjectID = 0;
+    TextEditingController newKnowledgeNameController = TextEditingController();
+    String newSubjectSelectedName = Lang().notSelected;
+    int newSubjectID = 0;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -316,7 +315,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                             height: 45,
                             child: DropdownButton<SubjectModel>(
                               hint: Text(
-                                subjectSelectedName,
+                                newSubjectSelectedName,
                                 style: const TextStyle(color: Colors.black),
                               ),
                               icon: const Icon(Icons.arrow_drop_down),
@@ -329,8 +328,8 @@ class KnowledgePointState extends State<KnowledgePoint> {
                               onChanged: (SubjectModel? value) {
                                 state(() {
                                   if (value!.id > 0) {
-                                    subjectSelectedName = value.subjectName;
-                                    subjectID = value.id;
+                                    newSubjectSelectedName = value.subjectName;
+                                    newSubjectID = value.id;
                                   }
                                 });
                               },
@@ -347,13 +346,11 @@ class KnowledgePointState extends State<KnowledgePoint> {
                 TextButton(
                   onPressed: () {
                     if (newKnowledgeNameController.text.isNotEmpty &&
-                        subjectID > 0) {
+                        newSubjectID > 0) {
                       knowledgeNotifier.newKnowledge(
                         knowledgeName: newKnowledgeNameController.text,
-                        subjectID: subjectID,
+                        subjectID: newSubjectID,
                       );
-                      subjectSelectedName = Lang().notSelected;
-                      subjectID = 0;
                       page = 1;
                       fetchData();
                       Navigator.of(context).pop();

@@ -46,8 +46,6 @@ class ClassState extends State<Class> {
       TextEditingController();
   TextEditingController classNameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  TextEditingController newClassNameController = TextEditingController();
-  TextEditingController newDescriptionController = TextEditingController();
 
   ClassNotifier classNotifier = ClassNotifier();
   TeacherNotifier teacherNotifier = TeacherNotifier();
@@ -203,10 +201,10 @@ class ClassState extends State<Class> {
     required String className,
     required String description,
   }) {
-    classNameController.clear();
-    descriptionController.clear();
-    classNameController.text = className;
-    descriptionController.text = description;
+    TextEditingController updateClassNameController = TextEditingController();
+    TextEditingController updateDescriptionController = TextEditingController();
+    updateClassNameController.text = className;
+    updateDescriptionController.text = description;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -221,23 +219,23 @@ class ClassState extends State<Class> {
                 child: Column(
                   children: [
                     TextField(
-                      controller: classNameController,
+                      controller: updateClassNameController,
                       decoration: InputDecoration(
                         hintText: Lang().className,
                         suffixIcon: IconButton(
                           iconSize: 20,
-                          onPressed: () => classNameController.clear(),
+                          onPressed: () => updateClassNameController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
                     ),
                     TextField(
-                      controller: descriptionController,
+                      controller: updateDescriptionController,
                       decoration: InputDecoration(
                         hintText: Lang().description,
                         suffixIcon: IconButton(
                           iconSize: 20,
-                          onPressed: () => descriptionController.clear(),
+                          onPressed: () => updateDescriptionController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
@@ -248,11 +246,11 @@ class ClassState extends State<Class> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (classNameController.text.isNotEmpty) {
+                    if (updateClassNameController.text.isNotEmpty) {
                       classNotifier.updateClassInfo(
                         id: id,
-                        className: classNameController.text,
-                        description: descriptionController.text,
+                        className: updateClassNameController.text,
+                        description: updateDescriptionController.text,
                       );
                       Navigator.of(context).pop();
                     }
@@ -365,8 +363,8 @@ class ClassState extends State<Class> {
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    newClassNameController.clear();
-    newDescriptionController.clear();
+    TextEditingController newClassNameController = TextEditingController();
+    TextEditingController newDescriptionController = TextEditingController();
     showDialog(
       context: context,
       barrierDismissible: true,
