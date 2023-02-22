@@ -4,7 +4,7 @@ List<int> perPageDropList = <int>[10, 50, 100];
 List<String> stateDropList = <String>[
   Lang().all,
   Lang().normal,
-  Lang().disable
+  Lang().disable,
 ];
 
 List<String> examStatusList = <String>[
@@ -49,4 +49,13 @@ List<String> questionTypeList = <String>[
   Lang().codeTesting,
   Lang().drag,
   Lang().connection,
+];
+
+List<String> languageList = <String>[
+  Lang().notSelected,
+  'php',
+  'javascript',
+  'python',
+  'java',
+  'c',
 ];

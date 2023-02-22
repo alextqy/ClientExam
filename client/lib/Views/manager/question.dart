@@ -41,15 +41,14 @@ class QuestionState extends State<Question> {
   int questionState = 0;
   int knowledgeID = 0;
 
-  String questionTypeMemo = questionTypeList.first;
   String stateMemo = stateDropList.first;
+  String questionTypeMemo = questionTypeList.first;
   String knowledgeMemo = Lang().notSelected;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
   TextEditingController questionTitleController = TextEditingController();
-  TextEditingController newQuestionTitleController = TextEditingController();
 
   QuestionNotifier questionNotifier = QuestionNotifier();
   KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
@@ -276,6 +275,236 @@ class QuestionState extends State<Question> {
     } else {
       return '';
     }
+  }
+
+  // 新建
+  void addAlertDialog(BuildContext context) {
+    TextEditingController newQuestionTitleController = TextEditingController();
+    TextEditingController newDescription = TextEditingController();
+    TextEditingController newLanguage = TextEditingController();
+    TextEditingController newLanguageVersion = TextEditingController();
+    String newQuestionTypeMemo = questionTypeList.first;
+    String newKnowledgeMemo = Lang().notSelected;
+    int newQuestionType = 0;
+    int newKnowledgeID = 0;
+    String languageMemo = languageList.first;
+    newDescription.clear();
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 350,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        controller: newQuestionTitleController,
+                        decoration: InputDecoration(
+                          hintText: Lang().questionTitle,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newQuestionTitleController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: TextField(
+                        maxLines: null,
+                        controller: newDescription,
+                        decoration: InputDecoration(
+                          hintText: Lang().description,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newDescription.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Tooltip(
+                      message: Lang().questionType,
+                      child: Row(
+                        children: [
+                          DropdownButton<String>(
+                            value: newQuestionTypeMemo,
+                            icon: const Icon(Icons.arrow_drop_down),
+                            style: const TextStyle(color: Colors.black),
+                            // elevation: 16,
+                            underline: Container(
+                              height: 0,
+                              // color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String? value) {
+                              state(() {
+                                if (newQuestionTypeMemo != value!) {
+                                  newQuestionTypeMemo = value;
+                                  if (value == Lang().multipleChoiceQuestions) {
+                                    newQuestionType = 1;
+                                  } else if (value ==
+                                      Lang().judgmentQuestions) {
+                                    newQuestionType = 2;
+                                  } else if (value ==
+                                      Lang().multipleSelection) {
+                                    newQuestionType = 3;
+                                  } else if (value == Lang().fillInTheBlanks) {
+                                    newQuestionType = 4;
+                                  } else if (value == Lang().quizQuestions) {
+                                    newQuestionType = 5;
+                                  } else if (value == Lang().codeTesting) {
+                                    newQuestionType = 6;
+                                  } else if (value == Lang().drag) {
+                                    newQuestionType = 7;
+                                  } else if (value == Lang().connection) {
+                                    newQuestionType = 8;
+                                  } else {
+                                    newQuestionType = 0;
+                                  }
+                                }
+                              });
+                            },
+                            items: questionTypeList
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Tooltip(
+                      message: Lang().knowledgePoints,
+                      child: Row(
+                        children: [
+                          Tooltip(
+                            message: Lang().knowledgePoints,
+                            child: SizedBox(
+                              child: DropdownButton<KnowledgeModel>(
+                                hint: Text(
+                                  newKnowledgeMemo,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                                icon: const Icon(Icons.arrow_drop_down),
+                                style: const TextStyle(color: Colors.black),
+                                // elevation: 16,
+                                underline: Container(
+                                  height: 0,
+                                  // color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (KnowledgeModel? value) {
+                                  state(() {
+                                    if (value!.id > 0) {
+                                      newKnowledgeMemo = value.knowledgeName;
+                                      newKnowledgeID = value.id;
+                                      page = 1;
+                                      fetchData();
+                                    }
+                                  });
+                                },
+                                items: knowledgeDropdownMenuItemList(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Tooltip(
+                      message: Lang().language,
+                      child: Row(
+                        children: [
+                          DropdownButton<String>(
+                            value: languageMemo,
+                            icon: const Icon(Icons.arrow_drop_down),
+                            style: const TextStyle(color: Colors.black),
+                            // elevation: 16,
+                            underline: Container(
+                              height: 0,
+                              // color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String? value) {
+                              state(() {
+                                if (languageMemo != value!) {
+                                  languageMemo = value;
+                                  print(languageMemo);
+                                }
+                              });
+                            },
+                            items: languageList
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      child: TextField(
+                        controller: newLanguageVersion,
+                        decoration: InputDecoration(
+                          hintText: Lang().languageVersion,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newLanguageVersion.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    print('fuck');
+                    questionType = 0;
+                    languageMemo = languageList.first;
+                    newKnowledgeMemo = Lang().notSelected;
+                    /*
+                    if (newAccountController.text.isNotEmpty &&
+                        newPasswordController.text.isNotEmpty &&
+                        newNameController.text.isNotEmpty) {
+                      managerNotifier.newManager(
+                        account: newAccountController.text,
+                        password: newPasswordController.text,
+                        name: newNameController.text,
+                      );
+                      page = 1;
+                      fetchData();
+                      Navigator.of(context).pop();
+                    }
+                    */
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   // 数据排序
@@ -509,8 +738,7 @@ class QuestionState extends State<Question> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.add),
-                      onPressed: () => print('fuck'),
-                      // onPressed: () => addAlertDialog(context),
+                      onPressed: () => addAlertDialog(context),
                     ),
                     // const SizedBox(width: 10),
                     // IconButton(
