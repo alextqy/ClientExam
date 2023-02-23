@@ -291,11 +291,14 @@ class QuestionState extends State<Question> {
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(width: 0.5),
                   ),
-                  child: Text(
-                    Lang().upload,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
+                  child: Tooltip(
+                    message: 'jpg / jpeg / png / gif',
+                    child: Text(
+                      Lang().upload,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   onPressed: () {
