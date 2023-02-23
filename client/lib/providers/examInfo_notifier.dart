@@ -207,6 +207,7 @@ class ExamInfoNotifier extends BaseNotifier {
       } else {
         result = await examInfoApi.importExamInfo(
           filePath: filePath,
+          contentType: fileType ?? '',
         );
         if (result.state == true) {
           operationStatus.value = OperationStatus.success;

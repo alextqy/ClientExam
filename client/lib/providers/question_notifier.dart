@@ -3,6 +3,8 @@
 import 'package:client/models/data.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
+import 'package:client/public/file.dart';
+import 'package:client/public/lang.dart';
 
 class QuestionNotifier extends BaseNotifier {
   void newQuestion({
@@ -41,17 +43,30 @@ class QuestionNotifier extends BaseNotifier {
     required int id,
     required String filePath,
   }) async {
+    DataModel result = DataModel();
     operationStatus.value = OperationStatus.loading;
     try {
-      DataModel result = await questionApi.questionAttachment(
-        id: id,
-        filePath: filePath,
-      );
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
+      var fileType = FileHelper().type(filePath);
+      if (fileType != 'image/jpeg' &&
+          fileType != 'image/png' &&
+          fileType != 'image/gif') {
         operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
+        operationMemo = Lang().wrongFileType;
+      } else if (FileHelper().size(filePath) > 1024 * 1024 * 0.5) {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = Lang().theFileIsTooLarge;
+      } else {
+        result = await questionApi.questionAttachment(
+          id: id,
+          filePath: filePath,
+          contentType: fileType ?? '',
+        );
+        if (result.state == true) {
+          operationStatus.value = OperationStatus.success;
+        } else {
+          operationStatus.value = OperationStatus.failure;
+          operationMemo = result.memo;
+        }
       }
     } catch (e) {
       operationStatus.value = OperationStatus.failure;

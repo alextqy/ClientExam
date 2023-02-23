@@ -152,13 +152,14 @@ class ExamInfoApi extends ResponseHelper {
   // multipart/form-data
   Future<DataModel> importExamInfo({
     String filePath = '',
+    String contentType = '',
   }) async {
     return upload(
       url: url,
       uri: '/Import/Exam/Info',
       filePath: filePath,
       excelFile: 'ExcelFile',
-      contentType: 'application/vnd.ms-excel',
+      contentType: contentType,
     );
   }
 
