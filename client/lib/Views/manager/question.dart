@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:client/providers/knowledge_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -149,13 +150,20 @@ class QuestionState extends State<Question> {
             // placeholder: true, // 内容浅色显示
             onTap: () {
               questionTitleController.clear();
-              // questionTitleAlertDialog(
-              //   context,
-              //   id: questionNotifier.questionListModel[index].id,
-              //   name: questionNotifier.questionListModel[index].name,
-              //   permission:
-              //       questionNotifier.questionListModel[index].permission,
-              // );
+              infoAlertDialog(
+                context,
+                id: questionNotifier.questionListModel[index].id,
+                questionTitle:
+                    questionNotifier.questionListModel[index].questionTitle,
+                questionType:
+                    questionNotifier.questionListModel[index].questionType,
+                description:
+                    questionNotifier.questionListModel[index].description,
+                language: questionNotifier.questionListModel[index].language,
+                languageVersion:
+                    questionNotifier.questionListModel[index].languageVersion,
+                itemType: 1,
+              );
             },
           ),
           DataCell(
@@ -172,16 +180,57 @@ class QuestionState extends State<Question> {
                     questionNotifier.questionListModel[index].questionType)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionNotifier.questionListModel[index].description),
+            SizedBox(
+              width: 150,
+              child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  questionNotifier.questionListModel[index].description),
+            ),
+            showEditIcon: true,
+            // placeholder: true, // 内容浅色显示
+            onTap: () {
+              questionTitleController.clear();
+              infoAlertDialog(
+                context,
+                id: questionNotifier.questionListModel[index].id,
+                questionTitle:
+                    questionNotifier.questionListModel[index].questionTitle,
+                questionType:
+                    questionNotifier.questionListModel[index].questionType,
+                description:
+                    questionNotifier.questionListModel[index].description,
+                language: questionNotifier.questionListModel[index].language,
+                languageVersion:
+                    questionNotifier.questionListModel[index].languageVersion,
+                itemType: 2,
+              );
+            },
           ),
           DataCell(
             Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 questionNotifier.questionListModel[index].language),
+            showEditIcon: true,
+            // placeholder: true, // 内容浅色显示
+            onTap: () {
+              questionTitleController.clear();
+              infoAlertDialog(
+                context,
+                id: questionNotifier.questionListModel[index].id,
+                questionTitle:
+                    questionNotifier.questionListModel[index].questionTitle,
+                questionType:
+                    questionNotifier.questionListModel[index].questionType,
+                description:
+                    questionNotifier.questionListModel[index].description,
+                language: questionNotifier.questionListModel[index].language,
+                languageVersion:
+                    questionNotifier.questionListModel[index].languageVersion,
+                itemType: 3,
+              );
+            },
           ),
           DataCell(
             Text(
@@ -277,11 +326,210 @@ class QuestionState extends State<Question> {
     }
   }
 
+  // 修改
+  void infoAlertDialog(
+    BuildContext context, {
+    required int id,
+    required String questionTitle,
+    required int questionType,
+    required String description,
+    required String language,
+    required String languageVersion,
+    required int itemType, // 1 QuestionTitle 2 Description 3 Language
+  }) {
+    TextEditingController updateQuestionTitleController =
+        TextEditingController();
+    TextEditingController updateDescriptionController = TextEditingController();
+    TextEditingController updateLanguageController = TextEditingController();
+    TextEditingController updateLanguageVersionController =
+        TextEditingController();
+    updateQuestionTitleController.text = questionTitle;
+    updateDescriptionController.text = description;
+    updateLanguageController.text = language;
+    updateLanguageVersionController.text = languageVersion;
+
+    String updateLanguageMemo = languageList.first;
+    bool showQuestionTitleItem = false;
+    bool showDescriptionItem = false;
+    bool showLanguageItem = false;
+    double width = 0;
+    double height = 0;
+
+    if (itemType == 1) {
+      width = 1000;
+      height = 100;
+      showQuestionTitleItem = true;
+    }
+    if (itemType == 2) {
+      width = 1000;
+      height = 500;
+      showDescriptionItem = true;
+    }
+    if (itemType == 3) {
+      width = 150;
+      height = 150;
+      showLanguageItem = true;
+      updateLanguageMemo = language;
+    }
+
+    if (itemType == 3 && questionType != 6) {
+      Toast().show(context, message: Lang().noData);
+    } else {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (BuildContext context, Function state) {
+              return AlertDialog(
+                title: Text(Lang().title),
+                content: SizedBox(
+                  width: width,
+                  height: height,
+                  child: Column(
+                    children: [
+                      Visibility(
+                        visible: showQuestionTitleItem,
+                        child: SizedBox(
+                          child: TextField(
+                            maxLines: 1,
+                            controller: updateQuestionTitleController,
+                            decoration: InputDecoration(
+                              hintText: Lang().questionTitle,
+                              suffixIcon: IconButton(
+                                iconSize: 20,
+                                onPressed: () =>
+                                    updateQuestionTitleController.clear(),
+                                icon: const Icon(Icons.clear),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: showDescriptionItem,
+                        child: Expanded(
+                          child: SizedBox(
+                            child: TextField(
+                              minLines: 30,
+                              maxLines: null,
+                              controller: updateDescriptionController,
+                              decoration: InputDecoration(
+                                hintText: Lang().description,
+                                suffixIcon: IconButton(
+                                  iconSize: 20,
+                                  onPressed: () =>
+                                      updateDescriptionController.clear(),
+                                  icon: const Icon(Icons.clear),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Visibility(
+                        visible: showLanguageItem,
+                        child: Tooltip(
+                          message: Lang().language,
+                          child: Row(
+                            children: [
+                              DropdownButton<String>(
+                                value: updateLanguageMemo,
+                                icon: const Icon(Icons.arrow_drop_down),
+                                style: const TextStyle(color: Colors.black),
+                                // elevation: 16,
+                                underline: Container(
+                                  height: 0,
+                                  // color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (String? value) {
+                                  state(() {
+                                    if (updateLanguageMemo != value!) {
+                                      updateLanguageMemo = value;
+                                    }
+                                  });
+                                },
+                                items: languageList
+                                    .map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Visibility(
+                        visible: showLanguageItem,
+                        child: SizedBox(
+                          child: TextField(
+                            maxLines: 1,
+                            controller: updateLanguageVersionController,
+                            decoration: InputDecoration(
+                              hintText: Lang().languageVersion,
+                              suffixIcon: IconButton(
+                                iconSize: 20,
+                                onPressed: () =>
+                                    updateLanguageVersionController.clear(),
+                                icon: const Icon(Icons.clear),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      String newLanguageParam =
+                          updateLanguageMemo != Lang().notSelected
+                              ? updateLanguageMemo
+                              : '';
+                      if (updateQuestionTitleController.text.isNotEmpty &&
+                          updateDescriptionController.text.isNotEmpty) {
+                        questionNotifier.updateQuestionInfo(
+                          id: id,
+                          questionTitle: updateQuestionTitleController.text,
+                          questionType: questionType,
+                          description: updateDescriptionController.text,
+                          language: newLanguageParam,
+                          languageVersion: updateLanguageVersionController.text,
+                        );
+                        page = 1;
+                        fetchData();
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: Text(Lang().confirm),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(Lang().cancel),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    }
+  }
+
   // 新建
   void addAlertDialog(BuildContext context) {
     TextEditingController newQuestionTitleController = TextEditingController();
     TextEditingController newDescriptionController = TextEditingController();
-    TextEditingController newLanguageVersion = TextEditingController();
+    TextEditingController newLanguageVersionController =
+        TextEditingController();
     String newLanguageMemo = languageList.first;
     String newQuestionTypeMemo = questionTypeList.first;
     String newKnowledgeMemo = Lang().notSelected;
@@ -462,12 +710,13 @@ class QuestionState extends State<Question> {
                       child: SizedBox(
                         child: TextField(
                           maxLines: 1,
-                          controller: newLanguageVersion,
+                          controller: newLanguageVersionController,
                           decoration: InputDecoration(
                             hintText: Lang().languageVersion,
                             suffixIcon: IconButton(
                               iconSize: 20,
-                              onPressed: () => newLanguageVersion.clear(),
+                              onPressed: () =>
+                                  newLanguageVersionController.clear(),
                               icon: const Icon(Icons.clear),
                             ),
                           ),
@@ -494,7 +743,7 @@ class QuestionState extends State<Question> {
                         knowledgeID: newKnowledgeID,
                         description: newDescriptionController.text,
                         language: newLanguageParam,
-                        languageVersion: newLanguageVersion.text,
+                        languageVersion: newLanguageVersionController.text,
                       );
                       page = 1;
                       fetchData();
