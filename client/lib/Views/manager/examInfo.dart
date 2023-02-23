@@ -1403,7 +1403,9 @@ class ExamInfoState extends State<ExamInfo> {
         Future<String?> filePath =
             FileHelper().checkFile(dirPath: './', type: []);
         filePath.then((value) {
-          examInfoNotifier.importExamInfo(filePath: value!);
+          if (value != null) {
+            examInfoNotifier.importExamInfo(filePath: value);
+          }
         });
       }
       if (value == 2) {
