@@ -317,7 +317,7 @@ class QuestionState extends State<Question> {
                     Expanded(
                       child: SizedBox(
                         child: TextField(
-                          minLines: 25,
+                          minLines: 30,
                           maxLines: null,
                           controller: newDescriptionController,
                           decoration: InputDecoration(
@@ -480,27 +480,26 @@ class QuestionState extends State<Question> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    print('================');
-                    print('title ' + newQuestionTitleController.text);
-                    print('description ' + newDescriptionController.text);
-                    print('Version ' + newLanguageVersion.text);
-                    print('Language ' + newLanguageMemo);
-                    print('Type ' + newQuestionType.toString());
-                    print('Knowledge ' + newKnowledgeID.toString());
-                    /*
-                    if (newAccountController.text.isNotEmpty &&
-                        newPasswordController.text.isNotEmpty &&
-                        newNameController.text.isNotEmpty) {
-                      managerNotifier.newManager(
-                        account: newAccountController.text,
-                        password: newPasswordController.text,
-                        name: newNameController.text,
+                    String newLanguageParam =
+                        newLanguageMemo != Lang().notSelected
+                            ? newLanguageMemo
+                            : '';
+                    if (newQuestionTitleController.text.isNotEmpty &&
+                        newDescriptionController.text.isNotEmpty &&
+                        newQuestionType > 0 &&
+                        newKnowledgeID > 0) {
+                      questionNotifier.newQuestion(
+                        questionTitle: newQuestionTitleController.text,
+                        questionType: newQuestionType,
+                        knowledgeID: newKnowledgeID,
+                        description: newDescriptionController.text,
+                        language: newLanguageParam,
+                        languageVersion: newLanguageVersion.text,
                       );
                       page = 1;
                       fetchData();
                       Navigator.of(context).pop();
                     }
-                    */
                   },
                   child: Text(Lang().confirm),
                 ),
