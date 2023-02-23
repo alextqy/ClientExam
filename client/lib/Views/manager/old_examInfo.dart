@@ -1,8 +1,6 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'package:client/providers/examInfo_history_notifier.dart';
-import 'package:client/providers/examinee_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,8 +11,9 @@ import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
 
-import 'package:client/providers/base_notifier.dart';
+// import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/examInfo_history_notifier.dart';
+import 'package:client/providers/examinee_notifier.dart';
 
 import 'package:client/models/examinfo_history_model.dart';
 import 'package:client/models/examinee_model.dart';

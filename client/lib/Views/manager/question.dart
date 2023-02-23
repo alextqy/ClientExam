@@ -1,8 +1,6 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'dart:io';
-import 'package:client/providers/knowledge_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +13,7 @@ import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/question_notifier.dart';
+import 'package:client/providers/knowledge_notifier.dart';
 
 import 'package:client/models/question_model.dart';
 import 'package:client/models/knowledge_model.dart';
@@ -267,10 +266,66 @@ class QuestionState extends State<Question> {
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionNotifier.questionListModel[index].attachment),
+            Row(
+              children: [
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(width: 0.5),
+                  ),
+                  child: Text(
+                    Lang().view,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      print(
+                          questionNotifier.questionListModel[index].attachment);
+                    });
+                  },
+                ),
+                const SizedBox(width: 10),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(width: 0.5),
+                  ),
+                  child: Text(
+                    Lang().upload,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      print(
+                          questionNotifier.questionListModel[index].attachment);
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+          DataCell(
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(width: 0.5),
+              ),
+              child: Text(
+                Lang().check,
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: Colors.black,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  print(questionNotifier.questionListModel[index].id);
+                });
+              },
+            ),
           ),
         ],
         selected: selected[index],
@@ -1173,6 +1228,19 @@ class QuestionState extends State<Question> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().attachmentFile,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              Lang().questionOptions,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),

@@ -109,6 +109,9 @@ class Lang {
 
   String questionTitle = '';
   String questionCode = '';
+  String language = '';
+  String languageVersion = '';
+  String attachmentFile = '';
   String questionType = '';
   String multipleChoiceQuestions = '';
   String judgmentQuestions = '';
@@ -118,9 +121,10 @@ class Lang {
   String codeTesting = '';
   String drag = '';
   String connection = '';
-  String language = '';
-  String languageVersion = '';
-  String attachmentFile = '';
+  String view = '';
+  String upload = '';
+  String questionOptions = '';
+  String check = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -242,6 +246,10 @@ class Lang {
       this.codeTesting = '代码测试';
       this.drag = '拖拽';
       this.connection = '连线';
+      this.view = '查看';
+      this.upload = '上传';
+      this.questionOptions = '试题选项';
+      this.check = '详情';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -361,6 +369,10 @@ class Lang {
       this.codeTesting = 'Code Testing';
       this.drag = 'Drag';
       this.connection = 'Connection';
+      this.view = 'View';
+      this.upload = 'Upload';
+      this.questionOptions = 'Question Options';
+      this.check = 'check';
     }
   }
 }
