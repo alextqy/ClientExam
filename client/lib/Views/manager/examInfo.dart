@@ -649,7 +649,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (examStatusMemo != value!) {
+                            if (value != null && examStatusMemo != value) {
                               examStatusMemo = value;
                               if (value == Lang().noAnswerCards) {
                                 examState = 1;
@@ -691,7 +691,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (examTypeMemo != value!) {
+                            if (value != null && examTypeMemo != value) {
                               examTypeMemo = value;
                               if (value == Lang().officialExams) {
                                 examType = 1;
@@ -729,7 +729,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (passMemo != value!) {
+                            if (value != null && passMemo != value) {
                               passMemo = value;
                               if (value == Lang().yes) {
                                 pass = 2;
@@ -767,7 +767,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (startStateMemo != value!) {
+                            if (value != null && startStateMemo != value) {
                               startStateMemo = value;
                               if (value == Lang().notStarted) {
                                 startState = 1;
@@ -805,7 +805,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (suspendedStateMemo != value!) {
+                            if (value != null && suspendedStateMemo != value) {
                               suspendedStateMemo = value;
                               if (value == Lang().no) {
                                 startState = 1;

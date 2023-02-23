@@ -466,7 +466,7 @@ class ManagerState extends State<Manager> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (stateMemo != value!) {
+                            if (value != null && stateMemo != value) {
                               stateMemo = value;
                               if (value == Lang().all) {
                                 state = 0;

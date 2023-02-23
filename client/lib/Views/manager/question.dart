@@ -500,7 +500,8 @@ class QuestionState extends State<Question> {
                                 ),
                                 onChanged: (String? value) {
                                   state(() {
-                                    if (updateLanguageMemo != value!) {
+                                    if (value != null &&
+                                        updateLanguageMemo != value) {
                                       updateLanguageMemo = value;
                                     }
                                   });
@@ -650,7 +651,8 @@ class QuestionState extends State<Question> {
                             ),
                             onChanged: (String? value) {
                               state(() {
-                                if (newQuestionTypeMemo != value!) {
+                                if (value != null &&
+                                    newQuestionTypeMemo != value) {
                                   newQuestionTypeMemo = value;
                                   if (value == Lang().multipleChoiceQuestions) {
                                     newQuestionType = 1;
@@ -742,7 +744,8 @@ class QuestionState extends State<Question> {
                               ),
                               onChanged: (String? value) {
                                 state(() {
-                                  if (newLanguageMemo != value!) {
+                                  if (value != null &&
+                                      newLanguageMemo != value) {
                                     newLanguageMemo = value;
                                   }
                                 });
@@ -921,7 +924,7 @@ class QuestionState extends State<Question> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (questionTypeMemo != value!) {
+                            if (value != null && questionTypeMemo != value) {
                               questionTypeMemo = value;
                               if (value == Lang().multipleChoiceQuestions) {
                                 questionType = 1;
@@ -970,7 +973,7 @@ class QuestionState extends State<Question> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (stateMemo != value!) {
+                            if (value != null && stateMemo != value) {
                               stateMemo = value;
                               if (value == Lang().all) {
                                 questionState = 0;

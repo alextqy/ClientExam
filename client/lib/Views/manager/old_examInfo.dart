@@ -412,7 +412,7 @@ class OldExamInfoState extends State<OldExamInfo> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (examStatusMemo != value!) {
+                            if (value != null && examStatusMemo != value) {
                               examStatusMemo = value;
                               if (value == Lang().noAnswerCards) {
                                 examState = 1;
@@ -454,7 +454,7 @@ class OldExamInfoState extends State<OldExamInfo> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (examTypeMemo != value!) {
+                            if (value != null && examTypeMemo != value) {
                               examTypeMemo = value;
                               if (value == Lang().officialExams) {
                                 examType = 1;
@@ -492,7 +492,7 @@ class OldExamInfoState extends State<OldExamInfo> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            if (passMemo != value!) {
+                            if (value != null && passMemo != value) {
                               passMemo = value;
                               if (value == Lang().yes) {
                                 pass = 2;
