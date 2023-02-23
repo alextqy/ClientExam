@@ -1389,7 +1389,10 @@ class ExamInfoState extends State<ExamInfo> {
 
     PopupMenuItem bulkImportItem = PopupMenuItem(
       value: 1,
-      child: Text(Lang().bulkImport),
+      child: Tooltip(
+        message: 'xls / xlsx',
+        child: Text(Lang().bulkImport),
+      ),
     );
     PopupMenuItem demoItem = const PopupMenuItem(
       value: 2,
