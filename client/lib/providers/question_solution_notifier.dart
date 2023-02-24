@@ -95,28 +95,14 @@ class QuestionSolutionNotifier extends BaseNotifier {
     );
   }
 
-  void questionSolutions({
+  Future<DataModel> questionSolutions({
     required int questionID,
-    required int position,
+    int position = 0,
   }) async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await questionSolutionApi.questionSolutions(
-        questionID: questionID,
-        position: position,
-      );
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
+    return await questionSolutionApi.questionSolutions(
+      questionID: questionID,
+      position: position,
+    );
   }
 
   void questionSolutionViewAttachments({

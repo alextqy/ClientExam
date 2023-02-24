@@ -15,9 +15,11 @@ import 'package:client/Views/common/menu.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/question_notifier.dart';
 import 'package:client/providers/knowledge_notifier.dart';
+import 'package:client/providers/question_solution_notifier.dart';
 
 import 'package:client/models/question_model.dart';
 import 'package:client/models/knowledge_model.dart';
+import 'package:client/models/question_solution_model.dart';
 
 // ignore: must_be_immutable
 class Question extends StatefulWidget {
@@ -53,6 +55,8 @@ class QuestionState extends State<Question> {
 
   QuestionNotifier questionNotifier = QuestionNotifier();
   KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
+  QuestionSolutionNotifier questionSolutionNotifier =
+      QuestionSolutionNotifier();
 
   basicListener() async {
     if (questionNotifier.operationStatus.value == OperationStatus.loading) {
@@ -295,7 +299,7 @@ class QuestionState extends State<Question> {
                   ),
                   child: Tooltip(
                     padding: const EdgeInsets.all(10),
-                    message: ' jpg / jpeg / png / gif \n\n Max size 512 kb',
+                    message: ' jpg / jpeg / png / gif \n\n Max size 256 kb',
                     child: Text(
                       Lang().upload,
                       style: const TextStyle(
@@ -335,7 +339,7 @@ class QuestionState extends State<Question> {
               ),
               onPressed: () {
                 setState(() {
-                  print(questionNotifier.questionListModel[index].id);
+                  questionOptions(questionNotifier.questionListModel[index].id);
                 });
               },
             ),
@@ -352,6 +356,7 @@ class QuestionState extends State<Question> {
     );
   }
 
+  // 查看图片
   void viewImage({required String attachment, bool big = false}) {
     dynamic height = 300.0;
     dynamic width = 500.0;
@@ -392,6 +397,46 @@ class QuestionState extends State<Question> {
         }
       });
     });
+  }
+
+  // 选项设置
+  void questionOptions(int id) {
+    if (id > 0) {
+      setState(() {
+        questionSolutionNotifier
+            .questionSolutions(questionID: id)
+            .then((value) {
+          if (value.state == true) {
+            List<dynamic> dataList = value.data as List<dynamic>;
+            List<QuestionSolutionModel> data =
+                QuestionSolutionModel().fromJsonList(jsonEncode(dataList));
+            showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (BuildContext context) {
+                return StatefulBuilder(
+                  builder: (BuildContext context, Function state) {
+                    return AlertDialog(
+                      title: Text(Lang().title),
+                      content: SizedBox(
+                        width: 1200,
+                        child: Container(
+                          margin: const EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
+                          child: null,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          } else {
+            Toast().show(context, message: value.memo);
+          }
+        });
+      });
+    }
   }
 
   List<DropdownMenuItem<KnowledgeModel>> knowledgeDropdownMenuItemList() {
