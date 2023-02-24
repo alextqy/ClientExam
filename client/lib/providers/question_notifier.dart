@@ -76,26 +76,12 @@ class QuestionNotifier extends BaseNotifier {
     }
   }
 
-  void questionViewAttachments({
+  Future<DataModel> questionViewAttachments({
     required String filePath,
   }) async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await questionApi.questionViewAttachments(
-        filePath: filePath,
-      );
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
+    return await questionApi.questionViewAttachments(
+      filePath: filePath,
+    );
   }
 
   void questionDisabled({

@@ -1402,7 +1402,7 @@ class ExamInfoState extends State<ExamInfo> {
         .then((value) {
       if (value == 1) {
         Future<String?> filePath =
-            FileHelper().checkFile(dirPath: './', type: []);
+            FileHelper().checkFile(dirPath: './', type: ['xls', 'xlsx']);
         filePath.then((value) {
           if (value != null) {
             examInfoNotifier.importExamInfo(filePath: value);
@@ -1418,7 +1418,7 @@ class ExamInfoState extends State<ExamInfo> {
           }
           bool result = FileHelper().writeFileB('demo.${value.memo}', dataBit);
           if (result) {
-            FileHelper().openDir(dirPath: './', type: ['xls', value.memo]);
+            FileHelper().openDir(dirPath: './', type: ['xls', 'xlsx']);
           } else {
             Toast().show(context, message: Lang().theRequestFailed);
           }

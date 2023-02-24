@@ -61,4 +61,18 @@ class Tools {
   String base64De(String s) {
     return String.fromCharCodes(base64Decode(s));
   }
+
+  // 字符串转二进制数组
+  List<int> toByteList(List<dynamic> data) {
+    List<int> dataBit = [];
+    for (dynamic element in data) {
+      dataBit.add(element as int);
+    }
+    return dataBit;
+  }
+
+  // 二进制数组转二进制
+  Uint8List byteListToBytes(List<int> data) {
+    return Uint8List.fromList(data);
+  }
 }

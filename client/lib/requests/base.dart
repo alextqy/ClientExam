@@ -42,6 +42,7 @@ class ResponseHelper {
         MultipartRequest('post', Uri.parse('http://$url$uri'));
     request.fields['Token'] = FileHelper().readFile('token');
     request.fields['ContentType'] = contentType;
+    request.fields['ID'] = id.toString();
 
     MultipartFile multipartFile = await MultipartFile.fromPath(
       fromPathField,

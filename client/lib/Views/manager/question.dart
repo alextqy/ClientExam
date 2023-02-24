@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 import 'package:client/public/lang.dart';
 import 'package:client/public/tools.dart';
+import 'package:client/public/file.dart';
 import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
@@ -281,8 +282,35 @@ class QuestionState extends State<Question> {
                   ),
                   onPressed: () {
                     setState(() {
-                      print(
-                          questionNotifier.questionListModel[index].attachment);
+                      questionNotifier
+                          .questionViewAttachments(
+                              filePath: questionNotifier
+                                  .questionListModel[index].attachment)
+                          .then((value) {
+                        if (value.data != null) {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder:
+                                    (BuildContext context, Function state) {
+                                  return AlertDialog(
+                                    title: Text(value.memo),
+                                    content: SizedBox(
+                                      child: Image.memory(Tools()
+                                          .byteListToBytes(
+                                              Tools().toByteList(value.data))),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        } else {
+                          Toast().show(context, message: Lang().noData);
+                        }
+                      });
                     });
                   },
                 ),
@@ -292,7 +320,8 @@ class QuestionState extends State<Question> {
                     side: const BorderSide(width: 0.5),
                   ),
                   child: Tooltip(
-                    message: 'jpg / jpeg / png / gif',
+                    padding: const EdgeInsets.all(10),
+                    message: ' jpg / jpeg / png / gif \n\n Max size 512 kb',
                     child: Text(
                       Lang().upload,
                       style: const TextStyle(
@@ -303,8 +332,15 @@ class QuestionState extends State<Question> {
                   ),
                   onPressed: () {
                     setState(() {
-                      print(
-                          questionNotifier.questionListModel[index].attachment);
+                      FileHelper().checkFile(
+                          dirPath: './',
+                          type: ['jpg', 'jpeg', 'png', 'gif']).then((value) {
+                        if (value != null) {
+                          questionNotifier.questionAttachment(
+                              id: questionNotifier.questionListModel[index].id,
+                              filePath: value);
+                        }
+                      });
                     });
                   },
                 ),
