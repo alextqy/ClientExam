@@ -280,39 +280,13 @@ class QuestionState extends State<Question> {
                       color: Colors.black,
                     ),
                   ),
-                  onPressed: () {
-                    setState(() {
-                      questionNotifier
-                          .questionViewAttachments(
-                              filePath: questionNotifier
-                                  .questionListModel[index].attachment)
-                          .then((value) {
-                        if (value.data != null) {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: true,
-                            builder: (BuildContext context) {
-                              return StatefulBuilder(
-                                builder:
-                                    (BuildContext context, Function state) {
-                                  return AlertDialog(
-                                    title: Text(value.memo),
-                                    content: SizedBox(
-                                      child: Image.memory(Tools()
-                                          .byteListToBytes(
-                                              Tools().toByteList(value.data))),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        } else {
-                          Toast().show(context, message: Lang().noData);
-                        }
-                      });
-                    });
-                  },
+                  onLongPress: () => viewImage(
+                      attachment:
+                          questionNotifier.questionListModel[index].attachment,
+                      big: true),
+                  onPressed: () => viewImage(
+                      attachment:
+                          questionNotifier.questionListModel[index].attachment),
                 ),
                 const SizedBox(width: 10),
                 OutlinedButton(
@@ -376,6 +350,48 @@ class QuestionState extends State<Question> {
         },
       ),
     );
+  }
+
+  void viewImage({required String attachment, bool big = false}) {
+    dynamic height = 300.0;
+    dynamic width = 500.0;
+    if (big == true) {
+      height = null;
+      width = null;
+    }
+    setState(() {
+      questionNotifier
+          .questionViewAttachments(filePath: attachment)
+          .then((value) {
+        if (value.data != null) {
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                builder: (BuildContext context, Function state) {
+                  return AlertDialog(
+                    title: Text(value.memo),
+                    content: SizedBox(
+                      height: height,
+                      width: width,
+                      child: Container(
+                        margin: const EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0),
+                        child: Image.memory(Tools()
+                            .byteListToBytes(Tools().toByteList(value.data))),
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        } else {
+          Toast().show(context, message: Lang().noData);
+        }
+      });
+    });
   }
 
   List<DropdownMenuItem<KnowledgeModel>> knowledgeDropdownMenuItemList() {
