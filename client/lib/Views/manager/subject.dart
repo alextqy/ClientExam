@@ -220,7 +220,6 @@ class SubjectState extends State<Subject> {
                         id: id,
                         subjectName: updateNameController.text,
                       );
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),
@@ -280,8 +279,6 @@ class SubjectState extends State<Subject> {
                         subjectName: newNameController.text,
                       );
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),

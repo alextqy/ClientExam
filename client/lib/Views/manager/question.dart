@@ -561,9 +561,6 @@ class QuestionState extends State<Question> {
                           language: newLanguageParam,
                           languageVersion: updateLanguageVersionController.text,
                         );
-                        page = 1;
-                        fetchData();
-                        Navigator.of(context).pop();
                       }
                     },
                     child: Text(Lang().confirm),
@@ -807,8 +804,6 @@ class QuestionState extends State<Question> {
                         languageVersion: newLanguageVersionController.text,
                       );
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),

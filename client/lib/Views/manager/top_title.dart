@@ -225,7 +225,6 @@ class TopTitleState extends State<TopTitle> {
                         id: id,
                         content: updateContentController.text,
                       );
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),
@@ -278,8 +277,6 @@ class TopTitleState extends State<TopTitle> {
                         content: newContentAccountController.text,
                       );
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),

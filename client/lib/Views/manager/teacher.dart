@@ -274,7 +274,6 @@ class TeacherState extends State<Teacher> {
                       name: updateNameController.text,
                       password: updatePassworController.text,
                     );
-                    Navigator.of(context).pop();
                   },
                   child: Text(Lang().confirm),
                 ),
@@ -457,8 +456,6 @@ class TeacherState extends State<Teacher> {
                         name: newNameController.text,
                       );
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),

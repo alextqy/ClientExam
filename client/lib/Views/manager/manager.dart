@@ -225,7 +225,6 @@ class ManagerState extends State<Manager> {
                         name: updateNameController.text,
                         permission: permission,
                       );
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),
@@ -320,8 +319,6 @@ class ManagerState extends State<Manager> {
                         name: newNameController.text,
                       );
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),
@@ -377,7 +374,6 @@ class ManagerState extends State<Manager> {
                         id: id,
                         newPassword: changePasswordController.text,
                       );
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),

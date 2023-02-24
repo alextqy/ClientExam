@@ -257,7 +257,6 @@ class KnowledgePointState extends State<KnowledgePoint> {
                         id: id,
                         knowledgeName: updateNameController.text,
                       );
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),
@@ -354,8 +353,6 @@ class KnowledgePointState extends State<KnowledgePoint> {
                         subjectID: newSubjectID,
                       );
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),

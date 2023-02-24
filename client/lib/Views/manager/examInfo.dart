@@ -559,8 +559,6 @@ class ExamInfoState extends State<ExamInfo> {
                         examType: newExamType,
                       );
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),

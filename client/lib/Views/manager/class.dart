@@ -254,7 +254,6 @@ class ClassState extends State<Class> {
                         className: updateClassNameController.text,
                         description: updateDescriptionController.text,
                       );
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),
@@ -420,8 +419,6 @@ class ClassState extends State<Class> {
                         description: newDescriptionController.text,
                       );
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),

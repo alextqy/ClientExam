@@ -280,7 +280,6 @@ class ExamineeState extends State<Examinee> {
                         contact: updateContactController.text,
                         classID: classID,
                       );
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),
@@ -475,8 +474,6 @@ class ExamineeState extends State<Examinee> {
                       );
                       state(() {});
                       page = 1;
-                      fetchData();
-                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(Lang().confirm),
