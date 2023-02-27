@@ -53,7 +53,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
     super.dispose();
   }
 
-  mainWidget(BuildContext context) {
+  Widget mainWidget(BuildContext context) {
     TextEditingController nameController =
         TextEditingController(text: managerNotifier.managerModel.name);
     TextEditingController passwordController = TextEditingController();

@@ -512,7 +512,7 @@ class ExamineeState extends State<Examinee> {
     );
   }
 
-  mainWidget(BuildContext context) {
+  Widget mainWidget(BuildContext context) {
     double widgetWidth = MediaQuery.of(context).size.width;
     double percentage = 0.2;
     ScrollController controllerOutside = ScrollController();

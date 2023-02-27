@@ -457,7 +457,7 @@ class ClassState extends State<Class> {
     );
   }
 
-  mainWidget(BuildContext context) {
+  Widget mainWidget(BuildContext context) {
     double widgetWidth = MediaQuery.of(context).size.width;
     double percentage = 0.2;
     ScrollController controllerOutside = ScrollController();

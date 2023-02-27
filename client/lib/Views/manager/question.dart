@@ -19,7 +19,8 @@ import 'package:client/providers/question_solution_notifier.dart';
 
 import 'package:client/models/question_model.dart';
 import 'package:client/models/knowledge_model.dart';
-import 'package:client/models/question_solution_model.dart';
+
+import 'package:client/Views/manager/question_options.dart';
 
 // ignore: must_be_immutable
 class Question extends StatefulWidget {
@@ -326,22 +327,22 @@ class QuestionState extends State<Question> {
             ),
           ),
           DataCell(
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(width: 0.5),
+            Align(
+              alignment: const FractionalOffset(0.2, 0.5),
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => QuestionOptions(
+                          id: questionNotifier.questionListModel[index].id,
+                        ),
+                      ),
+                    );
+                  });
+                },
+                icon: const Icon(Icons.list),
               ),
-              child: Text(
-                Lang().check,
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-              ),
-              onPressed: () {
-                setState(() {
-                  questionOptions(questionNotifier.questionListModel[index].id);
-                });
-              },
             ),
           ),
         ],
@@ -400,6 +401,7 @@ class QuestionState extends State<Question> {
   }
 
   // 选项设置
+  /*
   void questionOptions(int id) {
     if (id > 0) {
       setState(() {
@@ -438,6 +440,7 @@ class QuestionState extends State<Question> {
       });
     }
   }
+  */
 
   List<DropdownMenuItem<KnowledgeModel>> knowledgeDropdownMenuItemList() {
     List<DropdownMenuItem<KnowledgeModel>> knowledgeDataDropdownMenuItemList =
@@ -939,7 +942,7 @@ class QuestionState extends State<Question> {
     );
   }
 
-  mainWidget(BuildContext context) {
+  Widget mainWidget(BuildContext context) {
     double widgetWidth = MediaQuery.of(context).size.width;
     double percentage = 0.15;
     ScrollController controllerOutside = ScrollController();

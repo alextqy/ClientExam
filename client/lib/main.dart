@@ -69,17 +69,18 @@ class Entrance extends StatelessWidget {
     );
 
     return Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.all(0),
-        margin: const EdgeInsets.all(0),
-        color: Colors.grey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            managerButton,
-            teacherButton,
-          ],
-        ));
+      width: double.infinity,
+      height: double.infinity,
+      padding: const EdgeInsets.all(0),
+      margin: const EdgeInsets.all(0),
+      color: Colors.grey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          managerButton,
+          teacherButton,
+        ],
+      ),
+    );
   }
 }
