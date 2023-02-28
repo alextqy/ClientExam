@@ -75,4 +75,12 @@ class Tools {
   Uint8List byteListToBytes(List<int> data) {
     return Uint8List.fromList(data);
   }
+
+  // 字符串指定位置插入指定符号
+  String stringInsertion(String str, int offs, String ins) {
+    String start = str.substring(0, offs);
+    start += ins;
+    String end = str.substring(offs, str.length);
+    return start + end;
+  }
 }

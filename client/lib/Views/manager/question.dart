@@ -327,22 +327,27 @@ class QuestionState extends State<Question> {
             ),
           ),
           DataCell(
-            Align(
-              alignment: const FractionalOffset(0.2, 0.5),
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => QuestionOptions(
-                          id: questionNotifier.questionListModel[index].id,
+            Row(
+              children: [
+                const SizedBox(width: 40),
+                IconButton(
+                  icon: const Icon(Icons.list),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => QuestionOptions(
+                            questionType: questionNotifier
+                                .questionListModel[index].questionType,
+                            questionID:
+                                questionNotifier.questionListModel[index].id,
+                          ),
                         ),
-                      ),
-                    );
-                  });
-                },
-                icon: const Icon(Icons.list),
-              ),
+                      );
+                    });
+                  },
+                ),
+              ],
             ),
           ),
         ],
@@ -399,48 +404,6 @@ class QuestionState extends State<Question> {
       });
     });
   }
-
-  // 选项设置
-  /*
-  void questionOptions(int id) {
-    if (id > 0) {
-      setState(() {
-        questionSolutionNotifier
-            .questionSolutions(questionID: id)
-            .then((value) {
-          if (value.state == true) {
-            List<dynamic> dataList = value.data as List<dynamic>;
-            List<QuestionSolutionModel> data =
-                QuestionSolutionModel().fromJsonList(jsonEncode(dataList));
-            showDialog(
-              context: context,
-              barrierDismissible: true,
-              builder: (BuildContext context) {
-                return StatefulBuilder(
-                  builder: (BuildContext context, Function state) {
-                    return AlertDialog(
-                      title: Text(Lang().title),
-                      content: SizedBox(
-                        width: 1200,
-                        child: Container(
-                          margin: const EdgeInsets.all(0),
-                          padding: const EdgeInsets.all(0),
-                          child: null,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-          } else {
-            Toast().show(context, message: value.memo);
-          }
-        });
-      });
-    }
-  }
-  */
 
   List<DropdownMenuItem<KnowledgeModel>> knowledgeDropdownMenuItemList() {
     List<DropdownMenuItem<KnowledgeModel>> knowledgeDataDropdownMenuItemList =
@@ -510,6 +473,7 @@ class QuestionState extends State<Question> {
     bool showQuestionTitleItem = false;
     bool showDescriptionItem = false;
     bool showLanguageItem = false;
+    bool showSpaceButton = false;
     double width = 0;
     double height = 0;
 
@@ -528,6 +492,10 @@ class QuestionState extends State<Question> {
       height = 150;
       showLanguageItem = true;
       updateLanguageMemo = language;
+    }
+
+    if (questionType == 4) {
+      showSpaceButton = true;
     }
 
     if (itemType == 3 && questionType != 6) {
@@ -554,6 +522,29 @@ class QuestionState extends State<Question> {
                             controller: updateQuestionTitleController,
                             decoration: InputDecoration(
                               hintText: Lang().questionTitle,
+                              prefixIcon: Tooltip(
+                                message: Lang().generateTheEncoding,
+                                child: Visibility(
+                                  visible: showSpaceButton,
+                                  child: IconButton(
+                                    iconSize: 20,
+                                    onPressed: () {
+                                      String title = Tools().stringInsertion(
+                                          updateQuestionTitleController.text,
+                                          updateQuestionTitleController
+                                              .selection.base.offset,
+                                          '<->');
+                                      updateQuestionTitleController.text =
+                                          title;
+                                    },
+                                    // onPressed: () {
+                                    //   newExamNoController.text = Tools()
+                                    //       .genMD5(Tools().timestamp().toString());
+                                    // },
+                                    icon: const Icon(Icons.credit_card),
+                                  ),
+                                ),
+                              ),
                               suffixIcon: IconButton(
                                 iconSize: 20,
                                 onPressed: () =>

@@ -125,6 +125,12 @@ class Lang {
   String upload = '';
   String questionOptions = '';
   String check = '';
+  String correctAnswer = '';
+  String correctItem = '';
+  String scoreRatio = '';
+  String position = '';
+  String right = '';
+  String wrong = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -250,6 +256,12 @@ class Lang {
       this.upload = '上传';
       this.questionOptions = '试题选项';
       this.check = '详情';
+      this.correctAnswer = '正确答案';
+      this.correctItem = '答案项';
+      this.scoreRatio = '得分比例';
+      this.position = '位置';
+      this.right = '正确';
+      this.wrong = '错误';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -372,7 +384,13 @@ class Lang {
       this.view = 'View';
       this.upload = 'Upload';
       this.questionOptions = 'Question Options';
-      this.check = 'check';
+      this.check = 'Check';
+      this.correctAnswer = 'Correct Answer';
+      this.correctItem = 'Correct Item';
+      this.scoreRatio = 'Score Ratio';
+      this.position = 'Position';
+      this.right = 'right';
+      this.wrong = 'wrong';
     }
   }
 }
