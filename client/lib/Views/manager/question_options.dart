@@ -34,6 +34,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
   int showSelected = 0;
   List<bool> selected = [];
   int position = 0;
+  bool fillInTheBlanksAndQuizQuestionsEdit = false;
 
   QuestionSolutionNotifier questionSolutionNotifier =
       QuestionSolutionNotifier();
@@ -75,6 +76,9 @@ class QuestionOptionsState extends State<QuestionOptions> {
     super.initState();
     questionSolutionNotifier.addListener(basicListener);
     fetchData();
+    if (widget.questionType == 4 || widget.questionType == 5) {
+      fillInTheBlanksAndQuizQuestionsEdit = true;
+    }
   }
 
   @override
@@ -139,6 +143,13 @@ class QuestionOptionsState extends State<QuestionOptions> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 questionSolutionNotifier
+                    .questionSolutionListModel[index].scoreRatio
+                    .toString()),
+            showEditIcon: fillInTheBlanksAndQuizQuestionsEdit,
+            onTap: () => setScoreRatioAlertDialog(context,
+                id: questionSolutionNotifier
+                    .questionSolutionListModel[index].id,
+                scoreRatio: questionSolutionNotifier
                     .questionSolutionListModel[index].scoreRatio
                     .toString()),
           ),
@@ -239,6 +250,73 @@ class QuestionOptionsState extends State<QuestionOptions> {
         },
       ),
     );
+  }
+
+  // 修改得分比例
+  void setScoreRatioAlertDialog(
+    BuildContext context, {
+    required int id,
+    required String scoreRatio,
+  }) {
+    TextEditingController updateScoreRatioController = TextEditingController();
+    updateScoreRatioController.text = scoreRatio;
+    if (widget.questionType == 4 || widget.questionType == 5) {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (BuildContext context, Function state) {
+              return AlertDialog(
+                title: Text(Lang().title),
+                content: SizedBox(
+                  width: 500,
+                  height: 200,
+                  child: TextField(
+                    maxLines: 1,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(4),
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                    ],
+                    controller: updateScoreRatioController,
+                    decoration: InputDecoration(
+                      hintText: Lang().name,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => updateScoreRatioController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      if (id > 0 &&
+                          updateScoreRatioController.text.isNotEmpty) {
+                        questionSolutionNotifier.setScoreRatio(
+                          id: id,
+                          scoreRatio:
+                              double.parse(updateScoreRatioController.text),
+                        );
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: Text(Lang().confirm),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(Lang().cancel),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    }
   }
 
   String checkCorrectAnswer(int correctAnswer) {

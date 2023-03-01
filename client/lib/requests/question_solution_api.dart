@@ -112,4 +112,21 @@ class QuestionSolutionApi extends ResponseHelper {
     );
     return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
+
+  Future<DataModel> setScoreRatio({
+    int id = 0,
+    double scoreRatio = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Set/Score/Ratio'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ID': id.toString(),
+        'ScoreRatio': scoreRatio.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
 }

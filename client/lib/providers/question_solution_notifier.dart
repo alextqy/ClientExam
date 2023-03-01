@@ -126,4 +126,28 @@ class QuestionSolutionNotifier extends BaseNotifier {
       notifyListeners();
     }
   }
+
+  void setScoreRatio({
+    required int id,
+    required double scoreRatio,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await questionSolutionApi.setScoreRatio(
+        id: id,
+        scoreRatio: scoreRatio,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }

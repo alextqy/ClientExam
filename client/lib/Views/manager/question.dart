@@ -334,7 +334,8 @@ class QuestionState extends State<Question> {
                   icon: const Icon(Icons.list),
                   onPressed: () {
                     setState(() {
-                      Navigator.of(context).push(
+                      Navigator.of(context)
+                          .push(
                         MaterialPageRoute(
                           builder: (context) => QuestionOptions(
                             questionType: questionNotifier
@@ -343,6 +344,11 @@ class QuestionState extends State<Question> {
                                 questionNotifier.questionListModel[index].id,
                           ),
                         ),
+                      )
+                          .then(
+                        (value) {
+                          fetchData();
+                        },
                       );
                     });
                   },
@@ -493,11 +499,9 @@ class QuestionState extends State<Question> {
       showLanguageItem = true;
       updateLanguageMemo = language;
     }
-
     if (questionType == 4) {
       showSpaceButton = true;
     }
-
     if (itemType == 3 && questionType != 6) {
       Toast().show(context, message: Lang().noData);
     } else {
