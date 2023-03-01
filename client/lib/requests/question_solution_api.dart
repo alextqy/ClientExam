@@ -37,12 +37,15 @@ class QuestionSolutionApi extends ResponseHelper {
   Future<DataModel> questionSolutionAttachment({
     int id = 0,
     String filePath = '',
+    String contentType = '',
   }) async {
     return upload(
+      id: id,
       url: url,
       uri: '/Question/Solution/Attachment',
       filePath: filePath,
       attachment: 'Attachment',
+      contentType: contentType,
     );
   }
 

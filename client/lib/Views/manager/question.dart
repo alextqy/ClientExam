@@ -300,7 +300,7 @@ class QuestionState extends State<Question> {
                   ),
                   child: Tooltip(
                     padding: const EdgeInsets.all(10),
-                    message: ' jpg / jpeg / png / gif \n\n Max size 256 kb',
+                    message: ' jpg / jpeg / png / gif \n\n Max size 128 kb',
                     child: Text(
                       Lang().upload,
                       style: const TextStyle(

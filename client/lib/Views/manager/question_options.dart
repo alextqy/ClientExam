@@ -178,12 +178,6 @@ class QuestionOptionsState extends State<QuestionOptions> {
           DataCell(
             Row(
               children: [
-                Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    questionSolutionNotifier
-                        .questionSolutionListModel[index].optionAttachment),
-                /*
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(width: 0.5),
@@ -197,22 +191,20 @@ class QuestionOptionsState extends State<QuestionOptions> {
                   ),
                   onLongPress: () => viewImage(
                       attachment: questionSolutionNotifier
-                          .questionSolutionListModel[index].attachment,
+                          .questionSolutionListModel[index].optionAttachment,
                       big: true),
                   onPressed: () => viewImage(
                       attachment: questionSolutionNotifier
-                          .questionSolutionListModel[index].attachment),
+                          .questionSolutionListModel[index].optionAttachment),
                 ),
-                */
                 const SizedBox(width: 10),
-                /*
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(width: 0.5),
                   ),
                   child: Tooltip(
                     padding: const EdgeInsets.all(10),
-                    message: ' jpg / jpeg / png / gif \n\n Max size 256 kb',
+                    message: ' jpg / jpeg / png / gif \n\n Max size 128 kb',
                     child: Text(
                       Lang().upload,
                       style: const TextStyle(
@@ -227,7 +219,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                           dirPath: './',
                           type: ['jpg', 'jpeg', 'png', 'gif']).then((value) {
                         if (value != null) {
-                          questionSolutionNotifier.questionAttachment(
+                          questionSolutionNotifier.questionSolutionAttachment(
                               id: questionSolutionNotifier
                                   .questionSolutionListModel[index].id,
                               filePath: value);
@@ -236,7 +228,6 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     });
                   },
                 ),
-                */
               ],
             ),
           ),
@@ -250,6 +241,49 @@ class QuestionOptionsState extends State<QuestionOptions> {
         },
       ),
     );
+  }
+
+  // 查看图片
+  void viewImage({required String attachment, bool big = false}) {
+    dynamic height = 300.0;
+    dynamic width = 500.0;
+    if (big == true) {
+      height = null;
+      width = null;
+    }
+    setState(() {
+      questionSolutionNotifier
+          .questionSolutionViewAttachments(filePath: attachment)
+          .then((value) {
+        if (value.data != null) {
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                builder: (BuildContext context, Function state) {
+                  return AlertDialog(
+                    title: Text(value.memo),
+                    content: SizedBox(
+                      height: height,
+                      width: width,
+                      child: Container(
+                        margin: const EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0),
+                        child: Image.memory(Tools()
+                            .byteListToBytes(Tools().toByteList(value.data))),
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        } else {
+          Toast().show(context, message: Lang().noData);
+        }
+      });
+    });
   }
 
   // 修改得分比例
