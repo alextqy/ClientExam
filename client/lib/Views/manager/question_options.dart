@@ -38,6 +38,12 @@ class QuestionOptionsState extends State<QuestionOptions> {
   int position = 0;
   bool fillInTheBlanksAndQuizQuestionsEdit = false;
 
+  bool showOption = false;
+  bool showCorrectItem = false;
+  bool showCorrectAnswer = false;
+  bool showScoreRatio = false;
+  bool showPosition = false;
+
   QuestionSolutionNotifier questionSolutionNotifier =
       QuestionSolutionNotifier();
 
@@ -81,6 +87,26 @@ class QuestionOptionsState extends State<QuestionOptions> {
     if (widget.questionType == 4 || widget.questionType == 5) {
       fillInTheBlanksAndQuizQuestionsEdit = true;
     }
+
+    if (widget.questionType < 4) {
+      showOption = true;
+      showCorrectAnswer = true;
+    } else if (widget.questionType == 4 || widget.questionType == 5) {
+      showCorrectItem = true;
+      showScoreRatio = true;
+    } else if (widget.questionType == 6) {
+      showCorrectItem = true;
+    } else if (widget.questionType == 7 || widget.questionType == 8) {
+      showOption = true;
+      showPosition = true;
+      showCorrectItem = true;
+    } else {
+      showOption = false;
+      showCorrectItem = false;
+      showCorrectAnswer = false;
+      showScoreRatio = false;
+      showPosition = false;
+    }
   }
 
   @override
@@ -110,58 +136,87 @@ class QuestionOptionsState extends State<QuestionOptions> {
         cells: <DataCell>[
           DataCell(
             Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionSolutionNotifier.questionSolutionListModel[index].id
-                    .toString()),
-          ),
-          DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  questionSolutionNotifier
-                      .questionSolutionListModel[index].option),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              questionSolutionNotifier.questionSolutionListModel[index].id
+                  .toString(),
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkCorrectAnswer(questionSolutionNotifier
-                    .questionSolutionListModel[index].correctAnswer)),
+            Visibility(
+              visible: showOption,
+              child: SizedBox(
+                width: 150,
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  questionSolutionNotifier
+                      .questionSolutionListModel[index].option,
+                ),
+              ),
+            ),
           ),
           DataCell(
-            Text(
+            Visibility(
+              visible: showCorrectAnswer,
+              child: Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                checkCorrectAnswer(
+                  questionSolutionNotifier
+                      .questionSolutionListModel[index].correctAnswer,
+                ),
+              ),
+            ),
+          ),
+          DataCell(
+            Visibility(
+              visible: showCorrectItem,
+              child: Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 questionSolutionNotifier
                     .questionSolutionListModel[index].correctItem
-                    .toString()),
+                    .toString(),
+              ),
+            ),
           ),
           DataCell(
-            Text(
+            Visibility(
+              visible: showScoreRatio,
+              child: Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 questionSolutionNotifier
                     .questionSolutionListModel[index].scoreRatio
-                    .toString()),
+                    .toString(),
+              ),
+            ),
             showEditIcon: fillInTheBlanksAndQuizQuestionsEdit,
-            onTap: () => setScoreRatioAlertDialog(context,
-                id: questionSolutionNotifier
-                    .questionSolutionListModel[index].id,
-                scoreRatio: questionSolutionNotifier
-                    .questionSolutionListModel[index].scoreRatio
-                    .toString()),
+            onTap: () {
+              if (showScoreRatio == true) {
+                setScoreRatioAlertDialog(
+                  context,
+                  id: questionSolutionNotifier
+                      .questionSolutionListModel[index].id,
+                  scoreRatio: questionSolutionNotifier
+                      .questionSolutionListModel[index].scoreRatio
+                      .toString(),
+                );
+              }
+            },
           ),
           DataCell(
-            Text(
+            Visibility(
+              visible: showPosition,
+              child: Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 questionSolutionNotifier
                     .questionSolutionListModel[index].position
-                    .toString()),
+                    .toString(),
+              ),
+            ),
           ),
           DataCell(
             Text(
