@@ -535,18 +535,17 @@ class QuestionState extends State<Question> {
                                   child: IconButton(
                                     iconSize: 20,
                                     onPressed: () {
-                                      String title = Tools().stringInsertion(
-                                          updateQuestionTitleController.text,
-                                          updateQuestionTitleController
-                                              .selection.base.offset,
-                                          '<->');
-                                      updateQuestionTitleController.text =
-                                          title;
+                                      int offset = updateQuestionTitleController
+                                          .selection.base.offset;
+                                      String titleText =
+                                          updateQuestionTitleController.text;
+                                      if (offset >= 0 && titleText.isNotEmpty) {
+                                        String title = Tools().stringInsertion(
+                                            titleText, offset, '<->');
+                                        updateQuestionTitleController.text =
+                                            title;
+                                      }
                                     },
-                                    // onPressed: () {
-                                    //   newExamNoController.text = Tools()
-                                    //       .genMD5(Tools().timestamp().toString());
-                                    // },
                                     icon: const Icon(Icons.credit_card),
                                   ),
                                 ),
