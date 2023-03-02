@@ -338,6 +338,8 @@ class QuestionState extends State<Question> {
                           .push(
                         MaterialPageRoute(
                           builder: (context) => QuestionOptions(
+                            questionTitle: questionNotifier
+                                .questionListModel[index].questionTitle,
                             questionType: questionNotifier
                                 .questionListModel[index].questionType,
                             questionID:

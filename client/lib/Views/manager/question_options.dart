@@ -17,10 +17,14 @@ import 'package:client/models/question_solution_model.dart';
 
 // ignore: must_be_immutable
 class QuestionOptions extends StatefulWidget {
+  late String questionTitle;
   late int questionType;
   late int questionID;
   QuestionOptions(
-      {super.key, required this.questionType, required this.questionID});
+      {super.key,
+      required this.questionTitle,
+      required this.questionType,
+      required this.questionID});
 
   @override
   State<QuestionOptions> createState() => QuestionOptionsState();
@@ -604,6 +608,17 @@ class QuestionOptionsState extends State<QuestionOptions> {
     );
   }
 
+  // 删除
+  void deleteAlertDialog() {
+    for (int i = 0; i < selected.length; i++) {
+      if (selected[i]) {
+        questionSolutionNotifier.questionSolutionDelete(
+            id: questionSolutionNotifier.questionSolutionListModel[i].id);
+      }
+    }
+    fetchData();
+  }
+
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
@@ -643,6 +658,24 @@ class QuestionOptionsState extends State<QuestionOptions> {
         color: Colors.white70,
         child: Column(
           children: [
+            /// title
+            SizedBox(
+              child: Tooltip(
+                message: widget.questionTitle,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    widget.questionTitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
             /// header
             SizedBox(
               width: double.infinity,
@@ -684,7 +717,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () => print('delete'),
+                      onPressed: () => deleteAlertDialog(),
                     ),
                   ],
                 ),
