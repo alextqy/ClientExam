@@ -508,21 +508,24 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     const SizedBox(height: 10),
                     Visibility(
                       visible: showScoreRatio,
-                      child: SizedBox(
-                        child: TextField(
-                          maxLines: 1,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(4),
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'[0-9.]')),
-                          ],
-                          controller: scoreRatioController,
-                          decoration: InputDecoration(
-                            hintText: Lang().scoreRatio,
-                            suffixIcon: IconButton(
-                              iconSize: 20,
-                              onPressed: () => scoreRatioController.clear(),
-                              icon: const Icon(Icons.clear),
+                      child: Tooltip(
+                        message: Lang().scoreRatio,
+                        child: SizedBox(
+                          child: TextField(
+                            maxLines: 1,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(4),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9.]')),
+                            ],
+                            controller: scoreRatioController,
+                            decoration: InputDecoration(
+                              hintText: Lang().scoreRatio,
+                              suffixIcon: IconButton(
+                                iconSize: 20,
+                                onPressed: () => scoreRatioController.clear(),
+                                icon: const Icon(Icons.clear),
+                              ),
                             ),
                           ),
                         ),
@@ -674,6 +677,11 @@ class QuestionOptionsState extends State<QuestionOptions> {
                   ),
                 ),
               ),
+            ),
+
+            Container(
+              height: 2,
+              decoration: const BoxDecoration(color: Colors.black38),
             ),
 
             /// header
