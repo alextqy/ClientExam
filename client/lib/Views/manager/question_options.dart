@@ -172,12 +172,18 @@ class QuestionOptionsState extends State<QuestionOptions> {
           DataCell(
             Visibility(
               visible: showCorrectItem,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionSolutionNotifier
-                    .questionSolutionListModel[index].correctItem
-                    .toString(),
+              child: Tooltip(
+                message: questionSolutionNotifier
+                    .questionSolutionListModel[index].correctItem,
+                child: SizedBox(
+                  width: 200,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    questionSolutionNotifier
+                        .questionSolutionListModel[index].correctItem,
+                  ),
+                ),
               ),
             ),
           ),
