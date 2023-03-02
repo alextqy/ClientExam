@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,7 +9,6 @@ import 'package:client/public/tools.dart';
 import 'package:client/public/file.dart';
 import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
-import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/question_solution_notifier.dart';
@@ -361,6 +359,251 @@ class QuestionOptionsState extends State<QuestionOptions> {
     }
   }
 
+  // 新建
+  void addAlertDialog(BuildContext context) {
+    double height = 0;
+
+    TextEditingController optionController = TextEditingController();
+    TextEditingController correctItemController = TextEditingController();
+    int correctAnswer = 0;
+    TextEditingController scoreRatioController = TextEditingController();
+    scoreRatioController.text = '0';
+    int position = 0;
+
+    bool showOption = false;
+    bool showCorrectItem = false;
+    bool showCorrectAnswer = false;
+    bool showScoreRatio = false;
+    bool showPosition = false;
+
+    String correctAnswerMemo = correctAnswerList.first;
+    String positionMemo = positionList.first;
+
+    if (widget.questionType < 4) {
+      showOption = true;
+      showCorrectAnswer = true;
+      height = 150;
+    } else if (widget.questionType == 4 || widget.questionType == 5) {
+      showCorrectItem = true;
+      showScoreRatio = true;
+      height = 150;
+    } else if (widget.questionType == 6) {
+      showCorrectItem = true;
+      height = 100;
+    } else if (widget.questionType == 7 || widget.questionType == 8) {
+      showOption = true;
+      showPosition = true;
+      showCorrectItem = true;
+      height = 200;
+    } else {
+      showOption = false;
+      showCorrectItem = false;
+      showCorrectAnswer = false;
+      showScoreRatio = false;
+      showPosition = false;
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 1000,
+                height: height,
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: showOption,
+                      child: SizedBox(
+                        child: TextField(
+                          maxLines: 1,
+                          controller: optionController,
+                          decoration: InputDecoration(
+                            hintText: Lang().optionDescription,
+                            suffixIcon: IconButton(
+                              iconSize: 20,
+                              onPressed: () => optionController.clear(),
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Visibility(
+                      visible: showCorrectItem,
+                      child: SizedBox(
+                        child: TextField(
+                          maxLines: 1,
+                          controller: correctItemController,
+                          decoration: InputDecoration(
+                            hintText: Lang().correctItem,
+                            suffixIcon: IconButton(
+                              iconSize: 20,
+                              onPressed: () => correctItemController.clear(),
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Visibility(
+                          visible: showCorrectAnswer,
+                          child: SizedBox(
+                            child: Tooltip(
+                              message: Lang().correctAnswer,
+                              child: DropdownButton<String>(
+                                value: correctAnswerMemo,
+                                icon: const Icon(Icons.arrow_drop_down),
+                                style: const TextStyle(color: Colors.black),
+                                // elevation: 16,
+                                underline: Container(
+                                  height: 0,
+                                  // color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (String? value) {
+                                  state(() {
+                                    if (value != null &&
+                                        correctAnswerMemo != value) {
+                                      correctAnswerMemo = value;
+                                      if (value == Lang().no) {
+                                        correctAnswer = 1;
+                                        correctAnswerMemo = Lang().no;
+                                      } else if (value == Lang().yes) {
+                                        correctAnswer = 2;
+                                        correctAnswerMemo = Lang().yes;
+                                      } else {
+                                        correctAnswer = 0;
+                                        correctAnswerMemo =
+                                            correctAnswerList.first;
+                                      }
+                                    }
+                                  });
+                                },
+                                items: correctAnswerList
+                                    .map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Visibility(
+                      visible: showScoreRatio,
+                      child: SizedBox(
+                        child: TextField(
+                          maxLines: 1,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(4),
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[0-9.]')),
+                          ],
+                          controller: scoreRatioController,
+                          decoration: InputDecoration(
+                            hintText: Lang().scoreRatio,
+                            suffixIcon: IconButton(
+                              iconSize: 20,
+                              onPressed: () => scoreRatioController.clear(),
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Visibility(
+                          visible: showPosition,
+                          child: SizedBox(
+                            child: Tooltip(
+                              message: Lang().position,
+                              child: DropdownButton<String>(
+                                value: positionMemo,
+                                icon: const Icon(Icons.arrow_drop_down),
+                                style: const TextStyle(color: Colors.black),
+                                // elevation: 16,
+                                underline: Container(
+                                  height: 0,
+                                  // color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (String? value) {
+                                  state(() {
+                                    if (value != null &&
+                                        positionMemo != value) {
+                                      positionMemo = value;
+                                      if (value == Lang().leftSide) {
+                                        position = 1;
+                                        positionMemo = Lang().leftSide;
+                                      } else if (value == Lang().rightSide) {
+                                        position = 2;
+                                        positionMemo = Lang().rightSide;
+                                      } else {
+                                        position = 0;
+                                        positionMemo = correctAnswerList.first;
+                                      }
+                                    }
+                                  });
+                                },
+                                items: positionList
+                                    .map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    questionSolutionNotifier.newQuestionSolution(
+                      questionID: widget.questionID,
+                      option: optionController.text,
+                      correctAnswer: correctAnswer,
+                      correctItem: correctItemController.text,
+                      scoreRatio: double.parse(scoreRatioController.text),
+                      position: position,
+                    );
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
@@ -434,7 +677,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
-                        print('fuck');
+                        addAlertDialog(context);
                       },
                       // onPressed: () => addAlertDialog(context),
                     ),

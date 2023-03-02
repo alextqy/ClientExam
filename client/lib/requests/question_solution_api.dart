@@ -13,7 +13,7 @@ class QuestionSolutionApi extends ResponseHelper {
     String option = '',
     int correctAnswer = 0,
     String correctItem = '',
-    int scoreRatio = 0,
+    double scoreRatio = 0,
     int position = 0,
   }) async {
     Response response = await post(

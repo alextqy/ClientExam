@@ -12,7 +12,7 @@ class QuestionSolutionNotifier extends BaseNotifier {
     required String option,
     required int correctAnswer,
     required String correctItem,
-    required int scoreRatio,
+    required double scoreRatio,
     required int position,
   }) async {
     operationStatus.value = OperationStatus.loading;

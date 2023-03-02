@@ -59,3 +59,15 @@ List<String> languageList = <String>[
   'java',
   'c',
 ];
+
+List<String> correctAnswerList = <String>[
+  Lang().notSelected,
+  Lang().yes,
+  Lang().no,
+];
+
+List<String> positionList = <String>[
+  Lang().notSelected,
+  Lang().leftSide,
+  Lang().rightSide,
+];

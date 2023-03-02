@@ -131,6 +131,9 @@ class Lang {
   String position = '';
   String right = '';
   String wrong = '';
+  String optionDescription = '';
+  String rightSide = '';
+  String leftSide = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -262,6 +265,9 @@ class Lang {
       this.position = '位置';
       this.right = '正确';
       this.wrong = '错误';
+      this.optionDescription = '选项描述';
+      this.rightSide = '右侧';
+      this.leftSide = '左侧';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -391,6 +397,9 @@ class Lang {
       this.position = 'Position';
       this.right = 'right';
       this.wrong = 'wrong';
+      this.optionDescription = 'Option Description';
+      this.rightSide = 'right';
+      this.leftSide = 'left';
     }
   }
 }
