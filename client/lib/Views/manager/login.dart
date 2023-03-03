@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:client/public/file.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/routes.dart';
-import 'package:client/Views/common/toast.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/manager_notifier.dart';
 
@@ -24,7 +23,12 @@ class LoginState extends State<Login> {
 
   requestListener() async {
     if (managerNotifier.operationStatus.value == OperationStatus.loading) {
-      Toast().show(context, message: Lang().loading);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(Lang().loading),
+          // action: SnackBarAction(label: 'Action', onPressed: () {}),
+        ),
+      );
     } else if (managerNotifier.operationStatus.value ==
         OperationStatus.success) {
       bool writeResult = FileHelper().writeFile(
@@ -37,10 +41,20 @@ class LoginState extends State<Login> {
               .generate('/manager/index', headline: accountController.text),
         );
       } else {
-        Toast().show(context, message: Lang().loginTokenGenerationFailed);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(Lang().loginTokenGenerationFailed),
+            // action: SnackBarAction(label: 'Action', onPressed: () {}),
+          ),
+        );
       }
     } else {
-      Toast().show(context, message: managerNotifier.operationMemo);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(managerNotifier.operationMemo),
+          // action: SnackBarAction(label: 'Action', onPressed: () {}),
+        ),
+      );
     }
   }
 
