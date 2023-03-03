@@ -43,6 +43,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
   bool showCorrectAnswer = false;
   bool showScoreRatio = false;
   bool showPosition = false;
+  bool showCopyButton = false;
 
   QuestionSolutionNotifier questionSolutionNotifier =
       QuestionSolutionNotifier();
@@ -100,6 +101,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
       showOption = true;
       showPosition = true;
       showCorrectItem = true;
+      showCopyButton = true;
     } else {
       showOption = false;
       showCorrectItem = false;
@@ -145,14 +147,45 @@ class QuestionOptionsState extends State<QuestionOptions> {
           DataCell(
             Visibility(
               visible: showOption,
-              child: SizedBox(
-                width: 150,
-                child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  questionSolutionNotifier
-                      .questionSolutionListModel[index].option,
-                ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 150,
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      questionSolutionNotifier
+                          .questionSolutionListModel[index].option,
+                    ),
+                  ),
+                  Visibility(
+                    visible: showCopyButton,
+                    child: IconButton(
+                      onPressed: () async {
+                        Clipboard.setData(ClipboardData(
+                                text: questionSolutionNotifier
+                                    .questionSolutionListModel[index].option))
+                            .then(
+                          (value) {
+                            Future<ClipboardData?> data =
+                                Clipboard.getData(Clipboard.kTextPlain);
+                            data.then((value) {
+                              if (value != null && value.text != null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(Lang().theOperationCompletes),
+                                    // action: SnackBarAction(label: 'Action', onPressed: () {}),
+                                  ),
+                                );
+                              }
+                            });
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.copy),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
