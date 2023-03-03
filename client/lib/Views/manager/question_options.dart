@@ -447,6 +447,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
     bool showCorrectAnswer = false;
     bool showScoreRatio = false;
     bool showPosition = false;
+    bool showCorrectAnswerTip = false;
 
     String correctAnswerMemo = correctAnswerList.first;
     String positionMemo = positionList.first;
@@ -466,6 +467,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
       showOption = true;
       showPosition = true;
       showCorrectItem = true;
+      showCorrectAnswerTip = true;
       height = 250;
     } else {
       showOption = false;
@@ -523,16 +525,19 @@ class QuestionOptionsState extends State<QuestionOptions> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          Lang().theCorrectAnswerIsTheOptionOnTheLeft,
-                          style: const TextStyle(
-                            color: Colors.redAccent,
-                            fontWeight: FontWeight.w500,
+                    Visibility(
+                      visible: showCorrectAnswerTip,
+                      child: Row(
+                        children: [
+                          Text(
+                            Lang().theCorrectAnswerIsTheOptionOnTheLeft,
+                            style: const TextStyle(
+                              color: Colors.redAccent,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 10),
                     Row(
