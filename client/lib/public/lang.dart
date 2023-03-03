@@ -134,6 +134,7 @@ class Lang {
   String optionDescription = '';
   String rightSide = '';
   String leftSide = '';
+  String theCorrectAnswerIsTheOptionOnTheLeft = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -268,6 +269,7 @@ class Lang {
       this.optionDescription = '选项描述';
       this.rightSide = '右侧';
       this.leftSide = '左侧';
+      this.theCorrectAnswerIsTheOptionOnTheLeft = '正确答案为左侧选项';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -395,11 +397,13 @@ class Lang {
       this.correctItem = 'Correct Item';
       this.scoreRatio = 'Score Ratio';
       this.position = 'Position';
-      this.right = 'right';
-      this.wrong = 'wrong';
+      this.right = 'Right';
+      this.wrong = 'Wrong';
       this.optionDescription = 'Option Description';
-      this.rightSide = 'right';
-      this.leftSide = 'left';
+      this.rightSide = 'Right';
+      this.leftSide = 'Left';
+      this.theCorrectAnswerIsTheOptionOnTheLeft =
+          'The correct answer is the option on the left';
     }
   }
 }

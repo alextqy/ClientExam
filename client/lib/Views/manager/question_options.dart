@@ -218,9 +218,8 @@ class QuestionOptionsState extends State<QuestionOptions> {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                questionSolutionNotifier
-                    .questionSolutionListModel[index].position
-                    .toString(),
+                checkPosition(questionSolutionNotifier
+                    .questionSolutionListModel[index].position),
               ),
             ),
           ),
@@ -349,6 +348,14 @@ class QuestionOptionsState extends State<QuestionOptions> {
     });
   }
 
+  String checkPosition(int position) {
+    if (position == 2) {
+      return Lang().rightSide;
+    } else {
+      return Lang().leftSide;
+    }
+  }
+
   // 修改得分比例
   void setScoreRatioAlertDialog(
     BuildContext context, {
@@ -459,7 +466,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
       showOption = true;
       showPosition = true;
       showCorrectItem = true;
-      height = 200;
+      height = 250;
     } else {
       showOption = false;
       showCorrectItem = false;
@@ -515,6 +522,17 @@ class QuestionOptionsState extends State<QuestionOptions> {
                           ),
                         ),
                       ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          Lang().theCorrectAnswerIsTheOptionOnTheLeft,
+                          style: const TextStyle(
+                            color: Colors.redAccent,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -617,12 +635,17 @@ class QuestionOptionsState extends State<QuestionOptions> {
                                       if (value == Lang().leftSide) {
                                         position = 1;
                                         positionMemo = Lang().leftSide;
+                                        showCorrectItem = false;
+                                        correctItemController.text = '';
                                       } else if (value == Lang().rightSide) {
                                         position = 2;
                                         positionMemo = Lang().rightSide;
+                                        showCorrectItem = true;
                                       } else {
                                         position = 0;
                                         positionMemo = correctAnswerList.first;
+                                        showCorrectItem = true;
+                                        correctItemController.text = '';
                                       }
                                     }
                                   });
