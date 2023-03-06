@@ -270,7 +270,12 @@ class Menu {
                     Lang().paper,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().paper),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper()
+                          .generate('/manager/paper', headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,

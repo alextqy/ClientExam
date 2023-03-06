@@ -49,8 +49,8 @@ class PaperApi extends ResponseHelper {
   Future<DataModel> updatePaperInfo({
     int id = 0,
     String paperName = '',
-    int totalScore = 0,
-    int passLine = 0,
+    double totalScore = 0,
+    double passLine = 0,
     int examDuration = 0,
   }) async {
     Response response = await post(

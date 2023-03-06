@@ -136,6 +136,11 @@ class Lang {
   String leftSide = '';
   String theCorrectAnswerIsTheOptionOnTheLeft = '';
 
+  String paperName = '';
+  String paperCode = '';
+  String paperStatus = '';
+  String quizPaperRules = '';
+
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
@@ -270,6 +275,11 @@ class Lang {
       this.rightSide = '右侧';
       this.leftSide = '左侧';
       this.theCorrectAnswerIsTheOptionOnTheLeft = '正确答案为左侧选项';
+
+      this.paperName = '试卷名称';
+      this.paperCode = '试卷代码';
+      this.paperStatus = '数据状态';
+      this.quizPaperRules = '试卷规则';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -404,6 +414,11 @@ class Lang {
       this.leftSide = 'Left';
       this.theCorrectAnswerIsTheOptionOnTheLeft =
           'The correct answer is the option on the left';
+
+      this.paperName = 'Paper Name';
+      this.paperCode = 'Paper Code';
+      this.paperStatus = 'Data Status';
+      this.quizPaperRules = 'Quiz Paper Rules';
     }
   }
 }

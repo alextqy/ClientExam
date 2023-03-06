@@ -59,8 +59,8 @@ class PaperNotifier extends BaseNotifier {
   void updatePaperInfo({
     required id,
     required String paperName,
-    required int totalScore,
-    required int passLine,
+    required double totalScore,
+    required double passLine,
     required int examDuration,
   }) async {
     operationStatus.value = OperationStatus.loading;
