@@ -39,7 +39,6 @@ class TopTitleState extends State<TopTitle> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController contentController = TextEditingController();
 
   HeadlineNotifier headlineNotifier = HeadlineNotifier();
 
@@ -146,7 +145,6 @@ class TopTitleState extends State<TopTitle> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              contentController.clear();
               nameAlertDialog(
                 context,
                 id: headlineNotifier.headlineListModel[index].id,

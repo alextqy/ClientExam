@@ -44,8 +44,6 @@ class ExamineeState extends State<Examinee> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController contactController = TextEditingController();
 
   ExamineeNotifier examineeNotifier = ExamineeNotifier();
   ClassNotifier classNotifier = ClassNotifier();
@@ -147,7 +145,6 @@ class ExamineeState extends State<Examinee> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              nameController.clear();
               nameAlertDialog(
                 context,
                 id: examineeNotifier.examineeListModel[index].id,

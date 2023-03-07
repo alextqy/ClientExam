@@ -117,7 +117,7 @@ class PaperRuleApi extends ResponseHelper {
         'QuestionType': questionType.toString(),
         'QuestionNum': questionNum.toString(),
         'SingleScore': singleScore.toString(),
-        'serialNumber': serialNumber.toString(),
+        'SerialNumber': serialNumber.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,

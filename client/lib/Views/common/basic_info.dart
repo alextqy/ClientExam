@@ -71,3 +71,25 @@ List<String> positionList = <String>[
   Lang().leftSide,
   Lang().rightSide,
 ];
+
+String checkQuestionType(int questionType) {
+  if (questionType == 1) {
+    return Lang().multipleChoiceQuestions;
+  } else if (questionType == 2) {
+    return Lang().judgmentQuestions;
+  } else if (questionType == 3) {
+    return Lang().multipleSelection;
+  } else if (questionType == 4) {
+    return Lang().fillInTheBlanks;
+  } else if (questionType == 5) {
+    return Lang().quizQuestions;
+  } else if (questionType == 6) {
+    return Lang().codeTesting;
+  } else if (questionType == 7) {
+    return Lang().drag;
+  } else if (questionType == 8) {
+    return Lang().connection;
+  } else {
+    return '';
+  }
+}

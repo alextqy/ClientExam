@@ -45,7 +45,6 @@ class KnowledgePointState extends State<KnowledgePoint> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController nameController = TextEditingController();
 
   KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
   SubjectNotifier subjectNotifier = SubjectNotifier();
@@ -144,7 +143,6 @@ class KnowledgePointState extends State<KnowledgePoint> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              nameController.clear();
               nameAlertDialog(
                 context,
                 id: knowledgeNotifier.knowledgeListModel[index].id,

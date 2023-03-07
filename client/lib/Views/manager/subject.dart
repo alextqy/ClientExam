@@ -41,7 +41,6 @@ class SubjectState extends State<Subject> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController nameController = TextEditingController();
 
   SubjectNotifier subjectNotifier = SubjectNotifier();
 
@@ -128,7 +127,6 @@ class SubjectState extends State<Subject> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              nameController.clear();
               nameAlertDialog(
                 context,
                 id: subjectNotifier.subjectListModel[index].id,

@@ -20,11 +20,12 @@ class QuestionOptions extends StatefulWidget {
   late String questionTitle;
   late int questionType;
   late int questionID;
-  QuestionOptions(
-      {super.key,
-      required this.questionTitle,
-      required this.questionType,
-      required this.questionID});
+  QuestionOptions({
+    super.key,
+    required this.questionTitle,
+    required this.questionType,
+    required this.questionID,
+  });
 
   @override
   State<QuestionOptions> createState() => QuestionOptionsState();

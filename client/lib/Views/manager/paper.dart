@@ -18,6 +18,8 @@ import 'package:client/providers/subject_notifier.dart';
 import 'package:client/models/paper_model.dart';
 import 'package:client/models/subject_model.dart';
 
+import 'package:client/Views/manager/paper_rule.dart';
+
 // ignore: must_be_immutable
 class Paper extends StatefulWidget {
   late String headline;
@@ -253,18 +255,13 @@ class PaperState extends State<Paper> {
                   icon: const Icon(Icons.list),
                   onPressed: () {
                     setState(() {
-                      print('rule');
-                      /*
                       Navigator.of(context)
                           .push(
                         MaterialPageRoute(
-                          builder: (context) => QuestionOptions(
-                            questionTitle: questionNotifier
-                                .questionListModel[index].questionTitle,
-                            questionType: questionNotifier
-                                .questionListModel[index].questionType,
-                            questionID:
-                                questionNotifier.questionListModel[index].id,
+                          builder: (context) => PaperRules(
+                            id: paperNotifier.paperListModel[index].id,
+                            paperName:
+                                paperNotifier.paperListModel[index].paperName,
                           ),
                         ),
                       )
@@ -273,7 +270,6 @@ class PaperState extends State<Paper> {
                           fetchData();
                         },
                       );
-                      */
                     });
                   },
                 ),

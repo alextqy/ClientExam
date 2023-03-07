@@ -44,8 +44,6 @@ class ClassState extends State<Class> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController classNameController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
 
   ClassNotifier classNotifier = ClassNotifier();
   TeacherNotifier teacherNotifier = TeacherNotifier();
@@ -146,7 +144,6 @@ class ClassState extends State<Class> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              classNameController.clear();
               nameAlertDialog(
                 context,
                 id: classNotifier.classListModel[index].id,

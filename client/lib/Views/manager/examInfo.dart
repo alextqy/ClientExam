@@ -56,8 +56,6 @@ class ExamInfoState extends State<ExamInfo> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController examNoController = TextEditingController();
-  TextEditingController examineeNoController = TextEditingController();
 
   ExamInfoNotifier examInfoNotifier = ExamInfoNotifier();
   ExamineeNotifier examineeNotifier = ExamineeNotifier();

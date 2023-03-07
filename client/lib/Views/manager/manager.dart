@@ -41,7 +41,6 @@ class ManagerState extends State<Manager> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController nameController = TextEditingController();
 
   ManagerNotifier managerNotifier = ManagerNotifier();
 
@@ -134,7 +133,6 @@ class ManagerState extends State<Manager> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              nameController.clear();
               nameAlertDialog(
                 context,
                 id: managerNotifier.managerListModel[index].id,

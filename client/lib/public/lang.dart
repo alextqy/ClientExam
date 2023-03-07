@@ -140,6 +140,10 @@ class Lang {
   String paperCode = '';
   String paperStatus = '';
   String quizPaperRules = '';
+  String ruleType = '';
+  String numberOfQuestions = '';
+  String scorePerQuestion = '';
+  String not = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -280,6 +284,10 @@ class Lang {
       this.paperCode = '试卷代码';
       this.paperStatus = '数据状态';
       this.quizPaperRules = '试卷规则';
+      this.ruleType = '规则类型';
+      this.numberOfQuestions = '试题数量';
+      this.scorePerQuestion = '单题分数';
+      this.not = '无';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -419,6 +427,10 @@ class Lang {
       this.paperCode = 'Paper Code';
       this.paperStatus = 'Data Status';
       this.quizPaperRules = 'Quiz Paper Rules';
+      this.ruleType = 'Rule Type';
+      this.numberOfQuestions = 'Number Of Questions';
+      this.scorePerQuestion = 'Score Per Question';
+      this.not = 'not';
     }
   }
 }

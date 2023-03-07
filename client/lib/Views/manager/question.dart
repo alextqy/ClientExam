@@ -52,7 +52,6 @@ class QuestionState extends State<Question> {
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController =
       TextEditingController();
-  TextEditingController questionTitleController = TextEditingController();
 
   QuestionNotifier questionNotifier = QuestionNotifier();
   KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
@@ -154,7 +153,6 @@ class QuestionState extends State<Question> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              questionTitleController.clear();
               infoAlertDialog(
                 context,
                 id: questionNotifier.questionListModel[index].id,
@@ -195,7 +193,6 @@ class QuestionState extends State<Question> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              questionTitleController.clear();
               infoAlertDialog(
                 context,
                 id: questionNotifier.questionListModel[index].id,
@@ -220,7 +217,6 @@ class QuestionState extends State<Question> {
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              questionTitleController.clear();
               infoAlertDialog(
                 context,
                 id: questionNotifier.questionListModel[index].id,
@@ -431,28 +427,6 @@ class QuestionState extends State<Question> {
       knowledgeDataDropdownMenuItemList.add(data);
     }
     return knowledgeDataDropdownMenuItemList;
-  }
-
-  String checkQuestionType(int questionType) {
-    if (questionType == 1) {
-      return Lang().multipleChoiceQuestions;
-    } else if (questionType == 2) {
-      return Lang().judgmentQuestions;
-    } else if (questionType == 3) {
-      return Lang().multipleSelection;
-    } else if (questionType == 4) {
-      return Lang().fillInTheBlanks;
-    } else if (questionType == 5) {
-      return Lang().quizQuestions;
-    } else if (questionType == 6) {
-      return Lang().codeTesting;
-    } else if (questionType == 7) {
-      return Lang().drag;
-    } else if (questionType == 8) {
-      return Lang().connection;
-    } else {
-      return '';
-    }
   }
 
   // 修改
