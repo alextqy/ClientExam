@@ -47,8 +47,7 @@ class OldExamInfoState extends State<OldExamInfo> {
   String startStateMemo = startStateList.first;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   ExamInfoHistoryNotifier examInfoHistoryNotifier = ExamInfoHistoryNotifier();
   ExamineeNotifier examineeNotifier = ExamineeNotifier();
@@ -65,11 +64,8 @@ class OldExamInfoState extends State<OldExamInfo> {
     )
         .then((value) {
       setState(() {
-        examInfoHistoryNotifier.examInfoHistoryListModel =
-            ExamInfoHistoryModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            examInfoHistoryNotifier.examInfoHistoryListModel.length,
-            (int index) => false);
+        examInfoHistoryNotifier.examInfoHistoryListModel = ExamInfoHistoryModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(examInfoHistoryNotifier.examInfoHistoryListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -95,8 +91,7 @@ class OldExamInfoState extends State<OldExamInfo> {
     return List<DataRow>.generate(
       examInfoHistoryNotifier.examInfoHistoryListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -109,122 +104,60 @@ class OldExamInfoState extends State<OldExamInfo> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoHistoryNotifier.examInfoHistoryListModel[index].id
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].id.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].subjectName),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].subjectName),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoHistoryNotifier.examInfoHistoryListModel[index].examNo),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].examNo),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].totalScore
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].totalScore.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoHistoryNotifier.examInfoHistoryListModel[index].passLine
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].passLine.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].examDuration
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].examDuration.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].startTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].startTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].endTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].endTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].actualScore
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].actualScore.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].actualDuration
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].actualDuration.toString()),
           ),
           DataCell(
             Text(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              checkPass(
-                  examInfoHistoryNotifier.examInfoHistoryListModel[index].pass),
+              checkPass(examInfoHistoryNotifier.examInfoHistoryListModel[index].pass),
             ),
           ),
           DataCell(
             IconButton(
               iconSize: 20,
-              onPressed: () => examineeInfo(context,
-                  examineeID: examInfoHistoryNotifier
-                      .examInfoHistoryListModel[index].examineeID),
+              onPressed: () => examineeInfo(context, examineeID: examInfoHistoryNotifier.examInfoHistoryListModel[index].examineeID),
               icon: const Icon(Icons.people),
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkExamState(examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].examState)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamState(examInfoHistoryNotifier.examInfoHistoryListModel[index].examState)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkExamType(examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].examType)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamType(examInfoHistoryNotifier.examInfoHistoryListModel[index].examType)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(examInfoHistoryNotifier
-                    .examInfoHistoryListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].updateTime)),
           ),
         ],
         selected: selected[index],
@@ -291,8 +224,7 @@ class OldExamInfoState extends State<OldExamInfo> {
       Toast().show(context, message: Lang().noData);
     } else {
       examineeNotifier.examineeInfo(id: examineeID).then((value) {
-        ExamineeModel examineeData =
-            ExamineeModel.fromJson(value.data); // 当前归属班级列表
+        ExamineeModel examineeData = ExamineeModel.fromJson(value.data); // 当前归属班级列表
         setState(() {
           showDialog(
             context: context,
@@ -312,18 +244,10 @@ class OldExamInfoState extends State<OldExamInfo> {
                           TextSpan(
                             children: [
                               TextSpan(text: 'ID: ${examineeData.id}\n'),
-                              TextSpan(
-                                  text:
-                                      '${Lang().name}: ${examineeData.name}\n'),
-                              TextSpan(
-                                  text:
-                                      '${Lang().examineeNo}: ${examineeData.examineeNo}\n'),
-                              TextSpan(
-                                  text:
-                                      '${Lang().createtime}: ${Tools().timestampToStr(examineeData.createTime)}\n'),
-                              TextSpan(
-                                  text:
-                                      '${Lang().contact}: ${examineeData.contact}\n'),
+                              TextSpan(text: '${Lang().name}: ${examineeData.name}\n'),
+                              TextSpan(text: '${Lang().examineeNo}: ${examineeData.examineeNo}\n'),
+                              TextSpan(text: '${Lang().createtime}: ${Tools().timestampToStr(examineeData.createTime)}\n'),
+                              TextSpan(text: '${Lang().contact}: ${examineeData.contact}\n'),
                             ],
                           ),
                         ),
@@ -343,19 +267,16 @@ class OldExamInfoState extends State<OldExamInfo> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        examInfoHistoryNotifier.examInfoHistoryListModel
-            .sort((a, b) => a.id.compareTo(b.id));
+        examInfoHistoryNotifier.examInfoHistoryListModel.sort((a, b) => a.id.compareTo(b.id));
       } else {
-        examInfoHistoryNotifier.examInfoHistoryListModel
-            .sort((a, b) => b.id.compareTo(a.id));
+        examInfoHistoryNotifier.examInfoHistoryListModel.sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
     selected = List<bool>.generate(
       examInfoHistoryNotifier.examInfoHistoryListModel.length,
       (int index) {
-        examInfoHistoryNotifier.examInfoHistoryListModel[index].selected =
-            false;
+        examInfoHistoryNotifier.examInfoHistoryListModel[index].selected = false;
         showSelected = 0;
         return false;
       },
@@ -431,8 +352,7 @@ class OldExamInfoState extends State<OldExamInfo> {
                             }
                           });
                         },
-                        items: examStatusList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: examStatusList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -469,8 +389,7 @@ class OldExamInfoState extends State<OldExamInfo> {
                             }
                           });
                         },
-                        items: examTypeList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: examTypeList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -507,8 +426,7 @@ class OldExamInfoState extends State<OldExamInfo> {
                             }
                           });
                         },
-                        items: passList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: passList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -548,8 +466,7 @@ class OldExamInfoState extends State<OldExamInfo> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -862,11 +779,8 @@ class OldExamInfoState extends State<OldExamInfo> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

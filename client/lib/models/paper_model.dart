@@ -47,9 +47,7 @@ class PaperModel extends BaseModel {
   }
 
   List<PaperModel> fromJsonList(String jsonString) {
-    List<PaperModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => PaperModel.fromJson(i))
-        .toList();
+    List<PaperModel> dataList = (jsonDecode(jsonString) as List).map((i) => PaperModel.fromJson(i)).toList();
     return dataList;
   }
 }

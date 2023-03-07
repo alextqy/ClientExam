@@ -14,10 +14,7 @@ class Tools {
     if (timestamp.toString().length == 10) {
       timestamp *= 1000;
     }
-    return DateTime.fromMillisecondsSinceEpoch(timestamp)
-        .toLocal()
-        .toString()
-        .substring(0, 19);
+    return DateTime.fromMillisecondsSinceEpoch(timestamp).toLocal().toString().substring(0, 19);
   }
 
   // 时间转时间戳 1970-01-01 00:00:00.00000

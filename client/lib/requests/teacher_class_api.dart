@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart';
 import 'package:client/public/file.dart';
 import 'package:client/requests/base.dart';
@@ -59,8 +58,7 @@ class TeacherClassApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataListModel.fromJson(
-        jsonDecode(decoder.convert(response.bodyBytes)));
+    return DataListModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> classTeachers({

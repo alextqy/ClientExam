@@ -42,8 +42,7 @@ class ClassState extends State<Class> {
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   ClassNotifier classNotifier = ClassNotifier();
   TeacherNotifier teacherNotifier = TeacherNotifier();
@@ -69,10 +68,8 @@ class ClassState extends State<Class> {
     )
         .then((value) {
       setState(() {
-        classNotifier.classListModel =
-            ClassModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            classNotifier.classListModel.length, (int index) => false);
+        classNotifier.classListModel = ClassModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(classNotifier.classListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -84,8 +81,7 @@ class ClassState extends State<Class> {
   void teacherData() {
     teacherNotifier.teachers().then((value) {
       setState(() {
-        teacherNotifier.teacherListModel =
-            TeacherModel().fromJsonList(jsonEncode(value.data));
+        teacherNotifier.teacherListModel = TeacherModel().fromJsonList(jsonEncode(value.data));
       });
     });
   }
@@ -110,8 +106,7 @@ class ClassState extends State<Class> {
     return List<DataRow>.generate(
       classNotifier.classListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -124,10 +119,7 @@ class ClassState extends State<Class> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                classNotifier.classListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].id.toString()),
           ),
           DataCell(
             Tooltip(
@@ -153,17 +145,10 @@ class ClassState extends State<Class> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                classNotifier.classListModel[index].classCode),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].classCode),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    classNotifier.classListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(classNotifier.classListModel[index].createTime)),
           ),
           DataCell(
             Text(
@@ -274,15 +259,12 @@ class ClassState extends State<Class> {
     required int classID,
   }) {
     teacherClassNotifier.classTeachers(classID: classID).then((value) {
-      List<TeacherModel> classTeacherListData =
-          TeacherModel().fromJsonList(jsonEncode(value.data)); // 当前归属教师列表
-      teacherSelected = List<bool>.generate(
-          teacherNotifier.teacherListModel.length, (int index) => false);
+      List<TeacherModel> classTeacherListData = TeacherModel().fromJsonList(jsonEncode(value.data)); // 当前归属教师列表
+      teacherSelected = List<bool>.generate(teacherNotifier.teacherListModel.length, (int index) => false);
 
       for (int i = 0; i < teacherSelected.length; i++) {
         for (int j = 0; j < classTeacherListData.length; j++) {
-          if (classTeacherListData[j].id ==
-              teacherNotifier.teacherListModel[i].id) {
+          if (classTeacherListData[j].id == teacherNotifier.teacherListModel[i].id) {
             teacherSelected[i] = true;
             break;
           }
@@ -322,8 +304,7 @@ class ClassState extends State<Class> {
                                 value: teacherSelected[index],
                                 onChanged: (bool? value) => {
                                   state(() {
-                                    int teacherID = teacherNotifier
-                                        .teacherListModel[index].id;
+                                    int teacherID = teacherNotifier.teacherListModel[index].id;
                                     if (teacherSelected[index]) {
                                       // 删除数据
                                       teacherClassNotifier.deleteByTeacherClass(
@@ -337,8 +318,7 @@ class ClassState extends State<Class> {
                                         classID: classID,
                                       );
                                     }
-                                    teacherSelected[index] =
-                                        !teacherSelected[index];
+                                    teacherSelected[index] = !teacherSelected[index];
                                   }),
                                 },
                               ),
@@ -346,8 +326,7 @@ class ClassState extends State<Class> {
                           ),
                         );
                       },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const Divider(height: 0.5, color: Colors.black12),
+                      separatorBuilder: (BuildContext context, int index) => const Divider(height: 0.5, color: Colors.black12),
                     ),
                   ),
                 );
@@ -522,8 +501,7 @@ class ClassState extends State<Class> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -684,11 +662,8 @@ class ClassState extends State<Class> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

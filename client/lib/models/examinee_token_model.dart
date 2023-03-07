@@ -26,9 +26,7 @@ class ExamineeTokenModel extends BaseModel {
   }
 
   List<ExamineeTokenModel> fromJsonList(String jsonString) {
-    List<ExamineeTokenModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => ExamineeTokenModel.fromJson(i))
-        .toList();
+    List<ExamineeTokenModel> dataList = (jsonDecode(jsonString) as List).map((i) => ExamineeTokenModel.fromJson(i)).toList();
     return dataList;
   }
 }

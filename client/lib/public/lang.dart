@@ -420,8 +420,7 @@ class Lang {
       this.optionDescription = 'Option Description';
       this.rightSide = 'Right';
       this.leftSide = 'Left';
-      this.theCorrectAnswerIsTheOptionOnTheLeft =
-          'The correct answer is the option on the left';
+      this.theCorrectAnswerIsTheOptionOnTheLeft = 'The correct answer is the option on the left';
 
       this.paperName = 'Paper Name';
       this.paperCode = 'Paper Code';

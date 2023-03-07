@@ -27,8 +27,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
   basicListener() async {
     if (managerNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (managerNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (managerNotifier.operationStatus.value == OperationStatus.success) {
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
       Toast().show(context, message: managerNotifier.operationMemo);
@@ -54,8 +53,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
   }
 
   Widget mainWidget(BuildContext context) {
-    TextEditingController nameController =
-        TextEditingController(text: managerNotifier.managerModel.name);
+    TextEditingController nameController = TextEditingController(text: managerNotifier.managerModel.name);
     TextEditingController passwordController = TextEditingController();
 
     return Container(
@@ -100,9 +98,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                         Lang().submit,
                       ),
                       onPressed: () {
-                        if (nameController.text.isNotEmpty &&
-                            nameController.text !=
-                                managerNotifier.managerModel.name) {
+                        if (nameController.text.isNotEmpty && nameController.text != managerNotifier.managerModel.name) {
                           managerNotifier.updateManagerInfo(
                             name: nameController.text,
                             permission: managerNotifier.managerModel.permission,
@@ -121,10 +117,8 @@ class PersonalSettingsState extends State<PersonalSettings> {
                     width: 300,
                     child: TextFormField(
                       readOnly: true,
-                      onTap: () => Toast().show(context,
-                          message: Lang().thisItemCannotBeModified),
-                      controller: TextEditingController(
-                          text: managerNotifier.managerModel.account),
+                      onTap: () => Toast().show(context, message: Lang().thisItemCannotBeModified),
+                      controller: TextEditingController(text: managerNotifier.managerModel.account),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: Lang().account,
@@ -141,11 +135,9 @@ class PersonalSettingsState extends State<PersonalSettings> {
                     width: 300,
                     child: TextFormField(
                       readOnly: true,
-                      onTap: () => Toast().show(context,
-                          message: Lang().thisItemCannotBeModified),
+                      onTap: () => Toast().show(context, message: Lang().thisItemCannotBeModified),
                       controller: TextEditingController(
-                        text: Tools().timestampToStr(
-                            managerNotifier.managerModel.createTime),
+                        text: Tools().timestampToStr(managerNotifier.managerModel.createTime),
                       ),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -179,15 +171,12 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       ),
                       onPressed: () {
                         if (passwordController.text.isNotEmpty) {
-                          Future<DataModel> result = ManagerApi()
-                              .managerChangePassword(
-                                  newPassword: passwordController.text);
+                          Future<DataModel> result = ManagerApi().managerChangePassword(newPassword: passwordController.text);
                           result.then(
                             (value) {
                               if (value.state == true) {
                                 passwordController.clear();
-                                Toast().show(context,
-                                    message: Lang().theOperationCompletes);
+                                Toast().show(context, message: Lang().theOperationCompletes);
                               } else {
                                 Toast().show(context, message: value.memo);
                               }

@@ -87,8 +87,7 @@ class ApiResponse<T> {
 
   ApiResponse.failure(this.message) : status = OperationStatus.failure;
 
-  ApiResponse.disconnection(this.message)
-      : status = OperationStatus.disconnection;
+  ApiResponse.disconnection(this.message) : status = OperationStatus.disconnection;
 }
 
 class BaseNotifier extends ChangeNotifier {
@@ -117,8 +116,7 @@ class BaseNotifier extends ChangeNotifier {
   QuestionSolutionModel questionSolutionModel = QuestionSolutionModel();
   ScantronHistoryModel scantronHistoryModel = ScantronHistoryModel();
   ScantronModel scantronModel = ScantronModel();
-  ScantronSolutionHistoryModel scantronSolutionHistoryModel =
-      ScantronSolutionHistoryModel();
+  ScantronSolutionHistoryModel scantronSolutionHistoryModel = ScantronSolutionHistoryModel();
   ScantronSolutionModel scantronSolutionModel = ScantronSolutionModel();
   SubjectModel subjectModel = SubjectModel();
   SysConfModel sysConfModel = SysConfModel();
@@ -170,8 +168,7 @@ class BaseNotifier extends ChangeNotifier {
   ScantronApi scantronApi = ScantronApi();
   ScantronHistoryApi scantronHistoryApi = ScantronHistoryApi();
   ScantronSolutionApi scantronSolutionApi = ScantronSolutionApi();
-  ScantronSolutionHistoryApi scantronSolutionHistoryApi =
-      ScantronSolutionHistoryApi();
+  ScantronSolutionHistoryApi scantronSolutionHistoryApi = ScantronSolutionHistoryApi();
   SubjectApi subjectApi = SubjectApi();
   SysConfApi sysConfApi = SysConfApi();
   SysLogApi sysLogApi = SysLogApi();

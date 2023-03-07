@@ -26,9 +26,7 @@ class TeacherClassModel extends BaseModel {
   }
 
   List<TeacherClassModel> fromJsonList(String jsonString) {
-    List<TeacherClassModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => TeacherClassModel.fromJson(i))
-        .toList();
+    List<TeacherClassModel> dataList = (jsonDecode(jsonString) as List).map((i) => TeacherClassModel.fromJson(i)).toList();
     return dataList;
   }
 }

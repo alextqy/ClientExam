@@ -37,16 +37,14 @@ class TopTitleState extends State<TopTitle> {
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   HeadlineNotifier headlineNotifier = HeadlineNotifier();
 
   basicListener() async {
     if (headlineNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (headlineNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (headlineNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -63,10 +61,8 @@ class TopTitleState extends State<TopTitle> {
     )
         .then((value) {
       setState(() {
-        headlineNotifier.headlineListModel =
-            HeadlineModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            headlineNotifier.headlineListModel.length, (int index) => false);
+        headlineNotifier.headlineListModel = HeadlineModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(headlineNotifier.headlineListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -94,8 +90,7 @@ class TopTitleState extends State<TopTitle> {
     return List<DataRow>.generate(
       headlineNotifier.headlineListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -108,10 +103,7 @@ class TopTitleState extends State<TopTitle> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                headlineNotifier.headlineListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, headlineNotifier.headlineListModel[index].id.toString()),
           ),
           /*
           DataCell(
@@ -136,10 +128,7 @@ class TopTitleState extends State<TopTitle> {
               ),
               child: Tooltip(
                 message: headlineNotifier.headlineListModel[index].content,
-                child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    headlineNotifier.headlineListModel[index].content),
+                child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, headlineNotifier.headlineListModel[index].content),
               ),
             ),
             showEditIcon: true,
@@ -153,24 +142,13 @@ class TopTitleState extends State<TopTitle> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                headlineNotifier.headlineListModel[index].contentCode),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, headlineNotifier.headlineListModel[index].contentCode),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    headlineNotifier.headlineListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(headlineNotifier.headlineListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    headlineNotifier.headlineListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(headlineNotifier.headlineListModel[index].updateTime)),
           ),
         ],
         selected: selected[index],
@@ -381,8 +359,7 @@ class TopTitleState extends State<TopTitle> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -543,11 +520,8 @@ class TopTitleState extends State<TopTitle> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

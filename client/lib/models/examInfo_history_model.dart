@@ -62,9 +62,7 @@ class ExamInfoHistoryModel extends BaseModel {
   }
 
   List<ExamInfoHistoryModel> fromJsonList(String jsonString) {
-    List<ExamInfoHistoryModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => ExamInfoHistoryModel.fromJson(i))
-        .toList();
+    List<ExamInfoHistoryModel> dataList = (jsonDecode(jsonString) as List).map((i) => ExamInfoHistoryModel.fromJson(i)).toList();
     return dataList;
   }
 }

@@ -43,8 +43,7 @@ class TeacherState extends State<Teacher> {
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   TeacherNotifier teacherNotifier = TeacherNotifier();
   ClassNotifier classNotifier = ClassNotifier();
@@ -53,8 +52,7 @@ class TeacherState extends State<Teacher> {
   basicListener() async {
     if (teacherNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (teacherNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (teacherNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -72,10 +70,8 @@ class TeacherState extends State<Teacher> {
     )
         .then((value) {
       setState(() {
-        teacherNotifier.teacherListModel =
-            TeacherModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            teacherNotifier.teacherListModel.length, (int index) => false);
+        teacherNotifier.teacherListModel = TeacherModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(teacherNotifier.teacherListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -87,8 +83,7 @@ class TeacherState extends State<Teacher> {
   void classesData() {
     classNotifier.classes().then((value) {
       setState(() {
-        classNotifier.classListModel =
-            ClassModel().fromJsonList(jsonEncode(value.data));
+        classNotifier.classListModel = ClassModel().fromJsonList(jsonEncode(value.data));
       });
     });
   }
@@ -113,8 +108,7 @@ class TeacherState extends State<Teacher> {
     return List<DataRow>.generate(
       teacherNotifier.teacherListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -127,16 +121,10 @@ class TeacherState extends State<Teacher> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                teacherNotifier.teacherListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.teacherListModel[index].id.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                teacherNotifier.teacherListModel[index].account),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.teacherListModel[index].account),
           ),
           DataCell(
             SizedBox(
@@ -159,18 +147,10 @@ class TeacherState extends State<Teacher> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    teacherNotifier.teacherListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.teacherListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    teacherNotifier.teacherListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.teacherListModel[index].updateTime)),
           ),
           DataCell(
             Text(
@@ -188,13 +168,10 @@ class TeacherState extends State<Teacher> {
           ),
           DataCell(
             CupertinoSwitch(
-              value: teacherNotifier.teacherListModel[index].state == 1
-                  ? true
-                  : false,
+              value: teacherNotifier.teacherListModel[index].state == 1 ? true : false,
               onChanged: (bool? value) {
                 setState(() {
-                  teacherNotifier.teacherDisabled(
-                      id: teacherNotifier.teacherListModel[index].id);
+                  teacherNotifier.teacherDisabled(id: teacherNotifier.teacherListModel[index].id);
                 });
               },
             ),
@@ -293,15 +270,12 @@ class TeacherState extends State<Teacher> {
     required int teacherID,
   }) {
     teacherClassNotifier.teacherclasses(teacherID: teacherID).then((value) {
-      List<ClassModel> teacherClassListData =
-          ClassModel().fromJsonList(jsonEncode(value.data)); // 当前归属班级列表
-      classSelected = List<bool>.generate(
-          classNotifier.classListModel.length, (int index) => false);
+      List<ClassModel> teacherClassListData = ClassModel().fromJsonList(jsonEncode(value.data)); // 当前归属班级列表
+      classSelected = List<bool>.generate(classNotifier.classListModel.length, (int index) => false);
 
       for (int i = 0; i < classSelected.length; i++) {
         for (int j = 0; j < teacherClassListData.length; j++) {
-          if (teacherClassListData[j].id ==
-              classNotifier.classListModel[i].id) {
+          if (teacherClassListData[j].id == classNotifier.classListModel[i].id) {
             classSelected[i] = true;
             break;
           }
@@ -341,8 +315,7 @@ class TeacherState extends State<Teacher> {
                                 value: classSelected[index],
                                 onChanged: (bool? value) => {
                                   state(() {
-                                    int classID =
-                                        classNotifier.classListModel[index].id;
+                                    int classID = classNotifier.classListModel[index].id;
                                     if (classSelected[index]) {
                                       // 删除数据
                                       teacherClassNotifier.deleteByTeacherClass(
@@ -356,8 +329,7 @@ class TeacherState extends State<Teacher> {
                                         classID: classID,
                                       );
                                     }
-                                    classSelected[index] =
-                                        !classSelected[index];
+                                    classSelected[index] = !classSelected[index];
                                   }),
                                 },
                               ),
@@ -365,8 +337,7 @@ class TeacherState extends State<Teacher> {
                           ),
                         );
                       },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const Divider(height: 0.5, color: Colors.black12),
+                      separatorBuilder: (BuildContext context, int index) => const Divider(height: 0.5, color: Colors.black12),
                     ),
                   ),
                 );
@@ -444,9 +415,7 @@ class TeacherState extends State<Teacher> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (newAccountController.text.isNotEmpty &&
-                        newPasswordController.text.isNotEmpty &&
-                        newNameController.text.isNotEmpty) {
+                    if (newAccountController.text.isNotEmpty && newPasswordController.text.isNotEmpty && newNameController.text.isNotEmpty) {
                       teacherNotifier.newTeacher(
                         account: newAccountController.text,
                         password: newPasswordController.text,
@@ -553,8 +522,7 @@ class TeacherState extends State<Teacher> {
                             }
                           });
                         },
-                        items: stateDropList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: stateDropList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -594,8 +562,7 @@ class TeacherState extends State<Teacher> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -784,11 +751,8 @@ class TeacherState extends State<Teacher> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               jumpToController.clear();
                               fetchData();

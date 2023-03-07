@@ -35,9 +35,7 @@ class KnowledgeModel extends BaseModel {
   }
 
   List<KnowledgeModel> fromJsonList(String jsonString) {
-    List<KnowledgeModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => KnowledgeModel.fromJson(i))
-        .toList();
+    List<KnowledgeModel> dataList = (jsonDecode(jsonString) as List).map((i) => KnowledgeModel.fromJson(i)).toList();
     return dataList;
   }
 }

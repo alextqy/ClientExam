@@ -51,8 +51,7 @@ class PaperRulesState extends State<PaperRules> {
   basicListener() async {
     if (paperRuleNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (paperRuleNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (paperRuleNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -70,10 +69,8 @@ class PaperRulesState extends State<PaperRules> {
     )
         .then((value) {
       setState(() {
-        paperRuleNotifier.paperRuleListModel =
-            PaperRuleModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            paperRuleNotifier.paperRuleListModel.length, (int index) => false);
+        paperRuleNotifier.paperRuleListModel = PaperRuleModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(paperRuleNotifier.paperRuleListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         sortAscending = false;
@@ -100,8 +97,7 @@ class PaperRulesState extends State<PaperRules> {
     return List<DataRow>.generate(
       paperRuleNotifier.paperRuleListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -114,42 +110,25 @@ class PaperRulesState extends State<PaperRules> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                paperRuleNotifier.paperRuleListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperRuleNotifier.paperRuleListModel[index].id.toString()),
           ),
           DataCell(
             checkRuleType(
-              headlineID:
-                  paperRuleNotifier.paperRuleListModel[index].headlineID,
-              knowledgeID:
-                  paperRuleNotifier.paperRuleListModel[index].knowledgeID,
+              headlineID: paperRuleNotifier.paperRuleListModel[index].headlineID,
+              knowledgeID: paperRuleNotifier.paperRuleListModel[index].knowledgeID,
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkQuestionType(
-                    paperRuleNotifier.paperRuleListModel[index].questionType)),
-            showEditIcon:
-                paperRuleNotifier.paperRuleListModel[index].questionType == 0
-                    ? false
-                    : true,
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkQuestionType(paperRuleNotifier.paperRuleListModel[index].questionType)),
+            showEditIcon: paperRuleNotifier.paperRuleListModel[index].questionType == 0 ? false : true,
             onTap: () {
-              if (paperRuleNotifier.paperRuleListModel[index].questionType >
-                  0) {
+              if (paperRuleNotifier.paperRuleListModel[index].questionType > 0) {
                 updatePaperRuleAlertDialog(
                   id: paperRuleNotifier.paperRuleListModel[index].id,
-                  questionType:
-                      paperRuleNotifier.paperRuleListModel[index].questionType,
-                  questionNum:
-                      paperRuleNotifier.paperRuleListModel[index].questionNum,
-                  singleScore:
-                      paperRuleNotifier.paperRuleListModel[index].singleScore,
-                  serialNumber:
-                      paperRuleNotifier.paperRuleListModel[index].serialNumber,
+                  questionType: paperRuleNotifier.paperRuleListModel[index].questionType,
+                  questionNum: paperRuleNotifier.paperRuleListModel[index].questionNum,
+                  singleScore: paperRuleNotifier.paperRuleListModel[index].singleScore,
+                  serialNumber: paperRuleNotifier.paperRuleListModel[index].serialNumber,
                   setType: 1,
                 );
               }
@@ -159,27 +138,17 @@ class PaperRulesState extends State<PaperRules> {
             Text(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              paperRuleNotifier.paperRuleListModel[index].questionNum == 0
-                  ? ''
-                  : paperRuleNotifier.paperRuleListModel[index].questionNum
-                      .toString(),
+              paperRuleNotifier.paperRuleListModel[index].questionNum == 0 ? '' : paperRuleNotifier.paperRuleListModel[index].questionNum.toString(),
             ),
-            showEditIcon:
-                paperRuleNotifier.paperRuleListModel[index].questionNum == 0
-                    ? false
-                    : true,
+            showEditIcon: paperRuleNotifier.paperRuleListModel[index].questionNum == 0 ? false : true,
             onTap: () {
               if (paperRuleNotifier.paperRuleListModel[index].questionNum > 0) {
                 updatePaperRuleAlertDialog(
                   id: paperRuleNotifier.paperRuleListModel[index].id,
-                  questionType:
-                      paperRuleNotifier.paperRuleListModel[index].questionType,
-                  questionNum:
-                      paperRuleNotifier.paperRuleListModel[index].questionNum,
-                  singleScore:
-                      paperRuleNotifier.paperRuleListModel[index].singleScore,
-                  serialNumber:
-                      paperRuleNotifier.paperRuleListModel[index].serialNumber,
+                  questionType: paperRuleNotifier.paperRuleListModel[index].questionType,
+                  questionNum: paperRuleNotifier.paperRuleListModel[index].questionNum,
+                  singleScore: paperRuleNotifier.paperRuleListModel[index].singleScore,
+                  serialNumber: paperRuleNotifier.paperRuleListModel[index].serialNumber,
                   setType: 2,
                 );
               }
@@ -189,28 +158,18 @@ class PaperRulesState extends State<PaperRules> {
             Text(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              paperRuleNotifier.paperRuleListModel[index].singleScore == 0
-                  ? ''
-                  : paperRuleNotifier.paperRuleListModel[index].singleScore
-                      .toString(),
+              paperRuleNotifier.paperRuleListModel[index].singleScore == 0 ? '' : paperRuleNotifier.paperRuleListModel[index].singleScore.toString(),
             ),
-            showEditIcon:
-                paperRuleNotifier.paperRuleListModel[index].singleScore == 0
-                    ? false
-                    : true,
+            showEditIcon: paperRuleNotifier.paperRuleListModel[index].singleScore == 0 ? false : true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
               if (paperRuleNotifier.paperRuleListModel[index].singleScore > 0) {
                 updatePaperRuleAlertDialog(
                   id: paperRuleNotifier.paperRuleListModel[index].id,
-                  questionType:
-                      paperRuleNotifier.paperRuleListModel[index].questionType,
-                  questionNum:
-                      paperRuleNotifier.paperRuleListModel[index].questionNum,
-                  singleScore:
-                      paperRuleNotifier.paperRuleListModel[index].singleScore,
-                  serialNumber:
-                      paperRuleNotifier.paperRuleListModel[index].serialNumber,
+                  questionType: paperRuleNotifier.paperRuleListModel[index].questionType,
+                  questionNum: paperRuleNotifier.paperRuleListModel[index].questionNum,
+                  singleScore: paperRuleNotifier.paperRuleListModel[index].singleScore,
+                  serialNumber: paperRuleNotifier.paperRuleListModel[index].serialNumber,
                   setType: 3,
                 );
               }
@@ -218,32 +177,19 @@ class PaperRulesState extends State<PaperRules> {
           ),
           DataCell(
             CupertinoSwitch(
-              value:
-                  paperRuleNotifier.paperRuleListModel[index].paperRuleState ==
-                          1
-                      ? true
-                      : false,
+              value: paperRuleNotifier.paperRuleListModel[index].paperRuleState == 1 ? true : false,
               onChanged: (bool? value) {
                 setState(() {
-                  paperRuleNotifier.paperRuleDisabled(
-                      id: paperRuleNotifier.paperRuleListModel[index].id);
+                  paperRuleNotifier.paperRuleDisabled(id: paperRuleNotifier.paperRuleListModel[index].id);
                 });
               },
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    paperRuleNotifier.paperRuleListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperRuleNotifier.paperRuleListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    paperRuleNotifier.paperRuleListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperRuleNotifier.paperRuleListModel[index].updateTime)),
           ),
         ],
         selected: selected[index],
@@ -310,8 +256,7 @@ class PaperRulesState extends State<PaperRules> {
         if (knowledgeID > 0) {
           knowledgeNotifier.knowledgeInfo(id: knowledgeID).then((value) {
             if (value.state == true) {
-              KnowledgeModel knowledgeData =
-                  KnowledgeModel.fromJson(value.data);
+              KnowledgeModel knowledgeData = KnowledgeModel.fromJson(value.data);
               showDialog(
                 context: context,
                 barrierDismissible: true,
@@ -338,7 +283,7 @@ class PaperRulesState extends State<PaperRules> {
     );
   }
 
-  /// 修改
+  // 修改
   void updatePaperRuleAlertDialog({
     required int id,
     required int questionType,
@@ -401,23 +346,17 @@ class PaperRulesState extends State<PaperRules> {
                                 ),
                                 onChanged: (String? value) {
                                   state(() {
-                                    if (value != null &&
-                                        updateQuestionTypeMemo != value) {
+                                    if (value != null && updateQuestionTypeMemo != value) {
                                       updateQuestionTypeMemo = value;
-                                      if (value ==
-                                          Lang().multipleChoiceQuestions) {
+                                      if (value == Lang().multipleChoiceQuestions) {
                                         updateQuestionType = 1;
-                                      } else if (value ==
-                                          Lang().judgmentQuestions) {
+                                      } else if (value == Lang().judgmentQuestions) {
                                         updateQuestionType = 2;
-                                      } else if (value ==
-                                          Lang().multipleSelection) {
+                                      } else if (value == Lang().multipleSelection) {
                                         updateQuestionType = 3;
-                                      } else if (value ==
-                                          Lang().fillInTheBlanks) {
+                                      } else if (value == Lang().fillInTheBlanks) {
                                         updateQuestionType = 4;
-                                      } else if (value ==
-                                          Lang().quizQuestions) {
+                                      } else if (value == Lang().quizQuestions) {
                                         updateQuestionType = 5;
                                       } else if (value == Lang().codeTesting) {
                                         updateQuestionType = 6;
@@ -431,9 +370,7 @@ class PaperRulesState extends State<PaperRules> {
                                     }
                                   });
                                 },
-                                items: questionTypeList
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
+                                items: questionTypeList.map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
@@ -452,16 +389,14 @@ class PaperRulesState extends State<PaperRules> {
                             maxLines: 1,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(5),
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'[0-9]')),
+                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                             ],
                             controller: updateQuestionNumController,
                             decoration: InputDecoration(
                               hintText: Lang().numberOfQuestions,
                               suffixIcon: IconButton(
                                 iconSize: 20,
-                                onPressed: () =>
-                                    updateQuestionNumController.clear(),
+                                onPressed: () => updateQuestionNumController.clear(),
                                 icon: const Icon(Icons.clear),
                               ),
                             ),
@@ -475,16 +410,14 @@ class PaperRulesState extends State<PaperRules> {
                             maxLines: 1,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(5),
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'[0-9.]')),
+                              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
                             ],
                             controller: updateSingleScoreController,
                             decoration: InputDecoration(
                               hintText: Lang().scorePerQuestion,
                               suffixIcon: IconButton(
                                 iconSize: 20,
-                                onPressed: () =>
-                                    updateSingleScoreController.clear(),
+                                onPressed: () => updateSingleScoreController.clear(),
                                 icon: const Icon(Icons.clear),
                               ),
                             ),
@@ -496,17 +429,12 @@ class PaperRulesState extends State<PaperRules> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (updateQuestionType > 0 &&
-                        int.parse(updateQuestionNumController.text) > 0 &&
-                        double.parse(updateSingleScoreController.text) > 0 &&
-                        serialNumber > 0) {
+                    if (updateQuestionType > 0 && int.parse(updateQuestionNumController.text) > 0 && double.parse(updateSingleScoreController.text) > 0 && serialNumber > 0) {
                       paperRuleNotifier.updatePaperRule(
                         id: id,
                         questionType: updateQuestionType,
-                        questionNum:
-                            int.parse(updateQuestionNumController.text),
-                        singleScore:
-                            double.parse(updateSingleScoreController.text),
+                        questionNum: int.parse(updateQuestionNumController.text),
+                        singleScore: double.parse(updateSingleScoreController.text),
                         serialNumber: serialNumber,
                       );
                     }
@@ -627,11 +555,9 @@ class PaperRulesState extends State<PaperRules> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        paperRuleNotifier.paperRuleListModel
-            .sort((a, b) => a.id.compareTo(b.id));
+        paperRuleNotifier.paperRuleListModel.sort((a, b) => a.id.compareTo(b.id));
       } else {
-        paperRuleNotifier.paperRuleListModel
-            .sort((a, b) => b.id.compareTo(a.id));
+        paperRuleNotifier.paperRuleListModel.sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
@@ -707,8 +633,7 @@ class PaperRulesState extends State<PaperRules> {
                             }
                           });
                         },
-                        items: stateDropList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: stateDropList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -735,8 +660,7 @@ class PaperRulesState extends State<PaperRules> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -760,8 +684,7 @@ class PaperRulesState extends State<PaperRules> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.add),
-                      onPressed: () =>
-                          print('fuck'), // addAlertDialog(context),
+                      onPressed: () => print('fuck'), // addAlertDialog(context),
                     ),
                     // const SizedBox(width: 10),
                     // IconButton(
@@ -939,11 +862,8 @@ class PaperRulesState extends State<PaperRules> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

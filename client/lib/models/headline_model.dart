@@ -29,9 +29,7 @@ class HeadlineModel extends BaseModel {
   }
 
   List<HeadlineModel> fromJsonList(String jsonString) {
-    List<HeadlineModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => HeadlineModel.fromJson(i))
-        .toList();
+    List<HeadlineModel> dataList = (jsonDecode(jsonString) as List).map((i) => HeadlineModel.fromJson(i)).toList();
     return dataList;
   }
 }

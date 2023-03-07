@@ -42,8 +42,7 @@ class ExamineeState extends State<Examinee> {
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   ExamineeNotifier examineeNotifier = ExamineeNotifier();
   ClassNotifier classNotifier = ClassNotifier();
@@ -51,8 +50,7 @@ class ExamineeState extends State<Examinee> {
   basicListener() async {
     if (examineeNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (examineeNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (examineeNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -70,10 +68,8 @@ class ExamineeState extends State<Examinee> {
     )
         .then((value) {
       setState(() {
-        examineeNotifier.examineeListModel =
-            ExamineeModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            examineeNotifier.examineeListModel.length, (int index) => false);
+        examineeNotifier.examineeListModel = ExamineeModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(examineeNotifier.examineeListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -85,8 +81,7 @@ class ExamineeState extends State<Examinee> {
   void classesData() {
     classNotifier.classes().then((value) {
       setState(() {
-        classNotifier.classListModel =
-            ClassModel().fromJsonList(jsonEncode(value.data));
+        classNotifier.classListModel = ClassModel().fromJsonList(jsonEncode(value.data));
       });
     });
   }
@@ -111,8 +106,7 @@ class ExamineeState extends State<Examinee> {
     return List<DataRow>.generate(
       examineeNotifier.examineeListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -125,10 +119,7 @@ class ExamineeState extends State<Examinee> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examineeNotifier.examineeListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].id.toString()),
           ),
           DataCell(
             Tooltip(
@@ -155,17 +146,10 @@ class ExamineeState extends State<Examinee> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examineeNotifier.examineeListModel[index].examineeNo),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].examineeNo),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    examineeNotifier.examineeListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examineeNotifier.examineeListModel[index].createTime)),
           ),
           DataCell(
             Text(
@@ -460,9 +444,7 @@ class ExamineeState extends State<Examinee> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (newExamineeNoController.text.isNotEmpty &&
-                        newNameController.text.isNotEmpty &&
-                        newClassID > 0) {
+                    if (newExamineeNoController.text.isNotEmpty && newNameController.text.isNotEmpty && newClassID > 0) {
                       examineeNotifier.newExaminee(
                         examineeNo: newExamineeNoController.text,
                         name: newNameController.text,
@@ -605,8 +587,7 @@ class ExamineeState extends State<Examinee> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -775,11 +756,8 @@ class ExamineeState extends State<Examinee> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

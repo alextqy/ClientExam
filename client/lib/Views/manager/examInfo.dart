@@ -54,8 +54,7 @@ class ExamInfoState extends State<ExamInfo> {
   String suspendedStateMemo = suspendedStateList.first;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   ExamInfoNotifier examInfoNotifier = ExamInfoNotifier();
   ExamineeNotifier examineeNotifier = ExamineeNotifier();
@@ -67,8 +66,7 @@ class ExamInfoState extends State<ExamInfo> {
   basicListener() async {
     if (examInfoNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (examInfoNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (examInfoNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -90,10 +88,8 @@ class ExamInfoState extends State<ExamInfo> {
     )
         .then((value) {
       setState(() {
-        examInfoNotifier.examInfoListModel =
-            ExamInfoModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            examInfoNotifier.examInfoListModel.length, (int index) => false);
+        examInfoNotifier.examInfoListModel = ExamInfoModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(examInfoNotifier.examInfoListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -105,8 +101,7 @@ class ExamInfoState extends State<ExamInfo> {
   void subjectsData() {
     subjectNotifier.subjects().then((value) {
       setState(() {
-        subjectNotifier.subjectListModel =
-            SubjectModel().fromJsonList(jsonEncode(value.data));
+        subjectNotifier.subjectListModel = SubjectModel().fromJsonList(jsonEncode(value.data));
       });
     });
   }
@@ -131,8 +126,7 @@ class ExamInfoState extends State<ExamInfo> {
     return List<DataRow>.generate(
       examInfoNotifier.examInfoListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -145,70 +139,34 @@ class ExamInfoState extends State<ExamInfo> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoNotifier.examInfoListModel[index].id.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].subjectName),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoNotifier.examInfoListModel[index].subjectName),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].examNo),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoNotifier.examInfoListModel[index].examNo),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].totalScore
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoNotifier.examInfoListModel[index].totalScore.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].passLine.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoNotifier.examInfoListModel[index].passLine.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].examDuration
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoNotifier.examInfoListModel[index].examDuration.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    examInfoNotifier.examInfoListModel[index].startTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoNotifier.examInfoListModel[index].startTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    examInfoNotifier.examInfoListModel[index].endTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoNotifier.examInfoListModel[index].endTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].actualScore
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoNotifier.examInfoListModel[index].actualScore.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                examInfoNotifier.examInfoListModel[index].actualDuration
-                    .toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoNotifier.examInfoListModel[index].actualDuration.toString()),
           ),
           DataCell(
             Text(
@@ -220,57 +178,31 @@ class ExamInfoState extends State<ExamInfo> {
           DataCell(
             IconButton(
               iconSize: 20,
-              onPressed: () => examineeInfo(context,
-                  examineeID:
-                      examInfoNotifier.examInfoListModel[index].examineeID),
+              onPressed: () => examineeInfo(context, examineeID: examInfoNotifier.examInfoListModel[index].examineeID),
               icon: const Icon(Icons.people),
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkExamState(
-                    examInfoNotifier.examInfoListModel[index].examState)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamState(examInfoNotifier.examInfoListModel[index].examState)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkExamType(
-                    examInfoNotifier.examInfoListModel[index].examType)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamType(examInfoNotifier.examInfoListModel[index].examType)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    examInfoNotifier.examInfoListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoNotifier.examInfoListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    examInfoNotifier.examInfoListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoNotifier.examInfoListModel[index].updateTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkStartState(
-                    examInfoNotifier.examInfoListModel[index].startState)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkStartState(examInfoNotifier.examInfoListModel[index].startState)),
           ),
           DataCell(
             CupertinoSwitch(
-              value:
-                  examInfoNotifier.examInfoListModel[index].suspendedState == 1
-                      ? false
-                      : true,
+              value: examInfoNotifier.examInfoListModel[index].suspendedState == 1 ? false : true,
               onChanged: (bool? value) {
                 setState(() {
-                  examInfoNotifier.examInfoSuspend(
-                      id: examInfoNotifier.examInfoListModel[index].id);
+                  examInfoNotifier.examInfoSuspend(id: examInfoNotifier.examInfoListModel[index].id);
                 });
               },
             ),
@@ -359,8 +291,7 @@ class ExamInfoState extends State<ExamInfo> {
       Toast().show(context, message: Lang().noData);
     } else {
       examineeNotifier.examineeInfo(id: examineeID).then((value) {
-        ExamineeModel examineeData =
-            ExamineeModel.fromJson(value.data); // 当前归属班级列表
+        ExamineeModel examineeData = ExamineeModel.fromJson(value.data); // 当前归属班级列表
         setState(() {
           showDialog(
             context: context,
@@ -380,18 +311,10 @@ class ExamInfoState extends State<ExamInfo> {
                           TextSpan(
                             children: [
                               TextSpan(text: 'ID: ${examineeData.id}\n'),
-                              TextSpan(
-                                  text:
-                                      '${Lang().name}: ${examineeData.name}\n'),
-                              TextSpan(
-                                  text:
-                                      '${Lang().examineeNo}: ${examineeData.examineeNo}\n'),
-                              TextSpan(
-                                  text:
-                                      '${Lang().createtime}: ${Tools().timestampToStr(examineeData.createTime)}\n'),
-                              TextSpan(
-                                  text:
-                                      '${Lang().contact}: ${examineeData.contact}\n'),
+                              TextSpan(text: '${Lang().name}: ${examineeData.name}\n'),
+                              TextSpan(text: '${Lang().examineeNo}: ${examineeData.examineeNo}\n'),
+                              TextSpan(text: '${Lang().createtime}: ${Tools().timestampToStr(examineeData.createTime)}\n'),
+                              TextSpan(text: '${Lang().contact}: ${examineeData.contact}\n'),
                             ],
                           ),
                         ),
@@ -439,8 +362,7 @@ class ExamInfoState extends State<ExamInfo> {
                             child: IconButton(
                               iconSize: 20,
                               onPressed: () {
-                                newExamNoController.text = Tools()
-                                    .genMD5(Tools().timestamp().toString());
+                                newExamNoController.text = Tools().genMD5(Tools().timestamp().toString());
                               },
                               icon: const Icon(Icons.credit_card),
                             ),
@@ -496,8 +418,7 @@ class ExamInfoState extends State<ExamInfo> {
                                   }
                                 });
                               },
-                              items: examTypeList.map<DropdownMenuItem<String>>(
-                                  (String value) {
+                              items: examTypeList.map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -547,9 +468,7 @@ class ExamInfoState extends State<ExamInfo> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (newExamNoController.text.isNotEmpty &&
-                        newExamType > 0 &&
-                        newSubjectID > 0) {
+                    if (newExamNoController.text.isNotEmpty && newExamType > 0 && newSubjectID > 0) {
                       examInfoNotifier.newExamInfo(
                         subjectName: subjectSelectedName,
                         examNo: newExamNoController.text,
@@ -664,8 +583,7 @@ class ExamInfoState extends State<ExamInfo> {
                             }
                           });
                         },
-                        items: examStatusList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: examStatusList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -702,8 +620,7 @@ class ExamInfoState extends State<ExamInfo> {
                             }
                           });
                         },
-                        items: examTypeList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: examTypeList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -740,8 +657,7 @@ class ExamInfoState extends State<ExamInfo> {
                             }
                           });
                         },
-                        items: passList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: passList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -778,8 +694,7 @@ class ExamInfoState extends State<ExamInfo> {
                             }
                           });
                         },
-                        items: startStateList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: startStateList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -816,8 +731,7 @@ class ExamInfoState extends State<ExamInfo> {
                             }
                           });
                         },
-                        items: suspendedStateList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: suspendedStateList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -857,8 +771,7 @@ class ExamInfoState extends State<ExamInfo> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -1197,9 +1110,7 @@ class ExamInfoState extends State<ExamInfo> {
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
-                                examInfoNotifier.generateTestPaper(
-                                    id: examInfoNotifier
-                                        .examInfoListModel[i].id);
+                                examInfoNotifier.generateTestPaper(id: examInfoNotifier.examInfoListModel[i].id);
                               }
                             }
                           }),
@@ -1217,9 +1128,7 @@ class ExamInfoState extends State<ExamInfo> {
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
-                                examInfoNotifier.resetExamQuestionData(
-                                    id: examInfoNotifier
-                                        .examInfoListModel[i].id);
+                                examInfoNotifier.resetExamQuestionData(id: examInfoNotifier.examInfoListModel[i].id);
                               }
                             }
                           }),
@@ -1237,9 +1146,7 @@ class ExamInfoState extends State<ExamInfo> {
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
-                                examInfoNotifier.examInfoDisabled(
-                                    id: examInfoNotifier
-                                        .examInfoListModel[i].id);
+                                examInfoNotifier.examInfoDisabled(id: examInfoNotifier.examInfoListModel[i].id);
                               }
                             }
                           }),
@@ -1257,9 +1164,7 @@ class ExamInfoState extends State<ExamInfo> {
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
-                                examInfoNotifier.gradeTheExam(
-                                    id: examInfoNotifier
-                                        .examInfoListModel[i].id);
+                                examInfoNotifier.gradeTheExam(id: examInfoNotifier.examInfoListModel[i].id);
                               }
                             }
                           }),
@@ -1277,9 +1182,7 @@ class ExamInfoState extends State<ExamInfo> {
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
-                                examInfoNotifier.examIntoHistory(
-                                    id: examInfoNotifier
-                                        .examInfoListModel[i].id);
+                                examInfoNotifier.examIntoHistory(id: examInfoNotifier.examInfoListModel[i].id);
                               }
                             }
                           }),
@@ -1300,11 +1203,8 @@ class ExamInfoState extends State<ExamInfo> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }
@@ -1378,10 +1278,8 @@ class ExamInfoState extends State<ExamInfo> {
   }
 
   void showPopupMenu(BuildContext context, double x, double y) {
-    RenderBox overlay =
-        Overlay.of(context)?.context.findRenderObject() as RenderBox;
-    RelativeRect position = RelativeRect.fromRect(
-        Rect.fromLTRB(x, y - 100, x, y), Offset.zero & overlay.size);
+    RenderBox overlay = Overlay.of(context)?.context.findRenderObject() as RenderBox;
+    RelativeRect position = RelativeRect.fromRect(Rect.fromLTRB(x, y - 100, x, y), Offset.zero & overlay.size);
 
     PopupMenuItem bulkImportItem = PopupMenuItem(
       value: 1,
@@ -1396,11 +1294,9 @@ class ExamInfoState extends State<ExamInfo> {
     );
     List<PopupMenuEntry<dynamic>> itemList = [bulkImportItem, demoItem];
 
-    showMenu(context: context, position: position, items: itemList)
-        .then((value) {
+    showMenu(context: context, position: position, items: itemList).then((value) {
       if (value == 1) {
-        Future<String?> filePath =
-            FileHelper().checkFile(dirPath: './', type: ['xls', 'xlsx']);
+        Future<String?> filePath = FileHelper().checkFile(dirPath: './', type: ['xls', 'xlsx']);
         filePath.then((value) {
           if (value != null) {
             examInfoNotifier.importExamInfo(filePath: value);
@@ -1445,8 +1341,7 @@ class ExamInfoState extends State<ExamInfo> {
           child: FloatingActionButton(
             backgroundColor: Colors.green,
             child: const Icon(Icons.add_box),
-            onPressed: () =>
-                showPopupMenu(context, _globlePositionX, _globlePositionY),
+            onPressed: () => showPopupMenu(context, _globlePositionX, _globlePositionY),
           ),
         ),
       ),

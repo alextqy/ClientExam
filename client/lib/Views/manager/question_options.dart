@@ -46,15 +46,12 @@ class QuestionOptionsState extends State<QuestionOptions> {
   bool showPosition = false;
   bool showCopyButton = false;
 
-  QuestionSolutionNotifier questionSolutionNotifier =
-      QuestionSolutionNotifier();
+  QuestionSolutionNotifier questionSolutionNotifier = QuestionSolutionNotifier();
 
   basicListener() async {
-    if (questionSolutionNotifier.operationStatus.value ==
-        OperationStatus.loading) {
+    if (questionSolutionNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (questionSolutionNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (questionSolutionNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -70,11 +67,8 @@ class QuestionOptionsState extends State<QuestionOptions> {
     )
         .then((value) {
       setState(() {
-        questionSolutionNotifier.questionSolutionListModel =
-            QuestionSolutionModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            questionSolutionNotifier.questionSolutionListModel.length,
-            (int index) => false);
+        questionSolutionNotifier.questionSolutionListModel = QuestionSolutionModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(questionSolutionNotifier.questionSolutionListModel.length, (int index) => false);
         showSelected = 0;
         sortAscending = false;
       });
@@ -124,8 +118,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
     return List<DataRow>.generate(
       questionSolutionNotifier.questionSolutionListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -141,8 +134,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
             Text(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              questionSolutionNotifier.questionSolutionListModel[index].id
-                  .toString(),
+              questionSolutionNotifier.questionSolutionListModel[index].id.toString(),
             ),
           ),
           DataCell(
@@ -155,21 +147,16 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     child: Text(
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      questionSolutionNotifier
-                          .questionSolutionListModel[index].option,
+                      questionSolutionNotifier.questionSolutionListModel[index].option,
                     ),
                   ),
                   Visibility(
                     visible: showCopyButton,
                     child: IconButton(
                       onPressed: () async {
-                        Clipboard.setData(ClipboardData(
-                                text: questionSolutionNotifier
-                                    .questionSolutionListModel[index].option))
-                            .then(
+                        Clipboard.setData(ClipboardData(text: questionSolutionNotifier.questionSolutionListModel[index].option)).then(
                           (value) {
-                            Future<ClipboardData?> data =
-                                Clipboard.getData(Clipboard.kTextPlain);
+                            Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
                             data.then((value) {
                               if (value != null && value.text != null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -197,8 +184,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 checkCorrectAnswer(
-                  questionSolutionNotifier
-                      .questionSolutionListModel[index].correctAnswer,
+                  questionSolutionNotifier.questionSolutionListModel[index].correctAnswer,
                 ),
               ),
             ),
@@ -207,15 +193,13 @@ class QuestionOptionsState extends State<QuestionOptions> {
             Visibility(
               visible: showCorrectItem,
               child: Tooltip(
-                message: questionSolutionNotifier
-                    .questionSolutionListModel[index].correctItem,
+                message: questionSolutionNotifier.questionSolutionListModel[index].correctItem,
                 child: SizedBox(
                   width: 200,
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    questionSolutionNotifier
-                        .questionSolutionListModel[index].correctItem,
+                    questionSolutionNotifier.questionSolutionListModel[index].correctItem,
                   ),
                 ),
               ),
@@ -227,9 +211,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                questionSolutionNotifier
-                    .questionSolutionListModel[index].scoreRatio
-                    .toString(),
+                questionSolutionNotifier.questionSolutionListModel[index].scoreRatio.toString(),
               ),
             ),
             showEditIcon: fillInTheBlanksAndQuizQuestionsEdit,
@@ -237,11 +219,8 @@ class QuestionOptionsState extends State<QuestionOptions> {
               if (showScoreRatio == true) {
                 setScoreRatioAlertDialog(
                   context,
-                  id: questionSolutionNotifier
-                      .questionSolutionListModel[index].id,
-                  scoreRatio: questionSolutionNotifier
-                      .questionSolutionListModel[index].scoreRatio
-                      .toString(),
+                  id: questionSolutionNotifier.questionSolutionListModel[index].id,
+                  scoreRatio: questionSolutionNotifier.questionSolutionListModel[index].scoreRatio.toString(),
                 );
               }
             },
@@ -252,24 +231,15 @@ class QuestionOptionsState extends State<QuestionOptions> {
               child: Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                checkPosition(questionSolutionNotifier
-                    .questionSolutionListModel[index].position),
+                checkPosition(questionSolutionNotifier.questionSolutionListModel[index].position),
               ),
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(questionSolutionNotifier
-                    .questionSolutionListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionSolutionNotifier.questionSolutionListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(questionSolutionNotifier
-                    .questionSolutionListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionSolutionNotifier.questionSolutionListModel[index].updateTime)),
           ),
           DataCell(
             Row(
@@ -285,13 +255,8 @@ class QuestionOptionsState extends State<QuestionOptions> {
                       color: Colors.black,
                     ),
                   ),
-                  onLongPress: () => viewImage(
-                      attachment: questionSolutionNotifier
-                          .questionSolutionListModel[index].optionAttachment,
-                      big: true),
-                  onPressed: () => viewImage(
-                      attachment: questionSolutionNotifier
-                          .questionSolutionListModel[index].optionAttachment),
+                  onLongPress: () => viewImage(attachment: questionSolutionNotifier.questionSolutionListModel[index].optionAttachment, big: true),
+                  onPressed: () => viewImage(attachment: questionSolutionNotifier.questionSolutionListModel[index].optionAttachment),
                 ),
                 const SizedBox(width: 10),
                 OutlinedButton(
@@ -311,14 +276,9 @@ class QuestionOptionsState extends State<QuestionOptions> {
                   ),
                   onPressed: () {
                     setState(() {
-                      FileHelper().checkFile(
-                          dirPath: './',
-                          type: ['jpg', 'jpeg', 'png', 'gif']).then((value) {
+                      FileHelper().checkFile(dirPath: './', type: ['jpg', 'jpeg', 'png', 'gif']).then((value) {
                         if (value != null) {
-                          questionSolutionNotifier.questionSolutionAttachment(
-                              id: questionSolutionNotifier
-                                  .questionSolutionListModel[index].id,
-                              filePath: value);
+                          questionSolutionNotifier.questionSolutionAttachment(id: questionSolutionNotifier.questionSolutionListModel[index].id, filePath: value);
                         }
                       });
                     });
@@ -348,9 +308,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
       width = null;
     }
     setState(() {
-      questionSolutionNotifier
-          .questionSolutionViewAttachments(filePath: attachment)
-          .then((value) {
+      questionSolutionNotifier.questionSolutionViewAttachments(filePath: attachment).then((value) {
         if (value.data != null) {
           showDialog(
             context: context,
@@ -366,8 +324,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                       child: Container(
                         margin: const EdgeInsets.all(0),
                         padding: const EdgeInsets.all(0),
-                        child: Image.memory(Tools()
-                            .byteListToBytes(Tools().toByteList(value.data))),
+                        child: Image.memory(Tools().byteListToBytes(Tools().toByteList(value.data))),
                       ),
                     ),
                   );
@@ -430,12 +387,10 @@ class QuestionOptionsState extends State<QuestionOptions> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      if (id > 0 &&
-                          updateScoreRatioController.text.isNotEmpty) {
+                      if (id > 0 && updateScoreRatioController.text.isNotEmpty) {
                         questionSolutionNotifier.setScoreRatio(
                           id: id,
-                          scoreRatio:
-                              double.parse(updateScoreRatioController.text),
+                          scoreRatio: double.parse(updateScoreRatioController.text),
                         );
                         Navigator.of(context).pop();
                       }
@@ -592,8 +547,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                                 ),
                                 onChanged: (String? value) {
                                   state(() {
-                                    if (value != null &&
-                                        correctAnswerMemo != value) {
+                                    if (value != null && correctAnswerMemo != value) {
                                       correctAnswerMemo = value;
                                       if (value == Lang().no) {
                                         correctAnswer = 1;
@@ -603,15 +557,12 @@ class QuestionOptionsState extends State<QuestionOptions> {
                                         correctAnswerMemo = Lang().yes;
                                       } else {
                                         correctAnswer = 0;
-                                        correctAnswerMemo =
-                                            correctAnswerList.first;
+                                        correctAnswerMemo = correctAnswerList.first;
                                       }
                                     }
                                   });
                                 },
-                                items: correctAnswerList
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
+                                items: correctAnswerList.map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
@@ -633,8 +584,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                             maxLines: 1,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(4),
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'[0-9.]')),
+                              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
                             ],
                             controller: scoreRatioController,
                             decoration: InputDecoration(
@@ -668,8 +618,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                                 ),
                                 onChanged: (String? value) {
                                   state(() {
-                                    if (value != null &&
-                                        positionMemo != value) {
+                                    if (value != null && positionMemo != value) {
                                       positionMemo = value;
                                       if (value == Lang().leftSide) {
                                         position = 1;
@@ -689,9 +638,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                                     }
                                   });
                                 },
-                                items: positionList
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
+                                items: positionList.map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
@@ -738,8 +685,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
   void deleteAlertDialog() {
     for (int i = 0; i < selected.length; i++) {
       if (selected[i]) {
-        questionSolutionNotifier.questionSolutionDelete(
-            id: questionSolutionNotifier.questionSolutionListModel[i].id);
+        questionSolutionNotifier.questionSolutionDelete(id: questionSolutionNotifier.questionSolutionListModel[i].id);
       }
     }
     fetchData();
@@ -748,19 +694,16 @@ class QuestionOptionsState extends State<QuestionOptions> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        questionSolutionNotifier.questionSolutionListModel
-            .sort((a, b) => a.id.compareTo(b.id));
+        questionSolutionNotifier.questionSolutionListModel.sort((a, b) => a.id.compareTo(b.id));
       } else {
-        questionSolutionNotifier.questionSolutionListModel
-            .sort((a, b) => b.id.compareTo(a.id));
+        questionSolutionNotifier.questionSolutionListModel.sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
     selected = List<bool>.generate(
       questionSolutionNotifier.questionSolutionListModel.length,
       (int index) {
-        questionSolutionNotifier.questionSolutionListModel[index].selected =
-            false;
+        questionSolutionNotifier.questionSolutionListModel[index].selected = false;
         showSelected = 0;
         return false;
       },

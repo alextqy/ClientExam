@@ -32,9 +32,7 @@ class SysConfModel extends BaseModel {
   }
 
   List<SysConfModel> fromJsonList(String jsonString) {
-    List<SysConfModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => SysConfModel.fromJson(i))
-        .toList();
+    List<SysConfModel> dataList = (jsonDecode(jsonString) as List).map((i) => SysConfModel.fromJson(i)).toList();
     return dataList;
   }
 }

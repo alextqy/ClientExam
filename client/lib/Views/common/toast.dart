@@ -8,8 +8,7 @@ enum Position {
 }
 
 // 自定义内容
-Widget customToastContent(String message,
-    {double textSize = 14, Color textColor = Colors.white}) {
+Widget customToastContent(String message, {double textSize = 14, Color textColor = Colors.white}) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -66,8 +65,7 @@ class Toast {
                 child: Card(
                   color: color, //背景色
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     child: Text(
                       message,
                       style: TextStyle(

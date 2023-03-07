@@ -140,8 +140,7 @@ class ManagerApi extends ResponseHelper {
       headers: postHeaders,
       encoding: postEncoding,
     );
-    return DataListModel.fromJson(
-        jsonDecode(decoder.convert(response.bodyBytes)));
+    return DataListModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
   Future<DataModel> managerInfo({

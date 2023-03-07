@@ -32,9 +32,7 @@ class SubjectModel extends BaseModel {
   }
 
   List<SubjectModel> fromJsonList(String jsonString) {
-    List<SubjectModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => SubjectModel.fromJson(i))
-        .toList();
+    List<SubjectModel> dataList = (jsonDecode(jsonString) as List).map((i) => SubjectModel.fromJson(i)).toList();
     return dataList;
   }
 }

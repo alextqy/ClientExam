@@ -32,9 +32,7 @@ class ExamLogModel extends BaseModel {
   }
 
   List<ExamLogModel> fromJsonList(String jsonString) {
-    List<ExamLogModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => ExamLogModel.fromJson(i))
-        .toList();
+    List<ExamLogModel> dataList = (jsonDecode(jsonString) as List).map((i) => ExamLogModel.fromJson(i)).toList();
     return dataList;
   }
 }

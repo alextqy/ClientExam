@@ -39,16 +39,14 @@ class SubjectState extends State<Subject> {
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   SubjectNotifier subjectNotifier = SubjectNotifier();
 
   basicListener() async {
     if (subjectNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (subjectNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (subjectNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -66,10 +64,8 @@ class SubjectState extends State<Subject> {
     )
         .then((value) {
       setState(() {
-        subjectNotifier.subjectListModel =
-            SubjectModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            subjectNotifier.subjectListModel.length, (int index) => false);
+        subjectNotifier.subjectListModel = SubjectModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(subjectNotifier.subjectListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -97,8 +93,7 @@ class SubjectState extends State<Subject> {
     return List<DataRow>.generate(
       subjectNotifier.subjectListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -111,18 +106,12 @@ class SubjectState extends State<Subject> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                subjectNotifier.subjectListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].id.toString()),
           ),
           DataCell(
             SizedBox(
               width: 150,
-              child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  subjectNotifier.subjectListModel[index].subjectName),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].subjectName),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
@@ -135,34 +124,20 @@ class SubjectState extends State<Subject> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                subjectNotifier.subjectListModel[index].subjectCode),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].subjectCode),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    subjectNotifier.subjectListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(subjectNotifier.subjectListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    subjectNotifier.subjectListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(subjectNotifier.subjectListModel[index].updateTime)),
           ),
           DataCell(
             CupertinoSwitch(
-              value: subjectNotifier.subjectListModel[index].subjectState == 1
-                  ? true
-                  : false,
+              value: subjectNotifier.subjectListModel[index].subjectState == 1 ? true : false,
               onChanged: (bool? value) {
                 setState(() {
-                  subjectNotifier.subjectDisabled(
-                      id: subjectNotifier.subjectListModel[index].id);
+                  subjectNotifier.subjectDisabled(id: subjectNotifier.subjectListModel[index].id);
                 });
               },
             ),
@@ -377,8 +352,7 @@ class SubjectState extends State<Subject> {
                             }
                           });
                         },
-                        items: stateDropList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: stateDropList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -418,8 +392,7 @@ class SubjectState extends State<Subject> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -595,11 +568,8 @@ class SubjectState extends State<Subject> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

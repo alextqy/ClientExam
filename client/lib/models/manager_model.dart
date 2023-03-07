@@ -41,9 +41,7 @@ class ManagerModel extends BaseModel {
   }
 
   List<ManagerModel> fromJsonList(String jsonString) {
-    List<ManagerModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => ManagerModel.fromJson(i))
-        .toList();
+    List<ManagerModel> dataList = (jsonDecode(jsonString) as List).map((i) => ManagerModel.fromJson(i)).toList();
     return dataList;
   }
 }

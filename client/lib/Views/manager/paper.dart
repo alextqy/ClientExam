@@ -44,8 +44,7 @@ class PaperState extends State<Paper> {
   int subjectID = 0;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   PaperNotifier paperNotifier = PaperNotifier();
   SubjectNotifier subjectNotifier = SubjectNotifier();
@@ -72,10 +71,8 @@ class PaperState extends State<Paper> {
     )
         .then((value) {
       setState(() {
-        paperNotifier.paperListModel =
-            PaperModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            paperNotifier.paperListModel.length, (int index) => false);
+        paperNotifier.paperListModel = PaperModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(paperNotifier.paperListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -87,8 +84,7 @@ class PaperState extends State<Paper> {
   void subjectsData() {
     subjectNotifier.subjects().then((value) {
       setState(() {
-        subjectNotifier.subjectListModel =
-            SubjectModel().fromJsonList(jsonEncode(value.data));
+        subjectNotifier.subjectListModel = SubjectModel().fromJsonList(jsonEncode(value.data));
       });
     });
   }
@@ -113,8 +109,7 @@ class PaperState extends State<Paper> {
     return List<DataRow>.generate(
       paperNotifier.paperListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -127,18 +122,12 @@ class PaperState extends State<Paper> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                paperNotifier.paperListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].id.toString()),
           ),
           DataCell(
             SizedBox(
               width: 150,
-              child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  paperNotifier.paperListModel[index].paperName),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].paperName),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
@@ -155,35 +144,23 @@ class PaperState extends State<Paper> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                paperNotifier.paperListModel[index].paperCode),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].paperCode),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                paperNotifier.paperListModel[index].subjectName),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].subjectName),
           ),
           DataCell(
             CupertinoSwitch(
-              value: paperNotifier.paperListModel[index].paperState == 1
-                  ? true
-                  : false,
+              value: paperNotifier.paperListModel[index].paperState == 1 ? true : false,
               onChanged: (bool? value) {
                 setState(() {
-                  paperNotifier.paperDisabled(
-                      id: paperNotifier.paperListModel[index].id);
+                  paperNotifier.paperDisabled(id: paperNotifier.paperListModel[index].id);
                 });
               },
             ),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                paperNotifier.paperListModel[index].totalScore.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].totalScore.toString()),
             showEditIcon: true,
             onTap: () {
               updateAlertDialog(
@@ -198,10 +175,7 @@ class PaperState extends State<Paper> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                paperNotifier.paperListModel[index].passLine.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].passLine.toString()),
             showEditIcon: true,
             onTap: () {
               updateAlertDialog(
@@ -216,10 +190,7 @@ class PaperState extends State<Paper> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                paperNotifier.paperListModel[index].examDuration.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].examDuration.toString()),
             showEditIcon: true,
             onTap: () {
               updateAlertDialog(
@@ -234,18 +205,10 @@ class PaperState extends State<Paper> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    paperNotifier.paperListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperNotifier.paperListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    paperNotifier.paperListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperNotifier.paperListModel[index].updateTime)),
           ),
           DataCell(
             Row(
@@ -260,8 +223,7 @@ class PaperState extends State<Paper> {
                         MaterialPageRoute(
                           builder: (context) => PaperRules(
                             id: paperNotifier.paperListModel[index].id,
-                            paperName:
-                                paperNotifier.paperListModel[index].paperName,
+                            paperName: paperNotifier.paperListModel[index].paperName,
                           ),
                         ),
                       )
@@ -435,11 +397,7 @@ class PaperState extends State<Paper> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (newPaperNameController.text.isNotEmpty &&
-                        newTotalScoreController.text.isNotEmpty &&
-                        newPassLineController.text.isNotEmpty &&
-                        newExamDurationController.text.isNotEmpty &&
-                        newSubjectID > 0) {
+                    if (newPaperNameController.text.isNotEmpty && newTotalScoreController.text.isNotEmpty && newPassLineController.text.isNotEmpty && newExamDurationController.text.isNotEmpty && newSubjectID > 0) {
                       paperNotifier.newPaper(
                         paperName: newPaperNameController.text,
                         totalScore: int.parse(newTotalScoreController.text),
@@ -484,8 +442,7 @@ class PaperState extends State<Paper> {
     TextEditingController updatePaperNameController = TextEditingController();
     TextEditingController updateTotalScoreController = TextEditingController();
     TextEditingController updatePassLineController = TextEditingController();
-    TextEditingController updateExamDurationController =
-        TextEditingController();
+    TextEditingController updateExamDurationController = TextEditingController();
 
     updatePaperNameController.text = paperName;
     updateTotalScoreController.text = totalScore.toString();
@@ -586,8 +543,7 @@ class PaperState extends State<Paper> {
                           hintText: Lang().examDuration,
                           suffixIcon: IconButton(
                             iconSize: 20,
-                            onPressed: () =>
-                                updateExamDurationController.clear(),
+                            onPressed: () => updateExamDurationController.clear(),
                             icon: const Icon(Icons.clear),
                           ),
                         ),
@@ -599,18 +555,13 @@ class PaperState extends State<Paper> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (updatePaperNameController.text.isNotEmpty &&
-                        updateTotalScoreController.text.isNotEmpty &&
-                        updatePassLineController.text.isNotEmpty &&
-                        updateExamDurationController.text.isNotEmpty) {
+                    if (updatePaperNameController.text.isNotEmpty && updateTotalScoreController.text.isNotEmpty && updatePassLineController.text.isNotEmpty && updateExamDurationController.text.isNotEmpty) {
                       paperNotifier.updatePaperInfo(
                         id: id,
                         paperName: updatePaperNameController.text,
-                        totalScore:
-                            double.parse(updateTotalScoreController.text),
+                        totalScore: double.parse(updateTotalScoreController.text),
                         passLine: double.parse(updatePassLineController.text),
-                        examDuration:
-                            int.parse(updateExamDurationController.text),
+                        examDuration: int.parse(updateExamDurationController.text),
                       );
                     }
                   },
@@ -712,8 +663,7 @@ class PaperState extends State<Paper> {
                             }
                           });
                         },
-                        items: stateDropList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: stateDropList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -753,8 +703,7 @@ class PaperState extends State<Paper> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -995,11 +944,8 @@ class PaperState extends State<Paper> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

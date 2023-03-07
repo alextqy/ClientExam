@@ -6,20 +6,15 @@ class RouteOpacity extends PageRouteBuilder {
   RouteOpacity(this.widget)
       : super(
             transitionDuration: const Duration(seconds: 1),
-            pageBuilder: (BuildContext context, Animation<double> animation1,
-                Animation<double> animation2) {
+            pageBuilder: (BuildContext context, Animation<double> animation1, Animation<double> animation2) {
               return widget;
             },
-            transitionsBuilder: (BuildContext context,
-                Animation<double> animation1,
-                Animation<double> animation2,
-                Widget child) {
+            transitionsBuilder: (BuildContext context, Animation<double> animation1, Animation<double> animation2, Widget child) {
               return FadeTransition(
                 opacity: Tween(
                   begin: 0.0,
                   end: 2.0,
-                ).animate(CurvedAnimation(
-                    parent: animation1, curve: Curves.fastOutSlowIn)),
+                ).animate(CurvedAnimation(parent: animation1, curve: Curves.fastOutSlowIn)),
                 child: child,
               );
             });
@@ -32,21 +27,16 @@ class RouteSlide extends PageRouteBuilder {
   RouteSlide(this.widget)
       : super(
           transitionDuration: const Duration(milliseconds: 500),
-          pageBuilder: (BuildContext context, Animation<double> animation1,
-              Animation<double> animation2) {
+          pageBuilder: (BuildContext context, Animation<double> animation1, Animation<double> animation2) {
             return widget;
           },
-          transitionsBuilder: (BuildContext context,
-              Animation<double> animation1,
-              Animation<double> animation2,
-              Widget child) {
+          transitionsBuilder: (BuildContext context, Animation<double> animation1, Animation<double> animation2, Widget child) {
             return SlideTransition(
               position: Tween<Offset>(
                 begin: const Offset(-1.0, 0.0),
                 end: const Offset(0.0, 0.0),
               ).animate(
-                CurvedAnimation(
-                    parent: animation1, curve: Curves.fastOutSlowIn),
+                CurvedAnimation(parent: animation1, curve: Curves.fastOutSlowIn),
               ),
               child: child,
             );

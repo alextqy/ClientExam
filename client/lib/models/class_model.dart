@@ -29,9 +29,7 @@ class ClassModel extends BaseModel {
   }
 
   List<ClassModel> fromJsonList(String jsonString) {
-    List<ClassModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => ClassModel.fromJson(i))
-        .toList();
+    List<ClassModel> dataList = (jsonDecode(jsonString) as List).map((i) => ClassModel.fromJson(i)).toList();
     return dataList;
   }
 }

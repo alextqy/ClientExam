@@ -44,9 +44,7 @@ class QuestionSolutionModel extends BaseModel {
   }
 
   List<QuestionSolutionModel> fromJsonList(String jsonString) {
-    List<QuestionSolutionModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => QuestionSolutionModel.fromJson(i))
-        .toList();
+    List<QuestionSolutionModel> dataList = (jsonDecode(jsonString) as List).map((i) => QuestionSolutionModel.fromJson(i)).toList();
     return dataList;
   }
 }

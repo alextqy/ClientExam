@@ -68,9 +68,7 @@ class ExamInfoModel extends BaseModel {
   }
 
   List<ExamInfoModel> fromJsonList(String jsonString) {
-    List<ExamInfoModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => ExamInfoModel.fromJson(i))
-        .toList();
+    List<ExamInfoModel> dataList = (jsonDecode(jsonString) as List).map((i) => ExamInfoModel.fromJson(i)).toList();
     return dataList;
   }
 }

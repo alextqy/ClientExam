@@ -47,9 +47,7 @@ class PracticeSolutionModel extends BaseModel {
   }
 
   List<PracticeSolutionModel> fromJsonList(String jsonString) {
-    List<PracticeSolutionModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => PracticeSolutionModel.fromJson(i))
-        .toList();
+    List<PracticeSolutionModel> dataList = (jsonDecode(jsonString) as List).map((i) => PracticeSolutionModel.fromJson(i)).toList();
     return dataList;
   }
 }

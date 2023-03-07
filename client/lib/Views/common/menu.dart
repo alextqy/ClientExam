@@ -61,9 +61,7 @@ class Menu {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(RouteHelper().generate(
-                      '/manager/personal/settings',
-                      headline: headline));
+                  Navigator.of(context).push(RouteHelper().generate('/manager/personal/settings', headline: headline));
                 },
               ),
             ),
@@ -132,8 +130,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/manager', headline: headline),
+                      RouteHelper().generate('/manager/manager', headline: headline),
                     );
                   },
                 ),
@@ -146,8 +143,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/teacher', headline: headline),
+                      RouteHelper().generate('/manager/teacher', headline: headline),
                     );
                   },
                 ),
@@ -160,8 +156,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/class', headline: headline),
+                      RouteHelper().generate('/manager/class', headline: headline),
                     );
                   },
                 ),
@@ -174,8 +169,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/examinee', headline: headline),
+                      RouteHelper().generate('/manager/examinee', headline: headline),
                     );
                   },
                 ),
@@ -188,8 +182,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/examInfo', headline: headline),
+                      RouteHelper().generate('/manager/examInfo', headline: headline),
                     );
                   },
                 ),
@@ -202,8 +195,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper().generate('/manager/old/examInfo',
-                          headline: headline),
+                      RouteHelper().generate('/manager/old/examInfo', headline: headline),
                     );
                   },
                 ),
@@ -216,8 +208,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/subject', headline: headline),
+                      RouteHelper().generate('/manager/subject', headline: headline),
                     );
                   },
                 ),
@@ -230,8 +221,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper().generate('/manager/knowledge/point',
-                          headline: headline),
+                      RouteHelper().generate('/manager/knowledge/point', headline: headline),
                     );
                   },
                 ),
@@ -244,8 +234,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/top/title', headline: headline),
+                      RouteHelper().generate('/manager/top/title', headline: headline),
                     );
                   },
                 ),
@@ -258,8 +247,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/question', headline: headline),
+                      RouteHelper().generate('/manager/question', headline: headline),
                     );
                   },
                 ),
@@ -272,8 +260,7 @@ class Menu {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper()
-                          .generate('/manager/paper', headline: headline),
+                      RouteHelper().generate('/manager/paper', headline: headline),
                     );
                   },
                 ),

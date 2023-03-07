@@ -32,9 +32,7 @@ class SysLogModel extends BaseModel {
   }
 
   List<SysLogModel> fromJsonList(String jsonString) {
-    List<SysLogModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => SysLogModel.fromJson(i))
-        .toList();
+    List<SysLogModel> dataList = (jsonDecode(jsonString) as List).map((i) => SysLogModel.fromJson(i)).toList();
     return dataList;
   }
 }

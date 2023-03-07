@@ -50,19 +50,16 @@ class QuestionState extends State<Question> {
   String knowledgeMemo = Lang().notSelected;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   QuestionNotifier questionNotifier = QuestionNotifier();
   KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
-  QuestionSolutionNotifier questionSolutionNotifier =
-      QuestionSolutionNotifier();
+  QuestionSolutionNotifier questionSolutionNotifier = QuestionSolutionNotifier();
 
   basicListener() async {
     if (questionNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (questionNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (questionNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -82,10 +79,8 @@ class QuestionState extends State<Question> {
     )
         .then((value) {
       setState(() {
-        questionNotifier.questionListModel =
-            QuestionModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            questionNotifier.questionListModel.length, (int index) => false);
+        questionNotifier.questionListModel = QuestionModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(questionNotifier.questionListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -97,8 +92,7 @@ class QuestionState extends State<Question> {
   void knowledgeData() {
     knowledgeNotifier.knowledge(subjectID: 0).then((value) {
       setState(() {
-        knowledgeNotifier.knowledgeListModel =
-            KnowledgeModel().fromJsonList(jsonEncode(value.data));
+        knowledgeNotifier.knowledgeListModel = KnowledgeModel().fromJsonList(jsonEncode(value.data));
       });
     });
   }
@@ -123,8 +117,7 @@ class QuestionState extends State<Question> {
     return List<DataRow>.generate(
       questionNotifier.questionListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -137,18 +130,12 @@ class QuestionState extends State<Question> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionNotifier.questionListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].id.toString()),
           ),
           DataCell(
             SizedBox(
               width: 150,
-              child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  questionNotifier.questionListModel[index].questionTitle),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].questionTitle),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
@@ -156,39 +143,25 @@ class QuestionState extends State<Question> {
               infoAlertDialog(
                 context,
                 id: questionNotifier.questionListModel[index].id,
-                questionTitle:
-                    questionNotifier.questionListModel[index].questionTitle,
-                questionType:
-                    questionNotifier.questionListModel[index].questionType,
-                description:
-                    questionNotifier.questionListModel[index].description,
+                questionTitle: questionNotifier.questionListModel[index].questionTitle,
+                questionType: questionNotifier.questionListModel[index].questionType,
+                description: questionNotifier.questionListModel[index].description,
                 language: questionNotifier.questionListModel[index].language,
-                languageVersion:
-                    questionNotifier.questionListModel[index].languageVersion,
+                languageVersion: questionNotifier.questionListModel[index].languageVersion,
                 itemType: 1,
               );
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionNotifier.questionListModel[index].questionCode),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].questionCode),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkQuestionType(
-                    questionNotifier.questionListModel[index].questionType)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkQuestionType(questionNotifier.questionListModel[index].questionType)),
           ),
           DataCell(
             SizedBox(
               width: 150,
-              child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  questionNotifier.questionListModel[index].description),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].description),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
@@ -196,73 +169,47 @@ class QuestionState extends State<Question> {
               infoAlertDialog(
                 context,
                 id: questionNotifier.questionListModel[index].id,
-                questionTitle:
-                    questionNotifier.questionListModel[index].questionTitle,
-                questionType:
-                    questionNotifier.questionListModel[index].questionType,
-                description:
-                    questionNotifier.questionListModel[index].description,
+                questionTitle: questionNotifier.questionListModel[index].questionTitle,
+                questionType: questionNotifier.questionListModel[index].questionType,
+                description: questionNotifier.questionListModel[index].description,
                 language: questionNotifier.questionListModel[index].language,
-                languageVersion:
-                    questionNotifier.questionListModel[index].languageVersion,
+                languageVersion: questionNotifier.questionListModel[index].languageVersion,
                 itemType: 2,
               );
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionNotifier.questionListModel[index].language),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].language),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
               infoAlertDialog(
                 context,
                 id: questionNotifier.questionListModel[index].id,
-                questionTitle:
-                    questionNotifier.questionListModel[index].questionTitle,
-                questionType:
-                    questionNotifier.questionListModel[index].questionType,
-                description:
-                    questionNotifier.questionListModel[index].description,
+                questionTitle: questionNotifier.questionListModel[index].questionTitle,
+                questionType: questionNotifier.questionListModel[index].questionType,
+                description: questionNotifier.questionListModel[index].description,
                 language: questionNotifier.questionListModel[index].language,
-                languageVersion:
-                    questionNotifier.questionListModel[index].languageVersion,
+                languageVersion: questionNotifier.questionListModel[index].languageVersion,
                 itemType: 3,
               );
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionNotifier.questionListModel[index].languageVersion),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].languageVersion),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    questionNotifier.questionListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionNotifier.questionListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    questionNotifier.questionListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionNotifier.questionListModel[index].updateTime)),
           ),
           DataCell(
             CupertinoSwitch(
-              value:
-                  questionNotifier.questionListModel[index].questionState == 1
-                      ? true
-                      : false,
+              value: questionNotifier.questionListModel[index].questionState == 1 ? true : false,
               onChanged: (bool? value) {
                 setState(() {
-                  questionNotifier.questionDisabled(
-                      id: questionNotifier.questionListModel[index].id);
+                  questionNotifier.questionDisabled(id: questionNotifier.questionListModel[index].id);
                 });
               },
             ),
@@ -281,13 +228,8 @@ class QuestionState extends State<Question> {
                       color: Colors.black,
                     ),
                   ),
-                  onLongPress: () => viewImage(
-                      attachment:
-                          questionNotifier.questionListModel[index].attachment,
-                      big: true),
-                  onPressed: () => viewImage(
-                      attachment:
-                          questionNotifier.questionListModel[index].attachment),
+                  onLongPress: () => viewImage(attachment: questionNotifier.questionListModel[index].attachment, big: true),
+                  onPressed: () => viewImage(attachment: questionNotifier.questionListModel[index].attachment),
                 ),
                 const SizedBox(width: 10),
                 OutlinedButton(
@@ -307,13 +249,9 @@ class QuestionState extends State<Question> {
                   ),
                   onPressed: () {
                     setState(() {
-                      FileHelper().checkFile(
-                          dirPath: './',
-                          type: ['jpg', 'jpeg', 'png', 'gif']).then((value) {
+                      FileHelper().checkFile(dirPath: './', type: ['jpg', 'jpeg', 'png', 'gif']).then((value) {
                         if (value != null) {
-                          questionNotifier.questionAttachment(
-                              id: questionNotifier.questionListModel[index].id,
-                              filePath: value);
+                          questionNotifier.questionAttachment(id: questionNotifier.questionListModel[index].id, filePath: value);
                         }
                       });
                     });
@@ -334,12 +272,9 @@ class QuestionState extends State<Question> {
                           .push(
                         MaterialPageRoute(
                           builder: (context) => QuestionOptions(
-                            questionTitle: questionNotifier
-                                .questionListModel[index].questionTitle,
-                            questionType: questionNotifier
-                                .questionListModel[index].questionType,
-                            questionID:
-                                questionNotifier.questionListModel[index].id,
+                            questionTitle: questionNotifier.questionListModel[index].questionTitle,
+                            questionType: questionNotifier.questionListModel[index].questionType,
+                            questionID: questionNotifier.questionListModel[index].id,
                           ),
                         ),
                       )
@@ -375,9 +310,7 @@ class QuestionState extends State<Question> {
       width = null;
     }
     setState(() {
-      questionNotifier
-          .questionViewAttachments(filePath: attachment)
-          .then((value) {
+      questionNotifier.questionViewAttachments(filePath: attachment).then((value) {
         if (value.data != null) {
           showDialog(
             context: context,
@@ -393,8 +326,7 @@ class QuestionState extends State<Question> {
                       child: Container(
                         margin: const EdgeInsets.all(0),
                         padding: const EdgeInsets.all(0),
-                        child: Image.memory(Tools()
-                            .byteListToBytes(Tools().toByteList(value.data))),
+                        child: Image.memory(Tools().byteListToBytes(Tools().toByteList(value.data))),
                       ),
                     ),
                   );
@@ -410,8 +342,7 @@ class QuestionState extends State<Question> {
   }
 
   List<DropdownMenuItem<KnowledgeModel>> knowledgeDropdownMenuItemList() {
-    List<DropdownMenuItem<KnowledgeModel>> knowledgeDataDropdownMenuItemList =
-        [];
+    List<DropdownMenuItem<KnowledgeModel>> knowledgeDataDropdownMenuItemList = [];
     for (KnowledgeModel element in knowledgeNotifier.knowledgeListModel) {
       DropdownMenuItem<KnowledgeModel> data = DropdownMenuItem(
         value: element,
@@ -440,12 +371,10 @@ class QuestionState extends State<Question> {
     required String languageVersion,
     required int itemType, // 1 QuestionTitle 2 Description 3 Language
   }) {
-    TextEditingController updateQuestionTitleController =
-        TextEditingController();
+    TextEditingController updateQuestionTitleController = TextEditingController();
     TextEditingController updateDescriptionController = TextEditingController();
     TextEditingController updateLanguageController = TextEditingController();
-    TextEditingController updateLanguageVersionController =
-        TextEditingController();
+    TextEditingController updateLanguageVersionController = TextEditingController();
     updateQuestionTitleController.text = questionTitle;
     updateDescriptionController.text = description;
     updateLanguageController.text = language;
@@ -509,15 +438,11 @@ class QuestionState extends State<Question> {
                                   child: IconButton(
                                     iconSize: 20,
                                     onPressed: () {
-                                      int offset = updateQuestionTitleController
-                                          .selection.base.offset;
-                                      String titleText =
-                                          updateQuestionTitleController.text;
+                                      int offset = updateQuestionTitleController.selection.base.offset;
+                                      String titleText = updateQuestionTitleController.text;
                                       if (offset >= 0 && titleText.isNotEmpty) {
-                                        String title = Tools().stringInsertion(
-                                            titleText, offset, '<->');
-                                        updateQuestionTitleController.text =
-                                            title;
+                                        String title = Tools().stringInsertion(titleText, offset, '<->');
+                                        updateQuestionTitleController.text = title;
                                       }
                                     },
                                     icon: const Icon(Icons.credit_card),
@@ -526,8 +451,7 @@ class QuestionState extends State<Question> {
                               ),
                               suffixIcon: IconButton(
                                 iconSize: 20,
-                                onPressed: () =>
-                                    updateQuestionTitleController.clear(),
+                                onPressed: () => updateQuestionTitleController.clear(),
                                 icon: const Icon(Icons.clear),
                               ),
                             ),
@@ -546,8 +470,7 @@ class QuestionState extends State<Question> {
                                 hintText: Lang().description,
                                 suffixIcon: IconButton(
                                   iconSize: 20,
-                                  onPressed: () =>
-                                      updateDescriptionController.clear(),
+                                  onPressed: () => updateDescriptionController.clear(),
                                   icon: const Icon(Icons.clear),
                                 ),
                               ),
@@ -573,15 +496,12 @@ class QuestionState extends State<Question> {
                                 ),
                                 onChanged: (String? value) {
                                   state(() {
-                                    if (value != null &&
-                                        updateLanguageMemo != value) {
+                                    if (value != null && updateLanguageMemo != value) {
                                       updateLanguageMemo = value;
                                     }
                                   });
                                 },
-                                items: languageList
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
+                                items: languageList.map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
@@ -603,8 +523,7 @@ class QuestionState extends State<Question> {
                               hintText: Lang().languageVersion,
                               suffixIcon: IconButton(
                                 iconSize: 20,
-                                onPressed: () =>
-                                    updateLanguageVersionController.clear(),
+                                onPressed: () => updateLanguageVersionController.clear(),
                                 icon: const Icon(Icons.clear),
                               ),
                             ),
@@ -617,12 +536,8 @@ class QuestionState extends State<Question> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      String newLanguageParam =
-                          updateLanguageMemo != Lang().notSelected
-                              ? updateLanguageMemo
-                              : '';
-                      if (updateQuestionTitleController.text.isNotEmpty &&
-                          updateDescriptionController.text.isNotEmpty) {
+                      String newLanguageParam = updateLanguageMemo != Lang().notSelected ? updateLanguageMemo : '';
+                      if (updateQuestionTitleController.text.isNotEmpty && updateDescriptionController.text.isNotEmpty) {
                         questionNotifier.updateQuestionInfo(
                           id: id,
                           questionTitle: updateQuestionTitleController.text,
@@ -654,8 +569,7 @@ class QuestionState extends State<Question> {
   void addAlertDialog(BuildContext context) {
     TextEditingController newQuestionTitleController = TextEditingController();
     TextEditingController newDescriptionController = TextEditingController();
-    TextEditingController newLanguageVersionController =
-        TextEditingController();
+    TextEditingController newLanguageVersionController = TextEditingController();
     String newLanguageMemo = languageList.first;
     String newQuestionTypeMemo = questionTypeList.first;
     String newKnowledgeMemo = Lang().notSelected;
@@ -721,16 +635,13 @@ class QuestionState extends State<Question> {
                             ),
                             onChanged: (String? value) {
                               state(() {
-                                if (value != null &&
-                                    newQuestionTypeMemo != value) {
+                                if (value != null && newQuestionTypeMemo != value) {
                                   newQuestionTypeMemo = value;
                                   if (value == Lang().multipleChoiceQuestions) {
                                     newQuestionType = 1;
-                                  } else if (value ==
-                                      Lang().judgmentQuestions) {
+                                  } else if (value == Lang().judgmentQuestions) {
                                     newQuestionType = 2;
-                                  } else if (value ==
-                                      Lang().multipleSelection) {
+                                  } else if (value == Lang().multipleSelection) {
                                     newQuestionType = 3;
                                   } else if (value == Lang().fillInTheBlanks) {
                                     newQuestionType = 4;
@@ -753,8 +664,7 @@ class QuestionState extends State<Question> {
                                 }
                               });
                             },
-                            items: questionTypeList
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: questionTypeList.map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
@@ -814,14 +724,12 @@ class QuestionState extends State<Question> {
                               ),
                               onChanged: (String? value) {
                                 state(() {
-                                  if (value != null &&
-                                      newLanguageMemo != value) {
+                                  if (value != null && newLanguageMemo != value) {
                                     newLanguageMemo = value;
                                   }
                                 });
                               },
-                              items: languageList.map<DropdownMenuItem<String>>(
-                                  (String value) {
+                              items: languageList.map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -843,8 +751,7 @@ class QuestionState extends State<Question> {
                             hintText: Lang().languageVersion,
                             suffixIcon: IconButton(
                               iconSize: 20,
-                              onPressed: () =>
-                                  newLanguageVersionController.clear(),
+                              onPressed: () => newLanguageVersionController.clear(),
                               icon: const Icon(Icons.clear),
                             ),
                           ),
@@ -857,14 +764,8 @@ class QuestionState extends State<Question> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    String newLanguageParam =
-                        newLanguageMemo != Lang().notSelected
-                            ? newLanguageMemo
-                            : '';
-                    if (newQuestionTitleController.text.isNotEmpty &&
-                        newDescriptionController.text.isNotEmpty &&
-                        newQuestionType > 0 &&
-                        newKnowledgeID > 0) {
+                    String newLanguageParam = newLanguageMemo != Lang().notSelected ? newLanguageMemo : '';
+                    if (newQuestionTitleController.text.isNotEmpty && newDescriptionController.text.isNotEmpty && newQuestionType > 0 && newKnowledgeID > 0) {
                       questionNotifier.newQuestion(
                         questionTitle: newQuestionTitleController.text,
                         questionType: newQuestionType,
@@ -1018,8 +919,7 @@ class QuestionState extends State<Question> {
                             }
                           });
                         },
-                        items: questionTypeList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: questionTypeList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -1053,8 +953,7 @@ class QuestionState extends State<Question> {
                             }
                           });
                         },
-                        items: stateDropList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: stateDropList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -1094,8 +993,7 @@ class QuestionState extends State<Question> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -1353,11 +1251,8 @@ class QuestionState extends State<Question> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

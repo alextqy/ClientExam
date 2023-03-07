@@ -53,9 +53,7 @@ class ScantronHistoryModel extends BaseModel {
   }
 
   List<ScantronHistoryModel> fromJsonList(String jsonString) {
-    List<ScantronHistoryModel> dataList = (jsonDecode(jsonString) as List)
-        .map((i) => ScantronHistoryModel.fromJson(i))
-        .toList();
+    List<ScantronHistoryModel> dataList = (jsonDecode(jsonString) as List).map((i) => ScantronHistoryModel.fromJson(i)).toList();
     return dataList;
   }
 }

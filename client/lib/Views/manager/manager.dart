@@ -39,16 +39,14 @@ class ManagerState extends State<Manager> {
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController =
-      TextEditingController();
+  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   ManagerNotifier managerNotifier = ManagerNotifier();
 
   basicListener() async {
     if (managerNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (managerNotifier.operationStatus.value ==
-        OperationStatus.success) {
+    } else if (managerNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
@@ -66,10 +64,8 @@ class ManagerState extends State<Manager> {
     )
         .then((value) {
       setState(() {
-        managerNotifier.managerListModel =
-            ManagerModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(
-            managerNotifier.managerListModel.length, (int index) => false);
+        managerNotifier.managerListModel = ManagerModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(managerNotifier.managerListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -97,8 +93,7 @@ class ManagerState extends State<Manager> {
     return List<DataRow>.generate(
       managerNotifier.managerListModel.length,
       (int index) => DataRow(
-        color: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+        color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
           if (states.contains(MaterialState.selected)) {
             return Theme.of(context).colorScheme.primary.withOpacity(0.2);
@@ -111,24 +106,15 @@ class ManagerState extends State<Manager> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                managerNotifier.managerListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].id.toString()),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                managerNotifier.managerListModel[index].account),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].account),
           ),
           DataCell(
             SizedBox(
               width: 150,
-              child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  managerNotifier.managerListModel[index].name),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].name),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
@@ -142,28 +128,17 @@ class ManagerState extends State<Manager> {
             },
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    managerNotifier.managerListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(managerNotifier.managerListModel[index].createTime)),
           ),
           DataCell(
-            Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                Tools().timestampToStr(
-                    managerNotifier.managerListModel[index].updateTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(managerNotifier.managerListModel[index].updateTime)),
           ),
           DataCell(
             CupertinoSwitch(
-              value: managerNotifier.managerListModel[index].state == 1
-                  ? true
-                  : false,
+              value: managerNotifier.managerListModel[index].state == 1 ? true : false,
               onChanged: (bool? value) {
                 setState(() {
-                  managerNotifier.managerDisabled(
-                      id: managerNotifier.managerListModel[index].id);
+                  managerNotifier.managerDisabled(id: managerNotifier.managerListModel[index].id);
                 });
               },
             ),
@@ -176,8 +151,7 @@ class ManagerState extends State<Manager> {
             selected[index] = value;
           });
         },
-        onLongPress: () => passwordAlertDialog(context,
-            id: managerNotifier.managerListModel[index].id),
+        onLongPress: () => passwordAlertDialog(context, id: managerNotifier.managerListModel[index].id),
       ),
     );
   }
@@ -308,9 +282,7 @@ class ManagerState extends State<Manager> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (newAccountController.text.isNotEmpty &&
-                        newPasswordController.text.isNotEmpty &&
-                        newNameController.text.isNotEmpty) {
+                    if (newAccountController.text.isNotEmpty && newPasswordController.text.isNotEmpty && newNameController.text.isNotEmpty) {
                       managerNotifier.newManager(
                         account: newAccountController.text,
                         password: newPasswordController.text,
@@ -472,8 +444,7 @@ class ManagerState extends State<Manager> {
                             }
                           });
                         },
-                        items: stateDropList
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: stateDropList.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -513,8 +484,7 @@ class ManagerState extends State<Manager> {
                             fetchData();
                           });
                         },
-                        items: perPageDropList
-                            .map<DropdownMenuItem<int>>((int value) {
+                        items: perPageDropList.map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
                             child: Text(value.toString()),
@@ -690,11 +660,8 @@ class ManagerState extends State<Manager> {
                         controller: jumpToController,
                         onSubmitted: (value) {
                           setState(() {
-                            int onSubmittedData =
-                                int.parse(jumpToController.text);
-                            if (onSubmittedData >= 1 &&
-                                onSubmittedData <= totalPage &&
-                                onSubmittedData != page) {
+                            int onSubmittedData = int.parse(jumpToController.text);
+                            if (onSubmittedData >= 1 && onSubmittedData <= totalPage && onSubmittedData != page) {
                               page = onSubmittedData;
                               fetchData();
                             }

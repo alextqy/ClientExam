@@ -47,9 +47,7 @@ class QuestionSolutionNotifier extends BaseNotifier {
     operationStatus.value = OperationStatus.loading;
     try {
       var fileType = FileHelper().type(filePath);
-      if (fileType != 'image/jpeg' &&
-          fileType != 'image/png' &&
-          fileType != 'image/gif') {
+      if (fileType != 'image/jpeg' && fileType != 'image/png' && fileType != 'image/gif') {
         operationStatus.value = OperationStatus.failure;
         operationMemo = Lang().wrongFileType;
       } else if (FileHelper().size(filePath) > 1024 * 1024 * 0.25 * 0.5) {
