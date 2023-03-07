@@ -91,26 +91,10 @@ class KnowledgeNotifier extends BaseNotifier {
     );
   }
 
-  void knowledgeInfo({
+  Future<DataModel> knowledgeInfo({
     required int id,
   }) async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await knowledgeApi.knowledgeInfo(
-        id: id,
-      );
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
+    return await knowledgeApi.knowledgeInfo(id: id);
   }
 
   Future<DataModel> knowledge({

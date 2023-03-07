@@ -12,8 +12,12 @@ import 'package:client/Views/common/toast.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/paper_rule_notifier.dart';
+import 'package:client/providers/headline_notifier.dart';
+import 'package:client/providers/knowledge_notifier.dart';
 
 import 'package:client/models/paper_rule_model.dart';
+import 'package:client/models/headline_model.dart';
+import 'package:client/models/knowledge_model.dart';
 
 // ignore: must_be_immutable
 class PaperRules extends StatefulWidget {
@@ -41,6 +45,8 @@ class PaperRulesState extends State<PaperRules> {
   TextEditingController jumpToController = TextEditingController();
 
   PaperRuleNotifier paperRuleNotifier = PaperRuleNotifier();
+  HeadlineNotifier headlineNotifier = HeadlineNotifier();
+  KnowledgeNotifier knowledgeNotifier = KnowledgeNotifier();
 
   basicListener() async {
     if (paperRuleNotifier.operationStatus.value == OperationStatus.loading) {
@@ -276,10 +282,57 @@ class PaperRulesState extends State<PaperRules> {
       ),
       onPressed: () {
         if (headlineID > 0) {
-          print(headlineID);
+          headlineNotifier.headlineInfo(id: headlineID).then((value) {
+            if (value.state == true) {
+              HeadlineModel headlineData = HeadlineModel.fromJson(value.data);
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return StatefulBuilder(
+                    builder: (BuildContext context, Function state) {
+                      return AlertDialog(
+                        title: Text(Lang().title),
+                        content: SizedBox(
+                          width: 1000,
+                          child: Text(headlineData.content),
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            } else {
+              Toast().show(context, message: Lang().theRequestFailed);
+            }
+          });
         }
         if (knowledgeID > 0) {
-          print(knowledgeID);
+          knowledgeNotifier.knowledgeInfo(id: knowledgeID).then((value) {
+            if (value.state == true) {
+              KnowledgeModel knowledgeData =
+                  KnowledgeModel.fromJson(value.data);
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return StatefulBuilder(
+                    builder: (BuildContext context, Function state) {
+                      return AlertDialog(
+                        title: Text(Lang().title),
+                        content: SizedBox(
+                          width: 500,
+                          child: Text(knowledgeData.knowledgeName),
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            } else {
+              Toast().show(context, message: Lang().theRequestFailed);
+            }
+          });
         }
       },
     );
@@ -473,6 +526,102 @@ class PaperRulesState extends State<PaperRules> {
       },
     );
   }
+
+  /*
+  // 新建
+  void addAlertDialog(BuildContext context) {
+    TextEditingController newNameController = TextEditingController();
+    TextEditingController newAccountController = TextEditingController();
+    TextEditingController newPasswordController = TextEditingController();
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 100,
+                height: 150,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        maxLines: 1,
+                        controller: newAccountController,
+                        decoration: InputDecoration(
+                          hintText: Lang().account,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newAccountController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: TextField(
+                        maxLines: 1,
+                        controller: newPasswordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: Lang().password,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newPasswordController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: TextField(
+                        maxLines: 1,
+                        controller: newNameController,
+                        decoration: InputDecoration(
+                          hintText: Lang().name,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newNameController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (newAccountController.text.isNotEmpty &&
+                        newPasswordController.text.isNotEmpty &&
+                        newNameController.text.isNotEmpty) {
+                      paperRuleNotifier.newPaperRule(
+                        account: newAccountController.text,
+                        password: newPasswordController.text,
+                        name: newNameController.text,
+                      );
+                      page = 1;
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+  */
 
   // 数据排序
   onSortColum(int columnIndex, bool ascending) {
