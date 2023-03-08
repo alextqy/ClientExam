@@ -761,7 +761,7 @@ class PaperRulesState extends State<PaperRules> {
                         paperID: paperID,
                         serialNumber: serialNumber,
                       );
-                      // page = 1;
+                      page = 1;
                     } else if (addType == 2 && newHeadlineID == 0 && newKnowledgeID > 0 && newQuestionType > 0 && questionNumController.text.isNotEmpty && singleScoreController.text.isNotEmpty) {
                       paperRuleNotifier.newPaperRule(
                         headlineID: newHeadlineID,
@@ -791,6 +791,16 @@ class PaperRulesState extends State<PaperRules> {
         );
       },
     );
+  }
+
+  // 删除
+  void deleteAction() {
+    for (int i = 0; i < selected.length; i++) {
+      if (selected[i]) {
+        paperRuleNotifier.paperRuleDelete(id: paperRuleNotifier.paperRuleListModel[i].id);
+      }
+    }
+    fetchData();
   }
 
   // 数据排序
@@ -942,7 +952,7 @@ class PaperRulesState extends State<PaperRules> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () => print('delete'),
+                      onPressed: () => deleteAction(),
                     ),
                   ],
                 ),

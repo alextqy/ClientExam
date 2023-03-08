@@ -682,7 +682,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
   }
 
   // 删除
-  void deleteAlertDialog() {
+  void deleteAction() {
     for (int i = 0; i < selected.length; i++) {
       if (selected[i]) {
         questionSolutionNotifier.questionSolutionDelete(id: questionSolutionNotifier.questionSolutionListModel[i].id);
@@ -791,7 +791,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () => deleteAlertDialog(),
+                      onPressed: () => deleteAction(),
                     ),
                   ],
                 ),
