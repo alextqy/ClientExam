@@ -21,7 +21,7 @@ class PaperRuleApi extends ResponseHelper {
       Uri.http(url, '/New/Paper/Rule'),
       body: {
         'Token': FileHelper().readFile('token'),
-        'headlineID': headlineID.toString(),
+        'HeadlineID': headlineID.toString(),
         'QuestionType': questionType.toString(),
         'KnowledgeID': knowledgeID.toString(),
         'QuestionNum': questionNum.toString(),

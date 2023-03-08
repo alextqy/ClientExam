@@ -144,6 +144,7 @@ class Lang {
   String numberOfQuestions = '';
   String scorePerQuestion = '';
   String not = '';
+  String parameterError = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -288,6 +289,7 @@ class Lang {
       this.numberOfQuestions = '试题数量';
       this.scorePerQuestion = '单题分数';
       this.not = '无';
+      this.parameterError = '参数错误';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -430,6 +432,7 @@ class Lang {
       this.numberOfQuestions = 'Number Of Questions';
       this.scorePerQuestion = 'Score Per Question';
       this.not = 'not';
+      this.parameterError = 'Parameter Error';
     }
   }
 }

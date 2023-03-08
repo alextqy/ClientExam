@@ -224,6 +224,7 @@ class PaperState extends State<Paper> {
                           builder: (context) => PaperRules(
                             id: paperNotifier.paperListModel[index].id,
                             paperName: paperNotifier.paperListModel[index].paperName,
+                            subjectID: paperNotifier.paperListModel[index].subjectID,
                           ),
                         ),
                       )
@@ -364,11 +365,15 @@ class PaperState extends State<Paper> {
                       child: Row(
                         children: [
                           SizedBox(
-                            height: 45,
                             child: DropdownButton<SubjectModel>(
-                              hint: Text(
-                                newSubjectSelectedName,
-                                style: const TextStyle(color: Colors.black),
+                              hint: SizedBox(
+                                width: 100,
+                                child: Text(
+                                  newSubjectSelectedName,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
                               ),
                               icon: const Icon(Icons.arrow_drop_down),
                               style: const TextStyle(color: Colors.black),

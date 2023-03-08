@@ -680,9 +680,14 @@ class QuestionState extends State<Question> {
                       child: Row(
                         children: [
                           DropdownButton<KnowledgeModel>(
-                            hint: Text(
-                              newKnowledgeMemo,
-                              style: const TextStyle(color: Colors.black),
+                            hint: SizedBox(
+                              width: 100,
+                              child: Text(
+                                newKnowledgeMemo,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: const TextStyle(color: Colors.black),
+                              ),
                             ),
                             icon: const Icon(Icons.arrow_drop_down),
                             style: const TextStyle(color: Colors.black),
@@ -854,9 +859,14 @@ class QuestionState extends State<Question> {
                       message: Lang().knowledgePoints,
                       child: SizedBox(
                         child: DropdownButton<KnowledgeModel>(
-                          hint: Text(
-                            knowledgeMemo,
-                            style: const TextStyle(color: Colors.black),
+                          hint: SizedBox(
+                            width: 100,
+                            child: Text(
+                              knowledgeMemo,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(color: Colors.black),
+                            ),
                           ),
                           icon: const Icon(Icons.arrow_drop_down),
                           style: const TextStyle(color: Colors.black),

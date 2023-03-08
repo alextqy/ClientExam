@@ -69,21 +69,7 @@ class HeadlineNotifier extends BaseNotifier {
     return await headlineApi.headlineInfo(id: id);
   }
 
-  void headlines() async {
-    operationStatus.value = OperationStatus.loading;
-    try {
-      result = await headlineApi.headlines();
-      if (result.state == true) {
-        operationStatus.value = OperationStatus.success;
-      } else {
-        operationStatus.value = OperationStatus.failure;
-        operationMemo = result.memo;
-      }
-    } catch (e) {
-      operationStatus.value = OperationStatus.failure;
-      operationMemo = e.toString();
-    } finally {
-      notifyListeners();
-    }
+  Future<DataModel> headlines() async {
+    return await headlineApi.headlines();
   }
 }

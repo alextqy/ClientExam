@@ -348,7 +348,7 @@ class ExamInfoState extends State<ExamInfo> {
               title: Text(Lang().title),
               content: SizedBox(
                 width: 360,
-                height: 250,
+                height: 220,
                 child: Column(
                   children: [
                     SizedBox(
@@ -395,7 +395,6 @@ class ExamInfoState extends State<ExamInfo> {
                       child: Row(
                         children: [
                           SizedBox(
-                            height: 45,
                             child: DropdownButton<String>(
                               value: newExamTypeMemo,
                               icon: const Icon(Icons.arrow_drop_down),
@@ -435,11 +434,15 @@ class ExamInfoState extends State<ExamInfo> {
                       child: Row(
                         children: [
                           SizedBox(
-                            height: 45,
                             child: DropdownButton<SubjectModel>(
-                              hint: Text(
-                                subjectSelectedName,
-                                style: const TextStyle(color: Colors.black),
+                              hint: SizedBox(
+                                width: 100,
+                                child: Text(
+                                  subjectSelectedName,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
                               ),
                               icon: const Icon(Icons.arrow_drop_down),
                               style: const TextStyle(color: Colors.black),

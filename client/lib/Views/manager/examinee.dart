@@ -360,7 +360,7 @@ class ExamineeState extends State<Examinee> {
               title: Text(Lang().title),
               content: SizedBox(
                 width: 100,
-                height: 200,
+                height: 210,
                 child: Column(
                   children: [
                     SizedBox(
@@ -411,11 +411,15 @@ class ExamineeState extends State<Examinee> {
                       child: Row(
                         children: [
                           SizedBox(
-                            height: 45,
-                            child: DropdownButton(
-                              hint: Text(
-                                newClassSelectedName,
-                                style: const TextStyle(color: Colors.black),
+                            child: DropdownButton<ClassModel>(
+                              hint: SizedBox(
+                                width: 100,
+                                child: Text(
+                                  newClassSelectedName,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
                               ),
                               icon: const Icon(Icons.arrow_drop_down),
                               style: const TextStyle(color: Colors.black),
@@ -531,9 +535,14 @@ class ExamineeState extends State<Examinee> {
                     Tooltip(
                       message: Lang().classes,
                       child: DropdownButton<ClassModel>(
-                        hint: Text(
-                          classSelectedName,
-                          style: const TextStyle(color: Colors.black),
+                        hint: SizedBox(
+                          width: 100,
+                          child: Text(
+                            classSelectedName,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(color: Colors.black),
+                          ),
                         ),
                         icon: const Icon(Icons.arrow_drop_down),
                         style: const TextStyle(color: Colors.black),

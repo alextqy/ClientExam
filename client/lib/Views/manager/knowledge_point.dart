@@ -260,7 +260,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
               title: Text(Lang().title),
               content: SizedBox(
                 width: 100,
-                height: 150,
+                height: 110,
                 child: Column(
                   children: [
                     SizedBox(
@@ -283,11 +283,15 @@ class KnowledgePointState extends State<KnowledgePoint> {
                       child: Row(
                         children: [
                           SizedBox(
-                            height: 45,
                             child: DropdownButton<SubjectModel>(
-                              hint: Text(
-                                newSubjectSelectedName,
-                                style: const TextStyle(color: Colors.black),
+                              hint: SizedBox(
+                                width: 100,
+                                child: Text(
+                                  newSubjectSelectedName,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
                               ),
                               icon: const Icon(Icons.arrow_drop_down),
                               style: const TextStyle(color: Colors.black),
@@ -401,9 +405,14 @@ class KnowledgePointState extends State<KnowledgePoint> {
                       message: Lang().examSubjects,
                       child: SizedBox(
                         child: DropdownButton<SubjectModel>(
-                          hint: Text(
-                            subjectSelectedName,
-                            style: const TextStyle(color: Colors.black),
+                          hint: SizedBox(
+                            width: 100,
+                            child: Text(
+                              subjectSelectedName,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(color: Colors.black),
+                            ),
                           ),
                           icon: const Icon(Icons.arrow_drop_down),
                           style: const TextStyle(color: Colors.black),

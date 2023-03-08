@@ -23,7 +23,8 @@ import 'package:client/models/knowledge_model.dart';
 class PaperRules extends StatefulWidget {
   late String paperName;
   late int id;
-  PaperRules({super.key, required this.id, required this.paperName});
+  late int subjectID;
+  PaperRules({super.key, required this.id, required this.paperName, required this.subjectID});
 
   @override
   State<PaperRules> createState() => PaperRulesState();
@@ -78,11 +79,29 @@ class PaperRulesState extends State<PaperRules> {
     });
   }
 
+  void headlinesData() {
+    headlineNotifier.headlines().then((value) {
+      setState(() {
+        headlineNotifier.headlineListModel = HeadlineModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
+
+  void knowledgeData() {
+    knowledgeNotifier.knowledge(subjectID: widget.subjectID).then((value) {
+      setState(() {
+        knowledgeNotifier.knowledgeListModel = KnowledgeModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     paperRuleNotifier.addListener(basicListener);
     fetchData();
+    headlinesData();
+    knowledgeData();
   }
 
   @override
@@ -203,6 +222,44 @@ class PaperRulesState extends State<PaperRules> {
     );
   }
 
+  List<DropdownMenuItem<KnowledgeModel>> knowledgeDropdownMenuItemList() {
+    List<DropdownMenuItem<KnowledgeModel>> dataDropdownMenuItemList = [];
+    for (KnowledgeModel element in knowledgeNotifier.knowledgeListModel) {
+      DropdownMenuItem<KnowledgeModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.knowledgeName,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      dataDropdownMenuItemList.add(data);
+    }
+    return dataDropdownMenuItemList;
+  }
+
+  List<DropdownMenuItem<HeadlineModel>> headlineDropdownMenuItemList() {
+    List<DropdownMenuItem<HeadlineModel>> dataDropdownMenuItemList = [];
+    for (HeadlineModel element in headlineNotifier.headlineListModel) {
+      DropdownMenuItem<HeadlineModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 600,
+          child: Text(
+            element.content,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      dataDropdownMenuItemList.add(data);
+    }
+    return dataDropdownMenuItemList;
+  }
+
   checkRuleType({
     required int headlineID,
     required int knowledgeID,
@@ -229,6 +286,7 @@ class PaperRulesState extends State<PaperRules> {
       onPressed: () {
         if (headlineID > 0) {
           headlineNotifier.headlineInfo(id: headlineID).then((value) {
+            ScrollController textController = ScrollController();
             if (value.state == true) {
               HeadlineModel headlineData = HeadlineModel.fromJson(value.data);
               showDialog(
@@ -241,7 +299,15 @@ class PaperRulesState extends State<PaperRules> {
                         title: Text(Lang().title),
                         content: SizedBox(
                           width: 1000,
-                          child: Text(headlineData.content),
+                          height: 500,
+                          child: Scrollbar(
+                            controller: textController,
+                            child: SingleChildScrollView(
+                              controller: textController,
+                              scrollDirection: Axis.vertical,
+                              child: Text(headlineData.content),
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -455,12 +521,43 @@ class PaperRulesState extends State<PaperRules> {
     );
   }
 
-  /*
   // 新建
-  void addAlertDialog(BuildContext context) {
-    TextEditingController newNameController = TextEditingController();
-    TextEditingController newAccountController = TextEditingController();
-    TextEditingController newPasswordController = TextEditingController();
+  void addAlertDialog(BuildContext context, {required int addType}) {
+    int newHeadlineID = 0;
+    String newHeadlineMemo = Lang().notSelected;
+    int newKnowledgeID = 0;
+    String newKnowledgeMemo = Lang().notSelected;
+    int newQuestionType = 0;
+    String newQuestionTypeMemo = questionTypeList.first;
+
+    int paperID = widget.id;
+    int serialNumber = 1;
+
+    TextEditingController questionNumController = TextEditingController();
+    TextEditingController singleScoreController = TextEditingController();
+
+    bool showHeadline = false;
+    bool showKnowledge = false;
+
+    double showH = 0;
+    double showW = 0;
+
+    if (addType == 1) {
+      showHeadline = true;
+    }
+    if (addType == 2) {
+      showKnowledge = true;
+    }
+
+    if (showHeadline == true) {
+      showH = 50;
+      showW = 700;
+    }
+    if (showKnowledge == true) {
+      showH = 230;
+      showW = 100;
+    }
+
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -470,51 +567,182 @@ class PaperRulesState extends State<PaperRules> {
             return AlertDialog(
               title: Text(Lang().title),
               content: SizedBox(
-                width: 100,
-                height: 150,
+                width: showW,
+                height: showH,
                 child: Column(
                   children: [
-                    SizedBox(
-                      child: TextField(
-                        maxLines: 1,
-                        controller: newAccountController,
-                        decoration: InputDecoration(
-                          hintText: Lang().account,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () => newAccountController.clear(),
-                            icon: const Icon(Icons.clear),
+                    Visibility(
+                      visible: showHeadline,
+                      child: Column(
+                        children: [
+                          Tooltip(
+                            message: Lang().headlines,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  child: DropdownButton<HeadlineModel>(
+                                    hint: SizedBox(
+                                      width: 600,
+                                      child: Text(
+                                        newHeadlineMemo,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    icon: const Icon(Icons.arrow_drop_down),
+                                    style: const TextStyle(color: Colors.black),
+                                    // elevation: 16,
+                                    underline: Container(
+                                      height: 0,
+                                      // color: Colors.deepPurpleAccent,
+                                    ),
+                                    onChanged: (HeadlineModel? value) {
+                                      state(() {
+                                        if (value!.id > 0) {
+                                          newHeadlineMemo = value.content;
+                                          newHeadlineID = value.id;
+                                        }
+                                      });
+                                    },
+                                    items: headlineDropdownMenuItemList(),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      child: TextField(
-                        maxLines: 1,
-                        controller: newPasswordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: Lang().password,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () => newPasswordController.clear(),
-                            icon: const Icon(Icons.clear),
+                    Visibility(
+                      visible: showKnowledge,
+                      child: Column(
+                        children: [
+                          Tooltip(
+                            message: Lang().questionType,
+                            child: Row(
+                              children: [
+                                DropdownButton<String>(
+                                  value: newQuestionTypeMemo,
+                                  icon: const Icon(Icons.arrow_drop_down),
+                                  style: const TextStyle(color: Colors.black),
+                                  // elevation: 16,
+                                  underline: Container(
+                                    height: 0,
+                                    // color: Colors.deepPurpleAccent,
+                                  ),
+                                  onChanged: (String? value) {
+                                    state(() {
+                                      if (value != null && newQuestionTypeMemo != value) {
+                                        newQuestionTypeMemo = value;
+                                        if (value == Lang().multipleChoiceQuestions) {
+                                          newQuestionType = 1;
+                                        } else if (value == Lang().judgmentQuestions) {
+                                          newQuestionType = 2;
+                                        } else if (value == Lang().multipleSelection) {
+                                          newQuestionType = 3;
+                                        } else if (value == Lang().fillInTheBlanks) {
+                                          newQuestionType = 4;
+                                        } else if (value == Lang().quizQuestions) {
+                                          newQuestionType = 5;
+                                        } else if (value == Lang().codeTesting) {
+                                          newQuestionType = 6;
+                                        } else if (value == Lang().drag) {
+                                          newQuestionType = 7;
+                                        } else if (value == Lang().connection) {
+                                          newQuestionType = 8;
+                                        } else {
+                                          newQuestionType = 0;
+                                        }
+                                      }
+                                    });
+                                  },
+                                  items: questionTypeList.map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      child: TextField(
-                        maxLines: 1,
-                        controller: newNameController,
-                        decoration: InputDecoration(
-                          hintText: Lang().name,
-                          suffixIcon: IconButton(
-                            iconSize: 20,
-                            onPressed: () => newNameController.clear(),
-                            icon: const Icon(Icons.clear),
+                          const SizedBox(height: 10),
+                          Tooltip(
+                            message: Lang().knowledgePoints,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  child: DropdownButton<KnowledgeModel>(
+                                    hint: SizedBox(
+                                      width: 100,
+                                      child: Text(
+                                        newKnowledgeMemo,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    icon: const Icon(Icons.arrow_drop_down),
+                                    style: const TextStyle(color: Colors.black),
+                                    // elevation: 16,
+                                    underline: Container(
+                                      height: 0,
+                                      // color: Colors.deepPurpleAccent,
+                                    ),
+                                    onChanged: (KnowledgeModel? value) {
+                                      state(() {
+                                        if (value!.id > 0) {
+                                          newKnowledgeMemo = value.knowledgeName;
+                                          newKnowledgeID = value.id;
+                                        }
+                                      });
+                                    },
+                                    items: knowledgeDropdownMenuItemList(),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            child: TextField(
+                              maxLines: 1,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(5),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              ],
+                              controller: questionNumController,
+                              decoration: InputDecoration(
+                                hintText: Lang().numberOfQuestions,
+                                suffixIcon: IconButton(
+                                  iconSize: 20,
+                                  onPressed: () => questionNumController.clear(),
+                                  icon: const Icon(Icons.clear),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            child: TextField(
+                              maxLines: 1,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(5),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                              ],
+                              controller: singleScoreController,
+                              decoration: InputDecoration(
+                                hintText: Lang().scorePerQuestion,
+                                suffixIcon: IconButton(
+                                  iconSize: 20,
+                                  onPressed: () => singleScoreController.clear(),
+                                  icon: const Icon(Icons.clear),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -523,15 +751,30 @@ class PaperRulesState extends State<PaperRules> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (newAccountController.text.isNotEmpty &&
-                        newPasswordController.text.isNotEmpty &&
-                        newNameController.text.isNotEmpty) {
+                    if (addType == 1 && newHeadlineID > 0 && newKnowledgeID == 0) {
                       paperRuleNotifier.newPaperRule(
-                        account: newAccountController.text,
-                        password: newPasswordController.text,
-                        name: newNameController.text,
+                        headlineID: newHeadlineID,
+                        questionType: newQuestionType,
+                        knowledgeID: newKnowledgeID,
+                        questionNum: int.parse(questionNumController.text.isEmpty ? '0' : questionNumController.text),
+                        singleScore: double.parse(singleScoreController.text.isEmpty ? '0' : singleScoreController.text),
+                        paperID: paperID,
+                        serialNumber: serialNumber,
+                      );
+                      // page = 1;
+                    } else if (addType == 2 && newHeadlineID == 0 && newKnowledgeID > 0 && newQuestionType > 0 && questionNumController.text.isNotEmpty && singleScoreController.text.isNotEmpty) {
+                      paperRuleNotifier.newPaperRule(
+                        headlineID: newHeadlineID,
+                        questionType: newQuestionType,
+                        knowledgeID: newKnowledgeID,
+                        questionNum: int.parse(questionNumController.text.isEmpty ? '0' : questionNumController.text),
+                        singleScore: double.parse(singleScoreController.text.isEmpty ? '0' : singleScoreController.text),
+                        paperID: paperID,
+                        serialNumber: serialNumber,
                       );
                       page = 1;
+                    } else {
+                      Toast().show(context, message: Lang().parameterError);
                     }
                   },
                   child: Text(Lang().confirm),
@@ -549,7 +792,6 @@ class PaperRulesState extends State<PaperRules> {
       },
     );
   }
-  */
 
   // 数据排序
   onSortColum(int columnIndex, bool ascending) {
@@ -682,15 +924,26 @@ class PaperRulesState extends State<PaperRules> {
                       },
                     ),
                     const SizedBox(width: 10),
-                    IconButton(
-                      icon: const Icon(Icons.add),
-                      onPressed: () => print('fuck'), // addAlertDialog(context),
+                    Tooltip(
+                      message: Lang().headlines,
+                      child: IconButton(
+                        icon: const Icon(Icons.title),
+                        onPressed: () => addAlertDialog(context, addType: 1),
+                      ),
                     ),
-                    // const SizedBox(width: 10),
-                    // IconButton(
-                    //   icon: const Icon(Icons.delete),
-                    //   onPressed: () => print('delete'),
-                    // ),
+                    const SizedBox(width: 10),
+                    Tooltip(
+                      message: Lang().questions,
+                      child: IconButton(
+                        icon: const Icon(Icons.question_answer_outlined),
+                        onPressed: () => addAlertDialog(context, addType: 2),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () => print('delete'),
+                    ),
                   ],
                 ),
               ),
@@ -939,7 +1192,7 @@ class PaperRulesState extends State<PaperRules> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(Lang().quizPaperRules)),
+      appBar: AppBar(title: Text(widget.paperName)),
       body: mainWidget(context),
     );
   }
