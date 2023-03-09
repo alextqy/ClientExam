@@ -973,6 +973,7 @@ class PaperRulesState extends State<PaperRules> {
                           paperRuleState = 0;
                           page = 1;
                           paperRuleState = 0;
+                          orderBySerialNumber = 0;
                           fetchData();
                         });
                       },
@@ -1098,15 +1099,37 @@ class PaperRulesState extends State<PaperRules> {
                         DataColumn(
                           label: SizedBox(
                             width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().sort,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  Lang().sort,
+                                  style: const TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                                // const Expanded(child: SizedBox()),
+                                const SizedBox(width: 5),
+                                const Icon(Icons.sort),
+                              ],
                             ),
                           ),
+                          onSort: (columnIndex, ascending) {
+                            setState(() {
+                              if (orderBySerialNumber == 0) {
+                                orderBySerialNumber = 1;
+                              } else if (orderBySerialNumber == 1) {
+                                orderBySerialNumber = 2;
+                              } else if (orderBySerialNumber == 2) {
+                                orderBySerialNumber = 1;
+                              } else {
+                                orderBySerialNumber = 0;
+                              }
+                              print(orderBySerialNumber);
+                              fetchData();
+                            });
+                          },
                         ),
                         DataColumn(
                           label: SizedBox(
