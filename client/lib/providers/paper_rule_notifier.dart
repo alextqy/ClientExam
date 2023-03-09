@@ -87,12 +87,14 @@ class PaperRuleNotifier extends BaseNotifier {
     int pageSize = 10,
     int paperID = 0,
     int paperRuleState = 0,
+    int orderBySerialNumber = 0,
   }) async {
     return await paperRuleApi.paperRuleList(
       page: page,
       pageSize: pageSize,
       paperID: paperID,
       paperRuleState: paperRuleState,
+      orderBySerialNumber: orderBySerialNumber,
     );
   }
 

@@ -70,6 +70,7 @@ class PaperRuleApi extends ResponseHelper {
     int pageSize = 10,
     int paperID = 0,
     int paperRuleState = 0,
+    int orderBySerialNumber = 0,
   }) async {
     Response response = await post(
       Uri.http(url, '/Paper/Rule/List'),
@@ -79,6 +80,7 @@ class PaperRuleApi extends ResponseHelper {
         'PageSize': pageSize.toString(),
         'PaperID': paperID.toString(),
         'PaperRuleState': paperRuleState.toString(),
+        'OrderBySerialNumber': orderBySerialNumber.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,

@@ -42,6 +42,7 @@ class PaperRulesState extends State<PaperRules> {
   int paperRuleState = 0;
   String stateMemo = stateDropList.first;
   int totalPage = 0;
+  int orderBySerialNumber = 0;
 
   TextEditingController jumpToController = TextEditingController();
 
@@ -67,6 +68,7 @@ class PaperRulesState extends State<PaperRules> {
       pageSize: pageSize,
       paperID: widget.id,
       paperRuleState: paperRuleState,
+      orderBySerialNumber: orderBySerialNumber,
     )
         .then((value) {
       setState(() {
@@ -190,6 +192,22 @@ class PaperRulesState extends State<PaperRules> {
                   singleScore: paperRuleNotifier.paperRuleListModel[index].singleScore,
                   serialNumber: paperRuleNotifier.paperRuleListModel[index].serialNumber,
                   setType: 3,
+                );
+              }
+            },
+          ),
+          DataCell(
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperRuleNotifier.paperRuleListModel[index].serialNumber.toString()),
+            showEditIcon: true,
+            onTap: () {
+              if (paperRuleNotifier.paperRuleListModel[index].serialNumber > 0) {
+                updatePaperRuleAlertDialog(
+                  id: paperRuleNotifier.paperRuleListModel[index].id,
+                  questionType: paperRuleNotifier.paperRuleListModel[index].questionType,
+                  questionNum: paperRuleNotifier.paperRuleListModel[index].questionNum,
+                  singleScore: paperRuleNotifier.paperRuleListModel[index].singleScore,
+                  serialNumber: paperRuleNotifier.paperRuleListModel[index].serialNumber,
+                  setType: 4,
                 );
               }
             },
@@ -360,15 +378,18 @@ class PaperRulesState extends State<PaperRules> {
   }) {
     TextEditingController updateQuestionNumController = TextEditingController();
     TextEditingController updateSingleScoreController = TextEditingController();
+    TextEditingController updateSortController = TextEditingController();
 
     int updateQuestionType = questionType;
     String updateQuestionTypeMemo = checkQuestionType(questionType);
     updateQuestionNumController.text = questionNum.toString();
     updateSingleScoreController.text = singleScore.toString();
+    updateSortController.text = serialNumber.toString();
 
     bool showQuestionType = false;
     bool showQuestionNum = false;
     bool showSingleScore = false;
+    bool showSort = false;
 
     if (setType == 1) {
       showQuestionType = true;
@@ -376,6 +397,8 @@ class PaperRulesState extends State<PaperRules> {
       showQuestionNum = true;
     } else if (setType == 3) {
       showSingleScore = true;
+    } else if (setType == 4) {
+      showSort = true;
     } else {
       showQuestionType = false;
       showQuestionNum = false;
@@ -490,18 +513,39 @@ class PaperRulesState extends State<PaperRules> {
                           ),
                         ),
                       ),
+                      Visibility(
+                        visible: showSort,
+                        child: Expanded(
+                          child: TextField(
+                            maxLines: 1,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(5),
+                              FilteringTextInputFormatter.allow(RegExp(r'[1-9]')),
+                            ],
+                            controller: updateSortController,
+                            decoration: InputDecoration(
+                              hintText: Lang().sort,
+                              suffixIcon: IconButton(
+                                iconSize: 20,
+                                onPressed: () => updateSortController.clear(),
+                                icon: const Icon(Icons.clear),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   )),
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (updateQuestionType > 0 && int.parse(updateQuestionNumController.text) > 0 && double.parse(updateSingleScoreController.text) > 0 && serialNumber > 0) {
+                    if (updateQuestionType > 0 && int.parse(updateQuestionNumController.text) > 0 && double.parse(updateSingleScoreController.text) > 0 && int.parse(updateSortController.text) > 0) {
                       paperRuleNotifier.updatePaperRule(
                         id: id,
                         questionType: updateQuestionType,
                         questionNum: int.parse(updateQuestionNumController.text),
                         singleScore: double.parse(updateSingleScoreController.text),
-                        serialNumber: serialNumber,
+                        serialNumber: int.parse(updateSortController.text),
                       );
                     }
                   },
@@ -1045,6 +1089,19 @@ class PaperRulesState extends State<PaperRules> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().scorePerQuestion,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              Lang().sort,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
