@@ -150,6 +150,7 @@ class Lang {
   String logType = '';
   String operation = '';
   String logon = '';
+  String operatorID = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -300,6 +301,7 @@ class Lang {
       this.logType = '日志类型';
       this.operation = '操作';
       this.logon = '登录';
+      this.operatorID = '操作人员ID';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -341,9 +343,9 @@ class Lang {
       this.theOperationCompletes = 'Completed';
       this.rowsPerPage = 'Rows Per Page';
       this.all = 'All';
-      this.normal = 'normal';
-      this.disable = 'disable';
-      this.status = 'status';
+      this.normal = 'Normal';
+      this.disable = 'Disable';
+      this.status = 'Status';
       this.search = 'Search';
       this.longPress = 'Long Press';
       this.loading = 'Loading';
@@ -441,13 +443,14 @@ class Lang {
       this.ruleType = 'Rule Type';
       this.numberOfQuestions = 'Number Of Questions';
       this.scorePerQuestion = 'Score Per Question';
-      this.not = 'not';
+      this.not = 'Not';
       this.parameterError = 'Parameter Error';
-      this.sort = 'sort';
+      this.sort = 'Sort';
 
       this.logType = 'Log Type';
       this.operation = 'Operation';
       this.logon = 'Logon';
+      this.operatorID = 'Operator ID';
     }
   }
 }

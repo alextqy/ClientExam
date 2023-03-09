@@ -46,6 +46,10 @@ class ManagerNotifier extends BaseNotifier {
     return await managerApi.managerInfo();
   }
 
+  Future<DataModel> managers() async {
+    return await managerApi.managers();
+  }
+
   void updateManagerInfo({
     required String name,
     required int permission,

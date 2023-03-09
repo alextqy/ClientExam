@@ -12,20 +12,22 @@ import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/providers/exam_log_notifier.dart';
+import 'package:client/providers/sys_log_notifier.dart';
+import 'package:client/providers/manager_notifier.dart';
 
-import 'package:client/models/exam_log_model.dart';
+import 'package:client/models/sys_log_model.dart';
+import 'package:client/models/manager_model.dart';
 
 // ignore: must_be_immutable
-class ExamLogs extends StatefulWidget {
+class SysLogs extends StatefulWidget {
   late String headline;
-  ExamLogs({super.key, required this.headline});
+  SysLogs({super.key, required this.headline});
 
   @override
-  State<ExamLogs> createState() => ExamLogsState();
+  State<SysLogs> createState() => SysLogsState();
 }
 
-class ExamLogsState extends State<ExamLogs> {
+class SysLogsState extends State<SysLogs> {
   bool sortAscending = false;
   int sortColumnIndex = 0;
   int showSelected = 0;
@@ -36,37 +38,41 @@ class ExamLogsState extends State<ExamLogs> {
   String searchText = '';
   int totalPage = 0;
   int type = 0;
+  int managerID = 0;
 
   String logTypeMemo = logTypeList.first;
+  String managerMemo = Lang().notSelected;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
-  ExamLogNotifier examLogNotifier = ExamLogNotifier();
+  SysLogNotifier sysLogNotifier = SysLogNotifier();
+  ManagerNotifier managerNotifier = ManagerNotifier();
 
   basicListener() async {
-    if (examLogNotifier.operationStatus.value == OperationStatus.loading) {
+    if (sysLogNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (examLogNotifier.operationStatus.value == OperationStatus.success) {
+    } else if (sysLogNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      Toast().show(context, message: examLogNotifier.operationMemo);
+      Toast().show(context, message: sysLogNotifier.operationMemo);
     }
   }
 
   void fetchData() {
-    examLogNotifier
-        .examLogList(
+    sysLogNotifier
+        .sysLogList(
       page: page,
       pageSize: pageSize,
       stext: searchText,
       type: type,
+      managerID: managerID,
     )
         .then((value) {
       setState(() {
-        examLogNotifier.examLogListModel = ExamLogModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(examLogNotifier.examLogListModel.length, (int index) => false);
+        sysLogNotifier.sysLogListModel = SysLogModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(sysLogNotifier.sysLogListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -75,24 +81,33 @@ class ExamLogsState extends State<ExamLogs> {
     });
   }
 
+  void managersData() {
+    managerNotifier.managers().then((value) {
+      setState(() {
+        managerNotifier.managerListModel = ManagerModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    examLogNotifier.addListener(basicListener);
+    sysLogNotifier.addListener(basicListener);
     fetchData();
+    managersData();
   }
 
   @override
   void dispose() {
-    examLogNotifier.dispose();
-    examLogNotifier.removeListener(basicListener);
+    sysLogNotifier.dispose();
+    sysLogNotifier.removeListener(basicListener);
     super.dispose();
   }
 
   // 生成列表
   List<DataRow> generateList() {
     return List<DataRow>.generate(
-      examLogNotifier.examLogListModel.length,
+      sysLogNotifier.sysLogListModel.length,
       (int index) => DataRow(
         color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
@@ -107,16 +122,21 @@ class ExamLogsState extends State<ExamLogs> {
         }),
         cells: <DataCell>[
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].id.toString()),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, sysLogNotifier.sysLogListModel[index].id.toString()),
           ),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].examNo),
+            Row(
+              children: [
+                const SizedBox(width: 30),
+                Text(overflow: TextOverflow.ellipsis, maxLines: 1, sysLogNotifier.sysLogListModel[index].managerID == 0 ? '' : sysLogNotifier.sysLogListModel[index].managerID.toString()),
+              ],
+            ),
           ),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].ip),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, sysLogNotifier.sysLogListModel[index].ip),
           ),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkLogType(examLogNotifier.examLogListModel[index].type)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkLogType(sysLogNotifier.sysLogListModel[index].type)),
           ),
           DataCell(
             OutlinedButton(
@@ -130,11 +150,11 @@ class ExamLogsState extends State<ExamLogs> {
                   color: Colors.black,
                 ),
               ),
-              onPressed: () => viewDescription(description: examLogNotifier.examLogListModel[index].description),
+              onPressed: () => viewDescription(description: sysLogNotifier.sysLogListModel[index].description),
             ),
           ),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examLogNotifier.examLogListModel[index].createTime)),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(sysLogNotifier.sysLogListModel[index].createTime)),
           ),
         ],
         selected: selected[index],
@@ -146,6 +166,25 @@ class ExamLogsState extends State<ExamLogs> {
         },
       ),
     );
+  }
+
+  List<DropdownMenuItem<ManagerModel>> dataDropdownMenuItemList() {
+    List<DropdownMenuItem<ManagerModel>> classDataDropdownMenuItemList = [];
+    for (ManagerModel element in managerNotifier.managerListModel) {
+      DropdownMenuItem<ManagerModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      classDataDropdownMenuItemList.add(data);
+    }
+    return classDataDropdownMenuItemList;
   }
 
   void viewDescription({required String description}) {
@@ -187,16 +226,16 @@ class ExamLogsState extends State<ExamLogs> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        examLogNotifier.examLogListModel.sort((a, b) => a.id.compareTo(b.id));
+        sysLogNotifier.sysLogListModel.sort((a, b) => a.id.compareTo(b.id));
       } else {
-        examLogNotifier.examLogListModel.sort((a, b) => b.id.compareTo(a.id));
+        sysLogNotifier.sysLogListModel.sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
     selected = List<bool>.generate(
-      examLogNotifier.examLogListModel.length,
+      sysLogNotifier.sysLogListModel.length,
       (int index) {
-        examLogNotifier.examLogListModel[index].selected = false;
+        sysLogNotifier.sysLogListModel[index].selected = false;
         showSelected = 0;
         return false;
       },
@@ -240,6 +279,39 @@ class ExamLogsState extends State<ExamLogs> {
                       ),
                     ),
                     const Expanded(child: SizedBox()),
+                    Tooltip(
+                      message: Lang().managers,
+                      child: DropdownButton<ManagerModel>(
+                        hint: SizedBox(
+                          width: 100,
+                          child: Text(
+                            managerMemo,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        icon: const Icon(Icons.arrow_drop_down),
+                        style: const TextStyle(color: Colors.black),
+                        // elevation: 16,
+                        underline: Container(
+                          height: 0,
+                          // color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (ManagerModel? value) {
+                          setState(() {
+                            if (value!.id > 0) {
+                              managerID = value.id;
+                              page = 1;
+                              fetchData();
+                              managerMemo = value.name;
+                            }
+                          });
+                        },
+                        items: dataDropdownMenuItemList(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
                     Tooltip(
                       message: Lang().logType,
                       child: DropdownButton<String>(
@@ -324,6 +396,8 @@ class ExamLogsState extends State<ExamLogs> {
                           type = 0;
                           cupertinoSearchTextFieldController.clear();
                           page = 1;
+                          managerID = 0;
+                          managerMemo = Lang().notSelected;
                           fetchData();
                         });
                       },
@@ -389,7 +463,7 @@ class ExamLogsState extends State<ExamLogs> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().examNumber,
+                              Lang().operatorID,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -561,7 +635,7 @@ class ExamLogsState extends State<ExamLogs> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Menu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().examLogs)),
+      appBar: AppBar(title: Text(Lang().systemLogs)),
       body: mainWidget(context),
     );
   }

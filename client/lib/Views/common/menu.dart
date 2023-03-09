@@ -302,7 +302,11 @@ class Menu {
                     Lang().systemLogs,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().systemLogs),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper().generate('/manager/sys/logs', headline: headline),
+                    );
+                  },
                 ),
               ],
             ),
