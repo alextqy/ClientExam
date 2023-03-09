@@ -93,3 +93,19 @@ String checkQuestionType(int questionType) {
     return '';
   }
 }
+
+List<String> logTypeList = <String>[
+  Lang().notSelected,
+  Lang().operation,
+  Lang().login,
+];
+
+String checkLogType(int type) {
+  if (type == 1) {
+    return Lang().operation;
+  } else if (type == 2) {
+    return Lang().login;
+  } else {
+    return '';
+  }
+}

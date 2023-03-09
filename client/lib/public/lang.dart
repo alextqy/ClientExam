@@ -147,6 +147,10 @@ class Lang {
   String parameterError = '';
   String sort = '';
 
+  String logType = '';
+  String operation = '';
+  String logon = '';
+
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
@@ -292,6 +296,10 @@ class Lang {
       this.not = '无';
       this.parameterError = '参数错误';
       this.sort = '排序';
+
+      this.logType = '日志类型';
+      this.operation = '操作';
+      this.logon = '登录';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -436,6 +444,10 @@ class Lang {
       this.not = 'not';
       this.parameterError = 'Parameter Error';
       this.sort = 'sort';
+
+      this.logType = 'Log Type';
+      this.operation = 'Operation';
+      this.logon = 'Logon';
     }
   }
 }

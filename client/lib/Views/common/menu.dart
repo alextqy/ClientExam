@@ -289,7 +289,11 @@ class Menu {
                     Lang().examLogs,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  onTap: () => print(Lang().examLogs),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper().generate('/manager/exam/logs', headline: headline),
+                    );
+                  },
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
