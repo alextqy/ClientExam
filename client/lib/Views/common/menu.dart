@@ -136,7 +136,7 @@ class Menu {
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.abc),
+                  leading: const Icon(size: 30, Icons.book_outlined),
                   title: Text(
                     Lang().teachers,
                     style: const TextStyle(color: Colors.white),
@@ -149,7 +149,7 @@ class Menu {
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.class_),
+                  leading: const Icon(size: 30, Icons.cast_for_education_outlined),
                   title: Text(
                     Lang().classes,
                     style: const TextStyle(color: Colors.white),
@@ -253,7 +253,7 @@ class Menu {
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.file_present),
+                  leading: const Icon(size: 30, Icons.file_open_outlined),
                   title: Text(
                     Lang().paper,
                     style: const TextStyle(color: Colors.white),
