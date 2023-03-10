@@ -135,6 +135,7 @@ class Lang {
   String rightSide = '';
   String leftSide = '';
   String theCorrectAnswerIsTheOptionOnTheLeft = '';
+  String quizQuestionsToolTip = '';
 
   String paperName = '';
   String paperCode = '';
@@ -151,6 +152,8 @@ class Lang {
   String operation = '';
   String logon = '';
   String operatorID = '';
+
+  String copy = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -286,6 +289,7 @@ class Lang {
       this.rightSide = '右侧';
       this.leftSide = '左侧';
       this.theCorrectAnswerIsTheOptionOnTheLeft = '正确答案为左侧选项';
+      this.quizQuestionsToolTip = '考生作答中包含选项且完全匹配则给分';
 
       this.paperName = '试卷名称';
       this.paperCode = '试卷代码';
@@ -302,6 +306,8 @@ class Lang {
       this.operation = '操作';
       this.logon = '登录';
       this.operatorID = '操作人员ID';
+
+      this.copy = '复制';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -435,6 +441,7 @@ class Lang {
       this.rightSide = 'Right';
       this.leftSide = 'Left';
       this.theCorrectAnswerIsTheOptionOnTheLeft = 'The correct answer is the option on the left';
+      this.quizQuestionsToolTip = 'Points are awarded if the candidate contains an option in their answer and matches exactly';
 
       this.paperName = 'Paper Name';
       this.paperCode = 'Paper Code';
@@ -451,6 +458,8 @@ class Lang {
       this.operation = 'Operation';
       this.logon = 'Logon';
       this.operatorID = 'Operator ID';
+
+      this.copy = 'Copy';
     }
   }
 }

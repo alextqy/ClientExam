@@ -151,26 +151,29 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     ),
                   ),
                   Visibility(
-                    visible: showCopyButton,
-                    child: IconButton(
-                      onPressed: () async {
-                        Clipboard.setData(ClipboardData(text: questionSolutionNotifier.questionSolutionListModel[index].option)).then(
-                          (value) {
-                            Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
-                            data.then((value) {
-                              if (value != null && value.text != null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(Lang().theOperationCompletes),
-                                    // action: SnackBarAction(label: 'Action', onPressed: () {}),
-                                  ),
-                                );
-                              }
-                            });
-                          },
-                        );
-                      },
-                      icon: const Icon(Icons.copy),
+                    visible: questionSolutionNotifier.questionSolutionListModel[index].position == 1 ? showCopyButton : false,
+                    child: Tooltip(
+                      message: Lang().copy,
+                      child: IconButton(
+                        onPressed: () async {
+                          Clipboard.setData(ClipboardData(text: questionSolutionNotifier.questionSolutionListModel[index].option)).then(
+                            (value) {
+                              Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
+                              data.then((value) {
+                                if (value != null && value.text != null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(Lang().theOperationCompletes),
+                                      // action: SnackBarAction(label: 'Action', onPressed: () {}),
+                                    ),
+                                  );
+                                }
+                              });
+                            },
+                          );
+                        },
+                        icon: const Icon(Icons.copy),
+                      ),
                     ),
                   )
                 ],
@@ -204,6 +207,16 @@ class QuestionOptionsState extends State<QuestionOptions> {
                 ),
               ),
             ),
+            showEditIcon: questionSolutionNotifier.questionSolutionListModel[index].position == 2 ? true : false,
+            onTap: () {
+              if (questionSolutionNotifier.questionSolutionListModel[index].position == 2) {
+                setCorrectItemAlertDialog(
+                  context,
+                  id: questionSolutionNotifier.questionSolutionListModel[index].id,
+                  correctItem: questionSolutionNotifier.questionSolutionListModel[index].correctItem,
+                );
+              }
+            },
           ),
           DataCell(
             Visibility(
@@ -375,7 +388,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     ],
                     controller: updateScoreRatioController,
                     decoration: InputDecoration(
-                      hintText: Lang().name,
+                      hintText: Lang().scoreRatio,
                       suffixIcon: IconButton(
                         iconSize: 20,
                         onPressed: () => updateScoreRatioController.clear(),
@@ -391,6 +404,67 @@ class QuestionOptionsState extends State<QuestionOptions> {
                         questionSolutionNotifier.setScoreRatio(
                           id: id,
                           scoreRatio: double.parse(updateScoreRatioController.text),
+                        );
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: Text(Lang().confirm),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(Lang().cancel),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    }
+  }
+
+  // 修改正确选项
+  void setCorrectItemAlertDialog(
+    BuildContext context, {
+    required int id,
+    required String correctItem,
+  }) {
+    TextEditingController updateCorrectItemController = TextEditingController();
+    updateCorrectItemController.text = correctItem;
+    if (widget.questionType == 7 || widget.questionType == 8) {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (BuildContext context, Function state) {
+              return AlertDialog(
+                title: Text(Lang().title),
+                content: SizedBox(
+                  width: 500,
+                  height: 50,
+                  child: TextField(
+                    maxLines: 1,
+                    controller: updateCorrectItemController,
+                    decoration: InputDecoration(
+                      hintText: Lang().correctItem,
+                      suffixIcon: IconButton(
+                        iconSize: 20,
+                        onPressed: () => updateCorrectItemController.clear(),
+                        icon: const Icon(Icons.clear),
+                      ),
+                    ),
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      if (id > 0 && updateCorrectItemController.text.isNotEmpty) {
+                        questionSolutionNotifier.setCorrectItem(
+                          id: id,
+                          correctItem: updateCorrectItemController.text,
                         );
                         Navigator.of(context).pop();
                       }
@@ -455,8 +529,8 @@ class QuestionOptionsState extends State<QuestionOptions> {
     } else if (widget.questionType == 7 || widget.questionType == 8) {
       showOption = true;
       showPosition = true;
-      showCorrectItem = true;
-      showCorrectAnswerTip = true;
+      // showCorrectItem = true;
+      // showCorrectAnswerTip = true;
       height = 250;
     } else {
       showOption = false;
@@ -623,16 +697,19 @@ class QuestionOptionsState extends State<QuestionOptions> {
                                       if (value == Lang().leftSide) {
                                         position = 1;
                                         positionMemo = Lang().leftSide;
+                                        showCorrectAnswerTip = false;
                                         showCorrectItem = false;
                                         correctItemController.text = '';
                                       } else if (value == Lang().rightSide) {
                                         position = 2;
                                         positionMemo = Lang().rightSide;
+                                        showCorrectAnswerTip = true;
                                         showCorrectItem = true;
                                       } else {
                                         position = 0;
                                         positionMemo = correctAnswerList.first;
-                                        showCorrectItem = true;
+                                        showCorrectAnswerTip = false;
+                                        showCorrectItem = false;
                                         correctItemController.text = '';
                                       }
                                     }
@@ -946,6 +1023,35 @@ class QuestionOptionsState extends State<QuestionOptions> {
                       rows: generateList(),
                     ),
                   ),
+                ),
+              ),
+            ),
+
+            /// footer
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                padding: const EdgeInsets.all(0),
+                margin: const EdgeInsets.all(0),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 25),
+                    Visibility(
+                      visible: widget.questionType == 5 ? true : false,
+                      child: Text(
+                        Lang().quizQuestionsToolTip,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const Expanded(child: SizedBox()),
+                  ],
                 ),
               ),
             ),

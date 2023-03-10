@@ -131,4 +131,21 @@ class QuestionSolutionApi extends ResponseHelper {
     );
     return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
+
+  Future<DataModel> setCorrectItem({
+    int id = 0,
+    String correctItem = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Set/Correct/Item'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ID': id.toString(),
+        'CorrectItem': correctItem,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
 }

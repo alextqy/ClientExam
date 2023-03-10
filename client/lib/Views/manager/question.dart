@@ -180,19 +180,21 @@ class QuestionState extends State<Question> {
           ),
           DataCell(
             Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].language),
-            showEditIcon: true,
+            showEditIcon: questionNotifier.questionListModel[index].questionType == 6 ? true : false,
             // placeholder: true, // 内容浅色显示
             onTap: () {
-              infoAlertDialog(
-                context,
-                id: questionNotifier.questionListModel[index].id,
-                questionTitle: questionNotifier.questionListModel[index].questionTitle,
-                questionType: questionNotifier.questionListModel[index].questionType,
-                description: questionNotifier.questionListModel[index].description,
-                language: questionNotifier.questionListModel[index].language,
-                languageVersion: questionNotifier.questionListModel[index].languageVersion,
-                itemType: 3,
-              );
+              if (questionNotifier.questionListModel[index].questionType == 6) {
+                infoAlertDialog(
+                  context,
+                  id: questionNotifier.questionListModel[index].id,
+                  questionTitle: questionNotifier.questionListModel[index].questionTitle,
+                  questionType: questionNotifier.questionListModel[index].questionType,
+                  description: questionNotifier.questionListModel[index].description,
+                  language: questionNotifier.questionListModel[index].language,
+                  languageVersion: questionNotifier.questionListModel[index].languageVersion,
+                  itemType: 3,
+                );
+              }
             },
           ),
           DataCell(
@@ -576,6 +578,7 @@ class QuestionState extends State<Question> {
     int newQuestionType = 0;
     int newKnowledgeID = 0;
     bool showLanguageItem = false;
+    bool showSpaceButton = false;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -594,6 +597,24 @@ class QuestionState extends State<Question> {
                         controller: newQuestionTitleController,
                         decoration: InputDecoration(
                           hintText: Lang().questionTitle,
+                          prefixIcon: Tooltip(
+                            message: Lang().generateTheEncoding,
+                            child: Visibility(
+                              visible: showSpaceButton,
+                              child: IconButton(
+                                iconSize: 20,
+                                onPressed: () {
+                                  int offset = newQuestionTitleController.selection.base.offset;
+                                  String titleText = newQuestionTitleController.text;
+                                  if (offset >= 0 && titleText.isNotEmpty) {
+                                    String title = Tools().stringInsertion(titleText, offset, '<->');
+                                    newQuestionTitleController.text = title;
+                                  }
+                                },
+                                icon: const Icon(Icons.credit_card),
+                              ),
+                            ),
+                          ),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newQuestionTitleController.clear(),
@@ -655,6 +676,11 @@ class QuestionState extends State<Question> {
                                     newQuestionType = 8;
                                   } else {
                                     newQuestionType = 0;
+                                  }
+                                  if (newQuestionType == 4) {
+                                    showSpaceButton = true;
+                                  } else {
+                                    showSpaceButton = false;
                                   }
                                   if (newQuestionType == 6) {
                                     showLanguageItem = true;

@@ -17,8 +17,6 @@ import 'package:client/Views/manager/knowledge_point.dart' as manager_site;
 import 'package:client/Views/manager/top_title.dart' as manager_site;
 import 'package:client/Views/manager/question.dart' as manager_site;
 import 'package:client/Views/manager/paper.dart' as manager_site;
-// import 'package:client/Views/manager/answer_cards.dart' as manager_site;
-// import 'package:client/Views/manager/old_answer_cards.dart' as manager_site;
 import 'package:client/Views/manager/exam_logs.dart' as manager_site;
 import 'package:client/Views/manager/sys_logs.dart' as manager_site;
 
@@ -67,10 +65,6 @@ class RouteHelper {
         return MaterialPageRoute(builder: (_) => manager_site.Question(headline: headline));
       case '/manager/paper':
         return MaterialPageRoute(builder: (_) => manager_site.Paper(headline: headline));
-      // case '/manager/answer/cards':
-      //   return MaterialPageRoute(builder: (_) => manager_site.AnswerCards(headline: headline));
-      // case '/manager/old/answer/cards':
-      //   return MaterialPageRoute(builder: (_) => manager_site.OldAnswerCards(headline: headline));
       case '/manager/exam/logs':
         return MaterialPageRoute(builder: (_) => manager_site.ExamLogs(headline: headline));
       case '/manager/sys/logs':

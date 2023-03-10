@@ -149,4 +149,28 @@ class QuestionSolutionNotifier extends BaseNotifier {
       notifyListeners();
     }
   }
+
+  void setCorrectItem({
+    required int id,
+    required String correctItem,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await questionSolutionApi.setCorrectItem(
+        id: id,
+        correctItem: correctItem,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }
