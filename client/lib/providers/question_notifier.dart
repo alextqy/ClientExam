@@ -50,7 +50,7 @@ class QuestionNotifier extends BaseNotifier {
       if (fileType != 'image/jpeg' && fileType != 'image/png' && fileType != 'image/gif') {
         operationStatus.value = OperationStatus.failure;
         operationMemo = Lang().wrongFileType;
-      } else if (FileHelper().size(filePath) > 1024 * 1024 * 0.25 * 0.5) {
+      } else if (FileHelper().size(filePath) > 1024 * 1024 * 0.25 * 0.5 * 0.5) {
         operationStatus.value = OperationStatus.failure;
         operationMemo = Lang().theFileIsTooLarge;
       } else {
