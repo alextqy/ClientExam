@@ -175,7 +175,7 @@ class Menu {
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.sign_language),
+                  leading: const Icon(size: 30, Icons.card_membership),
                   title: Text(
                     Lang().examRegistrations,
                     style: const TextStyle(color: Colors.white),
@@ -188,7 +188,7 @@ class Menu {
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.history_edu),
+                  leading: const Icon(size: 30, Icons.history),
                   title: Text(
                     Lang().oldExamRegistrations,
                     style: const TextStyle(color: Colors.white),
@@ -266,25 +266,7 @@ class Menu {
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.card_membership),
-                  title: Text(
-                    Lang().answerCards,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  onTap: () => print(Lang().answerCards),
-                ),
-                ListTile(
-                  horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.history),
-                  title: Text(
-                    Lang().oldAnswerCards,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  onTap: () => print(Lang().oldAnswerCards),
-                ),
-                ListTile(
-                  horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.cast_for_education),
+                  leading: const Icon(size: 30, Icons.timer),
                   title: Text(
                     Lang().examLogs,
                     style: const TextStyle(color: Colors.white),
@@ -297,7 +279,7 @@ class Menu {
                 ),
                 ListTile(
                   horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.system_update_tv),
+                  leading: const Icon(size: 30, Icons.timeline),
                   title: Text(
                     Lang().systemLogs,
                     style: const TextStyle(color: Colors.white),

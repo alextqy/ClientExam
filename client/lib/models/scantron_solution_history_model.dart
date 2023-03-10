@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:client/models/base.dart';
 
 class ScantronSolutionHistoryModel extends BaseModel {
-  late int scantronHistoryID;
+  late int scantronID;
   late String option;
   late String optionAttachment;
   late int correctAnswer;
@@ -18,7 +18,7 @@ class ScantronSolutionHistoryModel extends BaseModel {
   ScantronSolutionHistoryModel({
     int id = 0,
     int createTime = 0,
-    this.scantronHistoryID = 0,
+    this.scantronID = 0,
     this.option = '',
     this.optionAttachment = '',
     this.correctAnswer = 0,
@@ -34,7 +34,7 @@ class ScantronSolutionHistoryModel extends BaseModel {
     return ScantronSolutionHistoryModel(
       id: json['ID'],
       createTime: json['CreateTime'],
-      scantronHistoryID: json['ScantronHistoryID'],
+      scantronID: json['scantronID'],
       option: json['Option'],
       optionAttachment: json['OptionAttachment'],
       correctAnswer: json['CorrectAnswer'],
