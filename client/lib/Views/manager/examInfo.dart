@@ -1299,7 +1299,7 @@ class ExamInfoState extends State<ExamInfo> {
 
     showMenu(context: context, position: position, items: itemList).then((value) {
       if (value == 1) {
-        Future<String?> filePath = FileHelper().checkFile(dirPath: './', type: ['xls', 'xlsx']);
+        Future<String?> filePath = FileHelper().checkFile(dirPath: FileHelper().appRoot().path, type: ['xls', 'xlsx']);
         filePath.then((value) {
           if (value != null) {
             examInfoNotifier.importExamInfo(filePath: value);
