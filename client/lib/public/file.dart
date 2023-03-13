@@ -155,4 +155,8 @@ class FileHelper {
     );
     return tempPath?.path;
   }
+
+  Directory appRoot() {
+    return Directory.current;
+  }
 }

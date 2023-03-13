@@ -1313,9 +1313,9 @@ class ExamInfoState extends State<ExamInfo> {
           for (dynamic element in data) {
             dataBit.add(element as int);
           }
-          bool result = FileHelper().writeFileB('demo.${value.memo}', dataBit);
+          bool result = FileHelper().writeFileB('${FileHelper().appRoot().path}/demo.${value.memo}', dataBit);
           if (result) {
-            FileHelper().openDir(dirPath: './', type: ['xls', 'xlsx']);
+            FileHelper().openDir(dirPath: FileHelper().appRoot().path, type: ['xls', 'xlsx', 'zip']);
           } else {
             Toast().show(context, message: Lang().theRequestFailed);
           }
