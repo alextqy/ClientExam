@@ -1,14 +1,13 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'package:client/providers/examinee_notifier.dart';
-import 'package:client/public/file.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:client/public/lang.dart';
 import 'package:client/public/tools.dart';
+import 'package:client/public/file.dart';
 import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
@@ -16,10 +15,13 @@ import 'package:client/Views/common/menu.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/examinfo_notifier.dart';
 import 'package:client/providers/subject_notifier.dart';
+import 'package:client/providers/examinee_notifier.dart';
 
 import 'package:client/models/examinfo_model.dart';
 import 'package:client/models/examinee_model.dart';
 import 'package:client/models/subject_model.dart';
+
+import 'package:client/Views/manager/answer_cards.dart';
 
 // ignore: must_be_immutable
 class ExamInfo extends StatefulWidget {
@@ -205,6 +207,34 @@ class ExamInfoState extends State<ExamInfo> {
                   examInfoNotifier.examInfoSuspend(id: examInfoNotifier.examInfoListModel[index].id);
                 });
               },
+            ),
+          ),
+          DataCell(
+            Row(
+              children: [
+                const SizedBox(width: 25),
+                IconButton(
+                  icon: const Icon(Icons.list),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.of(context)
+                          .push(
+                        MaterialPageRoute(
+                          builder: (context) => AnswerCards(
+                            examNo: examInfoNotifier.examInfoListModel[index].examNo,
+                            examID: examInfoNotifier.examInfoListModel[index].id,
+                          ),
+                        ),
+                      )
+                          .then(
+                        (value) {
+                          fetchData();
+                        },
+                      );
+                    });
+                  },
+                ),
+              ],
             ),
           ),
         ],
@@ -1075,6 +1105,19 @@ class ExamInfoState extends State<ExamInfo> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().suspendStatus,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              Lang().answerCards,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),

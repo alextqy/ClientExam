@@ -41,4 +41,19 @@ class ScantronApi extends ResponseHelper {
     );
     return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
+
+  Future<DataModel> scantronViewAttachments({
+    String filePath = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Scantron/View/Attachments'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'FilePath': filePath,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
 }

@@ -2,6 +2,7 @@
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
+import 'package:client/models/data.dart';
 
 class ScantronHistoryNotifier extends BaseNotifier {
   Future<DataListModel> scantronHistoryList({
@@ -36,5 +37,13 @@ class ScantronHistoryNotifier extends BaseNotifier {
     } finally {
       notifyListeners();
     }
+  }
+
+  Future<DataModel> scantronHistoryViewAttachments({
+    required String filePath,
+  }) async {
+    return await scantronHistoryApi.scantronHistoryViewAttachments(
+      filePath: filePath,
+    );
   }
 }
