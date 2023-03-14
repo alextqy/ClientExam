@@ -66,11 +66,31 @@ List<String> correctAnswerList = <String>[
   Lang().no,
 ];
 
+String checkCorrectAnswer(int correctAnswer) {
+  if (correctAnswer == 1) {
+    return Lang().wrong;
+  } else if (correctAnswer == 2) {
+    return Lang().right;
+  } else {
+    return '';
+  }
+}
+
 List<String> positionList = <String>[
   Lang().notSelected,
   Lang().leftSide,
   Lang().rightSide,
 ];
+
+String checkPosition(int position) {
+  if (position == 1) {
+    return Lang().leftSide;
+  } else if (position == 2) {
+    return Lang().rightSide;
+  } else {
+    return '';
+  }
+}
 
 String checkQuestionType(int questionType) {
   if (questionType == 1) {

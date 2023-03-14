@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:client/models/data.dart';
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
 
@@ -38,5 +39,13 @@ class ScantronSolutionNotifier extends BaseNotifier {
     } finally {
       notifyListeners();
     }
+  }
+
+  Future<DataModel> scantronSolutionViewAttachments({
+    String optionAttachment = '',
+  }) async {
+    return await scantronSolutionApi.scantronSolutionViewAttachments(
+      optionAttachment: optionAttachment,
+    );
   }
 }

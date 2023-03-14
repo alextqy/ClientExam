@@ -2,6 +2,7 @@
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/models/data_list.dart';
+import 'package:client/models/data.dart';
 
 class ScantronSolutionHistoryNotifier extends BaseNotifier {
   Future<DataListModel> scantronSolutionHistoryList({
@@ -38,5 +39,13 @@ class ScantronSolutionHistoryNotifier extends BaseNotifier {
     } finally {
       notifyListeners();
     }
+  }
+
+  Future<DataModel> scantronSolutionHistoryViewAttachments({
+    String optionAttachment = '',
+  }) async {
+    return await scantronSolutionHistoryApi.scantronSolutionHistoryViewAttachments(
+      optionAttachment: optionAttachment,
+    );
   }
 }

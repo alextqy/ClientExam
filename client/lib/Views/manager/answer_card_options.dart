@@ -106,13 +106,50 @@ class AnswerCardOptionsState extends State<AnswerCardOptions> {
         }),
         cells: <DataCell>[
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].id.toString())),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].option)),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].correctAnswer.toString())),
+          DataCell(
+            Text(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              scantronSolutionNotifier.scantronSolutionListModel[index].option == 'none' ? '' : scantronSolutionNotifier.scantronSolutionListModel[index].option,
+            ),
+          ),
+          DataCell(
+            Text(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              checkCorrectAnswer(scantronSolutionNotifier.scantronSolutionListModel[index].correctAnswer),
+            ),
+          ),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].correctItem)),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].position.toString())),
+          DataCell(
+            Text(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              checkPosition(scantronSolutionNotifier.scantronSolutionListModel[index].position),
+            ),
+          ),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].candidateAnswer)),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].scoreRatio.toString())),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].optionAttachment)),
+          DataCell(
+            /*
+            Text(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              scantronSolutionNotifier.scantronSolutionListModel[index].optionAttachment,
+            ),
+            */
+            Row(
+              children: [
+                const SizedBox(width: 20),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(side: const BorderSide(width: 0.5)),
+                  child: Text(Lang().view, style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  onLongPress: () => viewImage(attachment: scantronSolutionNotifier.scantronSolutionListModel[index].optionAttachment, big: true),
+                  onPressed: () => viewImage(attachment: scantronSolutionNotifier.scantronSolutionListModel[index].optionAttachment),
+                ),
+              ],
+            ),
+          ),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(scantronSolutionNotifier.scantronSolutionListModel[index].createTime))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(scantronSolutionNotifier.scantronSolutionListModel[index].updateTime))),
         ],
@@ -125,6 +162,46 @@ class AnswerCardOptionsState extends State<AnswerCardOptions> {
         },
       ),
     );
+  }
+
+  // 查看图片
+  void viewImage({required String attachment, bool big = false}) {
+    dynamic height = 300.0;
+    dynamic width = 500.0;
+    if (big == true) {
+      height = null;
+      width = null;
+    }
+    setState(() {
+      scantronSolutionNotifier.scantronSolutionViewAttachments(optionAttachment: attachment).then((value) {
+        if (value.data != null) {
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                builder: (BuildContext context, Function state) {
+                  return AlertDialog(
+                    title: Text(value.memo),
+                    content: SizedBox(
+                      height: height,
+                      width: width,
+                      child: Container(
+                        margin: const EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0),
+                        child: Image.memory(Tools().byteListToBytes(Tools().toByteList(value.data))),
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        } else {
+          Toast().show(context, message: Lang().noData);
+        }
+      });
+    });
   }
 
   // 数据排序
