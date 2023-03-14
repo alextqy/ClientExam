@@ -6,6 +6,8 @@ import 'package:client/Views/common/toast.dart';
 import 'package:client/routes.dart';
 import 'package:client/requests/manager_api.dart';
 
+import 'package:client/main.dart';
+
 class Menu {
   String headline = '';
 
@@ -73,36 +75,50 @@ class Menu {
   }
 
   dynamic menuFooter(BuildContext context) {
-    return SizedBox(
-      height: 35,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (states) {
-              return Colors.black38;
-            },
+    return Tooltip(
+      message: Lang().longPressToExit,
+      child: SizedBox(
+        height: 35,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (states) {
+                return Colors.black38;
+              },
+            ),
           ),
+          child: Row(
+            children: [
+              const Expanded(child: SizedBox()),
+              Text(Lang().exit),
+              const SizedBox(width: 10),
+              const Icon(size: 18, Icons.exit_to_app),
+            ],
+          ),
+          onLongPress: () {
+            try {
+              ManagerApi().managerSignOut();
+              FileHelper().delFile('token');
+              exit(0);
+            } catch (e) {
+              exit(0);
+            }
+          },
+          onPressed: () {
+            // Toast().show(context, message: Lang().longPressToExit);
+            try {
+              ManagerApi().managerSignOut();
+              FileHelper().delFile('token');
+              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Entrance()));
+              // 返回到首页并清理路由节点
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const Entrance()), (Route<dynamic> route) {
+                return route.isFirst;
+              });
+            } catch (e) {
+              Toast().show(context, message: e.toString());
+            }
+          },
         ),
-        child: Row(
-          children: [
-            const Expanded(child: SizedBox()),
-            Text(Lang().exit),
-            const SizedBox(width: 10),
-            const Icon(size: 18, Icons.exit_to_app),
-          ],
-        ),
-        onLongPress: () {
-          try {
-            ManagerApi().managerSignOut();
-            FileHelper().delFile('token');
-            exit(0);
-          } catch (e) {
-            exit(0);
-          }
-        },
-        onPressed: () {
-          Toast().show(context, message: Lang().longPressToExit);
-        },
       ),
     );
   }
