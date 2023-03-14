@@ -18,9 +18,10 @@ import 'package:client/models/scantron_solution_model.dart';
 
 // ignore: must_be_immutable
 class AnswerCardOptions extends StatefulWidget {
+  late int questionType;
   late String questionTitle;
   late int scantronID;
-  AnswerCardOptions({super.key, required this.questionTitle, required this.scantronID});
+  AnswerCardOptions({super.key, required this.questionType, required this.questionTitle, required this.scantronID});
 
   @override
   State<AnswerCardOptions> createState() => AnswerCardOptionsState();
@@ -117,7 +118,7 @@ class AnswerCardOptionsState extends State<AnswerCardOptions> {
             Text(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              checkCorrectAnswer(scantronSolutionNotifier.scantronSolutionListModel[index].correctAnswer),
+              widget.questionType < 4 ? checkCorrectAnswer(scantronSolutionNotifier.scantronSolutionListModel[index].correctAnswer) : '',
             ),
           ),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].correctItem)),

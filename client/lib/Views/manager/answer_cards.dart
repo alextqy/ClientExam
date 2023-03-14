@@ -172,6 +172,7 @@ class AnswerCardsState extends State<AnswerCards> {
                                 .push(
                               MaterialPageRoute(
                                 builder: (context) => AnswerCardOptions(
+                                  questionType: scantronNotifier.scantronListModel[index].questionType,
                                   questionTitle: scantronNotifier.scantronListModel[index].questionTitle,
                                   scantronID: scantronNotifier.scantronListModel[index].id,
                                 ),
