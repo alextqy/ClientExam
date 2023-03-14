@@ -131,13 +131,6 @@ class AnswerCardOptionsState extends State<AnswerCardOptions> {
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].candidateAnswer)),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronSolutionNotifier.scantronSolutionListModel[index].scoreRatio.toString())),
           DataCell(
-            /*
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              scantronSolutionNotifier.scantronSolutionListModel[index].optionAttachment,
-            ),
-            */
             Row(
               children: [
                 const SizedBox(width: 20),

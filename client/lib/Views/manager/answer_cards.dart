@@ -122,12 +122,8 @@ class AnswerCardsState extends State<AnswerCards> {
               child: Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].questionTitle == 'none' ? '' : scantronNotifier.scantronListModel[index].questionTitle),
             ),
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].questionCode == 'none' ? '' : scantronNotifier.scantronListModel[index].questionCode),
-          ),
-          DataCell(
-            SizedBox(width: 100, child: Text(overflow: TextOverflow.ellipsis, maxLines: null, checkQuestionType(scantronNotifier.scantronListModel[index].questionType))),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].questionCode == 'none' ? '' : scantronNotifier.scantronListModel[index].questionCode)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: null, checkQuestionType(scantronNotifier.scantronListModel[index].questionType))),
           DataCell(
             SizedBox(
               width: 200,
