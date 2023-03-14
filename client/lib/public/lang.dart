@@ -154,6 +154,7 @@ class Lang {
   String operatorID = '';
 
   String copy = '';
+  String theCandidatesAnswer = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -308,6 +309,7 @@ class Lang {
       this.operatorID = '操作人员ID';
 
       this.copy = '复制';
+      this.theCandidatesAnswer = '考生的答案';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -460,6 +462,7 @@ class Lang {
       this.operatorID = 'Operator ID';
 
       this.copy = 'Copy';
+      this.theCandidatesAnswer = 'The candidate\'s answer';
     }
   }
 }
