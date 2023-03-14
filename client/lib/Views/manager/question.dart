@@ -132,14 +132,9 @@ class QuestionState extends State<Question> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].id.toString())),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].id.toString()),
-          ),
-          DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].questionTitle),
-            ),
+            SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].questionTitle)),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
@@ -155,17 +150,10 @@ class QuestionState extends State<Question> {
               );
             },
           ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].questionCode)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkQuestionType(questionNotifier.questionListModel[index].questionType))),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].questionCode),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkQuestionType(questionNotifier.questionListModel[index].questionType)),
-          ),
-          DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].description),
-            ),
+            SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].description)),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
@@ -200,15 +188,9 @@ class QuestionState extends State<Question> {
               }
             },
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].languageVersion),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionNotifier.questionListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionNotifier.questionListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionNotifier.questionListModel[index].languageVersion)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionNotifier.questionListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionNotifier.questionListModel[index].updateTime))),
           DataCell(
             CupertinoSwitch(
               value: questionNotifier.questionListModel[index].questionState == 1 ? true : false,
@@ -238,19 +220,11 @@ class QuestionState extends State<Question> {
                 ),
                 const SizedBox(width: 10),
                 OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(width: 0.5),
-                  ),
+                  style: OutlinedButton.styleFrom(side: const BorderSide(width: 0.5)),
                   child: Tooltip(
                     padding: const EdgeInsets.all(10),
                     message: ' jpg / jpeg / png / gif \n\n Max size 64 kb',
-                    child: Text(
-                      Lang().upload,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                      ),
-                    ),
+                    child: Text(Lang().upload, style: const TextStyle(fontSize: 15, color: Colors.black)),
                   ),
                   onPressed: () {
                     setState(() {

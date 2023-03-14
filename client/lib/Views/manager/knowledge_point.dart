@@ -123,14 +123,9 @@ class KnowledgePointState extends State<KnowledgePoint> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, knowledgeNotifier.knowledgeListModel[index].id.toString())),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, knowledgeNotifier.knowledgeListModel[index].id.toString()),
-          ),
-          DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, knowledgeNotifier.knowledgeListModel[index].knowledgeName),
-            ),
+            SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, knowledgeNotifier.knowledgeListModel[index].knowledgeName)),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
@@ -141,15 +136,9 @@ class KnowledgePointState extends State<KnowledgePoint> {
               );
             },
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, knowledgeNotifier.knowledgeListModel[index].knowledgeCode),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(knowledgeNotifier.knowledgeListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(knowledgeNotifier.knowledgeListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, knowledgeNotifier.knowledgeListModel[index].knowledgeCode)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(knowledgeNotifier.knowledgeListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(knowledgeNotifier.knowledgeListModel[index].updateTime))),
           DataCell(
             CupertinoSwitch(
               value: knowledgeNotifier.knowledgeListModel[index].knowledgeState == 1 ? true : false,

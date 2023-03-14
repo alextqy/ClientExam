@@ -123,21 +123,10 @@ class TeacherState extends State<Teacher> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.teacherListModel[index].id.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.teacherListModel[index].account)),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.teacherListModel[index].id.toString()),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.teacherListModel[index].account),
-          ),
-          DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                teacherNotifier.teacherListModel[index].name,
-              ),
-            ),
+            SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.teacherListModel[index].name)),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
@@ -149,18 +138,10 @@ class TeacherState extends State<Teacher> {
               );
             },
           ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.teacherListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.teacherListModel[index].updateTime))),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.teacherListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.teacherListModel[index].updateTime)),
-          ),
-          DataCell(
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              Lang().setUp,
-            ),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Lang().setUp),
             // placeholder: true, // 内容浅色显示
             onTap: () {
               classAlertDialog(

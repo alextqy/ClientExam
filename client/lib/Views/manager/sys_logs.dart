@@ -124,9 +124,7 @@ class SysLogsState extends State<SysLogs> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, sysLogNotifier.sysLogListModel[index].id.toString()),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, sysLogNotifier.sysLogListModel[index].id.toString())),
           DataCell(
             Row(
               children: [
@@ -135,30 +133,16 @@ class SysLogsState extends State<SysLogs> {
               ],
             ),
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, sysLogNotifier.sysLogListModel[index].ip),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkLogType(sysLogNotifier.sysLogListModel[index].type)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, sysLogNotifier.sysLogListModel[index].ip)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkLogType(sysLogNotifier.sysLogListModel[index].type))),
           DataCell(
             OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(width: 0.5),
-              ),
-              child: Text(
-                Lang().view,
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-              ),
+              style: OutlinedButton.styleFrom(side: const BorderSide(width: 0.5)),
+              child: Text(Lang().view, style: const TextStyle(fontSize: 15, color: Colors.black)),
               onPressed: () => viewDescription(description: sysLogNotifier.sysLogListModel[index].description),
             ),
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(sysLogNotifier.sysLogListModel[index].createTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(sysLogNotifier.sysLogListModel[index].createTime))),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {

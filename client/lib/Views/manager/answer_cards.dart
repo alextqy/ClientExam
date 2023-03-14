@@ -105,9 +105,7 @@ class AnswerCardsState extends State<AnswerCards> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronNotifier.scantronListModel[index].id.toString()),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, scantronNotifier.scantronListModel[index].id.toString())),
           DataCell(
             SizedBox(
               width: 200,
@@ -121,38 +119,19 @@ class AnswerCardsState extends State<AnswerCards> {
           DataCell(
             SizedBox(
               width: 200,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: null,
-                scantronNotifier.scantronListModel[index].questionTitle == 'none' ? '' : scantronNotifier.scantronListModel[index].questionTitle,
-              ),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].questionTitle == 'none' ? '' : scantronNotifier.scantronListModel[index].questionTitle),
             ),
           ),
           DataCell(
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: null,
-              scantronNotifier.scantronListModel[index].questionCode == 'none' ? '' : scantronNotifier.scantronListModel[index].questionCode,
-            ),
+            Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].questionCode == 'none' ? '' : scantronNotifier.scantronListModel[index].questionCode),
           ),
           DataCell(
-            SizedBox(
-              width: 100,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: null,
-                checkQuestionType(scantronNotifier.scantronListModel[index].questionType),
-              ),
-            ),
+            SizedBox(width: 100, child: Text(overflow: TextOverflow.ellipsis, maxLines: null, checkQuestionType(scantronNotifier.scantronListModel[index].questionType))),
           ),
           DataCell(
             SizedBox(
               width: 200,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: null,
-                scantronNotifier.scantronListModel[index].description == 'none' ? '' : scantronNotifier.scantronListModel[index].description,
-              ),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].description == 'none' ? '' : scantronNotifier.scantronListModel[index].description),
             ),
           ),
           DataCell(
@@ -180,18 +159,10 @@ class AnswerCardsState extends State<AnswerCards> {
                     ),
             ),
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(scantronNotifier.scantronListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(scantronNotifier.scantronListModel[index].updateTime)),
-          ),
-          DataCell(
-            scantronNotifier.scantronListModel[index].questionType == 0 ? const SizedBox() : Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].score.toString()),
-          ),
-          DataCell(
-            checkRightOrWrong(scantronNotifier.scantronListModel[index]),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(scantronNotifier.scantronListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(scantronNotifier.scantronListModel[index].updateTime))),
+          DataCell(scantronNotifier.scantronListModel[index].questionType == 0 ? const SizedBox() : Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].score.toString())),
+          DataCell(checkRightOrWrong(scantronNotifier.scantronListModel[index])),
           DataCell(
             Row(
               children: [

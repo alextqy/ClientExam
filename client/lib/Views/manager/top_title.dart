@@ -102,9 +102,7 @@ class TopTitleState extends State<TopTitle> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, headlineNotifier.headlineListModel[index].id.toString()),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, headlineNotifier.headlineListModel[index].id.toString())),
           /*
           DataCell(
             Container(
@@ -141,15 +139,9 @@ class TopTitleState extends State<TopTitle> {
               );
             },
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, headlineNotifier.headlineListModel[index].contentCode),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(headlineNotifier.headlineListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(headlineNotifier.headlineListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, headlineNotifier.headlineListModel[index].contentCode)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(headlineNotifier.headlineListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(headlineNotifier.headlineListModel[index].updateTime))),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {

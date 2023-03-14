@@ -106,62 +106,22 @@ class OldExamInfoState extends State<OldExamInfo> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].id.toString()),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].subjectName),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].examNo),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].totalScore.toString()),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].passLine.toString()),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].examDuration.toString()),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].startTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].endTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].actualScore.toString()),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].actualDuration.toString()),
-          ),
-          DataCell(
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              checkPass(examInfoHistoryNotifier.examInfoHistoryListModel[index].pass),
-            ),
-          ),
-          DataCell(
-            IconButton(
-              iconSize: 20,
-              onPressed: () => examineeInfo(context, examineeID: examInfoHistoryNotifier.examInfoHistoryListModel[index].examineeID),
-              icon: const Icon(Icons.people),
-            ),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamState(examInfoHistoryNotifier.examInfoHistoryListModel[index].examState)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamType(examInfoHistoryNotifier.examInfoHistoryListModel[index].examType)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].id.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].subjectName)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].examNo)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].totalScore.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].passLine.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].examDuration.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].startTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].endTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].actualScore.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examInfoHistoryNotifier.examInfoHistoryListModel[index].actualDuration.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkPass(examInfoHistoryNotifier.examInfoHistoryListModel[index].pass))),
+          DataCell(IconButton(iconSize: 20, onPressed: () => examineeInfo(context, examineeID: examInfoHistoryNotifier.examInfoHistoryListModel[index].examineeID), icon: const Icon(Icons.people))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamState(examInfoHistoryNotifier.examInfoHistoryListModel[index].examState))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamType(examInfoHistoryNotifier.examInfoHistoryListModel[index].examType))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].updateTime))),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {

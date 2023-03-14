@@ -133,15 +133,8 @@ class PaperRulesState extends State<PaperRules> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperRuleNotifier.paperRuleListModel[index].id.toString()),
-          ),
-          DataCell(
-            checkRuleType(
-              headlineID: paperRuleNotifier.paperRuleListModel[index].headlineID,
-              knowledgeID: paperRuleNotifier.paperRuleListModel[index].knowledgeID,
-            ),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperRuleNotifier.paperRuleListModel[index].id.toString())),
+          DataCell(checkRuleType(headlineID: paperRuleNotifier.paperRuleListModel[index].headlineID, knowledgeID: paperRuleNotifier.paperRuleListModel[index].knowledgeID)),
           DataCell(
             Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkQuestionType(paperRuleNotifier.paperRuleListModel[index].questionType)),
             showEditIcon: paperRuleNotifier.paperRuleListModel[index].questionType == 0 ? false : true,
@@ -159,11 +152,7 @@ class PaperRulesState extends State<PaperRules> {
             },
           ),
           DataCell(
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              paperRuleNotifier.paperRuleListModel[index].questionNum == 0 ? '' : paperRuleNotifier.paperRuleListModel[index].questionNum.toString(),
-            ),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperRuleNotifier.paperRuleListModel[index].questionNum == 0 ? '' : paperRuleNotifier.paperRuleListModel[index].questionNum.toString()),
             showEditIcon: paperRuleNotifier.paperRuleListModel[index].questionNum == 0 ? false : true,
             onTap: () {
               if (paperRuleNotifier.paperRuleListModel[index].questionNum > 0) {
@@ -179,11 +168,7 @@ class PaperRulesState extends State<PaperRules> {
             },
           ),
           DataCell(
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              paperRuleNotifier.paperRuleListModel[index].singleScore == 0 ? '' : paperRuleNotifier.paperRuleListModel[index].singleScore.toString(),
-            ),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperRuleNotifier.paperRuleListModel[index].singleScore == 0 ? '' : paperRuleNotifier.paperRuleListModel[index].singleScore.toString()),
             showEditIcon: paperRuleNotifier.paperRuleListModel[index].singleScore == 0 ? false : true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
@@ -225,12 +210,8 @@ class PaperRulesState extends State<PaperRules> {
               },
             ),
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperRuleNotifier.paperRuleListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperRuleNotifier.paperRuleListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperRuleNotifier.paperRuleListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperRuleNotifier.paperRuleListModel[index].updateTime))),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {

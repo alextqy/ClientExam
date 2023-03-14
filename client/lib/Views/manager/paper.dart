@@ -124,14 +124,9 @@ class PaperState extends State<Paper> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].id.toString())),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].id.toString()),
-          ),
-          DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].paperName),
-            ),
+            SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].paperName)),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
@@ -146,12 +141,8 @@ class PaperState extends State<Paper> {
               );
             },
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].paperCode),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].subjectName),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].paperCode)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, paperNotifier.paperListModel[index].subjectName)),
           DataCell(
             CupertinoSwitch(
               value: paperNotifier.paperListModel[index].paperState == 1 ? true : false,
@@ -207,12 +198,8 @@ class PaperState extends State<Paper> {
               );
             },
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperNotifier.paperListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperNotifier.paperListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperNotifier.paperListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(paperNotifier.paperListModel[index].updateTime))),
           DataCell(
             Row(
               children: [

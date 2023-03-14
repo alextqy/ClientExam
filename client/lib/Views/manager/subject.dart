@@ -108,14 +108,9 @@ class SubjectState extends State<Subject> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].id.toString())),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].id.toString()),
-          ),
-          DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].subjectName),
-            ),
+            SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].subjectName)),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
@@ -126,15 +121,9 @@ class SubjectState extends State<Subject> {
               );
             },
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].subjectCode),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(subjectNotifier.subjectListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(subjectNotifier.subjectListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, subjectNotifier.subjectListModel[index].subjectCode)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(subjectNotifier.subjectListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(subjectNotifier.subjectListModel[index].updateTime))),
           DataCell(
             CupertinoSwitch(
               value: subjectNotifier.subjectListModel[index].subjectState == 1 ? true : false,

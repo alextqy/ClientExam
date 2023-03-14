@@ -121,20 +121,11 @@ class ExamineeState extends State<Examinee> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].id.toString()),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].id.toString())),
           DataCell(
             Tooltip(
               message: examineeNotifier.examineeListModel[index].contact,
-              child: SizedBox(
-                width: 150,
-                child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  examineeNotifier.examineeListModel[index].name,
-                ),
-              ),
+              child: SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].name)),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
@@ -148,18 +139,10 @@ class ExamineeState extends State<Examinee> {
               );
             },
           ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].examineeNo)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examineeNotifier.examineeListModel[index].createTime))),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].examineeNo),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examineeNotifier.examineeListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              Lang().setUp,
-            ),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Lang().setUp),
             // placeholder: true, // 内容浅色显示
             onTap: () {
               classAlertDialog(

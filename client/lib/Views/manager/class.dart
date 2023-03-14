@@ -121,20 +121,11 @@ class ClassState extends State<Class> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].id.toString()),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].id.toString())),
           DataCell(
             Tooltip(
               message: classNotifier.classListModel[index].description,
-              child: SizedBox(
-                width: 150,
-                child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  classNotifier.classListModel[index].className,
-                ),
-              ),
+              child: SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].className)),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
@@ -147,18 +138,10 @@ class ClassState extends State<Class> {
               );
             },
           ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].classCode)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(classNotifier.classListModel[index].createTime))),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].classCode),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(classNotifier.classListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              Lang().setUp,
-            ),
+            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Lang().setUp),
             // placeholder: true, // 内容浅色显示
             onTap: () {
               teacherAlertDialog(

@@ -108,17 +108,10 @@ class ManagerState extends State<Manager> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].id.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].account)),
           DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].id.toString()),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].account),
-          ),
-          DataCell(
-            SizedBox(
-              width: 150,
-              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].name),
-            ),
+            SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, managerNotifier.managerListModel[index].name)),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
@@ -130,12 +123,8 @@ class ManagerState extends State<Manager> {
               );
             },
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(managerNotifier.managerListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(managerNotifier.managerListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(managerNotifier.managerListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(managerNotifier.managerListModel[index].updateTime))),
           DataCell(
             CupertinoSwitch(
               value: managerNotifier.managerListModel[index].state == 1 ? true : false,

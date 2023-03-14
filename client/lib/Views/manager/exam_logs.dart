@@ -109,36 +109,18 @@ class ExamLogsState extends State<ExamLogs> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].id.toString()),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].examNo),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].ip),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkLogType(examLogNotifier.examLogListModel[index].type)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].id.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].examNo)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examLogNotifier.examLogListModel[index].ip)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkLogType(examLogNotifier.examLogListModel[index].type))),
           DataCell(
             OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(width: 0.5),
-              ),
-              child: Text(
-                Lang().view,
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-              ),
+              style: OutlinedButton.styleFrom(side: const BorderSide(width: 0.5)),
+              child: Text(Lang().view, style: const TextStyle(fontSize: 15, color: Colors.black)),
               onPressed: () => viewDescription(description: examLogNotifier.examLogListModel[index].description),
             ),
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examLogNotifier.examLogListModel[index].createTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examLogNotifier.examLogListModel[index].createTime))),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {

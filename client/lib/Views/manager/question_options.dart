@@ -130,26 +130,13 @@ class QuestionOptionsState extends State<QuestionOptions> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(
-            Text(
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              questionSolutionNotifier.questionSolutionListModel[index].id.toString(),
-            ),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionSolutionNotifier.questionSolutionListModel[index].id.toString())),
           DataCell(
             Visibility(
               visible: showOption,
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 150,
-                    child: Text(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      questionSolutionNotifier.questionSolutionListModel[index].option,
-                    ),
-                  ),
+                  SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionSolutionNotifier.questionSolutionListModel[index].option)),
                   Visibility(
                     visible: questionSolutionNotifier.questionSolutionListModel[index].position == 1 ? showCopyButton : false,
                     child: Tooltip(
@@ -183,13 +170,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
           DataCell(
             Visibility(
               visible: showCorrectAnswer,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkCorrectAnswer(
-                  questionSolutionNotifier.questionSolutionListModel[index].correctAnswer,
-                ),
-              ),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkCorrectAnswer(questionSolutionNotifier.questionSolutionListModel[index].correctAnswer)),
             ),
           ),
           DataCell(
@@ -197,14 +178,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
               visible: showCorrectItem,
               child: Tooltip(
                 message: questionSolutionNotifier.questionSolutionListModel[index].correctItem,
-                child: SizedBox(
-                  width: 200,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    questionSolutionNotifier.questionSolutionListModel[index].correctItem,
-                  ),
-                ),
+                child: SizedBox(width: 200, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionSolutionNotifier.questionSolutionListModel[index].correctItem)),
               ),
             ),
             showEditIcon: questionSolutionNotifier.questionSolutionListModel[index].position == 2 ? true : false,
@@ -221,11 +195,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
           DataCell(
             Visibility(
               visible: showScoreRatio,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                questionSolutionNotifier.questionSolutionListModel[index].scoreRatio.toString(),
-              ),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, questionSolutionNotifier.questionSolutionListModel[index].scoreRatio.toString()),
             ),
             showEditIcon: fillInTheBlanksAndQuizQuestionsEdit,
             onTap: () {
@@ -241,19 +211,11 @@ class QuestionOptionsState extends State<QuestionOptions> {
           DataCell(
             Visibility(
               visible: showPosition,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                checkPosition(questionSolutionNotifier.questionSolutionListModel[index].position),
-              ),
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkPosition(questionSolutionNotifier.questionSolutionListModel[index].position)),
             ),
           ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionSolutionNotifier.questionSolutionListModel[index].createTime)),
-          ),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionSolutionNotifier.questionSolutionListModel[index].updateTime)),
-          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionSolutionNotifier.questionSolutionListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(questionSolutionNotifier.questionSolutionListModel[index].updateTime))),
           DataCell(
             Row(
               children: [
