@@ -70,6 +70,9 @@ class ManagerState extends State<Manager> {
         showSelected = 0;
         searchText = '';
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }

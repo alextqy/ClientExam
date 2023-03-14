@@ -70,6 +70,9 @@ class SubjectState extends State<Subject> {
         showSelected = 0;
         searchText = '';
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }

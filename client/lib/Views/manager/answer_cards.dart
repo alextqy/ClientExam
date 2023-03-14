@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,7 +9,7 @@ import 'package:client/public/lang.dart';
 import 'package:client/public/tools.dart';
 import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
-import 'package:client/Views/common/menu.dart';
+// import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/scantron_notifier.dart';
@@ -65,6 +65,9 @@ class AnswerCardsState extends State<AnswerCards> {
         totalPage = value.totalPage;
         showSelected = 0;
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }
@@ -184,6 +187,9 @@ class AnswerCardsState extends State<AnswerCards> {
           DataCell(
             scantronNotifier.scantronListModel[index].questionType == 0 ? const SizedBox() : Text(overflow: TextOverflow.ellipsis, maxLines: null, scantronNotifier.scantronListModel[index].score.toString()),
           ),
+          DataCell(
+            checkRightOrWrong(scantronNotifier.scantronListModel[index]),
+          ),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {
@@ -194,6 +200,18 @@ class AnswerCardsState extends State<AnswerCards> {
         },
       ),
     );
+  }
+
+  Widget checkRightOrWrong(ScantronModel data) {
+    if (data.right == 2 && data.questionType > 0) {
+      return Text(Lang().right);
+    } else if (data.right == 1 && data.questionType > 0) {
+      return Text(Lang().wrong);
+    } else if (data.questionType > 0) {
+      return Text(Lang().not);
+    } else {
+      return const Text('');
+    }
   }
 
   // 查看图片
@@ -490,7 +508,20 @@ class AnswerCardsState extends State<AnswerCards> {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              Lang().right,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                       rows: generateList(),
                     ),

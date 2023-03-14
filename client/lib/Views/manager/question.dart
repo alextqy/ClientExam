@@ -85,6 +85,9 @@ class QuestionState extends State<Question> {
         showSelected = 0;
         searchText = '';
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }

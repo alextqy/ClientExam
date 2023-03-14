@@ -77,6 +77,9 @@ class PaperRulesState extends State<PaperRules> {
         totalPage = value.totalPage;
         showSelected = 0;
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }

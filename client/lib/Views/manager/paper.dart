@@ -77,6 +77,9 @@ class PaperState extends State<Paper> {
         showSelected = 0;
         searchText = '';
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }

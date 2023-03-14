@@ -96,6 +96,9 @@ class ExamInfoState extends State<ExamInfo> {
         showSelected = 0;
         searchText = '';
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }

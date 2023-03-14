@@ -71,6 +71,9 @@ class ExamLogsState extends State<ExamLogs> {
         showSelected = 0;
         searchText = '';
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }

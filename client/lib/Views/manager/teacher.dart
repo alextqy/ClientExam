@@ -76,6 +76,9 @@ class TeacherState extends State<Teacher> {
         showSelected = 0;
         searchText = '';
         sortAscending = false;
+        if (totalPage == 0) {
+          page = 0;
+        }
       });
     });
   }
