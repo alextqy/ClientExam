@@ -139,7 +139,31 @@ class ExamineeState extends State<Examinee> {
               );
             },
           ),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].examineeNo)),
+          DataCell(
+            Row(
+              children: [
+                SizedBox(width: 200, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].examineeNo)),
+                Tooltip(
+                  message: Lang().copy,
+                  child: IconButton(
+                    onPressed: () async {
+                      Clipboard.setData(ClipboardData(text: examineeNotifier.examineeListModel[index].examineeNo)).then(
+                        (value) {
+                          Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
+                          data.then((value) {
+                            if (value != null && value.text != null) {
+                              Toast().show(context, message: Lang().theOperationCompletes);
+                            }
+                          });
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.copy),
+                  ),
+                ),
+              ],
+            ),
+          ),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examineeNotifier.examineeListModel[index].createTime))),
           DataCell(
             Text(overflow: TextOverflow.ellipsis, maxLines: 1, Lang().setUp),

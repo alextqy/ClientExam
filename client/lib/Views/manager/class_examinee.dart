@@ -9,69 +9,67 @@ import 'package:client/public/lang.dart';
 import 'package:client/public/tools.dart';
 import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
-import 'package:client/Views/common/menu.dart';
+// import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/providers/teacher_notifier.dart';
 import 'package:client/providers/class_notifier.dart';
-import 'package:client/providers/teacher_class_notifier.dart';
+import 'package:client/providers/examinee_notifier.dart';
 
-import 'package:client/models/teacher_model.dart';
+import 'package:client/models/examinee_model.dart';
 import 'package:client/models/class_model.dart';
 
-import 'package:client/Views/manager/class_examinee.dart';
-
 // ignore: must_be_immutable
-class Class extends StatefulWidget {
-  late String headline;
-  Class({super.key, required this.headline});
+class ClassExaminee extends StatefulWidget {
+  late String className;
+  late int classID;
+  ClassExaminee({super.key, required this.className, required this.classID});
 
   @override
-  State<Class> createState() => ClassState();
+  State<ClassExaminee> createState() => ClassExamineeState();
 }
 
-class ClassState extends State<Class> {
+class ClassExamineeState extends State<ClassExaminee> {
   bool sortAscending = false;
   int sortColumnIndex = 0;
   int showSelected = 0;
   List<bool> selected = [];
-  List<bool> teacherSelected = [];
+  String classSelectedName = Lang().notSelected;
 
   int page = 1;
   int pageSize = perPageDropList.first;
   String searchText = '';
-  String stateMemo = stateDropList.first;
+  String classMemo = '';
   int totalPage = 0;
 
   TextEditingController jumpToController = TextEditingController();
   TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
+  ExamineeNotifier examineeNotifier = ExamineeNotifier();
   ClassNotifier classNotifier = ClassNotifier();
-  TeacherNotifier teacherNotifier = TeacherNotifier();
-  TeacherClassNotifier teacherClassNotifier = TeacherClassNotifier();
 
   basicListener() async {
-    if (classNotifier.operationStatus.value == OperationStatus.loading) {
+    if (examineeNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
-    } else if (classNotifier.operationStatus.value == OperationStatus.success) {
+    } else if (examineeNotifier.operationStatus.value == OperationStatus.success) {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      Toast().show(context, message: classNotifier.operationMemo);
+      Toast().show(context, message: examineeNotifier.operationMemo);
     }
   }
 
   void fetchData() {
-    classNotifier
-        .classList(
+    examineeNotifier
+        .examineeList(
       page: page,
       pageSize: pageSize,
       stext: searchText,
+      classID: widget.classID,
     )
         .then((value) {
       setState(() {
-        classNotifier.classListModel = ClassModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(classNotifier.classListModel.length, (int index) => false);
+        examineeNotifier.examineeListModel = ExamineeModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(examineeNotifier.examineeListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
         searchText = '';
@@ -83,10 +81,10 @@ class ClassState extends State<Class> {
     });
   }
 
-  void teacherData() {
-    teacherNotifier.teachers().then((value) {
+  void classesData() {
+    classNotifier.classes().then((value) {
       setState(() {
-        teacherNotifier.teacherListModel = TeacherModel().fromJsonList(jsonEncode(value.data));
+        classNotifier.classListModel = ClassModel().fromJsonList(jsonEncode(value.data));
       });
     });
   }
@@ -94,22 +92,22 @@ class ClassState extends State<Class> {
   @override
   void initState() {
     super.initState();
-    classNotifier.addListener(basicListener);
+    examineeNotifier.addListener(basicListener);
     fetchData();
-    teacherData();
+    classesData();
   }
 
   @override
   void dispose() {
-    classNotifier.dispose();
-    classNotifier.removeListener(basicListener);
+    examineeNotifier.dispose();
+    examineeNotifier.removeListener(basicListener);
     super.dispose();
   }
 
   // 生成列表
   List<DataRow> generateList() {
     return List<DataRow>.generate(
-      classNotifier.classListModel.length,
+      examineeNotifier.examineeListModel.length,
       (int index) => DataRow(
         color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
@@ -123,63 +121,50 @@ class ClassState extends State<Class> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].id.toString())),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].id.toString())),
           DataCell(
             Tooltip(
-              message: classNotifier.classListModel[index].description,
-              child: SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].className)),
+              message: examineeNotifier.examineeListModel[index].contact,
+              child: SizedBox(width: 150, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].name)),
             ),
             showEditIcon: true,
             // placeholder: true, // 内容浅色显示
             onTap: () {
               nameAlertDialog(
                 context,
-                id: classNotifier.classListModel[index].id,
-                className: classNotifier.classListModel[index].className,
-                description: classNotifier.classListModel[index].description,
-              );
-            },
-          ),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, classNotifier.classListModel[index].classCode)),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(classNotifier.classListModel[index].createTime))),
-          DataCell(
-            Text(overflow: TextOverflow.ellipsis, maxLines: 1, Lang().setUp),
-            // placeholder: true, // 内容浅色显示
-            onTap: () {
-              teacherAlertDialog(
-                context,
-                classID: classNotifier.classListModel[index].id,
+                id: examineeNotifier.examineeListModel[index].id,
+                name: examineeNotifier.examineeListModel[index].name,
+                contact: examineeNotifier.examineeListModel[index].contact,
+                classID: examineeNotifier.examineeListModel[index].classID,
               );
             },
           ),
           DataCell(
             Row(
               children: [
-                const SizedBox(width: 10),
-                IconButton(
-                  icon: const Icon(Icons.list),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.of(context)
-                          .push(
-                        MaterialPageRoute(
-                          builder: (context) => ClassExaminee(
-                            className: classNotifier.classListModel[index].className,
-                            classID: classNotifier.classListModel[index].id,
-                          ),
-                        ),
-                      )
-                          .then(
+                SizedBox(width: 200, child: Text(overflow: TextOverflow.ellipsis, maxLines: 1, examineeNotifier.examineeListModel[index].examineeNo)),
+                Tooltip(
+                  message: Lang().copy,
+                  child: IconButton(
+                    onPressed: () async {
+                      Clipboard.setData(ClipboardData(text: examineeNotifier.examineeListModel[index].examineeNo)).then(
                         (value) {
-                          fetchData();
+                          Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
+                          data.then((value) {
+                            if (value != null && value.text != null) {
+                              Toast().show(context, message: Lang().theOperationCompletes);
+                            }
+                          });
                         },
                       );
-                    });
-                  },
+                    },
+                    icon: const Icon(Icons.copy),
+                  ),
                 ),
               ],
             ),
           ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examineeNotifier.examineeListModel[index].createTime))),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {
@@ -192,17 +177,37 @@ class ClassState extends State<Class> {
     );
   }
 
+  List<DropdownMenuItem<ClassModel>> classDropdownMenuItemList() {
+    List<DropdownMenuItem<ClassModel>> classDataDropdownMenuItemList = [];
+    for (ClassModel element in classNotifier.classListModel) {
+      DropdownMenuItem<ClassModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.className,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      classDataDropdownMenuItemList.add(data);
+    }
+    return classDataDropdownMenuItemList;
+  }
+
   // 修改名称
   void nameAlertDialog(
     BuildContext context, {
     required int id,
-    required String className,
-    required String description,
+    required String name,
+    required String contact,
+    required int classID,
   }) {
-    TextEditingController updateClassNameController = TextEditingController();
-    TextEditingController updateDescriptionController = TextEditingController();
-    updateClassNameController.text = className;
-    updateDescriptionController.text = description;
+    TextEditingController updateNameController = TextEditingController();
+    TextEditingController updateContactController = TextEditingController();
+    updateNameController.text = name;
+    updateContactController.text = contact;
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -218,24 +223,24 @@ class ClassState extends State<Class> {
                   children: [
                     TextField(
                       maxLines: 1,
-                      controller: updateClassNameController,
+                      controller: updateNameController,
                       decoration: InputDecoration(
-                        hintText: Lang().className,
+                        hintText: Lang().name,
                         suffixIcon: IconButton(
                           iconSize: 20,
-                          onPressed: () => updateClassNameController.clear(),
+                          onPressed: () => updateNameController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
                     ),
                     TextField(
                       maxLines: 1,
-                      controller: updateDescriptionController,
+                      controller: updateContactController,
                       decoration: InputDecoration(
-                        hintText: Lang().description,
+                        hintText: Lang().contact,
                         suffixIcon: IconButton(
                           iconSize: 20,
-                          onPressed: () => updateDescriptionController.clear(),
+                          onPressed: () => updateContactController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
@@ -246,11 +251,12 @@ class ClassState extends State<Class> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (updateClassNameController.text.isNotEmpty) {
-                      classNotifier.updateClassInfo(
+                    if (updateNameController.text.isNotEmpty && classID > 0) {
+                      examineeNotifier.updateExaminee(
                         id: id,
-                        className: updateClassNameController.text,
-                        description: updateDescriptionController.text,
+                        name: updateNameController.text,
+                        contact: updateContactController.text,
+                        classID: classID,
                       );
                     }
                   },
@@ -270,94 +276,76 @@ class ClassState extends State<Class> {
     );
   }
 
-  void teacherAlertDialog(
+  void classAlertDialog(
     BuildContext context, {
+    required int id,
+    required String name,
+    required String contact,
     required int classID,
   }) {
-    teacherClassNotifier.classTeachers(classID: classID).then((value) {
-      List<TeacherModel> classTeacherListData = TeacherModel().fromJsonList(jsonEncode(value.data)); // 当前归属教师列表
-      teacherSelected = List<bool>.generate(teacherNotifier.teacherListModel.length, (int index) => false);
-
-      for (int i = 0; i < teacherSelected.length; i++) {
-        for (int j = 0; j < classTeacherListData.length; j++) {
-          if (classTeacherListData[j].id == teacherNotifier.teacherListModel[i].id) {
-            teacherSelected[i] = true;
-            break;
-          }
-        }
+    setState(() {
+      int groupValue = classID;
+      ListTile classListTile(ClassModel classData, Function state) {
+        return ListTile(
+          title: Text(classData.className),
+          leading: Radio(
+            value: classData.id,
+            groupValue: groupValue,
+            onChanged: (int? value) {
+              state(() {
+                groupValue = value!;
+                examineeNotifier.updateExaminee(
+                  id: id,
+                  name: name,
+                  contact: contact,
+                  classID: groupValue,
+                );
+              });
+            },
+          ),
+        );
       }
 
-      setState(() {
-        showDialog(
-          context: context,
-          barrierDismissible: true,
-          builder: (BuildContext context) {
-            return StatefulBuilder(
-              builder: (BuildContext context, Function state) {
-                return AlertDialog(
-                  title: Text(Lang().title),
-                  content: SizedBox(
-                    width: 100,
-                    height: 400,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.all(0),
-                      itemCount: teacherNotifier.teacherListModel.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 180,
-                                child: Text(
-                                  teacherNotifier.teacherListModel[index].name,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ),
-                              const Expanded(child: SizedBox()),
-                              Checkbox(
-                                value: teacherSelected[index],
-                                onChanged: (bool? value) => {
-                                  state(() {
-                                    int teacherID = teacherNotifier.teacherListModel[index].id;
-                                    if (teacherSelected[index]) {
-                                      // 删除数据
-                                      teacherClassNotifier.deleteByTeacherClass(
-                                        classID: classID,
-                                        teacherID: teacherID,
-                                      );
-                                    } else {
-                                      // 添加数据
-                                      teacherClassNotifier.newTeacherClass(
-                                        teacherID: teacherID,
-                                        classID: classID,
-                                      );
-                                    }
-                                    teacherSelected[index] = !teacherSelected[index];
-                                  }),
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) => const Divider(height: 0.5, color: Colors.black12),
+      List<ListTile> showClassList(Function state) {
+        List<ListTile> radioList = [];
+        for (int i = 0; i < classNotifier.classListModel.length; i++) {
+          radioList.add(classListTile(classNotifier.classListModel[i], state));
+        }
+        return radioList;
+      }
+
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (BuildContext context, Function state) {
+              return AlertDialog(
+                title: Text(Lang().title),
+                content: SizedBox(
+                  width: 100,
+                  height: 400,
+                  child: Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: ListView(
+                      children: showClassList(state),
                     ),
                   ),
-                );
-              },
-            );
-          },
-        );
-      });
+                ),
+              );
+            },
+          );
+        },
+      );
     });
   }
 
   // 新建
   void addAlertDialog(BuildContext context) {
-    TextEditingController newClassNameController = TextEditingController();
-    TextEditingController newDescriptionController = TextEditingController();
+    int newClassID = widget.classID;
+    TextEditingController newNameController = TextEditingController();
+    TextEditingController newContactController = TextEditingController();
+    TextEditingController newExamineeNoController = TextEditingController();
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -368,18 +356,18 @@ class ClassState extends State<Class> {
               title: Text(Lang().title),
               content: SizedBox(
                 width: 100,
-                height: 100,
+                height: 210,
                 child: Column(
                   children: [
                     SizedBox(
                       child: TextField(
                         maxLines: 1,
-                        controller: newClassNameController,
+                        controller: newNameController,
                         decoration: InputDecoration(
-                          hintText: Lang().className,
+                          hintText: Lang().name,
                           suffixIcon: IconButton(
                             iconSize: 20,
-                            onPressed: () => newClassNameController.clear(),
+                            onPressed: () => newNameController.clear(),
                             icon: const Icon(Icons.clear),
                           ),
                         ),
@@ -388,12 +376,26 @@ class ClassState extends State<Class> {
                     SizedBox(
                       child: TextField(
                         maxLines: 1,
-                        controller: newDescriptionController,
+                        controller: newExamineeNoController,
                         decoration: InputDecoration(
-                          hintText: Lang().description,
+                          hintText: Lang().examineeNo,
                           suffixIcon: IconButton(
                             iconSize: 20,
-                            onPressed: () => newDescriptionController.clear(),
+                            onPressed: () => newExamineeNoController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: TextField(
+                        maxLines: 1,
+                        controller: newContactController,
+                        decoration: InputDecoration(
+                          hintText: Lang().contact,
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newContactController.clear(),
                             icon: const Icon(Icons.clear),
                           ),
                         ),
@@ -405,11 +407,14 @@ class ClassState extends State<Class> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (newClassNameController.text.isNotEmpty) {
-                      classNotifier.newClass(
-                        className: newClassNameController.text,
-                        description: newDescriptionController.text,
+                    if (newExamineeNoController.text.isNotEmpty && newNameController.text.isNotEmpty && newClassID > 0) {
+                      examineeNotifier.newExaminee(
+                        examineeNo: newExamineeNoController.text,
+                        name: newNameController.text,
+                        classID: newClassID,
+                        contact: newContactController.text,
                       );
+                      state(() {});
                       page = 1;
                     }
                   },
@@ -433,16 +438,16 @@ class ClassState extends State<Class> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        classNotifier.classListModel.sort((a, b) => a.id.compareTo(b.id));
+        examineeNotifier.examineeListModel.sort((a, b) => a.id.compareTo(b.id));
       } else {
-        classNotifier.classListModel.sort((a, b) => b.id.compareTo(a.id));
+        examineeNotifier.examineeListModel.sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
     selected = List<bool>.generate(
-      classNotifier.classListModel.length,
+      examineeNotifier.examineeListModel.length,
       (int index) {
-        classNotifier.classListModel[index].selected = false;
+        examineeNotifier.examineeListModel[index].selected = false;
         showSelected = 0;
         return false;
       },
@@ -531,6 +536,7 @@ class ClassState extends State<Class> {
                       onPressed: () {
                         setState(() {
                           cupertinoSearchTextFieldController.clear();
+                          classSelectedName = Lang().notSelected;
                           page = 1;
                           fetchData();
                         });
@@ -539,7 +545,12 @@ class ClassState extends State<Class> {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.add),
-                      onPressed: () => addAlertDialog(context),
+                      onPressed: () {
+                        setState(() {
+                          classSelectedName = Lang().notSelected;
+                          addAlertDialog(context);
+                        });
+                      },
                     ),
                     // const SizedBox(width: 10),
                     // IconButton(
@@ -597,7 +608,7 @@ class ClassState extends State<Class> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().className,
+                              Lang().name,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -610,7 +621,7 @@ class ClassState extends State<Class> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().classCode,
+                              Lang().examineeNo,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -624,32 +635,6 @@ class ClassState extends State<Class> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().createtime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().teachers,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().examinee,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -768,8 +753,7 @@ class ClassState extends State<Class> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().classes)),
+      appBar: AppBar(title: Text(widget.className)),
       body: mainWidget(context),
     );
   }
