@@ -18,6 +18,8 @@ import 'package:client/providers/examinee_notifier.dart';
 import 'package:client/models/examinfo_history_model.dart';
 import 'package:client/models/examinee_model.dart';
 
+import 'package:client/Views/manager/old_answer_cards.dart';
+
 // ignore: must_be_immutable
 class OldExamInfo extends StatefulWidget {
   late String headline;
@@ -122,6 +124,34 @@ class OldExamInfoState extends State<OldExamInfo> {
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamType(examInfoHistoryNotifier.examInfoHistoryListModel[index].examType))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].createTime))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(examInfoHistoryNotifier.examInfoHistoryListModel[index].updateTime))),
+          DataCell(
+            Row(
+              children: [
+                const SizedBox(width: 25),
+                IconButton(
+                  icon: const Icon(Icons.list),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.of(context)
+                          .push(
+                        MaterialPageRoute(
+                          builder: (context) => OldAnswerCards(
+                            examNo: examInfoHistoryNotifier.examInfoHistoryListModel[index].examNo,
+                            examID: examInfoHistoryNotifier.examInfoHistoryListModel[index].id,
+                          ),
+                        ),
+                      )
+                          .then(
+                        (value) {
+                          fetchData();
+                        },
+                      );
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {
@@ -701,6 +731,19 @@ class OldExamInfoState extends State<OldExamInfo> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().updateTime,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              Lang().answerCards,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
