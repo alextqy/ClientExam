@@ -161,6 +161,32 @@ class TeacherNotifier extends BaseNotifier {
     }
   }
 
+  Future<DataModel> checkTeacherInfo() async {
+    return await teacherApi.checkTeacherInfo();
+  }
+
+  void teacherUpdate({
+    required String name,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await teacherApi.teacherUpdate(
+        name: name,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
+
   void teacherChangePassword({
     required String newPassword,
   }) async {

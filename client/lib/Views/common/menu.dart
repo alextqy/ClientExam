@@ -382,7 +382,7 @@ class TeacherMenu {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(RouteHelper().generate('/manager/personal/settings', headline: headline));
+                  Navigator.of(context).push(RouteHelper().generate('/teacher/personal/settings', headline: headline));
                 },
               ),
             ),
