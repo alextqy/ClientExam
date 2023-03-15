@@ -115,6 +115,10 @@ class TeacherNotifier extends BaseNotifier {
     }
   }
 
+  Future<DataModel> teachers() async {
+    return await teacherApi.teachers();
+  }
+
   void teacherSignIn(
     String account,
     String password,
@@ -177,9 +181,5 @@ class TeacherNotifier extends BaseNotifier {
     } finally {
       notifyListeners();
     }
-  }
-
-  Future<DataModel> teachers() async {
-    return await teacherApi.teachers();
   }
 }
