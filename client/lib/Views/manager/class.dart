@@ -725,7 +725,7 @@ class ClassState extends State<Class> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Menu().drawer(context, headline: widget.headline),
+      drawer: ManagerMenu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().classes)),
       body: mainWidget(context),
     );

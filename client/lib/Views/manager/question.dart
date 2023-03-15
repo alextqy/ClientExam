@@ -1341,7 +1341,7 @@ class QuestionState extends State<Question> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Menu().drawer(context, headline: widget.headline),
+      drawer: ManagerMenu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().questions)),
       body: mainWidget(context),
     );

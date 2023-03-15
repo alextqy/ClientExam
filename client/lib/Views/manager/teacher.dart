@@ -812,7 +812,7 @@ class TeacherState extends State<Teacher> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Menu().drawer(context, headline: widget.headline),
+      drawer: ManagerMenu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().teachers)),
       body: mainWidget(context),
     );

@@ -589,7 +589,7 @@ class TopTitleState extends State<TopTitle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Menu().drawer(context, headline: widget.headline),
+      drawer: ManagerMenu().drawer(context, headline: widget.headline),
       appBar: AppBar(title: Text(Lang().headlines)),
       body: mainWidget(context),
     );

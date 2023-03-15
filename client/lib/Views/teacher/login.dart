@@ -6,7 +6,7 @@ import 'package:client/public/file.dart';
 import 'package:client/public/lang.dart';
 import 'package:client/routes.dart';
 import 'package:client/providers/base_notifier.dart';
-import 'package:client/providers/manager_notifier.dart';
+import 'package:client/providers/teacher_notifier.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -19,24 +19,24 @@ class LoginState extends State<Login> {
   late String account;
   late String password;
   late TextEditingController accountController, passwordController;
-  late ManagerNotifier managerNotifier;
+  late TeacherNotifier teacherNotifier;
 
   requestListener() async {
-    if (managerNotifier.operationStatus.value == OperationStatus.loading) {
+    if (teacherNotifier.operationStatus.value == OperationStatus.loading) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(Lang().loading),
           // action: SnackBarAction(label: 'Action', onPressed: () {}),
         ),
       );
-    } else if (managerNotifier.operationStatus.value == OperationStatus.success) {
+    } else if (teacherNotifier.operationStatus.value == OperationStatus.success) {
       bool writeResult = FileHelper().writeFile(
         FileHelper().tokenFileName,
-        managerNotifier.result.data as String,
+        teacherNotifier.result.data as String,
       );
       if (writeResult) {
         Navigator.of(context).push(
-          RouteHelper().generate('/manager/index', headline: accountController.text),
+          RouteHelper().generate('/teacher/index', headline: accountController.text),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -49,7 +49,7 @@ class LoginState extends State<Login> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(managerNotifier.operationMemo),
+          content: Text(teacherNotifier.operationMemo),
           // action: SnackBarAction(label: 'Action', onPressed: () {}),
         ),
       );
@@ -61,15 +61,15 @@ class LoginState extends State<Login> {
     super.initState();
     accountController = TextEditingController();
     passwordController = TextEditingController();
-    managerNotifier = ManagerNotifier();
+    teacherNotifier = TeacherNotifier();
 
-    managerNotifier.addListener(requestListener);
+    teacherNotifier.addListener(requestListener);
   }
 
   @override
   void dispose() {
-    managerNotifier.removeListener(requestListener);
-    managerNotifier.dispose();
+    teacherNotifier.removeListener(requestListener);
+    teacherNotifier.dispose();
     super.dispose();
   }
 
@@ -166,7 +166,7 @@ class LoginState extends State<Login> {
           ),
           onPressed: () {
             if (_formKey.currentState?.validate() != null && accountController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-              managerNotifier.managerSignIn(
+              teacherNotifier.teacherSignIn(
                 accountController.text,
                 passwordController.text,
               );
@@ -210,7 +210,7 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Lang().managers),
+        title: Text(Lang().teachers),
       ),
       body: form,
     );

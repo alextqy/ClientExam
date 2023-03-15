@@ -8,7 +8,7 @@ import 'package:client/requests/manager_api.dart';
 
 import 'package:client/main.dart';
 
-class Menu {
+class ManagerMenu {
   String headline = '';
 
   dynamic menuHeader(BuildContext context) {
@@ -306,6 +306,160 @@ class Menu {
                     );
                   },
                 ),
+              ],
+            ),
+          ),
+          menuFooter(context),
+        ],
+      ),
+    );
+  }
+}
+
+class TeacherMenu {
+  String headline = '';
+
+  dynamic menuHeader(BuildContext context) {
+    return SizedBox(
+      height: 80,
+      width: double.infinity, // 占满父级元素宽度
+      child: DrawerHeader(
+        padding: EdgeInsets.zero,
+        margin: EdgeInsets.zero,
+        decoration: const BoxDecoration(color: Colors.black38),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            SizedBox(
+              height: 40,
+              width: 55,
+              // child: CircleAvatar(
+              //   backgroundColor: Colors.white,
+              //   child: SizedBox(
+              //     height: 43,
+              //     width: 43,
+              //     child: CircleAvatar(
+              //       backgroundColor: Colors.blueGrey,
+              //       child: Text(
+              //         this.headline.substring(0, 1),
+              //         style: const TextStyle(
+              //           color: Colors.white,
+              //           fontWeight: FontWeight.w600,
+              //           fontSize: 30,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  side: MaterialStateProperty.all(
+                    const BorderSide(width: 1, color: Colors.white),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    BeveledRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+                child: Text(
+                  headline,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 25,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(RouteHelper().generate('/manager/personal/settings', headline: headline));
+                },
+              ),
+            ),
+            // const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  dynamic menuFooter(BuildContext context) {
+    return Tooltip(
+      message: Lang().longPressToExit,
+      child: SizedBox(
+        height: 35,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (states) {
+                return Colors.black38;
+              },
+            ),
+          ),
+          child: Row(
+            children: [
+              const Expanded(child: SizedBox()),
+              Text(Lang().exit),
+              const SizedBox(width: 10),
+              const Icon(size: 18, Icons.exit_to_app),
+            ],
+          ),
+          onLongPress: () {
+            try {
+              ManagerApi().managerSignOut();
+              FileHelper().delFile('token');
+              exit(0);
+            } catch (e) {
+              exit(0);
+            }
+          },
+          onPressed: () {
+            // Toast().show(context, message: Lang().longPressToExit);
+            try {
+              ManagerApi().managerSignOut();
+              FileHelper().delFile('token');
+              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Entrance()));
+              // 返回到首页并清理路由节点
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const Entrance()), (Route<dynamic> route) {
+                return route.isFirst;
+              });
+            } catch (e) {
+              Toast().show(context, message: e.toString());
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Drawer drawer(BuildContext context, {String headline = ''}) {
+    if (headline.isNotEmpty) {
+      this.headline = headline.substring(0, 1).toUpperCase();
+    }
+    return Drawer(
+      width: 235,
+      backgroundColor: Colors.blueGrey,
+      child: Column(
+        children: [
+          menuHeader(context),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(0),
+              children: [
+                /*
+                ListTile(
+                  horizontalTitleGap: 25,
+                  leading: const Icon(size: 30, Icons.manage_accounts),
+                  title: Text(
+                    Lang().managers,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper().generate('/manager/manager', headline: headline),
+                    );
+                  },
+                ),
+                */
               ],
             ),
           ),

@@ -115,10 +115,10 @@ class TeacherNotifier extends BaseNotifier {
     }
   }
 
-  void teacherSignIn({
-    required String account,
-    required String password,
-  }) async {
+  void teacherSignIn(
+    String account,
+    String password,
+  ) async {
     operationStatus.value = OperationStatus.loading;
     try {
       result = await teacherApi.teacherSignIn(

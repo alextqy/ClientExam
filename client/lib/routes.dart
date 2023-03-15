@@ -20,6 +20,7 @@ import 'package:client/Views/manager/paper.dart' as manager_site;
 import 'package:client/Views/manager/exam_logs.dart' as manager_site;
 import 'package:client/Views/manager/sys_logs.dart' as manager_site;
 
+import 'package:client/Views/teacher/login.dart' as teacher_site;
 import 'package:client/Views/teacher/index.dart' as teacher_site;
 
 // 注册命名路由
@@ -32,15 +33,15 @@ import 'package:client/Views/teacher/index.dart' as teacher_site;
 class RouteHelper {
   dynamic generate(String routeName, {String headline = '', int id = 0}) {
     switch (routeName) {
-      case '/':
-        // return MaterialPageRoute(builder: (_) => Entrance());
-        return const Entrance();
+      // case '/':
+      // return MaterialPageRoute(builder: (_) => Entrance());
+      // return const Entrance();
       // 管理员 ===================================================================
       case '/manager/login':
         return RouteSlide(const manager_site.Login());
       case '/manager/index':
+        // return RouteSlide(manager_site.Index(headline: headline));
         return MaterialPageRoute(builder: (_) => manager_site.Index(headline: headline));
-      // return RouteSlide(manager_site.Index(headline: headline));
       case '/manager/personal/settings':
         return MaterialPageRoute(builder: (_) => manager_site.PersonalSettings(headline: headline));
       case '/manager/manager':
@@ -70,8 +71,10 @@ class RouteHelper {
       case '/manager/sys/logs':
         return MaterialPageRoute(builder: (_) => manager_site.SysLogs(headline: headline));
       // 教师 ===================================================================
+      case '/teacher/login':
+        return RouteSlide(const teacher_site.Login());
       case '/teacher/index':
-        return RouteSlide(const teacher_site.Index());
+        return MaterialPageRoute(builder: (_) => teacher_site.Index(headline: headline));
       // ===================================================================
       default:
         return MaterialPageRoute(

@@ -1,4 +1,3 @@
-import 'package:client/Views/common/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:client/routes.dart';
 import 'package:client/public/lang.dart';
@@ -61,7 +60,7 @@ class Entrance extends StatelessWidget {
             style: const TextStyle(fontSize: 18),
           ),
           onPressed: () => {
-            showAlertDialog(context, memo: 'Loading...'),
+            Navigator.of(context).push(RouteHelper().generate('/teacher/login')),
           },
         ),
       ),
