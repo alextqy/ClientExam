@@ -5,6 +5,7 @@ import 'package:client/public/file.dart';
 import 'package:client/Views/common/toast.dart';
 import 'package:client/routes.dart';
 import 'package:client/requests/manager_api.dart';
+import 'package:client/requests/teacher_api.dart';
 
 import 'package:client/main.dart';
 
@@ -97,22 +98,32 @@ class ManagerMenu {
           ),
           onLongPress: () {
             try {
-              ManagerApi().managerSignOut();
-              FileHelper().delFile('token');
-              exit(0);
+              ManagerApi().managerSignOut().then((value) {
+                if (value.state == true) {
+                  if (FileHelper().delFile('token')) {
+                    exit(0);
+                  }
+                } else {
+                  Toast().show(context, message: value.memo);
+                }
+              });
             } catch (e) {
-              exit(0);
+              Toast().show(context, message: e.toString());
             }
           },
           onPressed: () {
-            // Toast().show(context, message: Lang().longPressToExit);
             try {
-              ManagerApi().managerSignOut();
-              FileHelper().delFile('token');
-              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Entrance()));
-              // 返回到首页并清理路由节点
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const Entrance()), (Route<dynamic> route) {
-                return route.isFirst;
+              ManagerApi().managerSignOut().then((value) {
+                if (value.state == true) {
+                  if (FileHelper().delFile('token')) {
+                    // 返回到首页并清理路由节点
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const Entrance()), (Route<dynamic> route) {
+                      return route.isFirst;
+                    });
+                  }
+                } else {
+                  Toast().show(context, message: value.memo);
+                }
               });
             } catch (e) {
               Toast().show(context, message: e.toString());
@@ -405,22 +416,32 @@ class TeacherMenu {
           ),
           onLongPress: () {
             try {
-              ManagerApi().managerSignOut();
-              FileHelper().delFile('token');
-              exit(0);
+              TeacherApi().teacherSignOut().then((value) {
+                if (value.state == true) {
+                  if (FileHelper().delFile('token')) {
+                    exit(0);
+                  }
+                } else {
+                  Toast().show(context, message: value.memo);
+                }
+              });
             } catch (e) {
-              exit(0);
+              Toast().show(context, message: e.toString());
             }
           },
           onPressed: () {
-            // Toast().show(context, message: Lang().longPressToExit);
             try {
-              ManagerApi().managerSignOut();
-              FileHelper().delFile('token');
-              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Entrance()));
-              // 返回到首页并清理路由节点
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const Entrance()), (Route<dynamic> route) {
-                return route.isFirst;
+              TeacherApi().teacherSignOut().then((value) {
+                if (value.state == true) {
+                  if (FileHelper().delFile('token')) {
+                    // 返回到首页并清理路由节点
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const Entrance()), (Route<dynamic> route) {
+                      return route.isFirst;
+                    });
+                  } else {
+                    Toast().show(context, message: value.memo);
+                  }
+                }
               });
             } catch (e) {
               Toast().show(context, message: e.toString());
