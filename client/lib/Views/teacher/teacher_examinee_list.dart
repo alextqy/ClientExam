@@ -221,16 +221,14 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    /*
                     if (updateNameController.text.isNotEmpty && classID > 0) {
-                      teacherNotifier.updateExaminee(
+                      teacherNotifier.teacherUpdateExaminee(
                         id: id,
                         name: updateNameController.text,
                         contact: updateContactController.text,
                         classID: classID,
                       );
                     }
-                    */
                   },
                   child: Text(Lang().confirm),
                 ),
@@ -263,7 +261,7 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
               title: Text(Lang().title),
               content: SizedBox(
                 width: 100,
-                height: 210,
+                height: 150,
                 child: Column(
                   children: [
                     SizedBox(
@@ -314,18 +312,16 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    /*
-                    if (newExamineeNoController.text.isNotEmpty && newNameController.text.isNotEmpty && newClassID > 0) {
-                      teacherNotifier.newExaminee(
+                    if (newExamineeNoController.text.isNotEmpty && newNameController.text.isNotEmpty) {
+                      teacherNotifier.teacherNewExaminee(
                         examineeNo: newExamineeNoController.text,
                         name: newNameController.text,
-                        classID: newClassID,
+                        classID: widget.classID,
                         contact: newContactController.text,
                       );
                       state(() {});
                       page = 1;
                     }
-                    */
                   },
                   child: Text(Lang().confirm),
                 ),

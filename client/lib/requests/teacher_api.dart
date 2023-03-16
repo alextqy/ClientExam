@@ -211,4 +211,46 @@ class TeacherApi extends ResponseHelper {
     );
     return DataListModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
+
+  Future<DataModel> teacherNewExaminee({
+    String examineeNo = '',
+    String name = '',
+    int classID = 0,
+    String contact = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/New/Examinee'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ExamineeNo': examineeNo,
+        'Name': name,
+        'ClassID': classID.toString(),
+        'Contact': contact,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataModel> teacherUpdateExaminee({
+    int id = 0,
+    String name = '',
+    String contact = '',
+    int classID = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/Update/Examinee'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'ID': id.toString(),
+        'Name': name,
+        'Contact': contact,
+        'ClassID': classID.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
 }

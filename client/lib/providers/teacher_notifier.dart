@@ -226,4 +226,60 @@ class TeacherNotifier extends BaseNotifier {
       classID: classID,
     );
   }
+
+  void teacherNewExaminee({
+    required String examineeNo,
+    required String name,
+    required int classID,
+    required String contact,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await teacherApi.teacherNewExaminee(
+        examineeNo: examineeNo,
+        name: name,
+        classID: classID,
+        contact: contact,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  void teacherUpdateExaminee({
+    required int id,
+    required String name,
+    required String contact,
+    required int classID,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await teacherApi.teacherUpdateExaminee(
+        id: id,
+        name: name,
+        contact: contact,
+        classID: classID,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }
