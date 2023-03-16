@@ -466,21 +466,19 @@ class TeacherMenu {
             child: ListView(
               padding: const EdgeInsets.all(0),
               children: [
-                /*
                 ListTile(
                   horizontalTitleGap: 25,
-                  leading: const Icon(size: 30, Icons.manage_accounts),
+                  leading: const Icon(size: 30, Icons.cast_for_education_outlined),
                   title: Text(
-                    Lang().managers,
+                    Lang().classes,
                     style: const TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      RouteHelper().generate('/manager/manager', headline: headline),
+                      RouteHelper().generate('/teacher/class', headline: headline),
                     );
                   },
                 ),
-                */
               ],
             ),
           ),

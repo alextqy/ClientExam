@@ -23,6 +23,7 @@ import 'package:client/Views/manager/sys_logs.dart' as manager_site;
 import 'package:client/Views/teacher/login.dart' as teacher_site;
 import 'package:client/Views/teacher/index.dart' as teacher_site;
 import 'package:client/Views/teacher/personal_settings.dart' as teacher_site;
+import 'package:client/Views/teacher/teacher_class.dart' as teacher_site;
 
 // 注册命名路由
 // Map<String, WidgetBuilder> routerMap = {
@@ -78,6 +79,8 @@ class RouteHelper {
         return MaterialPageRoute(builder: (_) => teacher_site.Index(headline: headline));
       case '/teacher/personal/settings':
         return MaterialPageRoute(builder: (_) => teacher_site.PersonalSettings(headline: headline));
+      case '/teacher/class':
+        return MaterialPageRoute(builder: (_) => teacher_site.TeacherClass(headline: headline));
       // ===================================================================
       default:
         return MaterialPageRoute(

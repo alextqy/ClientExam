@@ -208,4 +208,22 @@ class TeacherNotifier extends BaseNotifier {
       notifyListeners();
     }
   }
+
+  Future<DataModel> theTeacherClass() async {
+    return await teacherApi.theTeacherClass();
+  }
+
+  Future<DataListModel> teacherExamineeList({
+    int page = 1,
+    int pageSize = 10,
+    String stext = '',
+    int classID = 0,
+  }) async {
+    return await teacherApi.teacherExamineeList(
+      page: page,
+      pageSize: pageSize,
+      stext: stext,
+      classID: classID,
+    );
+  }
 }
