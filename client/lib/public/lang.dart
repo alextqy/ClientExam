@@ -23,6 +23,7 @@ class Lang {
   String examinee = '';
   String examRegistrations = '';
   String oldExamRegistrations = '';
+  String currentExamregistrations = '';
   String examSubjects = '';
   String knowledgePoints = '';
   String topTitle = '';
@@ -179,6 +180,7 @@ class Lang {
       this.examinee = '考生';
       this.examRegistrations = '报名';
       this.oldExamRegistrations = '历史报名';
+      this.currentExamregistrations = '当前报名';
       this.examSubjects = '科目';
       this.knowledgePoints = '知识点';
       this.topTitle = '顶部标题';
@@ -332,6 +334,7 @@ class Lang {
       this.examinee = 'Examinee';
       this.examRegistrations = 'Exam Registrations';
       this.oldExamRegistrations = 'Old Exam Registrations';
+      this.currentExamregistrations = 'Current Exam Registrations';
       this.examSubjects = 'Exam Subjects';
       this.knowledgePoints = 'Knowledge Points';
       this.topTitle = 'Top Title';

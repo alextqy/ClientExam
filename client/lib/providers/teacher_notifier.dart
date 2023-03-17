@@ -119,6 +119,8 @@ class TeacherNotifier extends BaseNotifier {
     return await teacherApi.teachers();
   }
 
+// ========================================================================= teacher side =========================================================================
+
   void teacherSignIn(
     String account,
     String password,
@@ -281,5 +283,77 @@ class TeacherNotifier extends BaseNotifier {
     } finally {
       notifyListeners();
     }
+  }
+
+  Future<DataListModel> teacherExamInfoList({
+    int type = 0,
+    int page = 1,
+    int pageSize = 10,
+    String stext = '',
+    int examState = 0,
+    int examType = 0,
+    int pass = 0,
+    int startState = 0,
+    int suspendedState = 0,
+    int examineeID = 0,
+  }) async {
+    return await teacherApi.teacherExamInfoList(
+      type: type,
+      page: page,
+      pageSize: pageSize,
+      stext: stext,
+      examState: examState,
+      examType: examType,
+      pass: pass,
+      startState: startState,
+      suspendedState: suspendedState,
+      examineeID: examineeID,
+    );
+  }
+
+  Future<DataListModel> teacherScantronList({
+    int type = 0,
+    int page = 1,
+    int pageSize = 10,
+    int examID = 0,
+  }) async {
+    return await teacherApi.teacherScantronList(
+      type: type,
+      page: page,
+      pageSize: pageSize,
+      examID: examID,
+    );
+  }
+
+  Future<DataModel> teacherScantronViewAttachments({
+    required String filePath,
+  }) async {
+    return await teacherApi.teacherScantronViewAttachments(
+      filePath: filePath,
+    );
+  }
+
+  Future<DataListModel> teacherScantronSolutionList({
+    int type = 0,
+    int page = 1,
+    int pageSize = 10,
+    int scantronID = 0,
+    int position = 0,
+  }) async {
+    return await teacherApi.teacherScantronSolutionList(
+      type: type,
+      page: page,
+      pageSize: pageSize,
+      scantronID: scantronID,
+      position: position,
+    );
+  }
+
+  Future<DataModel> teacherScantronSolutionViewAttachments({
+    required String optionAttachment,
+  }) async {
+    return await teacherApi.teacherScantronSolutionViewAttachments(
+      optionAttachment: optionAttachment,
+    );
   }
 }

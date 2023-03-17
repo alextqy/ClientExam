@@ -109,6 +109,8 @@ class TeacherApi extends ResponseHelper {
     return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
 
+// ========================================================================= teacher side =========================================================================
+
   Future<DataModel> teacherSignIn({
     String account = '',
     String password = '',
@@ -247,6 +249,113 @@ class TeacherApi extends ResponseHelper {
         'Name': name,
         'Contact': contact,
         'ClassID': classID.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataListModel> teacherExamInfoList({
+    int type = 0,
+    int page = 1,
+    int pageSize = 10,
+    String stext = '',
+    int examState = 0,
+    int examType = 0,
+    int pass = 0,
+    int startState = 0,
+    int suspendedState = 0,
+    int examineeID = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/ExamInfo/List'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'Type': type.toString(),
+        'Page': page.toString(),
+        'PageSize': pageSize.toString(),
+        'Stext': stext,
+        'ExamState': examState.toString(),
+        'ExamType': examType.toString(),
+        'Pass': pass.toString(),
+        'StartState': startState.toString(),
+        'SuspendedState': suspendedState.toString(),
+        'ExamineeID': examineeID.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataListModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataListModel> teacherScantronList({
+    int type = 0,
+    int page = 1,
+    int pageSize = 10,
+    int examID = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/ExamInfo/List'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'Type': type.toString(),
+        'Page': page.toString(),
+        'PageSize': pageSize.toString(),
+        'examID': examID.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataListModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataModel> teacherScantronViewAttachments({
+    String filePath = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/Scantron/View/Attachments'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'FilePath': filePath,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataListModel> teacherScantronSolutionList({
+    int type = 0,
+    int page = 1,
+    int pageSize = 10,
+    int scantronID = 0,
+    int position = 0,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/Scantron/Solution/List'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'Type': type.toString(),
+        'Page': page.toString(),
+        'PageSize': pageSize.toString(),
+        'scantronID': scantronID.toString(),
+        'position': position.toString(),
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataListModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataModel> teacherScantronSolutionViewAttachments({
+    String optionAttachment = '',
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Teacher/Scantron/Solution/View/Attachments'),
+      body: {
+        'Token': FileHelper().readFile('token'),
+        'OptionAttachment': optionAttachment,
       },
       headers: postHeaders,
       encoding: postEncoding,

@@ -16,6 +16,9 @@ import 'package:client/providers/teacher_notifier.dart';
 
 import 'package:client/models/examinee_model.dart';
 
+import 'package:client/Views/teacher/examinee_examInfo.dart';
+import 'package:client/Views/teacher/examinee_old_examInfo.dart';
+
 // ignore: must_be_immutable
 class TeacherExamineeList extends StatefulWidget {
   late String className;
@@ -154,6 +157,59 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
             ),
           ),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.examineeListModel[index].createTime))),
+          DataCell(
+            Row(
+              children: [
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(side: const BorderSide(width: 0.5)),
+                  child: Text(Lang().currentExamregistrations, style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.of(context)
+                          .push(
+                        MaterialPageRoute(
+                          builder: (context) => ExamineeExamInfo(
+                            name: teacherNotifier.examineeListModel[index].name,
+                            type: 1,
+                            examineeID: teacherNotifier.examineeListModel[index].id,
+                          ),
+                        ),
+                      )
+                          .then(
+                        (value) {
+                          fetchData();
+                        },
+                      );
+                    });
+                  },
+                ),
+                const SizedBox(width: 10),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(side: const BorderSide(width: 0.5)),
+                  child: Text(Lang().oldExamRegistrations, style: const TextStyle(fontSize: 15, color: Colors.black)),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.of(context)
+                          .push(
+                        MaterialPageRoute(
+                          builder: (context) => ExamineeOldExamInfo(
+                            name: teacherNotifier.examineeListModel[index].name,
+                            type: 2,
+                            examineeID: teacherNotifier.examineeListModel[index].id,
+                          ),
+                        ),
+                      )
+                          .then(
+                        (value) {
+                          fetchData();
+                        },
+                      );
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
         selected: selected[index],
         onSelectChanged: (bool? value) {
@@ -540,6 +596,19 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().createtime,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              Lang().examRegistrations,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
