@@ -254,25 +254,6 @@ class ExamInfoState extends State<ExamInfo> {
     }
   }
 
-  List<DropdownMenuItem<SubjectModel>> subjectDropdownMenuItemList() {
-    List<DropdownMenuItem<SubjectModel>> subjectDataDropdownMenuItemList = [];
-    for (SubjectModel element in subjectNotifier.subjectListModel) {
-      DropdownMenuItem<SubjectModel> data = DropdownMenuItem(
-        value: element,
-        child: SizedBox(
-          width: 100,
-          child: Text(
-            element.subjectName,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-        ),
-      );
-      subjectDataDropdownMenuItemList.add(data);
-    }
-    return subjectDataDropdownMenuItemList;
-  }
-
   // 考生详情
   void examineeInfo(
     BuildContext context, {
@@ -319,6 +300,25 @@ class ExamInfoState extends State<ExamInfo> {
         });
       });
     }
+  }
+
+  List<DropdownMenuItem<SubjectModel>> subjectDropdownMenuItemList() {
+    List<DropdownMenuItem<SubjectModel>> subjectDataDropdownMenuItemList = [];
+    for (SubjectModel element in subjectNotifier.subjectListModel) {
+      DropdownMenuItem<SubjectModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.subjectName,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      subjectDataDropdownMenuItemList.add(data);
+    }
+    return subjectDataDropdownMenuItemList;
   }
 
   // 新建

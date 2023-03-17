@@ -7,19 +7,18 @@ import 'package:flutter/services.dart';
 
 import 'package:client/public/lang.dart';
 import 'package:client/public/tools.dart';
-import 'package:client/public/file.dart';
+// import 'package:client/public/file.dart';
 import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
-import 'package:client/Views/common/menu.dart';
+// import 'package:client/Views/common/menu.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/teacher_notifier.dart';
-// import 'package:client/providers/subject_notifier.dart';
 import 'package:client/providers/examinee_notifier.dart';
 
 import 'package:client/models/examinfo_model.dart';
 import 'package:client/models/examinee_model.dart';
-// import 'package:client/models/subject_model.dart';
+import 'package:client/models/subject_model.dart';
 
 // import 'package:client/Views/teacher/answer_cards.dart';
 
@@ -28,7 +27,8 @@ class ExamineeExamInfo extends StatefulWidget {
   late String name;
   late int type;
   late int examineeID;
-  ExamineeExamInfo({super.key, required this.name, required this.type, required this.examineeID});
+  late String examineeNo;
+  ExamineeExamInfo({super.key, required this.name, required this.type, required this.examineeID, required this.examineeNo});
 
   @override
   State<ExamineeExamInfo> createState() => ExamineeExamInfoState();
@@ -62,10 +62,6 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
 
   TeacherNotifier teacherNotifier = TeacherNotifier();
   ExamineeNotifier examineeNotifier = ExamineeNotifier();
-  // SubjectNotifier subjectNotifier = SubjectNotifier();
-
-  double _globlePositionX = 0;
-  double _globlePositionY = 0;
 
   basicListener() async {
     if (teacherNotifier.operationStatus.value == OperationStatus.loading) {
@@ -107,20 +103,20 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
     });
   }
 
-  // void subjectsData() {
-  //   subjectNotifier.subjects().then((value) {
-  //     setState(() {
-  //       subjectNotifier.subjectListModel = SubjectModel().fromJsonList(jsonEncode(value.data));
-  //     });
-  //   });
-  // }
+  void subjectsData() {
+    teacherNotifier.teacherSubjects().then((value) {
+      setState(() {
+        teacherNotifier.subjectListModel = SubjectModel().fromJsonList(jsonEncode(value.data));
+      });
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     teacherNotifier.addListener(basicListener);
     fetchData();
-    // subjectsData();
+    subjectsData();
   }
 
   @override
@@ -308,6 +304,177 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
         });
       });
     }
+  }
+
+  List<DropdownMenuItem<SubjectModel>> subjectDropdownMenuItemList() {
+    List<DropdownMenuItem<SubjectModel>> subjectDataDropdownMenuItemList = [];
+    for (SubjectModel element in teacherNotifier.subjectListModel) {
+      DropdownMenuItem<SubjectModel> data = DropdownMenuItem(
+        value: element,
+        child: SizedBox(
+          width: 100,
+          child: Text(
+            element.subjectName,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      );
+      subjectDataDropdownMenuItemList.add(data);
+    }
+    return subjectDataDropdownMenuItemList;
+  }
+
+  // 新建
+  void addAlertDialog(BuildContext context) {
+    String subjectSelectedName = Lang().notSelected;
+    String newExamTypeMemo = Lang().notSelected;
+    TextEditingController newExamNoController = TextEditingController();
+    int newExamType = 0;
+    int newSubjectID = 0;
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, Function state) {
+            return AlertDialog(
+              title: Text(Lang().title),
+              content: SizedBox(
+                width: 360,
+                height: 170,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: TextField(
+                        maxLines: 1,
+                        controller: newExamNoController,
+                        decoration: InputDecoration(
+                          hintText: Lang().examNumber,
+                          prefixIcon: Tooltip(
+                            message: Lang().generateTheEncoding,
+                            child: IconButton(
+                              iconSize: 20,
+                              onPressed: () {
+                                newExamNoController.text = Tools().genMD5(Tools().timestamp().toString());
+                              },
+                              icon: const Icon(Icons.credit_card),
+                            ),
+                          ),
+                          suffixIcon: IconButton(
+                            iconSize: 20,
+                            onPressed: () => newExamNoController.clear(),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Tooltip(
+                      message: Lang().examType,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            child: DropdownButton<String>(
+                              value: newExamTypeMemo,
+                              icon: const Icon(Icons.arrow_drop_down),
+                              style: const TextStyle(color: Colors.black),
+                              // elevation: 16,
+                              underline: Container(
+                                height: 0,
+                                // color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String? value) {
+                                state(() {
+                                  newExamTypeMemo = value!;
+                                  if (value == Lang().officialExams) {
+                                    newExamType = 1;
+                                  } else if (value == Lang().dailyPractice) {
+                                    newExamType = 2;
+                                  } else {
+                                    newExamType = 0;
+                                    newExamTypeMemo = Lang().notSelected;
+                                  }
+                                });
+                              },
+                              items: examTypeList.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Tooltip(
+                      message: Lang().examSubjects,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            child: DropdownButton<SubjectModel>(
+                              hint: SizedBox(
+                                width: 100,
+                                child: Text(
+                                  subjectSelectedName,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              icon: const Icon(Icons.arrow_drop_down),
+                              style: const TextStyle(color: Colors.black),
+                              // elevation: 16,
+                              underline: Container(
+                                height: 0,
+                                // color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (SubjectModel? value) {
+                                state(() {
+                                  if (value!.id > 0) {
+                                    subjectSelectedName = value.subjectName;
+                                    newSubjectID = value.id;
+                                  }
+                                });
+                              },
+                              items: subjectDropdownMenuItemList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (newExamNoController.text.isNotEmpty && newExamType > 0 && newSubjectID > 0) {
+                      teacherNotifier.teacherNewExamInfo(
+                        subjectName: subjectSelectedName,
+                        examNo: newExamNoController.text,
+                        examineeNo: widget.examineeNo,
+                        examType: newExamType,
+                      );
+                      page = 1;
+                    }
+                  },
+                  child: Text(Lang().confirm),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(Lang().cancel),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   // 数据排序
@@ -617,6 +784,11 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                           fetchData();
                         });
                       },
+                    ),
+                    const SizedBox(width: 10),
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () => addAlertDialog(context),
                     ),
                     // const SizedBox(width: 10),
                     // IconButton(
@@ -1111,74 +1283,11 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
     );
   }
 
-  void showPopupMenu(BuildContext context, double x, double y) {
-    RenderBox overlay = Overlay.of(context)?.context.findRenderObject() as RenderBox;
-    RelativeRect position = RelativeRect.fromRect(Rect.fromLTRB(x, y - 100, x, y), Offset.zero & overlay.size);
-
-    PopupMenuItem bulkImportItem = PopupMenuItem(
-      value: 1,
-      child: Tooltip(
-        message: 'xls / xlsx',
-        child: Text(Lang().bulkImport),
-      ),
-    );
-    PopupMenuItem demoItem = const PopupMenuItem(
-      value: 2,
-      child: Text('Demo'),
-    );
-    List<PopupMenuEntry<dynamic>> itemList = [bulkImportItem, demoItem];
-    /*
-    showMenu(context: context, position: position, items: itemList).then((value) {
-      if (value == 1) {
-        Future<String?> filePath = FileHelper().checkFile(dirPath: FileHelper().appRoot().path, type: ['xls', 'xlsx']);
-        filePath.then((value) {
-          if (value != null) {
-            teacherNotifier.importExamInfo(filePath: value);
-          }
-        });
-      }
-      if (value == 2) {
-        teacherNotifier.downloadExamInfoDemo().then((value) {
-          List<dynamic> data = value.data;
-          List<int> dataBit = [];
-          for (dynamic element in data) {
-            dataBit.add(element as int);
-          }
-          bool result = FileHelper().writeFileB('${FileHelper().appRoot().path}/demo.${value.memo}', dataBit);
-          if (result) {
-            FileHelper().openDir(dirPath: FileHelper().appRoot().path, type: ['xls', 'xlsx', 'zip']);
-          } else {
-            Toast().show(context, message: Lang().theRequestFailed);
-          }
-        });
-      }
-    });
-    */
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.name)),
       body: mainWidget(context),
-      floatingActionButton: Container(
-        // padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.fromLTRB(0, 0, 15, 75),
-        child: GestureDetector(
-          onPanDown: (DragDownDetails details) {
-            _globlePositionX = details.globalPosition.dx;
-            _globlePositionY = details.globalPosition.dy;
-          },
-          // onLongPress: () {
-          //   _showPromptBox();
-          // },
-          child: FloatingActionButton(
-            backgroundColor: Colors.green,
-            child: const Icon(Icons.add_box),
-            onPressed: () => showPopupMenu(context, _globlePositionX, _globlePositionY),
-          ),
-        ),
-      ),
     );
   }
 }

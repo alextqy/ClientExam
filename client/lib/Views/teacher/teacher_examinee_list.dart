@@ -172,6 +172,7 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
                             name: teacherNotifier.examineeListModel[index].name,
                             type: 1,
                             examineeID: teacherNotifier.examineeListModel[index].id,
+                            examineeNo: teacherNotifier.examineeListModel[index].examineeNo,
                           ),
                         ),
                       )

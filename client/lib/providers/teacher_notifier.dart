@@ -356,4 +356,36 @@ class TeacherNotifier extends BaseNotifier {
       optionAttachment: optionAttachment,
     );
   }
+
+  Future<DataModel> teacherSubjects() async {
+    return await teacherApi.teacherSubjects();
+  }
+
+  void teacherNewExamInfo({
+    required String subjectName,
+    required String examNo,
+    required String examineeNo,
+    required int examType,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await teacherApi.teacherNewExamInfo(
+        subjectName: subjectName,
+        examNo: examNo,
+        examineeNo: examineeNo,
+        examType: examType,
+      );
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }
