@@ -122,7 +122,6 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].actualScore.toString())),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].actualDuration.toString())),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkPass(teacherNotifier.examInfoHistoryListModel[index].pass))),
-          DataCell(IconButton(iconSize: 20, onPressed: () => examineeInfo(context, examineeID: teacherNotifier.examInfoHistoryListModel[index].examineeID), icon: const Icon(Icons.people))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamState(teacherNotifier.examInfoHistoryListModel[index].examState))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamType(teacherNotifier.examInfoHistoryListModel[index].examType))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.examInfoHistoryListModel[index].createTime))),
@@ -671,19 +670,6 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().passedOrNot,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().examinee,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),

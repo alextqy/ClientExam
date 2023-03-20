@@ -154,7 +154,6 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoListModel[index].actualScore.toString())),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoListModel[index].actualDuration.toString())),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkPass(teacherNotifier.examInfoListModel[index].pass))),
-          DataCell(IconButton(iconSize: 20, onPressed: () => examineeInfo(context, examineeID: teacherNotifier.examInfoListModel[index].examineeID), icon: const Icon(Icons.people))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamState(teacherNotifier.examInfoListModel[index].examState))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamType(teacherNotifier.examInfoListModel[index].examType))),
           DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.examInfoListModel[index].createTime))),
@@ -964,19 +963,6 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().passedOrNot,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().examinee,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
