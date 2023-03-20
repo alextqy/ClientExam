@@ -34,7 +34,7 @@ class ScantronSolutionHistoryModel extends BaseModel {
     return ScantronSolutionHistoryModel(
       id: json['ID'],
       createTime: json['CreateTime'],
-      scantronID: json['scantronID'],
+      scantronID: json['ScantronID'],
       option: json['Option'],
       optionAttachment: json['OptionAttachment'],
       correctAnswer: json['CorrectAnswer'],

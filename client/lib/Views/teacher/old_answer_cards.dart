@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,28 +9,26 @@ import 'package:client/public/lang.dart';
 import 'package:client/public/tools.dart';
 import 'package:client/Views/common/basic_info.dart';
 import 'package:client/Views/common/toast.dart';
+// import 'package:client/Views/common/menu.dart';
 
-// import 'package:client/providers/base_notifier.dart';
+import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/teacher_notifier.dart';
-import 'package:client/providers/examinee_notifier.dart';
 
-import 'package:client/models/examinfo_history_model.dart';
-import 'package:client/models/examinee_model.dart';
+import 'package:client/models/scantron_history_model.dart';
 
-import 'package:client/Views/teacher/old_answer_cards.dart';
+import 'package:client/Views/teacher/old_answer_card_options.dart';
 
 // ignore: must_be_immutable
-class ExamineeOldExamInfo extends StatefulWidget {
-  late String name;
-  late int type;
-  late int examineeID;
-  ExamineeOldExamInfo({super.key, required this.name, required this.type, required this.examineeID});
+class OldAnswerCards extends StatefulWidget {
+  late String examNo;
+  late int examID;
+  OldAnswerCards({super.key, required this.examNo, required this.examID});
 
   @override
-  State<ExamineeOldExamInfo> createState() => ExamineeOldExamInfoState();
+  State<OldAnswerCards> createState() => OldAnswerCardsState();
 }
 
-class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
+class OldAnswerCardsState extends State<OldAnswerCards> {
   bool sortAscending = false;
   int sortColumnIndex = 0;
   int showSelected = 0;
@@ -38,42 +36,37 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
 
   int page = 1;
   int pageSize = perPageDropList.first;
-  String searchText = '';
-  int examState = 0;
-  int examType = 0;
-  int pass = 0;
   int totalPage = 0;
 
-  String examStatusMemo = examStatusList.first;
-  String examTypeMemo = examTypeList.first;
-  String passMemo = passList.first;
-  String startStateMemo = startStateList.first;
-
   TextEditingController jumpToController = TextEditingController();
-  TextEditingController cupertinoSearchTextFieldController = TextEditingController();
 
   TeacherNotifier teacherNotifier = TeacherNotifier();
-  ExamineeNotifier examineeNotifier = ExamineeNotifier();
+
+  basicListener() async {
+    if (teacherNotifier.operationStatus.value == OperationStatus.loading) {
+      Toast().show(context, message: Lang().loading);
+    } else if (teacherNotifier.operationStatus.value == OperationStatus.success) {
+      fetchData();
+      Toast().show(context, message: Lang().theOperationCompletes);
+    } else {
+      Toast().show(context, message: teacherNotifier.operationMemo);
+    }
+  }
 
   void fetchData() {
     teacherNotifier
-        .teacherExamInfoList(
+        .teacherScantronList(
+      type: 2,
       page: page,
-      type: widget.type,
       pageSize: pageSize,
-      stext: searchText,
-      examState: examState,
-      examType: examType,
-      pass: pass,
-      examineeID: widget.examineeID,
+      examID: widget.examID,
     )
         .then((value) {
       setState(() {
-        teacherNotifier.examInfoHistoryListModel = ExamInfoHistoryModel().fromJsonList(jsonEncode(value.data));
-        selected = List<bool>.generate(teacherNotifier.examInfoHistoryListModel.length, (int index) => false);
+        teacherNotifier.scantronHistoryListModel = ScantronHistoryModel().fromJsonList(jsonEncode(value.data));
+        selected = List<bool>.generate(teacherNotifier.scantronHistoryListModel.length, (int index) => false);
         totalPage = value.totalPage;
         showSelected = 0;
-        searchText = '';
         sortAscending = false;
         if (totalPage == 0) {
           page = 0;
@@ -85,19 +78,21 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
   @override
   void initState() {
     super.initState();
+    teacherNotifier.addListener(basicListener);
     fetchData();
   }
 
   @override
   void dispose() {
     teacherNotifier.dispose();
+    teacherNotifier.removeListener(basicListener);
     super.dispose();
   }
 
   // 生成列表
   List<DataRow> generateList() {
     return List<DataRow>.generate(
-      teacherNotifier.examInfoHistoryListModel.length,
+      teacherNotifier.scantronHistoryListModel.length,
       (int index) => DataRow(
         color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
           // All rows will have the same selected color.
@@ -111,46 +106,88 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
           return null; // Use default value for other states and odd rows.
         }),
         cells: <DataCell>[
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].id.toString())),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].subjectName)),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].examNo)),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].totalScore.toString())),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].passLine.toString())),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].examDuration.toString())),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.examInfoHistoryListModel[index].startTime))),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.examInfoHistoryListModel[index].endTime))),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].actualScore.toString())),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.examInfoHistoryListModel[index].actualDuration.toString())),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkPass(teacherNotifier.examInfoHistoryListModel[index].pass))),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamState(teacherNotifier.examInfoHistoryListModel[index].examState))),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, checkExamType(teacherNotifier.examInfoHistoryListModel[index].examType))),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.examInfoHistoryListModel[index].createTime))),
-          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.examInfoHistoryListModel[index].updateTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, teacherNotifier.scantronHistoryListModel[index].id.toString())),
+          DataCell(
+            SizedBox(
+              width: 200,
+              child: Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: null,
+                teacherNotifier.scantronHistoryListModel[index].headlineContent == 'none' ? '' : teacherNotifier.scantronHistoryListModel[index].headlineContent,
+              ),
+            ),
+          ),
+          DataCell(
+            SizedBox(
+              width: 200,
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: null, teacherNotifier.scantronHistoryListModel[index].questionTitle == 'none' ? '' : teacherNotifier.scantronHistoryListModel[index].questionTitle),
+            ),
+          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: null, teacherNotifier.scantronHistoryListModel[index].questionCode == 'none' ? '' : teacherNotifier.scantronHistoryListModel[index].questionCode)),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: null, checkQuestionType(teacherNotifier.scantronHistoryListModel[index].questionType))),
+          DataCell(
+            SizedBox(
+              width: 200,
+              child: Text(overflow: TextOverflow.ellipsis, maxLines: null, teacherNotifier.scantronHistoryListModel[index].description == 'none' ? '' : teacherNotifier.scantronHistoryListModel[index].description),
+            ),
+          ),
+          DataCell(
+            SizedBox(
+              width: 200,
+              child: teacherNotifier.scantronHistoryListModel[index].questionType == 0
+                  ? const SizedBox()
+                  : Row(
+                      children: [
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(width: 0.5),
+                          ),
+                          child: Text(
+                            Lang().view,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          onLongPress: () => viewImage(attachment: teacherNotifier.scantronHistoryListModel[index].attachment, big: true),
+                          onPressed: () => viewImage(attachment: teacherNotifier.scantronHistoryListModel[index].attachment),
+                        ),
+                      ],
+                    ),
+            ),
+          ),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.scantronHistoryListModel[index].createTime))),
+          DataCell(Text(overflow: TextOverflow.ellipsis, maxLines: 1, Tools().timestampToStr(teacherNotifier.scantronHistoryListModel[index].updateTime))),
+          DataCell(teacherNotifier.scantronHistoryListModel[index].questionType == 0 ? const SizedBox() : Text(overflow: TextOverflow.ellipsis, maxLines: null, teacherNotifier.scantronHistoryListModel[index].score.toString())),
+          DataCell(checkRightOrWrong(teacherNotifier.scantronHistoryListModel[index])),
           DataCell(
             Row(
               children: [
                 const SizedBox(width: 25),
-                IconButton(
-                  icon: const Icon(Icons.list),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.of(context)
-                          .push(
-                        MaterialPageRoute(
-                          builder: (context) => OldAnswerCards(
-                            examNo: teacherNotifier.examInfoHistoryListModel[index].examNo,
-                            examID: teacherNotifier.examInfoHistoryListModel[index].id,
-                          ),
-                        ),
-                      )
-                          .then(
-                        (value) {
-                          fetchData();
+                teacherNotifier.scantronHistoryListModel[index].questionType > 0
+                    ? IconButton(
+                        icon: const Icon(Icons.list),
+                        onPressed: () {
+                          setState(() {
+                            Navigator.of(context)
+                                .push(
+                              MaterialPageRoute(
+                                builder: (context) => OldAnswerCardOptions(
+                                  questionType: teacherNotifier.scantronHistoryListModel[index].questionType,
+                                  questionTitle: teacherNotifier.scantronHistoryListModel[index].questionTitle,
+                                  scantronID: teacherNotifier.scantronHistoryListModel[index].id,
+                                ),
+                              ),
+                            )
+                                .then(
+                              (value) {
+                                fetchData();
+                              },
+                            );
+                          });
                         },
-                      );
-                    });
-                  },
-                ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           ),
@@ -166,61 +203,29 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
     );
   }
 
-  String checkPass(int pass) {
-    if (pass == 1) {
-      return Lang().no;
-    } else if (pass == 2) {
-      return Lang().yes;
+  Widget checkRightOrWrong(ScantronHistoryModel data) {
+    if (data.right == 2 && data.questionType > 0) {
+      return Text(Lang().right);
+    } else if (data.right == 1 && data.questionType > 0) {
+      return Text(Lang().wrong);
+    } else if (data.questionType > 0) {
+      return Text(Lang().not);
     } else {
-      return '';
+      return const Text('');
     }
   }
 
-  String checkExamState(int examState) {
-    if (examState == 1) {
-      return Lang().noAnswerCards;
-    } else if (examState == 2) {
-      return Lang().notExamined;
-    } else if (examState == 3) {
-      return Lang().examined;
-    } else if (examState == 4) {
-      return Lang().examVoided;
-    } else {
-      return '';
+  // 查看图片
+  void viewImage({required String attachment, bool big = false}) {
+    dynamic height = 300.0;
+    dynamic width = 500.0;
+    if (big == true) {
+      height = null;
+      width = null;
     }
-  }
-
-  String checkExamType(int examType) {
-    if (examType == 1) {
-      return Lang().officialExams;
-    } else if (examType == 2) {
-      return Lang().dailyPractice;
-    } else {
-      return '';
-    }
-  }
-
-  String checkStartState(int startState) {
-    if (startState == 1) {
-      return Lang().notStarted;
-    } else if (startState == 2) {
-      return Lang().started;
-    } else {
-      return '';
-    }
-  }
-
-  // 考生详情
-  void examineeInfo(
-    BuildContext context, {
-    required int examineeID,
-  }) {
-    if (examineeID == 0) {
-      Toast().show(context, message: Lang().noData);
-    } else {
-      examineeNotifier.examineeInfo(id: examineeID).then((value) {
-        ExamineeModel examineeData = ExamineeModel.fromJson(value.data); // 当前归属班级列表
-        setState(() {
+    setState(() {
+      teacherNotifier.teacherScantronViewAttachments(filePath: attachment).then((value) {
+        if (value.data != null) {
           showDialog(
             context: context,
             barrierDismissible: true,
@@ -228,24 +233,14 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
               return StatefulBuilder(
                 builder: (BuildContext context, Function state) {
                   return AlertDialog(
-                    title: Text(Lang().title),
+                    title: Text(value.memo),
                     content: SizedBox(
-                      width: 280,
-                      height: 130,
+                      height: height,
+                      width: width,
                       child: Container(
-                        padding: const EdgeInsets.all(0),
                         margin: const EdgeInsets.all(0),
-                        child: SelectableText.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(text: 'ID: ${examineeData.id}\n'),
-                              TextSpan(text: '${Lang().name}: ${examineeData.name}\n'),
-                              TextSpan(text: '${Lang().examineeNo}: ${examineeData.examineeNo}\n'),
-                              TextSpan(text: '${Lang().createtime}: ${Tools().timestampToStr(examineeData.createTime)}\n'),
-                              TextSpan(text: '${Lang().contact}: ${examineeData.contact}\n'),
-                            ],
-                          ),
-                        ),
+                        padding: const EdgeInsets.all(0),
+                        child: Image.memory(Tools().byteListToBytes(Tools().toByteList(value.data))),
                       ),
                     ),
                   );
@@ -253,25 +248,27 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
               );
             },
           );
-        });
+        } else {
+          Toast().show(context, message: Lang().noData);
+        }
       });
-    }
+    });
   }
 
   // 数据排序
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
-        teacherNotifier.examInfoHistoryListModel.sort((a, b) => a.id.compareTo(b.id));
+        teacherNotifier.scantronHistoryListModel.sort((a, b) => a.id.compareTo(b.id));
       } else {
-        teacherNotifier.examInfoHistoryListModel.sort((a, b) => b.id.compareTo(a.id));
+        teacherNotifier.scantronHistoryListModel.sort((a, b) => b.id.compareTo(a.id));
       }
     }
     // 重置全选
     selected = List<bool>.generate(
-      teacherNotifier.examInfoHistoryListModel.length,
+      teacherNotifier.scantronHistoryListModel.length,
       (int index) {
-        teacherNotifier.examInfoHistoryListModel[index].selected = false;
+        teacherNotifier.scantronHistoryListModel[index].selected = false;
         showSelected = 0;
         return false;
       },
@@ -280,7 +277,7 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
 
   Widget mainWidget(BuildContext context) {
     double widgetWidth = MediaQuery.of(context).size.width;
-    double percentage = .15;
+    double percentage = 0.15;
     ScrollController controllerOutside = ScrollController();
     ScrollController controllerInside = ScrollController();
     return Container(
@@ -316,134 +313,6 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                     ),
                     const Expanded(child: SizedBox()),
                     Tooltip(
-                      message: Lang().examStatus,
-                      child: DropdownButton<String>(
-                        value: examStatusMemo,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
-                        // elevation: 16,
-                        underline: Container(
-                          height: 0,
-                          // color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? value) {
-                          setState(() {
-                            if (value != null && examStatusMemo != value) {
-                              examStatusMemo = value;
-                              if (value == Lang().noAnswerCards) {
-                                examState = 1;
-                              } else if (value == Lang().notExamined) {
-                                examState = 2;
-                              } else if (value == Lang().examined) {
-                                examState = 3;
-                              } else if (value == Lang().examVoided) {
-                                examState = 4;
-                              } else {
-                                examState = 0;
-                                examStatusMemo = Lang().notSelected;
-                              }
-                              page = 1;
-                              fetchData();
-                            }
-                          });
-                        },
-                        items: examStatusList.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Tooltip(
-                      message: Lang().examType,
-                      child: DropdownButton<String>(
-                        value: examTypeMemo,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
-                        // elevation: 16,
-                        underline: Container(
-                          height: 0,
-                          // color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? value) {
-                          setState(() {
-                            if (value != null && examTypeMemo != value) {
-                              examTypeMemo = value;
-                              if (value == Lang().officialExams) {
-                                examType = 1;
-                              } else if (value == Lang().dailyPractice) {
-                                examType = 2;
-                              } else {
-                                examType = 0;
-                                examTypeMemo = Lang().notSelected;
-                              }
-                              page = 1;
-                              fetchData();
-                            }
-                          });
-                        },
-                        items: examTypeList.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Tooltip(
-                      message: Lang().passedOrNot,
-                      child: DropdownButton<String>(
-                        value: passMemo,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
-                        // elevation: 16,
-                        underline: Container(
-                          height: 0,
-                          // color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? value) {
-                          setState(() {
-                            if (value != null && passMemo != value) {
-                              passMemo = value;
-                              if (value == Lang().yes) {
-                                pass = 2;
-                              } else if (value == Lang().no) {
-                                pass = 1;
-                              } else {
-                                pass = 0;
-                                passMemo = Lang().notSelected;
-                              }
-                              page = 1;
-                              fetchData();
-                            }
-                          });
-                        },
-                        items: passList.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    SizedBox(
-                      width: 200,
-                      child: CupertinoSearchTextField(
-                        controller: cupertinoSearchTextFieldController,
-                        onSubmitted: (String value) {
-                          setState(() {
-                            searchText = value;
-                            fetchData();
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
                         value: pageSize,
@@ -474,16 +343,6 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                       icon: const Icon(Icons.refresh),
                       onPressed: () {
                         setState(() {
-                          examState = 0;
-                          examType = 0;
-                          pass = 0;
-
-                          examStatusMemo = examStatusList.first;
-                          examTypeMemo = examTypeList.first;
-                          passMemo = passList.first;
-                          startStateMemo = startStateList.first;
-
-                          cupertinoSearchTextFieldController.clear();
                           page = 1;
                           fetchData();
                         });
@@ -540,7 +399,7 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().subjectName,
+                              Lang().headlines,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -553,7 +412,7 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().examNumber,
+                              Lang().questionTitle,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -566,7 +425,7 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().totalScore,
+                              Lang().questionCode,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -579,7 +438,7 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().passingLine,
+                              Lang().questionType,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -592,7 +451,7 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().examDuration,
+                              Lang().description,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -605,85 +464,7 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().startTime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().endTime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().actualScore,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().actualDuration,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().passedOrNot,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().examStatus,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: SizedBox(
-                            width: widgetWidth * percentage,
-                            child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              Lang().examType,
+                              Lang().attachmentFile,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -722,7 +503,33 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                             child: Text(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              Lang().answerCards,
+                              Lang().scorePerQuestion,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              Lang().right,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: SizedBox(
+                            width: widgetWidth * percentage,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              Lang().questionOptions,
                               style: const TextStyle(
                                 fontStyle: FontStyle.italic,
                               ),
@@ -841,7 +648,7 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.name)),
+      appBar: AppBar(title: Text(widget.examNo)),
       body: mainWidget(context),
     );
   }

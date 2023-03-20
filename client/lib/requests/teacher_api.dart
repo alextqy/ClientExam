@@ -296,13 +296,13 @@ class TeacherApi extends ResponseHelper {
     int examID = 0,
   }) async {
     Response response = await post(
-      Uri.http(url, '/Teacher/ExamInfo/List'),
+      Uri.http(url, '/Teacher/Scantron/List'),
       body: {
         'Token': FileHelper().readFile('token'),
         'Type': type.toString(),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'examID': examID.toString(),
+        'ExamID': examID.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
@@ -339,8 +339,8 @@ class TeacherApi extends ResponseHelper {
         'Type': type.toString(),
         'Page': page.toString(),
         'PageSize': pageSize.toString(),
-        'scantronID': scantronID.toString(),
-        'position': position.toString(),
+        'ScantronID': scantronID.toString(),
+        'Position': position.toString(),
       },
       headers: postHeaders,
       encoding: postEncoding,
