@@ -1,10 +1,12 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 
 enum Position {
-  TOP, // ignore: constant_identifier_names
-  CENTER, // ignore: constant_identifier_names
-  BOTTOM, // ignore: constant_identifier_names
+  TOP,
+  CENTER,
+  BOTTOM,
 }
 
 // 自定义内容
@@ -80,7 +82,7 @@ class Toast {
           )),
     );
     _startTimer();
-    overlayState?.insert(_overlayEntry!);
+    overlayState.insert(_overlayEntry!);
   }
 
   // 开启倒计时

@@ -1285,7 +1285,7 @@ class ExamInfoState extends State<ExamInfo> {
   }
 
   void showPopupMenu(BuildContext context, double x, double y) {
-    RenderBox overlay = Overlay.of(context)?.context.findRenderObject() as RenderBox;
+    RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
     RelativeRect position = RelativeRect.fromRect(Rect.fromLTRB(x, y - 100, x, y), Offset.zero & overlay.size);
 
     PopupMenuItem bulkImportItem = PopupMenuItem(
