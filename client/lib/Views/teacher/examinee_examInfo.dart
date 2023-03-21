@@ -1155,26 +1155,6 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                             */
                           }),
                     ),
-                    const SizedBox(width: 20),
-                    SizedBox(
-                      child: TextButton(
-                          child: Text(
-                            Lang().sendToOldData,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
-                          ),
-                          onPressed: () {
-                            /*
-                            for (int i = 0; i < selected.length; i++) {
-                              if (selected[i]) {
-                                teacherNotifier.examIntoHistory(id: teacherNotifier.examInfoListModel[i].id);
-                              }
-                            }
-                            */
-                          }),
-                    ),
                     const Expanded(child: SizedBox()),
                     SizedBox(
                       width: 65,
