@@ -1106,13 +1106,11 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                             ),
                           ),
                           onPressed: () {
-                            /*
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
-                                teacherNotifier.resetExamQuestionData(id: teacherNotifier.examInfoListModel[i].id);
+                                teacherNotifier.teacherResetExamQuestionData(id: teacherNotifier.examInfoListModel[i].id);
                               }
                             }
-                            */
                           }),
                     ),
                     const SizedBox(width: 20),
