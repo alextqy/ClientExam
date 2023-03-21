@@ -20,7 +20,7 @@ import 'package:client/models/examinfo_model.dart';
 import 'package:client/models/examinee_model.dart';
 import 'package:client/models/subject_model.dart';
 
-// import 'package:client/Views/teacher/answer_cards.dart';
+import 'package:client/Views/teacher/answer_cards.dart';
 
 // ignore: must_be_immutable
 class ExamineeExamInfo extends StatefulWidget {
@@ -179,7 +179,6 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                   icon: const Icon(Icons.list),
                   onPressed: () {
                     setState(() {
-                      /*
                       Navigator.of(context)
                           .push(
                         MaterialPageRoute(
@@ -194,7 +193,6 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                           fetchData();
                         },
                       );
-                      */
                     });
                   },
                 ),
@@ -1090,13 +1088,11 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                             ),
                           ),
                           onPressed: () {
-                            /*
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
-                                teacherNotifier.generateTestPaper(id: teacherNotifier.examInfoListModel[i].id);
+                                teacherNotifier.teacherGenerateTestPaper(id: teacherNotifier.examInfoListModel[i].id);
                               }
                             }
-                            */
                           }),
                     ),
                     const SizedBox(width: 20),

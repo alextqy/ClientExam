@@ -773,7 +773,7 @@ class QuestionState extends State<Question> {
                 TextButton(
                   onPressed: () {
                     String newLanguageParam = newLanguageMemo != Lang().notSelected ? newLanguageMemo : '';
-                    if (newQuestionTitleController.text.isNotEmpty && newDescriptionController.text.isNotEmpty && newQuestionType > 0 && newKnowledgeID > 0) {
+                    if (newQuestionTitleController.text.isNotEmpty && newQuestionType > 0 && newKnowledgeID > 0) {
                       questionNotifier.newQuestion(
                         questionTitle: newQuestionTitleController.text,
                         questionType: newQuestionType,
