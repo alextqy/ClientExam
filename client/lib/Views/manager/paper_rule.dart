@@ -303,6 +303,9 @@ class PaperRulesState extends State<PaperRules> {
                           width: 1000,
                           height: 500,
                           child: Scrollbar(
+                            thumbVisibility: true,
+                            radius: const Radius.circular(0),
+                            thickness: 10,
                             controller: textController,
                             child: SingleChildScrollView(
                               controller: textController,
@@ -991,6 +994,9 @@ class PaperRulesState extends State<PaperRules> {
             /// body
             Expanded(
               child: Scrollbar(
+                thumbVisibility: true,
+                radius: const Radius.circular(0),
+                thickness: 10,
                 controller: controllerOutside,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,

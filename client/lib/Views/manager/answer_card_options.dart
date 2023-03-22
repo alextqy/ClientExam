@@ -310,6 +310,9 @@ class AnswerCardOptionsState extends State<AnswerCardOptions> {
             /// body
             Expanded(
               child: Scrollbar(
+                thumbVisibility: true,
+                radius: const Radius.circular(0),
+                thickness: 10,
                 controller: controllerOutside,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
