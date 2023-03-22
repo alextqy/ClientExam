@@ -164,9 +164,7 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
               value: teacherNotifier.examInfoListModel[index].suspendedState == 1 ? false : true,
               onChanged: (bool? value) {
                 setState(() {
-                  /*
-                  teacherNotifier.examInfoSuspend(id: teacherNotifier.examInfoListModel[index].id);
-                  */
+                  teacherNotifier.teacherExamInfoSuspend(id: teacherNotifier.examInfoListModel[index].id);
                 });
               },
             ),
@@ -1145,13 +1143,11 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                             ),
                           ),
                           onPressed: () {
-                            /*
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
-                                teacherNotifier.gradeTheExam(id: teacherNotifier.examInfoListModel[i].id);
+                                teacherNotifier.teacherGradeTheExam(id: teacherNotifier.examInfoListModel[i].id);
                               }
                             }
-                            */
                           }),
                     ),
                     const Expanded(child: SizedBox()),

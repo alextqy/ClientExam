@@ -442,4 +442,40 @@ class TeacherNotifier extends BaseNotifier {
       notifyListeners();
     }
   }
+
+  void teacherGradeTheExam({required int id}) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await teacherApi.teacherGradeTheExam(id: id);
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  void teacherExamInfoSuspend({required int id}) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await teacherApi.teacherExamInfoSuspend(id: id);
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }
