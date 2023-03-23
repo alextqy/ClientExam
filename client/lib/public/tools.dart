@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:crypto/crypto.dart' as crypto;
@@ -80,4 +81,31 @@ class Tools {
     String end = str.substring(offs, str.length);
     return start + end;
   }
+
+  // UDP 客户端
+  Future<String> clentUDP(int port) async {
+    RawDatagramSocket rawDgramSocket = await RawDatagramSocket.bind('0.0.0.0', port);
+    // rawDgramSocket.send(utf8.encode("hello,world!"), InternetAddress('0.0.0.0'), port);
+    await for (RawSocketEvent event in rawDgramSocket) {
+      if (event == RawSocketEvent.read) {
+        try {
+          return utf8.decode(rawDgramSocket.receive()!.data);
+        } catch (e) {
+          return '';
+        }
+      }
+    }
+    return '';
+  }
+
+  // UDP 服务端 (待测)
+  // void serverUDP() async {
+  //   RawDatagramSocket rawDgramSocket = await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 8081);
+  //   await for (RawSocketEvent event in rawDgramSocket) {
+  //     if (event == RawSocketEvent.read) {
+  //       // print(utf8.decode(rawDgramSocket.receive()!.data));
+  //       rawDgramSocket.send(utf8.encode("UDP Server:already received!"), InternetAddress.loopbackIPv4, 8082);
+  //     }
+  //   }
+  // }
 }

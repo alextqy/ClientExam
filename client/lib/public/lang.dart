@@ -157,6 +157,12 @@ class Lang {
   String copy = '';
   String theCandidatesAnswer = '';
 
+  String theServerAddressIsNotSet = '';
+  String goToSetServerAddress = '';
+  String serverAddress = '';
+  String serverPort = '';
+  String longPressToGetAutomatically = '';
+
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
@@ -312,6 +318,11 @@ class Lang {
 
       this.copy = '复制';
       this.theCandidatesAnswer = '考生的答案';
+      this.theServerAddressIsNotSet = '未设置服务器地址';
+      this.goToSetServerAddress = '前往设置服务器地址';
+      this.serverAddress = '服务器地址';
+      this.serverPort = '服务器端口';
+      this.longPressToGetAutomatically = '长按自动获取';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -466,6 +477,11 @@ class Lang {
 
       this.copy = 'Copy';
       this.theCandidatesAnswer = 'The candidate\'s answer';
+      this.theServerAddressIsNotSet = 'The Server Address Is Not Set';
+      this.goToSetServerAddress = 'Go To Set Server Address';
+      this.serverAddress = 'Server Address';
+      this.serverPort = 'Server Port';
+      this.longPressToGetAutomatically = 'Long Press To Get Automatically';
     }
   }
 }

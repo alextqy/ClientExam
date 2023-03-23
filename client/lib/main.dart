@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:client/routes.dart';
 import 'package:client/public/lang.dart';
+import 'package:client/public/file.dart';
+import 'package:client/udp_set.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -13,12 +15,6 @@ void main() {
 
 class Entrance extends StatelessWidget {
   const Entrance({super.key});
-
-  // test() {
-  //   managerApi.test().then((res) {
-  //     print(res.data);
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +33,20 @@ class Entrance extends StatelessWidget {
             Lang().managers,
             style: const TextStyle(fontSize: 18),
           ),
-          onPressed: () => {
-            Navigator.of(context).push(RouteHelper().generate('/manager/login')),
+          onPressed: () {
+            if (FileHelper().fileExists('ServerAddress') == true && FileHelper().readFile('ServerAddress').isNotEmpty == true) {
+              Navigator.of(context).push(RouteHelper().generate('/manager/login'));
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(Lang().theServerAddressIsNotSet),
+                  action: SnackBarAction(
+                    label: Lang().goToSetServerAddress,
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UdpSet())),
+                  ),
+                ),
+              );
+            }
           },
         ),
       ),
@@ -59,8 +67,20 @@ class Entrance extends StatelessWidget {
             Lang().teachers,
             style: const TextStyle(fontSize: 18),
           ),
-          onPressed: () => {
-            Navigator.of(context).push(RouteHelper().generate('/teacher/login')),
+          onPressed: () {
+            if (FileHelper().fileExists('ServerAddress') == true && FileHelper().readFile('ServerAddress').isNotEmpty == true) {
+              Navigator.of(context).push(RouteHelper().generate('/teacher/login'));
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(Lang().theServerAddressIsNotSet),
+                  action: SnackBarAction(
+                    label: Lang().goToSetServerAddress,
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UdpSet())),
+                  ),
+                ),
+              );
+            }
           },
         ),
       ),

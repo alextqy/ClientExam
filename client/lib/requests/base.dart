@@ -8,7 +8,8 @@ import 'package:client/public/file.dart';
 
 class ResponseHelper {
   Utf8Decoder decoder = const Utf8Decoder();
-  String url = '127.0.0.1:6000';
+  String url = FileHelper().readFile('ServerAddress');
+
   // String token = '';
   // header('sAccess-Control-Allow-Origin:*');
   // header('Access-Control-Allow-Methods:POST');
