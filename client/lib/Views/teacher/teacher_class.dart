@@ -233,8 +233,8 @@ class TeacherClassState extends State<TeacherClass> {
                       // 标题栏
                       columns: [
                         DataColumn(
-                          label: Row(
-                            children: const [
+                          label: const Row(
+                            children: [
                               Text(
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
@@ -333,8 +333,8 @@ class TeacherClassState extends State<TeacherClass> {
                 height: double.infinity,
                 padding: const EdgeInsets.all(0),
                 margin: const EdgeInsets.all(0),
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     Expanded(child: SizedBox()),
                     SizedBox(width: 20),
                   ],

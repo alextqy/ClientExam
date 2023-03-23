@@ -549,8 +549,8 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
                       // 标题栏
                       columns: [
                         DataColumn(
-                          label: Row(
-                            children: const [
+                          label: const Row(
+                            children: [
                               Text(
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
