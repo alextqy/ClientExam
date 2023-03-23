@@ -1,3 +1,4 @@
+import 'package:client/public/file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:client/public/lang.dart';
@@ -92,7 +93,15 @@ class UdpSetState extends State<UdpSet> {
                   });
                 },
                 onPressed: () {
-                  print(udpData);
+                  if (FileHelper().writeFile('ServerAddress', udpData)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(Lang().theOperationCompletes)),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(Lang().theOperationFailed)),
+                    );
+                  }
                 },
               ),
             ),

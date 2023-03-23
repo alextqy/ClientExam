@@ -162,6 +162,7 @@ class Lang {
   String serverAddress = '';
   String serverPort = '';
   String longPressToGetAutomatically = '';
+  String theOperationFailed = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -323,6 +324,7 @@ class Lang {
       this.serverAddress = '服务器地址';
       this.serverPort = '服务器端口';
       this.longPressToGetAutomatically = '长按自动获取';
+      this.theOperationFailed = '操作失败';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -482,6 +484,7 @@ class Lang {
       this.serverAddress = 'Server Address';
       this.serverPort = 'Server Port';
       this.longPressToGetAutomatically = 'Long Press To Get Automatically';
+      this.theOperationFailed = 'The Operation Failed';
     }
   }
 }
