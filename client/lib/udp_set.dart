@@ -93,7 +93,7 @@ class UdpSetState extends State<UdpSet> {
                   });
                 },
                 onPressed: () {
-                  if (FileHelper().writeFile('ServerAddress', udpData)) {
+                  if (udpData.isNotEmpty && FileHelper().writeFile('ServerAddress', udpData)) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(Lang().theOperationCompletes)),
                     );
