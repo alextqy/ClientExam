@@ -16,7 +16,7 @@ class UdpSetState extends State<UdpSet> {
     TextEditingController udpController = TextEditingController();
     TextEditingController portController = TextEditingController();
     udpController.text = '';
-    portController.text = '60000';
+    portController.text = '50000';
     String udpData = '';
 
     return Container(
