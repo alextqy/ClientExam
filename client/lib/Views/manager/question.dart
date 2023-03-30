@@ -515,14 +515,13 @@ class QuestionState extends State<Question> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      String newLanguageParam = updateLanguageMemo != Lang().notSelected ? updateLanguageMemo : '';
                       if (updateQuestionTitleController.text.isNotEmpty && updateDescriptionController.text.isNotEmpty) {
                         questionNotifier.updateQuestionInfo(
                           id: id,
                           questionTitle: updateQuestionTitleController.text,
                           questionType: questionType,
                           description: updateDescriptionController.text,
-                          language: newLanguageParam,
+                          language: updateLanguageController.text,
                           languageVersion: updateLanguageVersionController.text,
                         );
                       }
