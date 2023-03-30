@@ -746,6 +746,7 @@ class QuestionState extends State<Question> {
                                 );
                               }).toList(),
                             ),
+                            const SizedBox(width: 20),
                             SizedBox(
                               height: 15,
                               width: 15,
