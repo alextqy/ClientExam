@@ -33,6 +33,7 @@ class Lang {
   String oldAnswerCards = '';
   String examLogs = '';
   String systemLogs = '';
+  String systemSettings = '';
   String exit = '';
   String longPressToExit = '';
 
@@ -197,6 +198,7 @@ class Lang {
       this.oldAnswerCards = '历史答题卡';
       this.examLogs = '考试日志';
       this.systemLogs = '系统日志';
+      this.systemSettings = '系统设置';
       this.exit = '退出';
       this.longPressToExit = '长按退出';
 
@@ -357,6 +359,7 @@ class Lang {
       this.oldAnswerCards = 'Old Answer Cards';
       this.examLogs = 'Exam Logs';
       this.systemLogs = 'System Logs';
+      this.systemSettings = 'System Settings';
       this.exit = 'Exit';
       this.longPressToExit = 'Long Press To Exit';
 

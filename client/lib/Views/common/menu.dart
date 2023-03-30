@@ -317,6 +317,19 @@ class ManagerMenu {
                     );
                   },
                 ),
+                ListTile(
+                  horizontalTitleGap: 25,
+                  leading: const Icon(size: 30, Icons.settings),
+                  title: Text(
+                    Lang().systemLogs,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteHelper().generate('/manager/sys/settings', headline: headline),
+                    );
+                  },
+                ),
               ],
             ),
           ),

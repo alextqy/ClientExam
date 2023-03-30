@@ -19,6 +19,7 @@ import 'package:client/Views/manager/question.dart' as manager_site;
 import 'package:client/Views/manager/paper.dart' as manager_site;
 import 'package:client/Views/manager/exam_logs.dart' as manager_site;
 import 'package:client/Views/manager/sys_logs.dart' as manager_site;
+import 'package:client/Views/manager/sys_settings.dart' as manager_site;
 
 import 'package:client/Views/teacher/login.dart' as teacher_site;
 import 'package:client/Views/teacher/index.dart' as teacher_site;
@@ -72,6 +73,8 @@ class RouteHelper {
         return MaterialPageRoute(builder: (_) => manager_site.ExamLogs(headline: headline));
       case '/manager/sys/logs':
         return MaterialPageRoute(builder: (_) => manager_site.SysLogs(headline: headline));
+      case '/manager/sys/settings':
+        return MaterialPageRoute(builder: (_) => manager_site.SysSettings(headline: headline));
       // 教师 ===================================================================
       case '/teacher/login':
         return RouteSlide(const teacher_site.Login());

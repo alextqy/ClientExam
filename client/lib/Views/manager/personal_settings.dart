@@ -2,15 +2,15 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:client/public/tools.dart';
 import 'package:client/public/lang.dart';
-import 'package:client/models/data.dart';
-import 'package:client/models/manager_model.dart';
+import 'package:client/public/tools.dart';
+import 'package:client/Views/common/toast.dart';
+import 'package:client/Views/common/menu.dart';
+
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/manager_notifier.dart';
-import 'package:client/requests/manager_api.dart';
-import 'package:client/Views/common/menu.dart';
-import 'package:client/Views/common/toast.dart';
+
+import 'package:client/models/manager_model.dart';
 
 // ignore: must_be_immutable
 class PersonalSettings extends StatefulWidget {
@@ -171,17 +171,7 @@ class PersonalSettingsState extends State<PersonalSettings> {
                       ),
                       onPressed: () {
                         if (passwordController.text.isNotEmpty) {
-                          Future<DataModel> result = ManagerApi().managerChangePassword(newPassword: passwordController.text);
-                          result.then(
-                            (value) {
-                              if (value.state == true) {
-                                passwordController.clear();
-                                Toast().show(context, message: Lang().theOperationCompletes);
-                              } else {
-                                Toast().show(context, message: value.memo);
-                              }
-                            },
-                          );
+                          ManagerNotifier().managerChangePassword(newPassword: passwordController.text);
                         }
                       },
                     ),
