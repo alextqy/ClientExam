@@ -165,6 +165,9 @@ class Lang {
   String longPressToGetAutomatically = '';
   String theOperationFailed = '';
 
+  String reviewTheInstalledProgrammingEnvironment = '';
+  String copyID = '';
+
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
@@ -327,6 +330,7 @@ class Lang {
       this.serverPort = '服务器端口';
       this.longPressToGetAutomatically = '长按自动获取';
       this.theOperationFailed = '操作失败';
+      this.reviewTheInstalledProgrammingEnvironment = '查看已安装的编程环境';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -488,6 +492,7 @@ class Lang {
       this.serverPort = 'Server Port';
       this.longPressToGetAutomatically = 'Long Press To Get Automatically';
       this.theOperationFailed = 'The Operation Failed';
+      this.reviewTheInstalledProgrammingEnvironment = 'Review The Installed Programming Environment';
     }
   }
 }

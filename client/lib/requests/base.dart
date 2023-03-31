@@ -48,7 +48,7 @@ class ResponseHelper {
       fromPathField,
       filePath,
       filename: filename,
-      // contentType: MediaType(contentType, filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length)),
+      // contentType: MediaType(contentType, filePath.substring(filePath.lastIndexOf('.') + 1, filePath.length)),
     );
     request.files.add(multipartFile);
     StreamedResponse response = await request.send();

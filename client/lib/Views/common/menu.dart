@@ -321,7 +321,7 @@ class ManagerMenu {
                   horizontalTitleGap: 25,
                   leading: const Icon(size: 30, Icons.settings),
                   title: Text(
-                    Lang().systemLogs,
+                    Lang().systemSettings,
                     style: const TextStyle(color: Colors.white),
                   ),
                   onTap: () {

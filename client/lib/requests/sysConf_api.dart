@@ -21,4 +21,28 @@ class SysConfApi extends ResponseHelper {
     );
     return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
+
+  Future<DataModel> imageList() async {
+    Response response = await post(
+      Uri.http(url, '/Image/List'),
+      body: {},
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
+
+  Future<DataModel> imageRemove({
+    required imageID,
+  }) async {
+    Response response = await post(
+      Uri.http(url, '/Image/Remove'),
+      body: {
+        'ImageID': imageID,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
 }

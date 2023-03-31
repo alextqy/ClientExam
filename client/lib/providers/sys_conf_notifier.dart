@@ -1,15 +1,29 @@
 // ignore_for_file: file_names
 
+import 'package:client/models/data.dart';
 import 'package:client/providers/base_notifier.dart';
 
 class SysConfNotifier extends BaseNotifier {
-  void configInfo({
+  List<Map<String, String>> imageDict = [];
+
+  Future<DataModel> configInfo({
     required String key,
+  }) async {
+    return await sysConfApi.configInfo(key: key);
+  }
+
+  Future<DataModel> imageList() async {
+    imageDict = [];
+    return await sysConfApi.imageList();
+  }
+
+  void imageRemove({
+    required String imageID,
   }) async {
     operationStatus.value = OperationStatus.loading;
     try {
-      result = await sysConfApi.configInfo(
-        key: key,
+      result = await sysConfApi.imageRemove(
+        imageID: imageID,
       );
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;

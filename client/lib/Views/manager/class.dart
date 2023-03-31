@@ -576,8 +576,8 @@ class ClassState extends State<Class> {
                       // 标题栏
                       columns: [
                         DataColumn(
-                          label: Row(
-                            children: const [
+                          label: const Row(
+                            children: [
                               Text(
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
