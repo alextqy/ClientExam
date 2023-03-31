@@ -49,7 +49,6 @@ class SysConfNotifier extends BaseNotifier {
         language: language,
         version: version,
       );
-      print(result.state);
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
