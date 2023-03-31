@@ -45,4 +45,17 @@ class SysConfApi extends ResponseHelper {
     );
     return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
   }
+
+  Future<DataModel> buildEnvironment({required language, required version}) async {
+    Response response = await post(
+      Uri.http(url, '/Build/Environment'),
+      body: {
+        'Language': language,
+        'Version': version,
+      },
+      headers: postHeaders,
+      encoding: postEncoding,
+    );
+    return DataModel.fromJson(jsonDecode(decoder.convert(response.bodyBytes)));
+  }
 }

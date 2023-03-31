@@ -38,4 +38,29 @@ class SysConfNotifier extends BaseNotifier {
       notifyListeners();
     }
   }
+
+  void buildEnvironment({
+    required String language,
+    required String version,
+  }) async {
+    operationStatus.value = OperationStatus.loading;
+    try {
+      result = await sysConfApi.buildEnvironment(
+        language: language,
+        version: version,
+      );
+      print(result.state);
+      if (result.state == true) {
+        operationStatus.value = OperationStatus.success;
+      } else {
+        operationStatus.value = OperationStatus.failure;
+        operationMemo = result.memo;
+      }
+    } catch (e) {
+      operationStatus.value = OperationStatus.failure;
+      operationMemo = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
 }

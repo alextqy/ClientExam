@@ -21,6 +21,8 @@ class SysSettings extends StatefulWidget {
 
 class SysSettingsState extends State<SysSettings> {
   SysConfNotifier sysConfNotifier = SysConfNotifier();
+  TextEditingController languageController = TextEditingController();
+  TextEditingController languageVersionController = TextEditingController();
 
   basicListener() async {
     if (sysConfNotifier.operationStatus.value == OperationStatus.loading) {
@@ -60,6 +62,48 @@ class SysSettingsState extends State<SysSettings> {
           margin: const EdgeInsets.all(10),
           child: Column(
             children: [
+              Row(
+                children: [
+                  SizedBox(
+                    height: 45,
+                    width: 200,
+                    child: TextFormField(
+                      controller: languageController,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: Lang().language,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  SizedBox(
+                    height: 45,
+                    width: 200,
+                    child: TextFormField(
+                      controller: languageVersionController,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: Lang().languageVersion,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  SizedBox(
+                    height: 45,
+                    child: ElevatedButton(
+                      child: Text(
+                        Lang().submit,
+                      ),
+                      onPressed: () {
+                        if (languageController.text.isNotEmpty && languageVersionController.text.isNotEmpty) {
+                          sysConfNotifier.buildEnvironment(language: languageController.text, version: languageVersionController.text);
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   SizedBox(
