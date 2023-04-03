@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:client/public/lang.dart';
+import 'package:client/Views/common/toast.dart';
 
 List<int> perPageDropList = <int>[10, 50, 100];
 List<String> stateDropList = <String>[
@@ -128,4 +130,26 @@ String checkLogType(int type) {
   } else {
     return '';
   }
+}
+
+IconButton questionMark(BuildContext context, String languageMemo) {
+  return IconButton(
+    padding: const EdgeInsets.all(0.0),
+    icon: const Icon(Icons.question_mark, size: 15),
+    onPressed: () {
+      if (languageMemo == 'php') {
+        Toast().show(context, message: 'latest or ver.5 ver.7 ver.8');
+      } else if (languageMemo == 'javascript') {
+        Toast().show(context, message: 'latest or ver.4 ~ ver.18');
+      } else if (languageMemo == 'python') {
+        Toast().show(context, message: 'latest or ver.3+');
+      } else if (languageMemo == 'java') {
+        Toast().show(context, message: 'latest or ver.6 ~ ver.20');
+      } else if (languageMemo == 'c') {
+        Toast().show(context, message: 'latest or ver.4 ~ ver.12');
+      } else {
+        Toast().show(context, message: 'prompt');
+      }
+    },
+  );
 }

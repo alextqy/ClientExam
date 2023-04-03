@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 
 import 'package:client/public/lang.dart';
-import 'package:client/public/tools.dart';
 import 'package:client/Views/common/toast.dart';
 import 'package:client/Views/common/menu.dart';
+import 'package:client/Views/common/basic_info.dart';
+import 'package:client/Views/common/show_alert_dialog.dart';
 
 import 'package:client/providers/base_notifier.dart';
 import 'package:client/providers/sys_conf_notifier.dart';
@@ -21,8 +21,12 @@ class SysSettings extends StatefulWidget {
 
 class SysSettingsState extends State<SysSettings> {
   SysConfNotifier sysConfNotifier = SysConfNotifier();
-  TextEditingController languageController = TextEditingController();
+  String languageMemo = Lang().notSelected;
   TextEditingController languageVersionController = TextEditingController();
+  TextEditingController codeController = TextEditingController();
+  // TextEditingController codeLanguageController = TextEditingController();
+  String codeLanguageMemo = Lang().notSelected;
+  TextEditingController codeLanguageVersionController = TextEditingController();
 
   basicListener() async {
     if (sysConfNotifier.operationStatus.value == OperationStatus.loading) {
@@ -64,21 +68,33 @@ class SysSettingsState extends State<SysSettings> {
             children: [
               Row(
                 children: [
-                  SizedBox(
-                    height: 45,
-                    width: 200,
-                    child: TextFormField(
-                      controller: languageController,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: Lang().language,
-                      ),
+                  DropdownButton<String>(
+                    value: languageMemo,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    style: const TextStyle(color: Colors.black),
+                    // elevation: 16,
+                    underline: Container(
+                      height: 0,
+                      // color: Colors.deepPurpleAccent,
                     ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        if (value != null && languageMemo != value) {
+                          languageMemo = value;
+                        }
+                      });
+                    },
+                    items: languageList.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                   const SizedBox(width: 10),
                   SizedBox(
                     height: 45,
-                    width: 200,
+                    width: 150,
                     child: TextFormField(
                       controller: languageVersionController,
                       decoration: InputDecoration(
@@ -90,16 +106,20 @@ class SysSettingsState extends State<SysSettings> {
                   const SizedBox(width: 10),
                   SizedBox(
                     height: 45,
-                    child: ElevatedButton(
-                      child: Text(
-                        Lang().submit,
-                      ),
+                    child: IconButton(
+                      icon: const Icon(Icons.add, size: 30),
                       onPressed: () {
-                        if (languageController.text.isNotEmpty && languageVersionController.text.isNotEmpty) {
-                          sysConfNotifier.buildEnvironment(language: languageController.text, version: languageVersionController.text);
+                        if (languageMemo != Lang().notSelected && languageVersionController.text.isNotEmpty) {
+                          sysConfNotifier.buildEnvironment(language: languageMemo, version: languageVersionController.text);
                         }
                       },
                     ),
+                  ),
+                  const SizedBox(width: 10),
+                  SizedBox(
+                    height: 15,
+                    width: 15,
+                    child: questionMark(context, languageMemo),
                   ),
                 ],
               ),
@@ -112,6 +132,91 @@ class SysSettingsState extends State<SysSettings> {
                       child: Text(Lang().reviewTheInstalledProgrammingEnvironment),
                       onPressed: () {
                         imagesAlertDialog(context);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  Text(Lang().codeTesting, style: const TextStyle(fontSize: 20)),
+                ],
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                child: TextField(
+                  minLines: 10,
+                  maxLines: null,
+                  controller: codeController,
+                  decoration: InputDecoration(
+                    hintText: Lang().content,
+                    suffixIcon: IconButton(
+                      iconSize: 20,
+                      onPressed: () => codeController.clear(),
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              Row(
+                children: [
+                  const Expanded(child: SizedBox()),
+                  DropdownButton<String>(
+                    value: codeLanguageMemo,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    style: const TextStyle(color: Colors.black),
+                    // elevation: 16,
+                    underline: Container(
+                      height: 0,
+                      // color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        if (value != null && codeLanguageMemo != value) {
+                          codeLanguageMemo = value;
+                        }
+                      });
+                    },
+                    items: languageList.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(width: 10),
+                  SizedBox(
+                    height: 45,
+                    width: 150,
+                    child: TextField(
+                      controller: codeLanguageVersionController,
+                      maxLines: 1,
+                      decoration: InputDecoration(hintText: Lang().languageVersion),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  SizedBox(
+                    height: 45,
+                    child: ElevatedButton(
+                      child: Text(Lang().submit),
+                      onPressed: () {
+                        if (codeController.text.isNotEmpty && codeLanguageMemo != Lang().notSelected && codeLanguageVersionController.text.isNotEmpty) {
+                          sysConfNotifier
+                              .codeExecTest(
+                            language: codeLanguageMemo,
+                            version: codeLanguageVersionController.text,
+                            codeStr: codeController.text,
+                          )
+                              .then((value) {
+                            if (value.state == false) {
+                              Toast().show(context, message: value.memo);
+                            } else {
+                              showAlertDialog(context, memo: value.data);
+                            }
+                          });
+                        }
                       },
                     ),
                   ),

@@ -62,4 +62,16 @@ class SysConfNotifier extends BaseNotifier {
       notifyListeners();
     }
   }
+
+  Future<DataModel> codeExecTest({
+    required String language,
+    required String version,
+    required String codeStr,
+  }) async {
+    return await sysConfApi.codeExecTest(
+      language: language,
+      version: version,
+      codeStr: codeStr,
+    );
+  }
 }

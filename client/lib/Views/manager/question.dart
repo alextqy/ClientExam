@@ -750,25 +750,7 @@ class QuestionState extends State<Question> {
                             SizedBox(
                               height: 15,
                               width: 15,
-                              child: IconButton(
-                                padding: const EdgeInsets.all(0.0),
-                                icon: const Icon(Icons.question_mark, size: 15),
-                                onPressed: () {
-                                  if (newLanguageMemo == 'php') {
-                                    Toast().show(context, message: 'latest or ver.5 ver.7 ver.8');
-                                  } else if (newLanguageMemo == 'javascript') {
-                                    Toast().show(context, message: 'latest or ver.4 ~ ver.18');
-                                  } else if (newLanguageMemo == 'python') {
-                                    Toast().show(context, message: 'latest or ver.3+');
-                                  } else if (newLanguageMemo == 'java') {
-                                    Toast().show(context, message: 'latest or ver.6 ~ ver.20');
-                                  } else if (newLanguageMemo == 'c') {
-                                    Toast().show(context, message: 'latest or ver.4 ~ ver.12');
-                                  } else {
-                                    Toast().show(context, message: 'prompt');
-                                  }
-                                },
-                              ),
+                              child: questionMark(context, newLanguageMemo),
                             ),
                           ],
                         ),
