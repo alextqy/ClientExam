@@ -31,7 +31,7 @@ class Entrance extends StatelessWidget {
           ),
           child: Text(
             Lang().managers,
-            style: const TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
           ),
           onPressed: () {
             if (FileHelper().fileExists('ServerAddress') == true && FileHelper().readFile('ServerAddress').isNotEmpty == true) {
@@ -39,7 +39,10 @@ class Entrance extends StatelessWidget {
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(Lang().theServerAddressIsNotSet),
+                  content: Text(
+                    Lang().theServerAddressIsNotSet,
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                   action: SnackBarAction(
                     label: Lang().goToSetServerAddress,
                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UdpSet())),
@@ -65,7 +68,7 @@ class Entrance extends StatelessWidget {
           ),
           child: Text(
             Lang().teachers,
-            style: const TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
           ),
           onPressed: () {
             if (FileHelper().fileExists('ServerAddress') == true && FileHelper().readFile('ServerAddress').isNotEmpty == true) {
@@ -73,7 +76,10 @@ class Entrance extends StatelessWidget {
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(Lang().theServerAddressIsNotSet),
+                  content: Text(
+                    Lang().theServerAddressIsNotSet,
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                   action: SnackBarAction(
                     label: Lang().goToSetServerAddress,
                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UdpSet())),
