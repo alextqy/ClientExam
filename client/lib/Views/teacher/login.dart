@@ -99,6 +99,7 @@ class LoginState extends State<Login> {
           labelText: Lang().account,
           labelStyle: const TextStyle(
             fontSize: 18,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
@@ -138,6 +139,7 @@ class LoginState extends State<Login> {
           labelText: Lang().password,
           labelStyle: const TextStyle(
             fontSize: 18,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
