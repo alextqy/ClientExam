@@ -1022,7 +1022,7 @@ class PaperRulesState extends State<PaperRules> {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 'ID',
-                                style: TextStyle(fontStyle: FontStyle.italic),
+                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                               ),
                             ],
                           ),
@@ -1041,9 +1041,7 @@ class PaperRulesState extends State<PaperRules> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().ruleType,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -1054,9 +1052,7 @@ class PaperRulesState extends State<PaperRules> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().questionType,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -1067,9 +1063,7 @@ class PaperRulesState extends State<PaperRules> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().numberOfQuestions,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -1080,9 +1074,7 @@ class PaperRulesState extends State<PaperRules> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().scorePerQuestion,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -1095,9 +1087,7 @@ class PaperRulesState extends State<PaperRules> {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   Lang().sort,
-                                  style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                  ),
+                                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                                 ),
                                 // const Expanded(child: SizedBox()),
                                 const SizedBox(width: 5),
@@ -1116,7 +1106,6 @@ class PaperRulesState extends State<PaperRules> {
                               } else {
                                 orderBySerialNumber = 0;
                               }
-                              print(orderBySerialNumber);
                               fetchData();
                             });
                           },
@@ -1128,9 +1117,7 @@ class PaperRulesState extends State<PaperRules> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().status,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -1141,9 +1128,7 @@ class PaperRulesState extends State<PaperRules> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().createtime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -1154,9 +1139,7 @@ class PaperRulesState extends State<PaperRules> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().updateTime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),

@@ -543,7 +543,7 @@ class ManagerState extends State<Manager> {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 'ID',
-                                style: TextStyle(fontStyle: FontStyle.italic),
+                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                               ),
                             ],
                           ),
@@ -562,9 +562,7 @@ class ManagerState extends State<Manager> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().account,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -575,9 +573,7 @@ class ManagerState extends State<Manager> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().name,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -588,9 +584,7 @@ class ManagerState extends State<Manager> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().createtime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -601,9 +595,7 @@ class ManagerState extends State<Manager> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().updateTime,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -614,9 +606,7 @@ class ManagerState extends State<Manager> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               Lang().status,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                             ),
                           ),
                         ),
@@ -686,7 +676,7 @@ class ManagerState extends State<Manager> {
                       child: TextButton(
                           child: Text(
                             Lang().previous,
-                            style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w900),
+                            style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w600),
                           ),
                           onPressed: () {
                             setState(() {
@@ -702,7 +692,7 @@ class ManagerState extends State<Manager> {
                       child: TextButton(
                           child: Text(
                             Lang().next,
-                            style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w900),
+                            style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w600),
                           ),
                           onPressed: () {
                             setState(() {
