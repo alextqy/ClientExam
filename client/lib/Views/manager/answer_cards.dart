@@ -604,10 +604,7 @@ class AnswerCardsState extends State<AnswerCards> {
                       child: TextButton(
                           child: Text(
                             Lang().previous,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w900),
                           ),
                           onPressed: () {
                             setState(() {
@@ -623,10 +620,7 @@ class AnswerCardsState extends State<AnswerCards> {
                       child: TextButton(
                           child: Text(
                             Lang().next,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w900),
                           ),
                           onPressed: () {
                             setState(() {

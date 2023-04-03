@@ -546,10 +546,7 @@ class TopTitleState extends State<TopTitle> {
                       child: TextButton(
                           child: Text(
                             Lang().previous,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w900),
                           ),
                           onPressed: () {
                             setState(() {
@@ -565,10 +562,7 @@ class TopTitleState extends State<TopTitle> {
                       child: TextButton(
                           child: Text(
                             Lang().next,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w900),
                           ),
                           onPressed: () {
                             setState(() {
