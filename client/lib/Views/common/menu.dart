@@ -153,7 +153,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.manage_accounts),
                   title: Text(
                     Lang().managers,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -166,7 +166,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.book_outlined),
                   title: Text(
                     Lang().teachers,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -179,7 +179,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.cast_for_education_outlined),
                   title: Text(
                     Lang().classes,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -192,7 +192,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.school),
                   title: Text(
                     Lang().examinee,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -205,7 +205,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.card_membership),
                   title: Text(
                     Lang().examRegistrations,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -218,7 +218,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.history),
                   title: Text(
                     Lang().oldExamRegistrations,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -231,7 +231,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.subject),
                   title: Text(
                     Lang().examSubjects,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -244,7 +244,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.grid_4x4),
                   title: Text(
                     Lang().knowledgePoints,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -257,7 +257,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.title),
                   title: Text(
                     Lang().topTitle,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -270,7 +270,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.question_answer),
                   title: Text(
                     Lang().questions,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -283,7 +283,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.file_open_outlined),
                   title: Text(
                     Lang().paper,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -296,7 +296,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.timer),
                   title: Text(
                     Lang().examLogs,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -309,7 +309,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.timeline),
                   title: Text(
                     Lang().systemLogs,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(
@@ -322,7 +322,7 @@ class ManagerMenu {
                   leading: const Icon(size: 30, Icons.settings),
                   title: Text(
                     Lang().systemSettings,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   onTap: () {
                     Navigator.of(context).push(

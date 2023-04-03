@@ -650,7 +650,11 @@ class AnswerCardsState extends State<AnswerCards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.examNo)),
+      appBar: AppBar(
+          title: Text(
+        widget.examNo,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }

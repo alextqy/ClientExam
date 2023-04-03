@@ -1336,7 +1336,11 @@ class ExamInfoState extends State<ExamInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().examRegistrations)),
+      appBar: AppBar(
+          title: Text(
+        Lang().examRegistrations,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
       floatingActionButton: Container(
         // padding: const EdgeInsets.all(20),

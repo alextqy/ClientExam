@@ -1029,7 +1029,11 @@ class QuestionOptionsState extends State<QuestionOptions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(Lang().questionOptions)),
+      appBar: AppBar(
+          title: Text(
+        Lang().questionOptions,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }

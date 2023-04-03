@@ -756,7 +756,11 @@ class ClassExamineeState extends State<ClassExaminee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.className)),
+      appBar: AppBar(
+          title: Text(
+        widget.className,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }

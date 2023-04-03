@@ -41,7 +41,15 @@ class IndexState extends State<Index> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().menu)),
+      appBar: AppBar(
+        title: Text(
+          Lang().menu,
+          style: const TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: FutureBuilder(
         future: futureTest,
         builder: (context, snapshot) {

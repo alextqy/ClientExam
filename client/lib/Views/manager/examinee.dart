@@ -856,7 +856,11 @@ class ExamineeState extends State<Examinee> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().examinee)),
+      appBar: AppBar(
+          title: Text(
+        Lang().examinee,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }

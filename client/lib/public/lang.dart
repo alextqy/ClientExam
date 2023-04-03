@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_this
 class Lang {
-  String type = 'en';
-
+  String type = '';
   String title = '';
   String confirm = '';
   String cancel = '';
@@ -169,7 +168,7 @@ class Lang {
   String add = '';
   String remove = '';
 
-  Lang({type = 'en', title = 'Bit Exam'}) {
+  Lang({this.type = 'cn', this.title = 'Bit Exam'}) {
     if (this.type == 'cn') {
       this.title = title;
       this.confirm = '确认';

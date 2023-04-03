@@ -1020,7 +1020,11 @@ class PaperState extends State<Paper> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().paper)),
+      appBar: AppBar(
+          title: Text(
+        Lang().paper,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }

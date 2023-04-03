@@ -315,7 +315,11 @@ class SysSettingsState extends State<SysSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().systemSettings)),
+      appBar: AppBar(
+          title: Text(
+        Lang().systemSettings,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }

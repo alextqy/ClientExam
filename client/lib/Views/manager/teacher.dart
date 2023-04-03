@@ -816,7 +816,11 @@ class TeacherState extends State<Teacher> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().teachers)),
+      appBar: AppBar(
+          title: Text(
+        Lang().teachers,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }

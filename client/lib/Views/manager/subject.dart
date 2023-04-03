@@ -641,7 +641,11 @@ class SubjectState extends State<Subject> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().examSubjects)),
+      appBar: AppBar(
+          title: Text(
+        Lang().examSubjects,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }

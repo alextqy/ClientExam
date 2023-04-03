@@ -189,7 +189,11 @@ class PersonalSettingsState extends State<PersonalSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: ManagerMenu().drawer(context, headline: widget.headline),
-      appBar: AppBar(title: Text(Lang().personalSettings)),
+      appBar: AppBar(
+          title: Text(
+        Lang().personalSettings,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      )),
       body: mainWidget(context),
     );
   }
