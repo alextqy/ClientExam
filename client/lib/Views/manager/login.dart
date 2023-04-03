@@ -99,6 +99,7 @@ class LoginState extends State<Login> {
           labelText: Lang().account,
           labelStyle: const TextStyle(
             fontSize: 18,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
@@ -138,6 +139,7 @@ class LoginState extends State<Login> {
           labelText: Lang().password,
           labelStyle: const TextStyle(
             fontSize: 18,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
@@ -174,9 +176,7 @@ class LoginState extends State<Login> {
           },
           child: Text(
             Lang().submit,
-            style: const TextStyle(
-              fontSize: 18,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
           ),
         ),
       ),
@@ -210,7 +210,10 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Lang().managers),
+        title: Text(
+          Lang().managers,
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
       body: form,
     );
