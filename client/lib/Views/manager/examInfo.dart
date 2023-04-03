@@ -72,7 +72,6 @@ class ExamInfoState extends State<ExamInfo> {
       fetchData();
       Toast().show(context, message: Lang().theOperationCompletes);
     } else {
-      print(examInfoNotifier.operationMemo);
       Toast().show(context, message: examInfoNotifier.operationMemo);
     }
   }

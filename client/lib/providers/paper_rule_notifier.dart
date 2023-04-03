@@ -136,8 +136,6 @@ class PaperRuleNotifier extends BaseNotifier {
         singleScore: singleScore,
         serialNumber: serialNumber,
       );
-      print(result.state);
-      print(result.memo);
       if (result.state == true) {
         operationStatus.value = OperationStatus.success;
       } else {
