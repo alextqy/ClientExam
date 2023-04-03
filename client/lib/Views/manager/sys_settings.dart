@@ -106,13 +106,16 @@ class SysSettingsState extends State<SysSettings> {
                   const SizedBox(width: 10),
                   SizedBox(
                     height: 45,
-                    child: IconButton(
-                      icon: const Icon(Icons.add, size: 30),
-                      onPressed: () {
-                        if (languageMemo != Lang().notSelected && languageVersionController.text.isNotEmpty) {
-                          sysConfNotifier.buildEnvironment(language: languageMemo, version: languageVersionController.text);
-                        }
-                      },
+                    child: Tooltip(
+                      message: Lang().add,
+                      child: IconButton(
+                        icon: const Icon(Icons.add, size: 30),
+                        onPressed: () {
+                          if (languageMemo != Lang().notSelected && languageVersionController.text.isNotEmpty) {
+                            sysConfNotifier.buildEnvironment(language: languageMemo, version: languageVersionController.text);
+                          }
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -279,7 +282,7 @@ class SysSettingsState extends State<SysSettings> {
                               const Expanded(child: SizedBox()),
                               SizedBox(
                                 child: Tooltip(
-                                  message: Lang().copyID,
+                                  message: Lang().remove,
                                   child: IconButton(
                                     icon: const Icon(Icons.delete_outline),
                                     onPressed: () {

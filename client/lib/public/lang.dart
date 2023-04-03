@@ -166,7 +166,8 @@ class Lang {
   String theOperationFailed = '';
 
   String reviewTheInstalledProgrammingEnvironment = '';
-  String copyID = '';
+  String add = '';
+  String remove = '';
 
   Lang({type = 'en', title = 'Bit Exam'}) {
     if (this.type == 'cn') {
@@ -331,6 +332,8 @@ class Lang {
       this.longPressToGetAutomatically = '长按自动获取';
       this.theOperationFailed = '操作失败';
       this.reviewTheInstalledProgrammingEnvironment = '查看已安装的编程环境';
+      this.add = '添加';
+      this.remove = '删除';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -493,6 +496,8 @@ class Lang {
       this.longPressToGetAutomatically = 'Long Press To Get Automatically';
       this.theOperationFailed = 'The Operation Failed';
       this.reviewTheInstalledProgrammingEnvironment = 'Review The Installed Programming Environment';
+      this.add = 'Add';
+      this.remove = 'Remove';
     }
   }
 }

@@ -132,24 +132,27 @@ String checkLogType(int type) {
   }
 }
 
-IconButton questionMark(BuildContext context, String languageMemo) {
-  return IconButton(
-    padding: const EdgeInsets.all(0.0),
-    icon: const Icon(Icons.question_mark, size: 15),
-    onPressed: () {
-      if (languageMemo == 'php') {
-        Toast().show(context, message: 'latest or ver.5 ver.7 ver.8');
-      } else if (languageMemo == 'javascript') {
-        Toast().show(context, message: 'latest or ver.4 ~ ver.18');
-      } else if (languageMemo == 'python') {
-        Toast().show(context, message: 'latest or ver.3+');
-      } else if (languageMemo == 'java') {
-        Toast().show(context, message: 'latest or ver.6 ~ ver.20');
-      } else if (languageMemo == 'c') {
-        Toast().show(context, message: 'latest or ver.4 ~ ver.12');
-      } else {
-        Toast().show(context, message: 'prompt');
-      }
-    },
+Tooltip questionMark(BuildContext context, String languageMemo) {
+  return Tooltip(
+    message: Lang().languageVersion,
+    child: IconButton(
+      padding: const EdgeInsets.all(0.0),
+      icon: const Icon(Icons.question_mark, size: 15),
+      onPressed: () {
+        if (languageMemo == 'php') {
+          Toast().show(context, message: 'latest or ver.5 ver.7 ver.8');
+        } else if (languageMemo == 'javascript') {
+          Toast().show(context, message: 'latest or ver.4 ~ ver.18');
+        } else if (languageMemo == 'python') {
+          Toast().show(context, message: 'latest or ver.3+');
+        } else if (languageMemo == 'java') {
+          Toast().show(context, message: 'latest or ver.6 ~ ver.20');
+        } else if (languageMemo == 'c') {
+          Toast().show(context, message: 'latest or ver.4 ~ ver.12');
+        } else {
+          Toast().show(context, message: 'prompt');
+        }
+      },
+    ),
   );
 }
