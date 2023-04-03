@@ -1113,10 +1113,7 @@ class ExamInfoState extends State<ExamInfo> {
                       child: TextButton(
                           child: Text(
                             Lang().generateQuizPaperData,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
@@ -1131,10 +1128,7 @@ class ExamInfoState extends State<ExamInfo> {
                       child: TextButton(
                           child: Text(
                             Lang().clearData,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
@@ -1149,10 +1143,7 @@ class ExamInfoState extends State<ExamInfo> {
                       child: TextButton(
                           child: Text(
                             Lang().voidTheData,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
@@ -1167,10 +1158,7 @@ class ExamInfoState extends State<ExamInfo> {
                       child: TextButton(
                           child: Text(
                             Lang().grade,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
@@ -1185,10 +1173,7 @@ class ExamInfoState extends State<ExamInfo> {
                       child: TextButton(
                           child: Text(
                             Lang().sendToOldData,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             for (int i = 0; i < selected.length; i++) {
