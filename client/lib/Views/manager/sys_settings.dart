@@ -24,7 +24,6 @@ class SysSettingsState extends State<SysSettings> {
   String languageMemo = Lang().notSelected;
   TextEditingController languageVersionController = TextEditingController();
   TextEditingController codeController = TextEditingController();
-  // TextEditingController codeLanguageController = TextEditingController();
   String codeLanguageMemo = Lang().notSelected;
   TextEditingController codeLanguageVersionController = TextEditingController();
 
