@@ -45,7 +45,7 @@ class IndexState extends State<Index> {
         title: Text(
           Lang().menu,
           style: const TextStyle(
-            fontSize: 17,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
