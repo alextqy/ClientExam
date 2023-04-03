@@ -16,7 +16,7 @@ class UdpSetState extends State<UdpSet> {
     TextEditingController udpController = TextEditingController();
     TextEditingController portController = TextEditingController();
     udpController.text = '';
-    portController.text = '50000';
+    portController.text = '50001';
     String udpData = '';
 
     return Container(
@@ -79,7 +79,10 @@ class UdpSetState extends State<UdpSet> {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                 ),
-                child: Text(Lang().confirm),
+                child: Text(
+                  Lang().confirm,
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
                 onLongPress: () {
                   Tools().clentUDP(int.parse(portController.text)).then((String value) {
                     if (value.isNotEmpty) {
@@ -87,7 +90,11 @@ class UdpSetState extends State<UdpSet> {
                       udpData = value;
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(Lang().theRequestFailed)),
+                        SnackBar(
+                            content: Text(
+                          Lang().theRequestFailed,
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        )),
                       );
                     }
                   });
@@ -95,11 +102,19 @@ class UdpSetState extends State<UdpSet> {
                 onPressed: () {
                   if (udpData.isNotEmpty && FileHelper().writeFile('ServerAddress', udpData)) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(Lang().theOperationCompletes)),
+                      SnackBar(
+                          content: Text(
+                        Lang().theOperationCompletes,
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      )),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(Lang().theOperationFailed)),
+                      SnackBar(
+                          content: Text(
+                        Lang().theOperationFailed,
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      )),
                     );
                   }
                 },
@@ -115,7 +130,11 @@ class UdpSetState extends State<UdpSet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(Lang().serverAddress)),
+      appBar: AppBar(
+          title: Text(
+        Lang().serverAddress,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      )),
       body: mainWidget(context),
     );
   }

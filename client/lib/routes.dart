@@ -90,7 +90,10 @@ class RouteHelper {
           builder: (_) => Scaffold(
             backgroundColor: Colors.grey,
             appBar: AppBar(
-              title: const Text('ERROR'),
+              title: const Text(
+                'ERROR',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
             ),
             body: const Center(
               child: Text(
