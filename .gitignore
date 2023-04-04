@@ -49,6 +49,7 @@ client/android/app/release
 # cache file
 client/token
 client/ServerAddress
+client/config.json
 
 demo.*
 .~*

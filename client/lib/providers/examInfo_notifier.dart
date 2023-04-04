@@ -195,7 +195,7 @@ class ExamInfoNotifier extends BaseNotifier {
     DataModel result = DataModel();
     operationStatus.value = OperationStatus.loading;
     try {
-      var fileType = FileHelper().type(filePath);
+      String fileType = FileHelper().type(filePath) ?? '';
       if (fileType != 'application/vnd.ms-excel' && fileType != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
         operationStatus.value = OperationStatus.failure;
         operationMemo = Lang().wrongFileType;

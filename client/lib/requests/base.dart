@@ -52,7 +52,7 @@ class ResponseHelper {
     );
     request.files.add(multipartFile);
     StreamedResponse response = await request.send();
-    var respStr = await response.stream.transform(utf8.decoder).join();
+    String respStr = await response.stream.transform(utf8.decoder).join();
     Map<String, dynamic> respStrMap = jsonDecode(respStr);
     return DataModel.fromJson(respStrMap);
     // return response;

@@ -1,4 +1,6 @@
 // ignore_for_file: unnecessary_this
+import 'package:client/public/file.dart';
+
 class Lang {
   String type = '';
   String title = '';
@@ -168,7 +170,8 @@ class Lang {
   String add = '';
   String remove = '';
 
-  Lang({this.type = 'cn', this.title = 'Bit Exam'}) {
+  Lang({this.title = 'Bit Exam'}) {
+    this.type = FileHelper().jsonRead(key: 'lang', filePath: 'config.json');
     if (this.type == 'cn') {
       this.title = title;
       this.confirm = '确认';
