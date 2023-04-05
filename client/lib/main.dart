@@ -5,7 +5,9 @@ import 'package:client/public/file.dart';
 import 'package:client/udp_set.dart';
 
 void main() {
-  FileHelper().jsonWrite(key: 'lang', value: 'en');
+  if (FileHelper().jsonRead(key: 'lang') == '') {
+    FileHelper().jsonWrite(key: 'lang', value: 'en');
+  }
   runApp(
     MaterialApp(
       theme: ThemeData(primarySwatch: Colors.blueGrey),
