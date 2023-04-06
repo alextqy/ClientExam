@@ -47,6 +47,22 @@ class EntranceState extends State<Entrance> {
   Widget build(BuildContext context) {
     checkLang();
 
+    ScaffoldFeatureController<SnackBar, SnackBarClosedReason> udpSnackBar() {
+      return ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            Lang().theServerAddressIsNotSet,
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          action: SnackBarAction(
+            textColor: Colors.yellowAccent,
+            label: Lang().goToSetServerAddress,
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UdpSet())),
+          ),
+        ),
+      );
+    }
+
     Container managerButton = Container(
       margin: const EdgeInsets.all(10),
       child: Tooltip(
@@ -66,18 +82,7 @@ class EntranceState extends State<Entrance> {
             if (FileHelper().fileExists('ServerAddress') == true && FileHelper().readFile('ServerAddress').isNotEmpty == true) {
               Navigator.of(context).push(RouteHelper().generate('/manager/login'));
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    Lang().theServerAddressIsNotSet,
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  action: SnackBarAction(
-                    label: Lang().goToSetServerAddress,
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UdpSet())),
-                  ),
-                ),
-              );
+              udpSnackBar();
             }
           },
         ),
@@ -103,18 +108,7 @@ class EntranceState extends State<Entrance> {
             if (FileHelper().fileExists('ServerAddress') == true && FileHelper().readFile('ServerAddress').isNotEmpty == true) {
               Navigator.of(context).push(RouteHelper().generate('/teacher/login'));
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    Lang().theServerAddressIsNotSet,
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  action: SnackBarAction(
-                    label: Lang().goToSetServerAddress,
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UdpSet())),
-                  ),
-                ),
-              );
+              udpSnackBar();
             }
           },
         ),

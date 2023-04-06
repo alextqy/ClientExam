@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'Views/common/animation.dart';
-import 'package:client/main.dart';
 
 import 'package:client/Views/manager/login.dart' as manager_site;
 import 'package:client/Views/manager/index.dart' as manager_site;
