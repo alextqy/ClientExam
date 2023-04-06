@@ -53,7 +53,7 @@ class EntranceState extends State<Entrance> {
         message: Lang().administratorLoginEntry,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            fixedSize: const Size(220, 45),
+            fixedSize: const Size(240, 50),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
@@ -90,7 +90,7 @@ class EntranceState extends State<Entrance> {
         message: Lang().teacherLoginPortal,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            fixedSize: const Size(220, 45),
+            fixedSize: const Size(240, 50),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
