@@ -57,7 +57,7 @@ class QuestionNotifier extends BaseNotifier {
         result = await questionApi.questionAttachment(
           id: id,
           filePath: filePath,
-          contentType: fileType ?? '',
+          contentType: fileType,
         );
         if (result.state == true) {
           operationStatus.value = OperationStatus.success;
