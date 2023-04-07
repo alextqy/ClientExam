@@ -215,6 +215,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                 TextButton(
                   onPressed: () {
                     if (updateNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       knowledgeNotifier.updateKnowledgeInfo(
                         id: id,
                         knowledgeName: updateNameController.text,
@@ -313,6 +314,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                 TextButton(
                   onPressed: () {
                     if (newKnowledgeNameController.text.isNotEmpty && newSubjectID > 0) {
+                      Toast().show(context, message: Lang().loading);
                       knowledgeNotifier.newKnowledge(
                         knowledgeName: newKnowledgeNameController.text,
                         subjectID: newSubjectID,

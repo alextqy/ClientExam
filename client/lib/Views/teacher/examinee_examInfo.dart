@@ -447,6 +447,7 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                 TextButton(
                   onPressed: () {
                     if (newExamNoController.text.isNotEmpty && newExamType > 0 && newSubjectID > 0) {
+                      Toast().show(context, message: Lang().loading);
                       teacherNotifier.teacherNewExamInfo(
                         subjectName: subjectSelectedName,
                         examNo: newExamNoController.text,

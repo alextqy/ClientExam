@@ -227,6 +227,7 @@ class TeacherState extends State<Teacher> {
               actions: [
                 TextButton(
                   onPressed: () {
+                    Toast().show(context, message: Lang().loading);
                     teacherNotifier.updateTeacherInfo(
                       id: id,
                       name: updateNameController.text,
@@ -400,6 +401,7 @@ class TeacherState extends State<Teacher> {
                 TextButton(
                   onPressed: () {
                     if (newAccountController.text.isNotEmpty && newPasswordController.text.isNotEmpty && newNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       teacherNotifier.newTeacher(
                         account: newAccountController.text,
                         password: newPasswordController.text,

@@ -189,6 +189,7 @@ class TopTitleState extends State<TopTitle> {
                 TextButton(
                   onPressed: () {
                     if (updateContentController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       headlineNotifier.updateHeadlineInfo(
                         id: id,
                         content: updateContentController.text,
@@ -241,6 +242,7 @@ class TopTitleState extends State<TopTitle> {
                 TextButton(
                   onPressed: () {
                     if (newContentAccountController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       headlineNotifier.newHeadline(
                         content: newContentAccountController.text,
                       );

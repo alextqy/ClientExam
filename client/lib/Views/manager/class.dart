@@ -247,6 +247,7 @@ class ClassState extends State<Class> {
                 TextButton(
                   onPressed: () {
                     if (updateClassNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       classNotifier.updateClassInfo(
                         id: id,
                         className: updateClassNameController.text,
@@ -406,6 +407,7 @@ class ClassState extends State<Class> {
                 TextButton(
                   onPressed: () {
                     if (newClassNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       classNotifier.newClass(
                         className: newClassNameController.text,
                         description: newDescriptionController.text,

@@ -393,6 +393,7 @@ class PaperState extends State<Paper> {
                 TextButton(
                   onPressed: () {
                     if (newPaperNameController.text.isNotEmpty && newTotalScoreController.text.isNotEmpty && newPassLineController.text.isNotEmpty && newExamDurationController.text.isNotEmpty && newSubjectID > 0) {
+                      Toast().show(context, message: Lang().loading);
                       paperNotifier.newPaper(
                         paperName: newPaperNameController.text,
                         totalScore: int.parse(newTotalScoreController.text),
@@ -551,6 +552,7 @@ class PaperState extends State<Paper> {
                 TextButton(
                   onPressed: () {
                     if (updatePaperNameController.text.isNotEmpty && updateTotalScoreController.text.isNotEmpty && updatePassLineController.text.isNotEmpty && updateExamDurationController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       paperNotifier.updatePaperInfo(
                         id: id,
                         paperName: updatePaperNameController.text,

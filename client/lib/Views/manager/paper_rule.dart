@@ -527,6 +527,7 @@ class PaperRulesState extends State<PaperRules> {
                 TextButton(
                   onPressed: () {
                     if (updateQuestionType > 0 && int.parse(updateQuestionNumController.text) > 0 && double.parse(updateSingleScoreController.text) > 0 && int.parse(updateSortController.text) > 0) {
+                      Toast().show(context, message: Lang().loading);
                       paperRuleNotifier.updatePaperRule(
                         id: id,
                         questionType: updateQuestionType,
@@ -783,6 +784,7 @@ class PaperRulesState extends State<PaperRules> {
                 TextButton(
                   onPressed: () {
                     if (addType == 1 && newHeadlineID > 0 && newKnowledgeID == 0) {
+                      Toast().show(context, message: Lang().loading);
                       paperRuleNotifier.newPaperRule(
                         headlineID: newHeadlineID,
                         questionType: newQuestionType,
@@ -794,6 +796,7 @@ class PaperRulesState extends State<PaperRules> {
                       );
                       page = 1;
                     } else if (addType == 2 && newHeadlineID == 0 && newKnowledgeID > 0 && newQuestionType > 0 && questionNumController.text.isNotEmpty && singleScoreController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       paperRuleNotifier.newPaperRule(
                         headlineID: newHeadlineID,
                         questionType: newQuestionType,

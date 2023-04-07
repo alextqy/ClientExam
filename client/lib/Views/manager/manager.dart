@@ -184,6 +184,7 @@ class ManagerState extends State<Manager> {
                 TextButton(
                   onPressed: () {
                     if (updateNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       managerNotifier.updateManagerInfo(
                         id: id,
                         name: updateNameController.text,
@@ -275,6 +276,7 @@ class ManagerState extends State<Manager> {
                 TextButton(
                   onPressed: () {
                     if (newAccountController.text.isNotEmpty && newPasswordController.text.isNotEmpty && newNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       managerNotifier.newManager(
                         account: newAccountController.text,
                         password: newPasswordController.text,
@@ -332,6 +334,7 @@ class ManagerState extends State<Manager> {
                 TextButton(
                   onPressed: () {
                     if (changePasswordController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       managerNotifier.managerChangePassword(
                         id: id,
                         newPassword: changePasswordController.text,

@@ -252,6 +252,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                 TextButton(
                   onPressed: () {
                     if (updateNameController.text.isNotEmpty && classID > 0) {
+                      Toast().show(context, message: Lang().loading);
                       examineeNotifier.updateExaminee(
                         id: id,
                         name: updateNameController.text,
@@ -408,6 +409,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                 TextButton(
                   onPressed: () {
                     if (newExamineeNoController.text.isNotEmpty && newNameController.text.isNotEmpty && newClassID > 0) {
+                      Toast().show(context, message: Lang().loading);
                       examineeNotifier.newExaminee(
                         examineeNo: newExamineeNoController.text,
                         name: newNameController.text,

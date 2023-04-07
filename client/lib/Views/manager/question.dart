@@ -517,6 +517,7 @@ class QuestionState extends State<Question> {
                     onPressed: () {
                       String newLanguageParam = updateLanguageMemo != Lang().notSelected ? updateLanguageMemo : '';
                       if (updateQuestionTitleController.text.isNotEmpty && updateDescriptionController.text.isNotEmpty) {
+                        Toast().show(context, message: Lang().loading);
                         questionNotifier.updateQuestionInfo(
                           id: id,
                           questionTitle: updateQuestionTitleController.text,
@@ -782,6 +783,7 @@ class QuestionState extends State<Question> {
                   onPressed: () {
                     String newLanguageParam = newLanguageMemo != Lang().notSelected ? newLanguageMemo : '';
                     if (newQuestionTitleController.text.isNotEmpty && newQuestionType > 0 && newKnowledgeID > 0) {
+                      Toast().show(context, message: Lang().loading);
                       questionNotifier.newQuestion(
                         questionTitle: newQuestionTitleController.text,
                         questionType: newQuestionType,

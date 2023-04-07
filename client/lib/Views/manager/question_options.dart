@@ -363,6 +363,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                   TextButton(
                     onPressed: () {
                       if (id > 0 && updateScoreRatioController.text.isNotEmpty) {
+                        Toast().show(context, message: Lang().loading);
                         questionSolutionNotifier.setScoreRatio(
                           id: id,
                           scoreRatio: double.parse(updateScoreRatioController.text),
@@ -424,6 +425,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                   TextButton(
                     onPressed: () {
                       if (id > 0 && updateCorrectItemController.text.isNotEmpty) {
+                        Toast().show(context, message: Lang().loading);
                         questionSolutionNotifier.setCorrectItem(
                           id: id,
                           correctItem: updateCorrectItemController.text,
@@ -695,6 +697,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
               actions: [
                 TextButton(
                   onPressed: () {
+                    Toast().show(context, message: Lang().loading);
                     questionSolutionNotifier.newQuestionSolution(
                       questionID: widget.questionID,
                       option: optionController.text,

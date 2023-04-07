@@ -279,6 +279,7 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
                 TextButton(
                   onPressed: () {
                     if (updateNameController.text.isNotEmpty && classID > 0) {
+                      Toast().show(context, message: Lang().loading);
                       teacherNotifier.teacherUpdateExaminee(
                         id: id,
                         name: updateNameController.text,
@@ -370,6 +371,7 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
                 TextButton(
                   onPressed: () {
                     if (newExamineeNoController.text.isNotEmpty && newNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       teacherNotifier.teacherNewExaminee(
                         examineeNo: newExamineeNoController.text,
                         name: newNameController.text,

@@ -181,6 +181,7 @@ class SubjectState extends State<Subject> {
                 TextButton(
                   onPressed: () {
                     if (updateNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       subjectNotifier.updateSubjectInfo(
                         id: id,
                         subjectName: updateNameController.text,
@@ -240,6 +241,7 @@ class SubjectState extends State<Subject> {
                 TextButton(
                   onPressed: () {
                     if (newNameController.text.isNotEmpty) {
+                      Toast().show(context, message: Lang().loading);
                       subjectNotifier.newSubject(
                         subjectName: newNameController.text,
                       );
