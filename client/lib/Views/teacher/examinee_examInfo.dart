@@ -346,6 +346,7 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                         controller: newExamNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examNumber,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           prefixIcon: Tooltip(
                             message: Lang().generateTheEncoding,
                             child: IconButton(
@@ -1128,6 +1129,7 @@ class ExamineeExamInfoState extends State<ExamineeExamInfo> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

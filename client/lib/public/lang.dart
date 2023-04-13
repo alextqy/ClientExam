@@ -163,7 +163,7 @@ class Lang {
   String goToSetServerAddress = '';
   String serverAddress = '';
   String serverPort = '';
-  String longPressToGetAutomatically = '';
+  String clickToGetAutomatically = '';
   String theOperationFailed = '';
 
   String reviewTheInstalledProgrammingEnvironment = '';
@@ -332,7 +332,7 @@ class Lang {
       this.goToSetServerAddress = '前往设置服务器地址';
       this.serverAddress = '服务器地址';
       this.serverPort = '服务器端口';
-      this.longPressToGetAutomatically = '长按自动获取';
+      this.clickToGetAutomatically = '点击自动获取';
       this.theOperationFailed = '操作失败';
       this.reviewTheInstalledProgrammingEnvironment = '查看已安装的编程环境';
       this.add = '添加';
@@ -497,7 +497,7 @@ class Lang {
       this.goToSetServerAddress = 'Go To Set Server Address';
       this.serverAddress = 'Server Address';
       this.serverPort = 'Server Port';
-      this.longPressToGetAutomatically = 'Long Press To Get Automatically';
+      this.clickToGetAutomatically = 'Click To Get Automatically';
       this.theOperationFailed = 'The Operation Failed';
       this.reviewTheInstalledProgrammingEnvironment = 'Review The Installed Programming Environment';
       this.add = 'Add';

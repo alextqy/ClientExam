@@ -203,6 +203,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                   controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().knowledgePointName,
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => updateNameController.clear(),
@@ -262,6 +263,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                         controller: newKnowledgeNameController,
                         decoration: InputDecoration(
                           hintText: Lang().knowledgePointName,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newKnowledgeNameController.clear(),
@@ -661,6 +663,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

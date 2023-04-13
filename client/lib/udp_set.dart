@@ -39,11 +39,36 @@ class UdpSetState extends State<UdpSet> {
                 controller: udpController,
                 decoration: InputDecoration(
                   hintText: Lang().serverAddress,
-                  suffixIcon: IconButton(
-                    iconSize: 20,
-                    onPressed: () => udpController.clear(),
-                    icon: const Icon(Icons.clear),
+                  hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                  suffixIcon: Tooltip(
+                    message: Lang().clickToGetAutomatically,
+                    child: IconButton(
+                      iconSize: 20,
+                      onPressed: () {
+                        Tools().clentUDP(int.parse(portController.text)).then((String value) {
+                          if (value.isNotEmpty) {
+                            udpController.text = value.split(':')[0];
+                            udpData = value;
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  Lang().theRequestFailed,
+                                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            );
+                          }
+                        });
+                      },
+                      icon: const Icon(Icons.settings),
+                    ),
                   ),
+                  // suffixIcon: IconButton(
+                  //   iconSize: 20,
+                  //   onPressed: () => udpController.clear(),
+                  //   icon: const Icon(Icons.clear),
+                  // ),
                 ),
               ),
             ),
@@ -60,65 +85,47 @@ class UdpSetState extends State<UdpSet> {
                   controller: portController,
                   decoration: InputDecoration(
                     hintText: Lang().serverPort,
-                    suffixIcon: IconButton(
-                      iconSize: 20,
-                      onPressed: () => portController.clear(),
-                      icon: const Icon(Icons.clear),
-                    ),
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                    // suffixIcon: IconButton(
+                    //   iconSize: 20,
+                    //   onPressed: () => portController.clear(),
+                    //   icon: const Icon(Icons.clear),
+                    // ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 10),
-            Tooltip(
-              message: Lang().longPressToGetAutomatically,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(280, 35),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(280, 35),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
-                child: Text(
-                  Lang().confirm,
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                onLongPress: () {
-                  Tools().clentUDP(int.parse(portController.text)).then((String value) {
-                    if (value.isNotEmpty) {
-                      udpController.text = value.split(':')[0];
-                      udpData = value;
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text(
-                          Lang().theRequestFailed,
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        )),
-                      );
-                    }
-                  });
-                },
-                onPressed: () {
-                  if (udpData.isNotEmpty && FileHelper().writeFile('ServerAddress', udpData)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(
-                        Lang().theOperationCompletes,
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                      )),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(
-                        Lang().theOperationFailed,
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                      )),
-                    );
-                  }
-                },
               ),
+              child: Text(
+                Lang().confirm,
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                if (udpData.isNotEmpty && FileHelper().writeFile('ServerAddress', udpData)) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                      Lang().theOperationCompletes,
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    )),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                      Lang().theOperationFailed,
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    )),
+                  );
+                }
+              },
             ),
             const Expanded(child: SizedBox()),
           ],

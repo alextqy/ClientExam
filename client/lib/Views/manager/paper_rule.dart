@@ -470,6 +470,7 @@ class PaperRulesState extends State<PaperRules> {
                             controller: updateQuestionNumController,
                             decoration: InputDecoration(
                               hintText: Lang().numberOfQuestions,
+                              hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                               suffixIcon: IconButton(
                                 iconSize: 20,
                                 onPressed: () => updateQuestionNumController.clear(),
@@ -491,6 +492,7 @@ class PaperRulesState extends State<PaperRules> {
                             controller: updateSingleScoreController,
                             decoration: InputDecoration(
                               hintText: Lang().scorePerQuestion,
+                              hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                               suffixIcon: IconButton(
                                 iconSize: 20,
                                 onPressed: () => updateSingleScoreController.clear(),
@@ -512,6 +514,7 @@ class PaperRulesState extends State<PaperRules> {
                             controller: updateSortController,
                             decoration: InputDecoration(
                               hintText: Lang().sort,
+                              hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                               suffixIcon: IconButton(
                                 iconSize: 20,
                                 onPressed: () => updateSortController.clear(),
@@ -747,6 +750,7 @@ class PaperRulesState extends State<PaperRules> {
                               controller: questionNumController,
                               decoration: InputDecoration(
                                 hintText: Lang().numberOfQuestions,
+                                hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                                 suffixIcon: IconButton(
                                   iconSize: 20,
                                   onPressed: () => questionNumController.clear(),
@@ -766,6 +770,7 @@ class PaperRulesState extends State<PaperRules> {
                               controller: singleScoreController,
                               decoration: InputDecoration(
                                 hintText: Lang().scorePerQuestion,
+                                hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                                 suffixIcon: IconButton(
                                   iconSize: 20,
                                   onPressed: () => singleScoreController.clear(),
@@ -1176,6 +1181,7 @@ class PaperRulesState extends State<PaperRules> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

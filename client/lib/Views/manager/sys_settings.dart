@@ -153,6 +153,7 @@ class SysSettingsState extends State<SysSettings> {
                   controller: codeController,
                   decoration: InputDecoration(
                     hintText: Lang().content,
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => codeController.clear(),
@@ -195,7 +196,10 @@ class SysSettingsState extends State<SysSettings> {
                     child: TextField(
                       controller: codeLanguageVersionController,
                       maxLines: 1,
-                      decoration: InputDecoration(hintText: Lang().languageVersion),
+                      decoration: InputDecoration(
+                        hintText: Lang().languageVersion,
+                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),

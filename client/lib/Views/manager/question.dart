@@ -410,6 +410,7 @@ class QuestionState extends State<Question> {
                             controller: updateQuestionTitleController,
                             decoration: InputDecoration(
                               hintText: Lang().questionTitle,
+                              hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                               prefixIcon: Tooltip(
                                 message: Lang().generateTheEncoding,
                                 child: Visibility(
@@ -447,6 +448,7 @@ class QuestionState extends State<Question> {
                               controller: updateDescriptionController,
                               decoration: InputDecoration(
                                 hintText: Lang().description,
+                                hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                                 suffixIcon: IconButton(
                                   iconSize: 20,
                                   onPressed: () => updateDescriptionController.clear(),
@@ -500,6 +502,7 @@ class QuestionState extends State<Question> {
                             controller: updateLanguageVersionController,
                             decoration: InputDecoration(
                               hintText: Lang().languageVersion,
+                              hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                               suffixIcon: IconButton(
                                 iconSize: 20,
                                 onPressed: () => updateLanguageVersionController.clear(),
@@ -575,6 +578,7 @@ class QuestionState extends State<Question> {
                         controller: newQuestionTitleController,
                         decoration: InputDecoration(
                           hintText: Lang().questionTitle,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           prefixIcon: Tooltip(
                             message: Lang().generateTheEncoding,
                             child: Visibility(
@@ -609,6 +613,7 @@ class QuestionState extends State<Question> {
                           controller: newDescriptionController,
                           decoration: InputDecoration(
                             hintText: Lang().description,
+                            hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                             suffixIcon: IconButton(
                               iconSize: 20,
                               onPressed: () => newDescriptionController.clear(),
@@ -766,6 +771,7 @@ class QuestionState extends State<Question> {
                           controller: newLanguageVersionController,
                           decoration: InputDecoration(
                             hintText: Lang().languageVersion,
+                            hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                             suffixIcon: IconButton(
                               iconSize: 20,
                               onPressed: () => newLanguageVersionController.clear(),
@@ -1250,6 +1256,7 @@ class QuestionState extends State<Question> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

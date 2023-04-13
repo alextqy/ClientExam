@@ -172,6 +172,7 @@ class ManagerState extends State<Manager> {
                   controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().name,
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => updateNameController.clear(),
@@ -232,6 +233,7 @@ class ManagerState extends State<Manager> {
                         controller: newAccountController,
                         decoration: InputDecoration(
                           hintText: Lang().account,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newAccountController.clear(),
@@ -247,6 +249,7 @@ class ManagerState extends State<Manager> {
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: Lang().password,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newPasswordController.clear(),
@@ -261,6 +264,7 @@ class ManagerState extends State<Manager> {
                         controller: newNameController,
                         decoration: InputDecoration(
                           hintText: Lang().name,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newNameController.clear(),
@@ -322,6 +326,7 @@ class ManagerState extends State<Manager> {
                   obscureText: true,
                   decoration: InputDecoration(
                     hintText: Lang().password,
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => changePasswordController.clear(),
@@ -643,6 +648,7 @@ class ManagerState extends State<Manager> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

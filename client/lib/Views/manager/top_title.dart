@@ -177,6 +177,7 @@ class TopTitleState extends State<TopTitle> {
                   controller: updateContentController,
                   decoration: InputDecoration(
                     hintText: Lang().content,
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => updateContentController.clear(),
@@ -230,6 +231,7 @@ class TopTitleState extends State<TopTitle> {
                   controller: newContentAccountController,
                   decoration: InputDecoration(
                     hintText: Lang().content,
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => newContentAccountController.clear(),
@@ -504,6 +506,7 @@ class TopTitleState extends State<TopTitle> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

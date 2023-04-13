@@ -226,6 +226,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                       controller: updateNameController,
                       decoration: InputDecoration(
                         hintText: Lang().name,
+                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                         suffixIcon: IconButton(
                           iconSize: 20,
                           onPressed: () => updateNameController.clear(),
@@ -238,6 +239,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                       controller: updateContactController,
                       decoration: InputDecoration(
                         hintText: Lang().contact,
+                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                         suffixIcon: IconButton(
                           iconSize: 20,
                           onPressed: () => updateContactController.clear(),
@@ -366,6 +368,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                         controller: newNameController,
                         decoration: InputDecoration(
                           hintText: Lang().name,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newNameController.clear(),
@@ -380,6 +383,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                         controller: newExamineeNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examineeNo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newExamineeNoController.clear(),
@@ -394,6 +398,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                         controller: newContactController,
                         decoration: InputDecoration(
                           hintText: Lang().contact,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newContactController.clear(),
@@ -670,6 +675,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

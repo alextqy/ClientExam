@@ -287,6 +287,7 @@ class PaperState extends State<Paper> {
                         controller: newPaperNameController,
                         decoration: InputDecoration(
                           hintText: Lang().paperName,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newPaperNameController.clear(),
@@ -305,6 +306,7 @@ class PaperState extends State<Paper> {
                         controller: newTotalScoreController,
                         decoration: InputDecoration(
                           hintText: Lang().totalScore,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newTotalScoreController.clear(),
@@ -323,6 +325,7 @@ class PaperState extends State<Paper> {
                         controller: newExamDurationController,
                         decoration: InputDecoration(
                           hintText: Lang().examDuration,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newExamDurationController.clear(),
@@ -341,6 +344,7 @@ class PaperState extends State<Paper> {
                         controller: newPassLineController,
                         decoration: InputDecoration(
                           hintText: Lang().passingLine,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newPassLineController.clear(),
@@ -480,6 +484,7 @@ class PaperState extends State<Paper> {
                         controller: updatePaperNameController,
                         decoration: InputDecoration(
                           hintText: Lang().paperName,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => updatePaperNameController.clear(),
@@ -499,6 +504,7 @@ class PaperState extends State<Paper> {
                         controller: updateTotalScoreController,
                         decoration: InputDecoration(
                           hintText: Lang().totalScore,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => updateTotalScoreController.clear(),
@@ -518,6 +524,7 @@ class PaperState extends State<Paper> {
                         controller: updatePassLineController,
                         decoration: InputDecoration(
                           hintText: Lang().passingLine,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => updatePassLineController.clear(),
@@ -537,6 +544,7 @@ class PaperState extends State<Paper> {
                         controller: updateExamDurationController,
                         decoration: InputDecoration(
                           hintText: Lang().examDuration,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => updateExamDurationController.clear(),
@@ -919,6 +927,7 @@ class PaperState extends State<Paper> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

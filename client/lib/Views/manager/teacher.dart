@@ -201,6 +201,7 @@ class TeacherState extends State<Teacher> {
                       controller: updateNameController,
                       decoration: InputDecoration(
                         hintText: Lang().name,
+                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                         suffixIcon: IconButton(
                           iconSize: 20,
                           onPressed: () => updateNameController.clear(),
@@ -214,6 +215,7 @@ class TeacherState extends State<Teacher> {
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: Lang().password,
+                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                         suffixIcon: IconButton(
                           iconSize: 20,
                           onPressed: () => updatePassworController.clear(),
@@ -357,6 +359,7 @@ class TeacherState extends State<Teacher> {
                         controller: newAccountController,
                         decoration: InputDecoration(
                           hintText: Lang().account,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newAccountController.clear(),
@@ -372,6 +375,7 @@ class TeacherState extends State<Teacher> {
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: Lang().password,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newPasswordController.clear(),
@@ -386,6 +390,7 @@ class TeacherState extends State<Teacher> {
                         controller: newNameController,
                         decoration: InputDecoration(
                           hintText: Lang().name,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newNameController.clear(),
@@ -723,6 +728,7 @@ class TeacherState extends State<Teacher> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

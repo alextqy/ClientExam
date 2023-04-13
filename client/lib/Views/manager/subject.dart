@@ -169,6 +169,7 @@ class SubjectState extends State<Subject> {
                   controller: updateNameController,
                   decoration: InputDecoration(
                     hintText: Lang().subjectName,
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
                       onPressed: () => updateNameController.clear(),
@@ -226,6 +227,7 @@ class SubjectState extends State<Subject> {
                         controller: newNameController,
                         decoration: InputDecoration(
                           hintText: Lang().subjectName,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newNameController.clear(),
@@ -550,6 +552,7 @@ class SubjectState extends State<Subject> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

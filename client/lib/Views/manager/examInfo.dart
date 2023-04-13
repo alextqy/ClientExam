@@ -348,6 +348,7 @@ class ExamInfoState extends State<ExamInfo> {
                         controller: newExamNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examNumber,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           prefixIcon: Tooltip(
                             message: Lang().generateTheEncoding,
                             child: IconButton(
@@ -372,6 +373,7 @@ class ExamInfoState extends State<ExamInfo> {
                         controller: newExamineeNoController,
                         decoration: InputDecoration(
                           hintText: Lang().examineeNo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newExamineeNoController.clear(),
@@ -1158,6 +1160,7 @@ class ExamInfoState extends State<ExamInfo> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,

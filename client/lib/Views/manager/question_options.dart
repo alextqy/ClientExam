@@ -351,6 +351,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     controller: updateScoreRatioController,
                     decoration: InputDecoration(
                       hintText: Lang().scoreRatio,
+                      hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                       suffixIcon: IconButton(
                         iconSize: 20,
                         onPressed: () => updateScoreRatioController.clear(),
@@ -413,6 +414,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     controller: updateCorrectItemController,
                     decoration: InputDecoration(
                       hintText: Lang().correctItem,
+                      hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                       suffixIcon: IconButton(
                         iconSize: 20,
                         onPressed: () => updateCorrectItemController.clear(),
@@ -525,6 +527,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                           controller: optionController,
                           decoration: InputDecoration(
                             hintText: Lang().optionDescription,
+                            hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                             suffixIcon: IconButton(
                               iconSize: 20,
                               onPressed: () => optionController.clear(),
@@ -543,6 +546,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                           controller: correctItemController,
                           decoration: InputDecoration(
                             hintText: Lang().correctItem,
+                            hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                             suffixIcon: IconButton(
                               iconSize: 20,
                               onPressed: () => correctItemController.clear(),
@@ -627,6 +631,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                             controller: scoreRatioController,
                             decoration: InputDecoration(
                               hintText: Lang().scoreRatio,
+                              hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                               suffixIcon: IconButton(
                                 iconSize: 20,
                                 onPressed: () => scoreRatioController.clear(),

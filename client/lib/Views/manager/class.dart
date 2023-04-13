@@ -221,6 +221,7 @@ class ClassState extends State<Class> {
                       controller: updateClassNameController,
                       decoration: InputDecoration(
                         hintText: Lang().className,
+                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                         suffixIcon: IconButton(
                           iconSize: 20,
                           onPressed: () => updateClassNameController.clear(),
@@ -233,6 +234,7 @@ class ClassState extends State<Class> {
                       controller: updateDescriptionController,
                       decoration: InputDecoration(
                         hintText: Lang().description,
+                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                         suffixIcon: IconButton(
                           iconSize: 20,
                           onPressed: () => updateDescriptionController.clear(),
@@ -378,6 +380,7 @@ class ClassState extends State<Class> {
                         controller: newClassNameController,
                         decoration: InputDecoration(
                           hintText: Lang().className,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newClassNameController.clear(),
@@ -392,6 +395,7 @@ class ClassState extends State<Class> {
                         controller: newDescriptionController,
                         decoration: InputDecoration(
                           hintText: Lang().description,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           suffixIcon: IconButton(
                             iconSize: 20,
                             onPressed: () => newDescriptionController.clear(),
@@ -681,6 +685,7 @@ class ClassState extends State<Class> {
                         ],
                         decoration: InputDecoration(
                           hintText: Lang().jumpTo,
+                          hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
                         controller: jumpToController,
