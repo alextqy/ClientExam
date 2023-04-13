@@ -169,6 +169,7 @@ class Lang {
   String reviewTheInstalledProgrammingEnvironment = '';
   String add = '';
   String remove = '';
+  String requestTimedOut = '';
 
   Lang({this.title = 'Bit Exam'}) {
     this.type = FileHelper().jsonRead(key: 'lang', filePath: 'config.json');
@@ -336,6 +337,7 @@ class Lang {
       this.reviewTheInstalledProgrammingEnvironment = '查看已安装的编程环境';
       this.add = '添加';
       this.remove = '删除';
+      this.requestTimedOut = '请求超时';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -500,6 +502,7 @@ class Lang {
       this.reviewTheInstalledProgrammingEnvironment = 'Review The Installed Programming Environment';
       this.add = 'Add';
       this.remove = 'Remove';
+      this.requestTimedOut = 'Request Timed Out';
     }
   }
 }
