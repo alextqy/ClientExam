@@ -113,6 +113,7 @@ class SysSettingsState extends State<SysSettings> {
                       child: IconButton(
                         icon: const Icon(Icons.add, size: 30),
                         onPressed: () {
+                          Toast().show(context, message: Lang().loading, seconds: 30);
                           if (languageMemo != Lang().notSelected && languageVersionController.text.isNotEmpty) {
                             sysConfNotifier.buildEnvironment(language: languageMemo, version: languageVersionController.text);
                           }
@@ -136,6 +137,7 @@ class SysSettingsState extends State<SysSettings> {
                     child: ElevatedButton(
                       child: Text(Lang().reviewTheInstalledProgrammingEnvironment),
                       onPressed: () {
+                        Toast().show(context, message: Lang().loading);
                         imagesAlertDialog(context);
                       },
                     ),
