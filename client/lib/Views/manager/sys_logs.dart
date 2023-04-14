@@ -138,7 +138,12 @@ class SysLogsState extends State<SysLogs> {
           DataCell(
             OutlinedButton(
               style: OutlinedButton.styleFrom(side: const BorderSide(width: 0.5)),
-              child: Text(Lang().view, style: const TextStyle(fontSize: 15, color: Colors.black)),
+              child: Text(Lang().view,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  )),
               onPressed: () => viewDescription(description: sysLogNotifier.sysLogListModel[index].description),
             ),
           ),
@@ -263,6 +268,7 @@ class SysLogsState extends State<SysLogs> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),
@@ -275,11 +281,17 @@ class SysLogsState extends State<SysLogs> {
                             managerMemo,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: const TextStyle(color: Colors.black),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -302,9 +314,12 @@ class SysLogsState extends State<SysLogs> {
                     Tooltip(
                       message: Lang().logType,
                       child: DropdownButton<String>(
-                        value: logTypeMemo,
+                        value: logTypeMemo.isNotEmpty ? logTypeMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -351,9 +366,12 @@ class SysLogsState extends State<SysLogs> {
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
-                        value: pageSize,
+                        value: pageSize > 0 ? pageSize : 10,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,

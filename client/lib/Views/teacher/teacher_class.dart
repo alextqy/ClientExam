@@ -187,6 +187,7 @@ class TeacherClassState extends State<TeacherClass> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),

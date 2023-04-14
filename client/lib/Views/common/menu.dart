@@ -484,7 +484,10 @@ class TeacherMenu {
                   leading: const Icon(size: 30, Icons.cast_for_education_outlined),
                   title: Text(
                     Lang().classes,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () {
                     Navigator.of(context).push(

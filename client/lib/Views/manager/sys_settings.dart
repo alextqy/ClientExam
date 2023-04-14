@@ -68,9 +68,12 @@ class SysSettingsState extends State<SysSettings> {
               Row(
                 children: [
                   DropdownButton<String>(
-                    value: languageMemo,
+                    value: languageMemo.isNotEmpty ? languageMemo : Lang().notSelected,
                     icon: const Icon(Icons.arrow_drop_down),
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                     // elevation: 16,
                     underline: Container(
                       height: 0,
@@ -142,7 +145,11 @@ class SysSettingsState extends State<SysSettings> {
               const SizedBox(height: 40),
               Row(
                 children: [
-                  Text(Lang().codeTesting, style: const TextStyle(fontSize: 20)),
+                  Text(Lang().codeTesting,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
                 ],
               ),
               const SizedBox(height: 10),
@@ -167,9 +174,12 @@ class SysSettingsState extends State<SysSettings> {
                 children: [
                   const Expanded(child: SizedBox()),
                   DropdownButton<String>(
-                    value: codeLanguageMemo,
+                    value: codeLanguageMemo.isNotEmpty ? codeLanguageMemo : Lang().notSelected,
                     icon: const Icon(Icons.arrow_drop_down),
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                     // elevation: 16,
                     underline: Container(
                       height: 0,

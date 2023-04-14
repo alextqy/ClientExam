@@ -84,6 +84,7 @@ class LoginState extends State<Login> {
         style: const TextStyle(
           fontSize: 18,
           color: Colors.white,
+          fontWeight: FontWeight.bold,
         ),
         decoration: InputDecoration(
           suffixIcon: IconButton(
@@ -124,6 +125,7 @@ class LoginState extends State<Login> {
         style: const TextStyle(
           fontSize: 18,
           color: Colors.white,
+          fontWeight: FontWeight.bold,
         ),
         decoration: InputDecoration(
           suffixIcon: IconButton(
@@ -178,6 +180,7 @@ class LoginState extends State<Login> {
             Lang().submit,
             style: const TextStyle(
               fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

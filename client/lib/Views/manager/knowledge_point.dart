@@ -285,11 +285,17 @@ class KnowledgePointState extends State<KnowledgePoint> {
                                   newSubjectSelectedName,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
-                                  style: const TextStyle(color: Colors.black),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                               icon: const Icon(Icons.arrow_drop_down),
-                              style: const TextStyle(color: Colors.black),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                               // elevation: 16,
                               underline: Container(
                                 height: 0,
@@ -394,6 +400,7 @@ class KnowledgePointState extends State<KnowledgePoint> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),
@@ -407,11 +414,17 @@ class KnowledgePointState extends State<KnowledgePoint> {
                               subjectSelectedName,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: const TextStyle(color: Colors.black),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           icon: const Icon(Icons.arrow_drop_down),
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                           // elevation: 16,
                           underline: Container(
                             height: 0,
@@ -435,9 +448,12 @@ class KnowledgePointState extends State<KnowledgePoint> {
                     Tooltip(
                       message: Lang().status,
                       child: DropdownButton<String>(
-                        value: stateMemo,
+                        value: stateMemo.isNotEmpty ? stateMemo : Lang().all,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -482,9 +498,12 @@ class KnowledgePointState extends State<KnowledgePoint> {
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
-                        value: pageSize,
+                        value: pageSize > 0 ? pageSize : 10,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,

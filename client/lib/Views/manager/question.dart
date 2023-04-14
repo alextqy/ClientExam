@@ -213,6 +213,7 @@ class QuestionState extends State<Question> {
                     style: const TextStyle(
                       fontSize: 15,
                       color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   onLongPress: () => viewImage(attachment: questionNotifier.questionListModel[index].attachment, big: true),
@@ -224,7 +225,14 @@ class QuestionState extends State<Question> {
                   child: Tooltip(
                     padding: const EdgeInsets.all(10),
                     message: ' jpg / jpeg / png / gif \n\n Max size 64 kb',
-                    child: Text(Lang().upload, style: const TextStyle(fontSize: 15, color: Colors.black)),
+                    child: Text(
+                      Lang().upload,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   onPressed: () {
                     setState(() {
@@ -467,9 +475,12 @@ class QuestionState extends State<Question> {
                           child: Row(
                             children: [
                               DropdownButton<String>(
-                                value: updateLanguageMemo,
+                                value: updateLanguageMemo.isNotEmpty ? updateLanguageMemo : Lang().notSelected,
                                 icon: const Icon(Icons.arrow_drop_down),
-                                style: const TextStyle(color: Colors.black),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 // elevation: 16,
                                 underline: Container(
                                   height: 0,
@@ -629,9 +640,12 @@ class QuestionState extends State<Question> {
                       child: Row(
                         children: [
                           DropdownButton<String>(
-                            value: newQuestionTypeMemo,
+                            value: newQuestionTypeMemo.isNotEmpty ? newQuestionTypeMemo : Lang().notSelected,
                             icon: const Icon(Icons.arrow_drop_down),
-                            style: const TextStyle(color: Colors.black),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                             // elevation: 16,
                             underline: Container(
                               height: 0,
@@ -697,11 +711,17 @@ class QuestionState extends State<Question> {
                                 newKnowledgeMemo,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
-                                style: const TextStyle(color: Colors.black),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             icon: const Icon(Icons.arrow_drop_down),
-                            style: const TextStyle(color: Colors.black),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                             // elevation: 16,
                             underline: Container(
                               height: 0,
@@ -730,9 +750,12 @@ class QuestionState extends State<Question> {
                         child: Row(
                           children: [
                             DropdownButton<String>(
-                              value: newLanguageMemo,
+                              value: newLanguageMemo.isNotEmpty ? newLanguageMemo : Lang().notSelected,
                               icon: const Icon(Icons.arrow_drop_down),
-                              style: const TextStyle(color: Colors.black),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                               // elevation: 16,
                               underline: Container(
                                 height: 0,
@@ -871,6 +894,7 @@ class QuestionState extends State<Question> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),
@@ -884,11 +908,17 @@ class QuestionState extends State<Question> {
                               knowledgeMemo,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: const TextStyle(color: Colors.black),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           icon: const Icon(Icons.arrow_drop_down),
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                           // elevation: 16,
                           underline: Container(
                             height: 0,
@@ -912,9 +942,12 @@ class QuestionState extends State<Question> {
                     Tooltip(
                       message: Lang().questionType,
                       child: DropdownButton<String>(
-                        value: questionTypeMemo,
+                        value: questionTypeMemo.isNotEmpty ? questionTypeMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -960,9 +993,12 @@ class QuestionState extends State<Question> {
                     Tooltip(
                       message: Lang().status,
                       child: DropdownButton<String>(
-                        value: stateMemo,
+                        value: stateMemo.isNotEmpty ? stateMemo : Lang().all,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -1007,9 +1043,12 @@ class QuestionState extends State<Question> {
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
-                        value: pageSize,
+                        value: pageSize > 0 ? pageSize : 10,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,

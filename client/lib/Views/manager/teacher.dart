@@ -485,15 +485,19 @@ class TeacherState extends State<Teacher> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),
                     Tooltip(
                       message: Lang().status,
                       child: DropdownButton<String>(
-                        value: stateMemo,
+                        value: stateMemo.isNotEmpty ? stateMemo : Lang().all,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -538,9 +542,12 @@ class TeacherState extends State<Teacher> {
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
-                        value: pageSize,
+                        value: pageSize > 0 ? pageSize : 10,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,

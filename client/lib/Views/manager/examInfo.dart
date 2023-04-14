@@ -389,9 +389,12 @@ class ExamInfoState extends State<ExamInfo> {
                         children: [
                           SizedBox(
                             child: DropdownButton<String>(
-                              value: newExamTypeMemo,
+                              value: newExamTypeMemo.isNotEmpty ? newExamTypeMemo : Lang().notSelected,
                               icon: const Icon(Icons.arrow_drop_down),
-                              style: const TextStyle(color: Colors.black),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                               // elevation: 16,
                               underline: Container(
                                 height: 0,
@@ -434,11 +437,17 @@ class ExamInfoState extends State<ExamInfo> {
                                   subjectSelectedName,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
-                                  style: const TextStyle(color: Colors.black),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                               icon: const Icon(Icons.arrow_drop_down),
-                              style: const TextStyle(color: Colors.black),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                               // elevation: 16,
                               underline: Container(
                                 height: 0,
@@ -545,15 +554,19 @@ class ExamInfoState extends State<ExamInfo> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),
                     Tooltip(
                       message: Lang().examStatus,
                       child: DropdownButton<String>(
-                        value: examStatusMemo,
+                        value: examStatusMemo.isNotEmpty ? examStatusMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -592,9 +605,12 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().examType,
                       child: DropdownButton<String>(
-                        value: examTypeMemo,
+                        value: examTypeMemo.isNotEmpty ? examTypeMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -629,9 +645,12 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().passedOrNot,
                       child: DropdownButton<String>(
-                        value: passMemo,
+                        value: passMemo.isNotEmpty ? passMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -666,9 +685,12 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().startState,
                       child: DropdownButton<String>(
-                        value: startStateMemo,
+                        value: startStateMemo.isNotEmpty ? startStateMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -703,9 +725,12 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().suspendStatus,
                       child: DropdownButton<String>(
-                        value: suspendedStateMemo,
+                        value: suspendedStateMemo.isNotEmpty ? suspendedStateMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -753,9 +778,12 @@ class ExamInfoState extends State<ExamInfo> {
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
-                        value: pageSize,
+                        value: pageSize > 0 ? pageSize : 10,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,

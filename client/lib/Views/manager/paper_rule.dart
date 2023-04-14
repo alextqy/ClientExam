@@ -283,6 +283,7 @@ class PaperRulesState extends State<PaperRules> {
         style: const TextStyle(
           fontSize: 15,
           color: Colors.black,
+          fontWeight: FontWeight.bold,
         ),
       ),
       onPressed: () {
@@ -412,9 +413,12 @@ class PaperRulesState extends State<PaperRules> {
                           child: Row(
                             children: [
                               DropdownButton<String>(
-                                value: updateQuestionTypeMemo,
+                                value: updateQuestionTypeMemo.isNotEmpty ? updateQuestionTypeMemo : Lang().notSelected,
                                 icon: const Icon(Icons.arrow_drop_down),
-                                style: const TextStyle(color: Colors.black),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 // elevation: 16,
                                 underline: Container(
                                   height: 0,
@@ -622,11 +626,17 @@ class PaperRulesState extends State<PaperRules> {
                                         newHeadlineMemo,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
-                                        style: const TextStyle(color: Colors.black),
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                     icon: const Icon(Icons.arrow_drop_down),
-                                    style: const TextStyle(color: Colors.black),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                     // elevation: 16,
                                     underline: Container(
                                       height: 0,
@@ -658,9 +668,12 @@ class PaperRulesState extends State<PaperRules> {
                             child: Row(
                               children: [
                                 DropdownButton<String>(
-                                  value: newQuestionTypeMemo,
+                                  value: newQuestionTypeMemo.isNotEmpty ? newQuestionTypeMemo : Lang().notSelected,
                                   icon: const Icon(Icons.arrow_drop_down),
-                                  style: const TextStyle(color: Colors.black),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                   // elevation: 16,
                                   underline: Container(
                                     height: 0,
@@ -715,11 +728,17 @@ class PaperRulesState extends State<PaperRules> {
                                         newKnowledgeMemo,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
-                                        style: const TextStyle(color: Colors.black),
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                     icon: const Icon(Icons.arrow_drop_down),
-                                    style: const TextStyle(color: Colors.black),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                     // elevation: 16,
                                     underline: Container(
                                       height: 0,
@@ -896,15 +915,19 @@ class PaperRulesState extends State<PaperRules> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),
                     Tooltip(
                       message: Lang().status,
                       child: DropdownButton<String>(
-                        value: stateMemo,
+                        value: stateMemo.isNotEmpty ? stateMemo : Lang().all,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -936,9 +959,12 @@ class PaperRulesState extends State<PaperRules> {
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
-                        value: pageSize,
+                        value: pageSize > 0 ? pageSize : 10,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,

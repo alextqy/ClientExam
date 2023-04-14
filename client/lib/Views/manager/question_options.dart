@@ -228,6 +228,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     style: const TextStyle(
                       fontSize: 15,
                       color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   onLongPress: () => viewImage(attachment: questionSolutionNotifier.questionSolutionListModel[index].optionAttachment, big: true),
@@ -246,6 +247,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                       style: const TextStyle(
                         fontSize: 15,
                         color: Colors.black,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -579,9 +581,12 @@ class QuestionOptionsState extends State<QuestionOptions> {
                             child: Tooltip(
                               message: Lang().correctAnswer,
                               child: DropdownButton<String>(
-                                value: correctAnswerMemo,
+                                value: correctAnswerMemo.isNotEmpty ? correctAnswerMemo : Lang().notSelected,
                                 icon: const Icon(Icons.arrow_drop_down),
-                                style: const TextStyle(color: Colors.black),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 // elevation: 16,
                                 underline: Container(
                                   height: 0,
@@ -651,9 +656,12 @@ class QuestionOptionsState extends State<QuestionOptions> {
                             child: Tooltip(
                               message: Lang().position,
                               child: DropdownButton<String>(
-                                value: positionMemo,
+                                value: positionMemo.isNotEmpty ? positionMemo : Lang().notSelected,
                                 icon: const Icon(Icons.arrow_drop_down),
-                                style: const TextStyle(color: Colors.black),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 // elevation: 16,
                                 underline: Container(
                                   height: 0,
@@ -786,6 +794,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -814,6 +823,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),

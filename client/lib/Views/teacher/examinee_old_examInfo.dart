@@ -312,15 +312,19 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Expanded(child: SizedBox()),
                     Tooltip(
                       message: Lang().examStatus,
                       child: DropdownButton<String>(
-                        value: examStatusMemo,
+                        value: examStatusMemo.isNotEmpty ? examStatusMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -359,9 +363,12 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                     Tooltip(
                       message: Lang().examType,
                       child: DropdownButton<String>(
-                        value: examTypeMemo,
+                        value: examTypeMemo.isNotEmpty ? examTypeMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -396,9 +403,12 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                     Tooltip(
                       message: Lang().passedOrNot,
                       child: DropdownButton<String>(
-                        value: passMemo,
+                        value: passMemo.isNotEmpty ? passMemo : Lang().notSelected,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
@@ -446,9 +456,12 @@ class ExamineeOldExamInfoState extends State<ExamineeOldExamInfo> {
                     Tooltip(
                       message: Lang().rowsPerPage,
                       child: DropdownButton<int>(
-                        value: pageSize,
+                        value: pageSize > 0 ? pageSize : 10,
                         icon: const Icon(Icons.arrow_drop_down),
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // elevation: 16,
                         underline: Container(
                           height: 0,
