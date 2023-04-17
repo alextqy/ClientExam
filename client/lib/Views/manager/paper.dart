@@ -203,7 +203,7 @@ class PaperState extends State<Paper> {
           DataCell(
             Row(
               children: [
-                const SizedBox(width: 40),
+                const SizedBox(width: 47),
                 IconButton(
                   icon: const Icon(Icons.list),
                   onPressed: () {
