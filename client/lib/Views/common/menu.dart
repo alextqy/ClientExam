@@ -72,6 +72,7 @@ class ManagerMenu {
           ),
           child: Row(
             children: [
+              const Text('v 1.0.0'),
               const Expanded(child: SizedBox()),
               Text(Lang().exit),
               const SizedBox(width: 10),
