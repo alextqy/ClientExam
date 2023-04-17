@@ -14,7 +14,7 @@ class ManagerMenu {
 
   dynamic menuHeader(BuildContext context) {
     return SizedBox(
-      height: 80,
+      height: 100,
       width: double.infinity, // 占满父级元素宽度
       child: DrawerHeader(
         padding: EdgeInsets.zero,
@@ -24,46 +24,28 @@ class ManagerMenu {
           children: [
             const SizedBox(height: 20),
             SizedBox(
-              height: 40,
-              width: 55,
-              // child: CircleAvatar(
-              //   backgroundColor: Colors.white,
-              //   child: SizedBox(
-              //     height: 43,
-              //     width: 43,
-              //     child: CircleAvatar(
-              //       backgroundColor: Colors.blueGrey,
-              //       child: Text(
-              //         this.headline.substring(0, 1),
-              //         style: const TextStyle(
-              //           color: Colors.white,
-              //           fontWeight: FontWeight.w600,
-              //           fontSize: 30,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  side: MaterialStateProperty.all(
-                    const BorderSide(width: 1, color: Colors.white),
-                  ),
-                  shape: MaterialStateProperty.all(
-                    BeveledRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+              height: 58,
+              width: 58,
+              child: InkWell(
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: SizedBox(
+                    height: 53,
+                    width: 53,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.blueGrey,
+                      child: Text(
+                        headline.substring(0, 1),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                child: Text(
-                  headline,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 25,
-                  ),
-                ),
-                onPressed: () {
+                onTap: () {
                   Navigator.of(context).push(RouteHelper().generate('/manager/personal/settings', headline: headline));
                 },
               ),
