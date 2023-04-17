@@ -173,7 +173,7 @@ class ExamInfoState extends State<ExamInfo> {
           DataCell(
             Row(
               children: [
-                const SizedBox(width: 25),
+                const SizedBox(width: 35),
                 IconButton(
                   icon: const Icon(Icons.list),
                   onPressed: () {
@@ -1110,6 +1110,9 @@ class ExamInfoState extends State<ExamInfo> {
                             style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
+                            if (selected.indexWhere((value) => value == true) == 0) {
+                              Toast().show(context, message: Lang().loading);
+                            }
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.generateTestPaper(id: examInfoNotifier.examInfoListModel[i].id);
@@ -1125,6 +1128,9 @@ class ExamInfoState extends State<ExamInfo> {
                             style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
+                            if (selected.indexWhere((value) => value == true) == 0) {
+                              Toast().show(context, message: Lang().loading);
+                            }
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.resetExamQuestionData(id: examInfoNotifier.examInfoListModel[i].id);
@@ -1140,6 +1146,9 @@ class ExamInfoState extends State<ExamInfo> {
                             style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
+                            if (selected.indexWhere((value) => value == true) == 0) {
+                              Toast().show(context, message: Lang().loading);
+                            }
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.examInfoDisabled(id: examInfoNotifier.examInfoListModel[i].id);
@@ -1155,6 +1164,9 @@ class ExamInfoState extends State<ExamInfo> {
                             style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
+                            if (selected.indexWhere((value) => value == true) == 0) {
+                              Toast().show(context, message: Lang().loading);
+                            }
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.gradeTheExam(id: examInfoNotifier.examInfoListModel[i].id);
@@ -1170,6 +1182,9 @@ class ExamInfoState extends State<ExamInfo> {
                             style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
+                            if (selected.indexWhere((value) => value == true) == 0) {
+                              Toast().show(context, message: Lang().loading);
+                            }
                             for (int i = 0; i < selected.length; i++) {
                               if (selected[i]) {
                                 examInfoNotifier.examIntoHistory(id: examInfoNotifier.examInfoListModel[i].id);
