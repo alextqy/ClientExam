@@ -26,12 +26,14 @@ class SysSettingsState extends State<SysSettings> {
   TextEditingController codeController = TextEditingController();
   String codeLanguageMemo = Lang().notSelected;
   TextEditingController codeLanguageVersionController = TextEditingController();
+  bool showImages = true;
 
   basicListener() async {
     if (sysConfNotifier.operationStatus.value == OperationStatus.loading) {
       Toast().show(context, message: Lang().loading);
     } else if (sysConfNotifier.operationStatus.value == OperationStatus.success) {
       Toast().show(context, message: Lang().theOperationCompletes);
+      showImages = true;
     } else {
       Toast().show(context, message: sysConfNotifier.operationMemo);
     }
@@ -113,6 +115,7 @@ class SysSettingsState extends State<SysSettings> {
                       child: IconButton(
                         icon: const Icon(Icons.add, size: 30),
                         onPressed: () {
+                          showImages = false;
                           Toast().show(context, message: Lang().loading, seconds: 30);
                           if (languageMemo != Lang().notSelected && languageVersionController.text.isNotEmpty) {
                             sysConfNotifier.buildEnvironment(language: languageMemo, version: languageVersionController.text);
@@ -137,8 +140,10 @@ class SysSettingsState extends State<SysSettings> {
                     child: ElevatedButton(
                       child: Text(Lang().reviewTheInstalledProgrammingEnvironment),
                       onPressed: () {
-                        Toast().show(context, message: Lang().loading);
-                        imagesAlertDialog(context);
+                        if (showImages == true) {
+                          Toast().show(context, message: Lang().loading);
+                          imagesAlertDialog(context);
+                        }
                       },
                     ),
                   ),
