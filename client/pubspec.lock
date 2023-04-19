@@ -85,10 +85,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_ios
-      sha256: "27b84fd2e6a11db76916927b0ff71cb2d0187abe262203147d6b054f12d156fa"
+      sha256: "740c60081c7d9b78a87bcdd9b60a23364af79153def78a075d5a8d3e969353b0"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.1+1"
+    version: "0.5.1+3"
   file_selector_linux:
     dependency: transitive
     description:
@@ -101,10 +101,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_macos
-      sha256: f97fc9517ae55648262b25053daaefa2894bb817af52efb3fa3826db02c985c5
+      sha256: "41800c76c633c99fb1c466e9a6be7ff4c8b6d45fe454267d5e4d2d0745394b7a"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.9.0+6"
+    version: "0.9.0+8"
   file_selector_platform_interface:
     dependency: transitive
     description:
@@ -125,10 +125,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_windows
-      sha256: "072276217cbb098f308925034eac92fa490a202807f97ebb2ee7ab12c2764144"
+      sha256: "92f1d84f070405506ee4564eec848a0ad5576d7fe6388227ec237c97f5330dac"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.9.1+6"
+    version: "0.9.1+7"
   flutter:
     dependency: "direct main"
     description: flutter
