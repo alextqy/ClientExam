@@ -328,7 +328,7 @@ class TeacherMenu {
 
   dynamic menuHeader(BuildContext context) {
     return SizedBox(
-      height: 80,
+      height: 100,
       width: double.infinity, // 占满父级元素宽度
       child: DrawerHeader(
         padding: EdgeInsets.zero,
@@ -338,8 +338,8 @@ class TeacherMenu {
           children: [
             const SizedBox(height: 20),
             SizedBox(
-              height: 40,
-              width: 55,
+              height: 58,
+              width: 58,
               child: InkWell(
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
