@@ -115,9 +115,9 @@ class SysSettingsState extends State<SysSettings> {
                       child: IconButton(
                         icon: const Icon(Icons.add, size: 30),
                         onPressed: () {
-                          showImages = false;
-                          Toast().show(context, message: Lang().loading, seconds: 30);
                           if (languageMemo != Lang().notSelected && languageVersionController.text.isNotEmpty) {
+                            Toast().show(context, message: Lang().loading, seconds: 30);
+                            showImages = false;
                             sysConfNotifier.buildEnvironment(language: languageMemo, version: languageVersionController.text);
                           }
                         },
