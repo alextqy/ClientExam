@@ -170,6 +170,7 @@ class Lang {
   String add = '';
   String remove = '';
   String requestTimedOut = '';
+  String returnTheResultWithReturn = '';
 
   Lang({this.title = 'Bit Exam'}) {
     this.type = FileHelper().jsonRead(key: 'lang', filePath: 'config.json');
@@ -338,6 +339,7 @@ class Lang {
       this.add = '添加';
       this.remove = '删除';
       this.requestTimedOut = '请求超时';
+      this.returnTheResultWithReturn = '以return返回结果';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -503,6 +505,7 @@ class Lang {
       this.add = 'Add';
       this.remove = 'Remove';
       this.requestTimedOut = 'Request Timed Out';
+      this.returnTheResultWithReturn = 'Return The Result With "Return"';
     }
   }
 }

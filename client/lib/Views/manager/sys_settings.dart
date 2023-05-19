@@ -166,7 +166,7 @@ class SysSettingsState extends State<SysSettings> {
                   maxLines: null,
                   controller: codeController,
                   decoration: InputDecoration(
-                    hintText: Lang().content,
+                    hintText: '${Lang().content}.\n${Lang().returnTheResultWithReturn}.',
                     hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
