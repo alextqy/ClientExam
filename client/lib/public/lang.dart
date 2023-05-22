@@ -171,6 +171,7 @@ class Lang {
   String remove = '';
   String requestTimedOut = '';
   String returnTheResultWithReturn = '';
+  String theJavaReturnValueMustBeAString = '';
 
   Lang({this.title = 'Bit Exam'}) {
     this.type = FileHelper().jsonRead(key: 'lang', filePath: 'config.json');
@@ -340,6 +341,7 @@ class Lang {
       this.remove = '删除';
       this.requestTimedOut = '请求超时';
       this.returnTheResultWithReturn = '以return返回结果';
+      this.theJavaReturnValueMustBeAString = 'java返回值必须为字符串';
     } else {
       this.title = title;
       this.confirm = 'Confirm';
@@ -506,6 +508,7 @@ class Lang {
       this.remove = 'Remove';
       this.requestTimedOut = 'Request Timed Out';
       this.returnTheResultWithReturn = 'Return The Result With "Return"';
+      this.theJavaReturnValueMustBeAString = 'The Java Return Value Must Be A String';
     }
   }
 }
