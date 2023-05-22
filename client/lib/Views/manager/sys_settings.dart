@@ -166,7 +166,7 @@ class SysSettingsState extends State<SysSettings> {
                   maxLines: null,
                   controller: codeController,
                   decoration: InputDecoration(
-                    hintText: '${Lang().content}. \n ${Lang().returnTheResultWithReturn}. \n ${Lang().theJavaReturnValueMustBeAString}',
+                    hintText: '${Lang().content}.\n${Lang().returnTheResultWithReturn}.\n${Lang().theJavaReturnValueMustBeAString}',
                     hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                     suffixIcon: IconButton(
                       iconSize: 20,
