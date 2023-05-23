@@ -142,7 +142,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                     child: Tooltip(
                       message: Lang().copy,
                       child: IconButton(
-                        onPressed: () async {
+                        onPressed: () {
                           Clipboard.setData(ClipboardData(text: questionSolutionNotifier.questionSolutionListModel[index].option)).then(
                             (value) {
                               Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);

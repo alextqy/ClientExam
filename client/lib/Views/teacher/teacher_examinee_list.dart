@@ -138,7 +138,7 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
                 Tooltip(
                   message: Lang().copy,
                   child: IconButton(
-                    onPressed: () async {
+                    onPressed: () {
                       Clipboard.setData(ClipboardData(text: teacherNotifier.examineeListModel[index].examineeNo)).then(
                         (value) {
                           Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
