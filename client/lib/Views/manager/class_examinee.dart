@@ -147,6 +147,9 @@ class ClassExamineeState extends State<ClassExaminee> {
                   message: Lang().copy,
                   child: IconButton(
                     onPressed: () {
+                      Clipboard.setData(ClipboardData(text: examineeNotifier.examineeListModel[index].examineeNo));
+                      Toast().show(context, message: Lang().theOperationCompletes);
+                      /*
                       Clipboard.setData(ClipboardData(text: examineeNotifier.examineeListModel[index].examineeNo)).then(
                         (value) {
                           Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
@@ -157,6 +160,7 @@ class ClassExamineeState extends State<ClassExaminee> {
                           });
                         },
                       );
+                      */
                     },
                     icon: const Icon(Icons.copy),
                   ),

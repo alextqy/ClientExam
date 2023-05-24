@@ -143,6 +143,9 @@ class QuestionOptionsState extends State<QuestionOptions> {
                       message: Lang().copy,
                       child: IconButton(
                         onPressed: () {
+                          Clipboard.setData(ClipboardData(text: questionSolutionNotifier.questionSolutionListModel[index].option));
+                          Toast().show(context, message: Lang().theOperationCompletes);
+                          /*
                           Clipboard.setData(ClipboardData(text: questionSolutionNotifier.questionSolutionListModel[index].option)).then(
                             (value) {
                               Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
@@ -158,6 +161,7 @@ class QuestionOptionsState extends State<QuestionOptions> {
                               });
                             },
                           );
+                          */
                         },
                         icon: const Icon(Icons.copy),
                       ),

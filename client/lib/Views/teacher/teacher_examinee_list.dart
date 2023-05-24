@@ -139,6 +139,9 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
                   message: Lang().copy,
                   child: IconButton(
                     onPressed: () {
+                      Clipboard.setData(ClipboardData(text: teacherNotifier.examineeListModel[index].examineeNo));
+                      Toast().show(context, message: Lang().theOperationCompletes);
+                      /*
                       Clipboard.setData(ClipboardData(text: teacherNotifier.examineeListModel[index].examineeNo)).then(
                         (value) {
                           Future<ClipboardData?> data = Clipboard.getData(Clipboard.kTextPlain);
@@ -149,6 +152,7 @@ class TeacherExamineeListState extends State<TeacherExamineeList> {
                           });
                         },
                       );
+                      */
                     },
                     icon: const Icon(Icons.copy),
                   ),
